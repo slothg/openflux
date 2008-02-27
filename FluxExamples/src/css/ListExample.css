@@ -1,0 +1,22 @@
+/* CSS file */
+
+ListItem {
+	/* just for fun */
+	/* view: ClassReference("com.openflux.views.ButtonView"); */
+}
+
+@font-face {
+    src: local("Arial");
+    fontFamily: ArialEmbedded;
+    fontWeight: normal;
+}
+ 
+@font-face {
+    src: local("Arial");
+    fontFamily: ArialEmbedded;
+    fontWeight: bold;
+}
+ 
+Application {
+    font-family: ArialEmbedded;
+}

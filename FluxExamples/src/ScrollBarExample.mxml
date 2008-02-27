@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:flux="com.openflux.*">
+	<mx:Script>
+		<![CDATA[
+			import com.openflux.views.HorizontalScrollBarView;
+		]]>
+	</mx:Script>
+
+	<flux:ScrollBar id="sb" x="50" y="50"
+		max="600"
+		position="300"
+		height="400"/>
+		
+	<mx:Label x="125" y="125"
+		text="{sb.position}"/>
+	
+	<flux:ScrollBar id="sb2" x="100" y="50"
+		view="{new HorizontalScrollBarView()}"
+		max="600"
+		position="300"
+		width="400"/>
+</mx:Application>
