@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<componentPackage>
+    
+    <!-- components -->
+    <component id="Button" class="com.openflux.Button" />
+    <component id="List" class="com.openflux.List" />
+    <component id="ListItem" class="com.openflux.ListItem" />
+    <component id="ScrollBar" class="com.openflux.ScrollBar" />
+    
+    <!-- views -->
+    <component id="ButtonView" class="com.openflux.views.ButtonView" />
+    <component id="CheckBoxView" class="com.openflux.views.CheckBoxView" />
+    <component id="HorizontalScrollBarView" class="com.openflux.views.HorizontalScrollBarView" />
+    <component id="ListItemView" class="com.openflux.views.ListItemView" />
+    <component id="ListView" class="com.openflux.views.ListView" />
+    <component id="VerticalScrollBarView" class="com.openflux.views.VerticalScrollBarView" />
+    
+    <!-- controllers -->
+    <component id="ButtonController" class="com.openflux.controllers.ButtonController" />
+    <component id="ListController" class="com.openflux.controllers.ListController" />
+    <component id="ListItemController" class="com.openflux.controllers.ListItemController" />
+    <component id="ScrollBarController" class="com.openflux.controllers.ScrollBarController" />
+    
+    <!-- constants -->
+    <component id="ButtonStates" class="com.openflux.constants.ButtonStates" />
+    <component id="Layouts" class="com.openflux.constants.Layouts" />
+    <component id="ViewStates" class="com.openflux.constants.ViewStates" />
+    
+    <!-- layouts -->
+    <component id="VerticalLayout" class="com.openflux.layouts.VerticalLayout" />
+    <component id="HorizontalLayout" class="com.openflux.layouts.HorizontalLayout" />
+    <component id="TileLayout" class="com.openflux.layouts.TileLayout" />
+    <component id="CircleLayout" class="com.openflux.layouts.CircleLayout" />
+    <component id="StackLayout" class="com.openflux.layouts.StackLayout" />
+    
+    <!-- animators -->
+    <component id="TweenAnimator" class="com.openflux.layouts.animators.TweenAnimator" />
+    
+    <!-- core -->
+    <component id="FluxComponent" class="com.openflux.core.FluxComponent" />
+    <component id="FluxView" class="com.openflux.core.FluxView" />
+    <component id="FluxController" class="com.openflux.core.FluxController" />
+    <component id="DataView" class="com.openflux.core.DataView" />
+    
+    <!-- utils -->
+    
+    
+</componentPackage>    

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flux:FluxView
+	xmlns:flux="com.openflux.core.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:degrafa="http://www.degrafa.com/2007"
+	currentState="{ViewStateUtil.resolveButtonState(data.buttonState, data.selected, true)}"
+	width="{17 + lbl.width}"
+	height="14">
+	<mx:Script>
+		<![CDATA[
+			import com.openflux.utils.ViewStateUtil;
+			import com.openflux.constants.ViewStates;
+		]]>
+	</mx:Script>
+	
+	<flux:states>
+		<mx:State name="{ViewStates.UP}" />
+		<mx:State name="{ViewStates.OVER}">
+			<mx:SetProperty target="{sStroke}" name="color" value="#0000ff"/>
+		</mx:State>
+		<mx:State name="{ViewStates.DOWN}">
+			<mx:SetProperty target="{sStroke}" name="color" value="#0000ff"/>
+		</mx:State>
+		<mx:State name="{ViewStates.SELECTED_OVER}">
+			<mx:SetProperty target="{sFill}" name="alpha" value=".75"/>
+		</mx:State>
+		<mx:State name="{ViewStates.SELECTED_DOWN}">
+			<mx:SetProperty target="{sFill}" name="alpha" value=".75"/>
+		</mx:State>
+		<mx:State name="{ViewStates.SELECTED_UP}">
+			<mx:SetProperty target="{sFill}" name="alpha" value="1"/>
+		</mx:State>
+	</flux:states>
+	
+	<degrafa:Surface>
+		<degrafa:fills>
+			<degrafa:SolidFill id="sFill" color="#333333" alpha="0"/>
+			<degrafa:LinearGradientFill id="gFill" angle="90">
+				<degrafa:GradientStop alpha="1" color="#2ABCD6"/>
+				<degrafa:GradientStop alpha="1" color="#79D1E1"/>
+			</degrafa:LinearGradientFill>
+		</degrafa:fills>
+		<degrafa:strokes>
+			<degrafa:SolidStroke id="sStroke" color="#000000" weight="1"/>
+		</degrafa:strokes>
+		<degrafa:GeometryGroup id="gGroup">
+			<degrafa:RegularRectangle id="outerBox" fill="{gFill}" stroke="{sStroke}" width="14" height="14"/>
+			<degrafa:Polygon fill="{sFill}">
+					<degrafa:points>
+						<degrafa:GraphicPoint x="3" y="5"/>
+						<degrafa:GraphicPoint x="5" y="10"/>
+						<degrafa:GraphicPoint x="7" y="10"/>
+						<degrafa:GraphicPoint x="12" y="2"/>
+						<degrafa:GraphicPoint x="13" y="1"/>
+						<degrafa:GraphicPoint x="11" y="1"/>
+						<degrafa:GraphicPoint x="6.5" y="7"/>
+						<degrafa:GraphicPoint x="5" y="5"/>
+						<degrafa:GraphicPoint x="3" y="5"/>
+					</degrafa:points>
+				</degrafa:Polygon>
+		</degrafa:GeometryGroup>
+
+	</degrafa:Surface>
+	
+	<mx:Label id="lbl" text="{data.label}" color="#0B333C" x="17"/>
+</flux:FluxView>
