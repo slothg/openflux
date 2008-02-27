@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flux:FluxView
+	xmlns:flux="com.openflux.core.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:degrafa="http://www.degrafa.com/2007">
+	<degrafa:Surface>
+		<degrafa:fills>
+			<degrafa:SolidFill id="grayFill"
+				color="#dddddd"/>
+			<degrafa:SolidFill id="blueFill"
+				color="#0000ff"/>
+			<degrafa:SolidFill id="redFill"
+				color="#ff0000"/>
+		</degrafa:fills>
+		<degrafa:strokes>
+			<degrafa:SolidStroke id="grayStroke"
+				color="#333333"/>
+		</degrafa:strokes>
+		
+		<!-- Track -->
+		<degrafa:GeometryGroup id="track">
+			<degrafa:RegularRectangle id="trackShape"
+				y="16"
+				height="{data.height - 32}"
+				width="16"
+				fill="{grayFill}"
+				stroke="{grayStroke}"/>
+		</degrafa:GeometryGroup>
+		
+		<!-- Thumb -->
+		<degrafa:GeometryGroup id="thumb"
+			y="16">
+			<degrafa:RegularRectangle
+				width="16"
+				height="16"
+				fill="{redFill}"
+				y="{(trackShape.height - 16) / (data.max - data.min) * data.position}"/>
+		</degrafa:GeometryGroup>
+		
+		<!-- Up Arrow -->
+		<degrafa:GeometryGroup id="upArrow">
+			<degrafa:RegularRectangle
+				width="16"
+				height="16"
+				fill="{blueFill}"/>
+			<degrafa:Polygon
+				fill="{redFill}">
+				<degrafa:points>
+					<degrafa:GraphicPoint
+						x="8"
+						y="6"/>
+					<degrafa:GraphicPoint
+						x="11"
+						y="10"/>
+					<degrafa:GraphicPoint
+						x="5"
+						y="10"/>
+					<degrafa:GraphicPoint
+						x="8"
+						y="6"/>
+				</degrafa:points>
+			</degrafa:Polygon>
+		</degrafa:GeometryGroup>
+		
+		<!-- Down Arrow -->
+		<degrafa:GeometryGroup id="downArrow"
+			y="{data.height - 16}">
+			<degrafa:RegularRectangle
+				width="16"
+				height="16"
+				fill="{blueFill}"/>
+			<degrafa:Polygon
+				fill="{redFill}">
+				<degrafa:points>
+					<degrafa:GraphicPoint
+						x="8"
+						y="10"/>
+					<degrafa:GraphicPoint
+						x="11"
+						y="6"/>
+					<degrafa:GraphicPoint
+						x="5"
+						y="6"/>
+					<degrafa:GraphicPoint
+						x="8"
+						y="10"/>
+				</degrafa:points>
+			</degrafa:Polygon>
+		</degrafa:GeometryGroup>
+	</degrafa:Surface>
+</flux:FluxView>

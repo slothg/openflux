@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flux:DataView 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:flux="com.openflux.core.*" 
+	xmlns:views="com.openflux.views.*" 
+	xmlns:layout="com.openflux.layouts.*" 
+	xmlns:animators="com.openflux.layouts.animators.*" 
+	content="{data.dataProvider}" >
+	<flux:layout>
+		<layout:VerticalLayout id="l" gap="0">
+			<layout:animator>
+				<animators:TweenAnimator transition="easeInBack" />
+			</layout:animator>
+		</layout:VerticalLayout>
+	</flux:layout>
+</flux:DataView>

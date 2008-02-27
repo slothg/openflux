@@ -1,0 +1,20 @@
+package com.openflux.core
+{
+	import mx.core.IUIComponent;
+	
+	[Bindable]
+	/**
+	 * @see IFluxComponent
+	 * @see IFluxController
+	 */
+	public interface IFluxView extends IUIComponent
+	{
+		
+		/**
+		 * Usually an instance of IFluxComponent.
+		 * 
+		 */
+		function get data():Object;
+		function set data(value:Object):void;
+	}
+}
