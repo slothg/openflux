@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:openflux="com.openflux.*" xmlns:core="com.openflux.core.*" xmlns:layout="com.openflux.layout.*" xmlns:views="com.openflux.views.*" xmlns:layouts="com.openflux.layouts.*"
+	creationComplete="initApp()"
+	layout="absolute">
+	<mx:Script>
+		<![CDATA[
+			import com.openflux.views.ImageView;
+			import flash.display.BitmapData;
+			import flash.geom.Rectangle;
+			import flash.geom.Point;
+		
+			public var loader:Loader;
+			
+			public function initApp():void {
+				loader = new Loader();
+				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderComplete);
+				loader.load(new URLRequest("cards.png"));
+			}
+			
+			public function loaderComplete(event:Event):void {
+				var deckX:Number = 0;
+				var deckY:Number = 0;
+				var cardWidth:Number = 79;
+				var cardHeight:Number = 123;
+				var a:Array = [];
+				var img:BitmapData;
+				
+				var d:BitmapData = Bitmap(loader.content).bitmapData;
+				var i:int;
+				
+				for (i = 0; i < 52; i++) {
+					img = new BitmapData(cardWidth, cardHeight);
+					img.copyPixels(d, new Rectangle(deckX, deckY, cardWidth, cardHeight), new Point(0, 0));
+					img.draw(img, new Matrix());
+					a.push(new Bitmap(img));
+					
+					if (i == 12 || i == 25 || i == 38) {
+						deckX = 0;
+						deckY += cardHeight;
+					} else {
+						deckX += cardWidth;
+					}
+				}
+				
+				l.dataProvider = a;
+			}
+		]]>
+	</mx:Script>
+	<mx:Style>
+		ListView {
+			view: ClassReference("com.openflux.views.ImageView");
+		}
+	</mx:Style>
+
+	<openflux:List id="l" y="150">
+		<openflux:view>
+			<views:ListView>
+				<views:layout>
+					<layouts:StackLayout gap="{hs.value}" selectMode="{selectMode.selectedValue}"/>
+				</views:layout>
+			</views:ListView>
+		</openflux:view>
+	</openflux:List>
+	
+	<mx:VBox right="10">
+		<mx:List dataProvider="{l.selectedItems}" width="100" height="200"/>
+		<mx:HSlider id="hs" value="10" width="100" maximum="40" liveDragging="true"/>
+		<mx:RadioButtonGroup id="selectMode" selectedValue="ZigZag"/>
+		<mx:HBox>
+			<mx:RadioButton groupName="selectMode" label="ZigZag"/>
+			<mx:RadioButton groupName="selectMode" label="Reveal"/>
+		</mx:HBox>
+	</mx:VBox>
+</mx:Application>

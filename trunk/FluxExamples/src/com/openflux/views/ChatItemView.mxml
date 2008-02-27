@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flux:FluxView 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:flux="com.openflux.core.*" 
+	xmlns:degrafa="http://www.degrafa.com/2007" 
+	xmlns:geometry="com.degrafa.geometry.*" 
+	xmlns:filters="flash.filters.*" 
+	buttonMode="true" mouseChildren="false"
+	currentState="{ViewStateUtil.resolveButtonState(data.buttonState, false, data.enabled)}" >
+	<mx:Script>
+		<![CDATA[
+			
+			import com.openflux.constants.ViewStates;
+			import com.openflux.utils.ViewStateUtil;
+			
+		]]>
+	</mx:Script>
+	<flux:states>
+		<mx:State name="{ViewStates.UP}" />
+		<!--<mx:State name="{ViewStates.OVER}">
+			<mx:SetProperty target="{color1}" name="color" value="#FFFFFF" />
+			<mx:SetProperty target="{color2}" name="color" value="#FFFFFF" />
+		</mx:State>-->
+		<mx:State name="{ViewStates.DOWN}">
+			<mx:SetProperty target="{color1}" name="color" value="#009DFF" />
+			<mx:SetProperty target="{color2}" name="color" value="#009DFF" />
+		</mx:State>
+	</flux:states>
+	
+	<degrafa:LinearGradientStroke id="stroke" angle="90" weight="2" caps="round" joints="round" pixelHinting="true">
+		<degrafa:GradientStop color="#B7BABC" ratio="0" />
+		<degrafa:GradientStop color="#5B5D5E" ratio="1" />
+	</degrafa:LinearGradientStroke>
+	
+	<degrafa:LinearGradientFill id="fill" angle="90">
+		<degrafa:GradientStop id="color1" color="#FFFFFF" alpha="0.6" />
+		<degrafa:GradientStop id="color2" color="#CCCCCC" alpha="0.4" />
+	</degrafa:LinearGradientFill>
+	
+	<degrafa:LinearGradientFill id="highlight" angle="90">
+		<degrafa:GradientStop color="#FFFFFF" alpha="0.3" />
+		<degrafa:GradientStop color="#FFFFFF" alpha="0.0" />
+	</degrafa:LinearGradientFill>
+	
+	<degrafa:Surface id="surface" width="{width}" height="{height}">
+		<degrafa:GeometryGroup>
+			<geometry:RoundedRectangle cornerRadius="{(width-2)/2}" width="{height}" height="{height}" fill="{fill}" stroke="{stroke}" />
+		</degrafa:GeometryGroup>
+		<degrafa:filters>
+			<filters:DropShadowFilter distance="{4}" />
+		</degrafa:filters>
+	</degrafa:Surface>
+	
+	<mx:Label id="lbl" text="{data.hasOwnProperty('label') ? data.label : data.data.label}" left="{height + 8}" verticalCenter="{height/2 - lbl.height/2}" />
+	
+</flux:FluxView>
