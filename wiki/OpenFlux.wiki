@@ -1,0 +1,5 @@
+#A description of OpenFlux
+
+= Introduction =
+
+OpenFlux is an MVC Flex Component Framework
