@@ -1,13 +1,13 @@
-#summary One-sentence summary of this page.
+#Downloading and Compiling the Source Code
 
-= Introduction =
+= Dependancies =
 
-Add your content here.
+OpenFlux has dependancies on two other open source libraries, Degrafa and Tweener.
 
+== Degrafa ==
 
-= Details =
+Degrafa is a declaative graphics language targeting Flex. OpenFlux uses Degrafa to render complex graphics. Degrafa source is available on google code at http://degrafa.googlecode.com/ under the MIT license.
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+== Tweener ==
+
+Tweener is a popular flash tweening and animation library. Although OpenFlux was made to use any animation package , it provides a default implementation using Tweener.
