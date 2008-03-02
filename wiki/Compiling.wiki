@@ -5,7 +5,9 @@
 OpenFlux has dependancies on two open source libraries. Each library is hosted on google code and released under the MIT license. To compile OpenFlux you will need to reference these libraries.
 
 *Degrafa:* http://degrafa.googlecode.com
+
 Degrafa is a declarative graphics language for Flex. OpenFlux uses Degrafa to render complex graphics.
 
 *Tweener:* http://tweener.googlecode.com
+
 Tweener is a popular tweening and animation library for Flash. Although OpenFlux can use any library or custom code for animation, it provides a default implementation using Tweener.
