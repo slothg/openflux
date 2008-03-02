@@ -2,7 +2,7 @@
 <flux:FluxView 
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:flux="com.openflux.core.*" 
-	xmlns:degrafa="http://www.degrafa.com/2007" 
+	xmlns:degrafa="http://www.degrafa.com/2008" 
 	currentState="{ViewStateUtil.resolveButtonState(data.buttonState, data.selected, true)}">
 	<mx:Script>
 		<![CDATA[
