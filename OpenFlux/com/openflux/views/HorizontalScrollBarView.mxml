@@ -2,7 +2,7 @@
 <flux:FluxView
 	xmlns:flux="com.openflux.core.*"
 	xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:degrafa="http://www.degrafa.com/2007">
+	xmlns:degrafa="http://www.degrafa.com/2008">
 	<degrafa:Surface>
 		<degrafa:fills>
 			<degrafa:SolidFill id="grayFill"

@@ -69,7 +69,7 @@ package com.openflux.layouts
 				token.x = positionX;
 				token.y = positionY;
 				token.width = child.measuredWidth;
-				token.height = container.getExplicitOrMeasuredHeight();
+				token.height = child.measuredHeight;
 				token.rotation = 0;
 				animator.moveItem(child, token);
 				if (selectMode == "ZigZag") {

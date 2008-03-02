@@ -1,5 +1,7 @@
 package com.openflux.core
 {
+	import caurina.transitions.Tweener;
+	
 	import com.openflux.ListItem;
 	import com.openflux.events.DataViewEvent;
 	import com.openflux.layouts.ILayout;
@@ -74,7 +76,8 @@ package com.openflux.core
 			if(_layout) {
 				_layout.attach(this);
 			}
-			invalidateDisplayList();
+			_layout.generateLayout();
+			//invalidateDisplayList();
 		}
 		
 		public function get renderers():Array { return _renderers; }
@@ -112,7 +115,7 @@ package com.openflux.core
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
 			if(_layout) {
-				_layout.generateLayout();
+				//_layout.generateLayout();
 			}
 		}
 		

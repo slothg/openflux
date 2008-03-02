@@ -20,6 +20,7 @@ package com.openflux.layouts
 		}
 		
 		public function generateLayout():void {
+			//if(!animator.isAnimating()) {
 			animator.startMove();
 			var length:int = container.renderers.length;
 			var width:Number = container.getExplicitOrMeasuredWidth()/2;
@@ -45,6 +46,7 @@ package com.openflux.layouts
 				animator.moveItem(child, token);
 			}
 			animator.stopMove();
+			//}
 		}
 		
 	}
