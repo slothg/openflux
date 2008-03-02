@@ -1,13 +1,9 @@
-#summary One-sentence summary of this page.
+#summary Downloading OpenFlux for use in a Flex Project
 
 = Introduction =
 
-Add your content here.
+OpenFlux can be downloaded and used as a SWC or as a Flex Library Project. Instructions for both methods are provided below. Although downloading OpenFlux as a SWC may be easier to setup, I recommend downloading the source so that you become familiar with the concepts being used.
 
+= Instructions for Using SWC Downloads =
 
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Coming soon.
