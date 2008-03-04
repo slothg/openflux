@@ -1,5 +1,22 @@
 #summary A Brief Overview of OpenFlux
 
-= Introduction =
 
-OpenFlux is an MVC Flex Component Framework. More soon.
+== What is OpenFlux? ==
+
+*OpenFlux is an MVC Component Framework.*
+Each component in OpenFlux is comprised of three core parts which work together to define the API (Model), graphics (View), and behavior (Controller) of a component. At first glance I'm sure this seems like it may be overkill for creating a component, and it does add a little bit of complexity. However, there is a huge advantage in that you can very quickly and easily add entirely custom graphics and/or behavior to a component without having to worry about rewriting or breaking the existing pieces. 
+
+*OpenFlux is a set of Components.*
+It includes completely new Buttons, Lists, and ScrollBars in the first release. By mixing and matching the views, controllers,  interfaces, layouts, animations and utilities provided in OpenFlux you can create nearly any Button, ScrollBar, or List imaginable including Checkboxes, RadioButtons, TileLists, CircleLists, and more.
+
+*OpenFlux is an Advanced Layout and Animation API.*
+It introduces a new layout system for lists and related components. We're working very hard to make sure that this system is entirely extensible and shows at least as much thought as what went into the core framework. Watch out for some really interesting list examples soon.
+
+*OpenFlux is Degrafa's Best Friend.*
+Wondering how you're going to make all those cool custom views for your OpenFlux components? Yup, these two were so meant for eachother that OpenFlux comes with Degrafa baked in. Consider yourself fully empowered to make people call you a bold-faced lier when you tell them it really is a Flex app. This is way beyond styling, way beyond skinning, it's like we stole it from some future version of Flex or something.
+
+
+
+== Why OpenFlux ==
+
+The real purpose of OpenFlux is to be customized and used in your project. Using a viewless component system means that you can create dramatically new and interesting components quickly and easily, without having to worry about breaking the other parts of the component. Ever spent days hacking away at the Accordian, TabNavigator, or List components? Me too, that's why I built this. The answer isn't to make everything protected, it's to have a better component model!
