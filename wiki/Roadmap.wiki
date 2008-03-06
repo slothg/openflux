@@ -7,9 +7,11 @@
   * MVC Core Framework
   * List Layout Framework
   * Base Styling Mechanisms
-  * Virtualized Collections
+  * Virtualized Collections?
 
 == Future Releases ==
 
   * Visual indication of filtering/sorting changes.
+  * Hierarchical Data Views
+  * Containers?
   * Evaluate dependencies on Flex. Is it feasible to be an AS3 only framework?
