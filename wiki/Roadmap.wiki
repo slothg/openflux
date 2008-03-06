@@ -8,6 +8,7 @@
   * List Layout Framework
   * Base Styling Mechanisms
   * Virtualized Collections?
+  * Components: Button, List, Scroll Bar, Progress Bar
 
 == Future Releases ==
 
