@@ -4,11 +4,21 @@
 
 == Release 1.0 ==
 
+Milestone 1: Buttons, Scroll Bars, Progress Bars
   * MVC Core Framework
-  * List Layout Framework
-  * Base Styling Mechanisms
-  * Virtualized Collections?
-  * Components: Button, List, Scroll Bar, Progress Bar
+  * Base Styling Mechanism
+
+Milestone 2 (Beta 1) : Lists, Lists, Lists
+  * Core Layout Framework
+  * Drag n Drop Layout Framework
+  * Base Animation Implementation
+  * Virtualized Collections
+  * List Scrolling
+
+Milestone 3: Views, Views, Views
+  * Clear Issues and Debug
+  * Implement Halo Views
+  * Implement Custom Views
 
 == Future Releases ==
 
