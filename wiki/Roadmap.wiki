@@ -16,6 +16,8 @@ Milestone 2 (Beta 1) : Lists, Lists, Lists
   * List Scrolling
 
 Milestone 3: Views, Views, Views
+  * Evaluate Canvas Dependancy
+  * Evaluate UIComponent Model
   * Clear Issues and Debug
   * Implement Halo Views
   * Implement Custom Views
