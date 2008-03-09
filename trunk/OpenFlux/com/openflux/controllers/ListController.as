@@ -25,14 +25,14 @@ package com.openflux.controllers
 			//renderers = new Dictionary(true);
 		}
 		
-		override protected function addEventListeners(view:IEventDispatcher):void {
-			super.addEventListeners(view);
+		override protected function attachEventListeners(view:IEventDispatcher):void {
+			super.attachEventListeners(view);
 			view.addEventListener(DataViewEvent.DATA_VIEW_CHANGED, dataViewChangedHandler);
 			//target.addEventListener(ListEvent.ITEM_CLICK, itemClickHandler);
 		}
 		
-		override protected function removeEventListeners(view:IEventDispatcher):void {
-			super.removeEventListeners(view);
+		override protected function detachEventListeners(view:IEventDispatcher):void {
+			super.detachEventListeners(view);
 			view.removeEventListener(DataViewEvent.DATA_VIEW_CHANGED, dataViewChangedHandler);
 			//target.removeEventListener(ListEvent.ITEM_CLICK, itemClickHandler);
 		}

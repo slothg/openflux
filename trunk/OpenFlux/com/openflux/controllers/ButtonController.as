@@ -1,75 +1,78 @@
 package com.openflux.controllers
 {
 	import com.openflux.constants.ButtonStates;
-	import com.openflux.core.FluxController;
-	import com.openflux.core.IFluxButton;
-	import com.openflux.core.IFluxComponent;
+	import com.openflux.core.IEnabled;
+	import com.openflux.core.IFluxController;
 	import com.openflux.core.ISelectable;
+	import com.openflux.core.MetaControllerBase;
 	
-	import flash.events.IEventDispatcher;
 	import flash.events.MouseEvent;
+	import flash.utils.*;
 	
-	public class ButtonController extends FluxController
+	import mx.utils.ObjectProxy;
+	
+	[ViewHandler(event="mouseOver", handler="mouseOverHandler")]
+	[ViewHandler(event="mouseOut", handler="mouseOutHandler")]
+	[ViewHandler(event="mouseDown", handler="mouseDownHandler")]
+	[ViewHandler(event="mouseUp", handler="mouseUpHandler")]
+	public class ButtonController extends MetaControllerBase implements IFluxController
 	{
 		
-		private var bdata:IFluxButton;
-		private var sdata:ISelectable;
+		[ModelAlias(required="false")] public var edata:IEnabled;
+		[ModelAlias(required="false")] public var sdata:ISelectable;
 		
-		override public function set data(value:IFluxComponent):void {
-			super.data = value;
-			if(value is IFluxButton) {
-				bdata = value as IFluxButton;
-			}
-			if(value is ISelectable) {
-				sdata = value as ISelectable;
-			}
+		// implementing later
+		[StyleProperty] public var selectable:Boolean;
+		
+		// really not hapy with this hacking,
+		// but it's better than public event handlers
+		public function ButtonController() {
+			super(function(t:*):*{return this[t]});
 		}
-		
-		override protected function addEventListeners(view:IEventDispatcher):void {
-			super.addEventListeners(view);
-			view.addEventListener(MouseEvent.MOUSE_OVER, mouseOverHandler);
-			view.addEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
-			view.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-			view.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-		}
-		
-		override protected function removeEventListeners(view:IEventDispatcher):void {
-			super.removeEventListeners(view);
-			view.removeEventListener(MouseEvent.MOUSE_OVER, mouseOverHandler);
-			view.removeEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
-			view.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-			view.removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
-		}
-		
 		
 		//*************************************************
-		// Event Handlers
+		// View Event Handlers
 		//*************************************************
 		
 		private function mouseOverHandler(event:MouseEvent):void {
-			if(bdata) {
-				bdata.buttonState = ButtonStates.OVER;
-			}
+			data.view.state = resolveState(ButtonStates.OVER);
 		}
 		
 		private function mouseOutHandler(event:MouseEvent):void {
-			if(bdata) {
-				bdata.buttonState = ButtonStates.UP;
-			}
+			data.view.state = resolveState(ButtonStates.UP);
 		}
 		
 		private function mouseDownHandler(event:MouseEvent):void {
-			if(bdata) {
-				bdata.buttonState = ButtonStates.DOWN;
-			}
+			data.view.state = resolveState(ButtonStates.DOWN);
 		}
 		
 		private function mouseUpHandler(event:MouseEvent):void {
-			if(bdata) {
-				bdata.buttonState = ButtonStates.OVER;
-			}
-			if(sdata) {
-				sdata.selected = !sdata.selected;
+			if(sdata) { sdata.selected = !sdata.selected; }
+			data.view.state = resolveState(ButtonStates.OVER);
+		}
+		
+		
+		//******************************************************
+		// Utility Functions
+		//******************************************************
+		
+		private function resolveState(state:String):String {
+			var selected:Boolean = sdata && selectable ? sdata.selected : false;
+			if(edata && edata.enabled) {
+				switch(state) {
+					case ButtonStates.OVER:
+						return selected ? ButtonStates.SELECTED_OVER : ButtonStates.OVER;
+						break;
+					case ButtonStates.DOWN:
+						return selected ? ButtonStates.SELECTED_DOWN : ButtonStates.DOWN;
+						break;
+					case ButtonStates.UP:
+					default:
+						return selected ? ButtonStates.SELECTED_UP : ButtonStates.UP;
+						break;
+				}
+			} else {
+				return ButtonStates.DISABLED;
 			}
 		}
 		

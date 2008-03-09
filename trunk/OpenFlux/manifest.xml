@@ -14,6 +14,7 @@
     <component id="ListItemView" class="com.openflux.views.ListItemView" />
     <component id="ListView" class="com.openflux.views.ListView" />
     <component id="VerticalScrollBarView" class="com.openflux.views.VerticalScrollBarView" />
+    <component id="ArrowButton" class="com.openflux.views.ArrowButton" />
     
     <!-- controllers -->
     <component id="ButtonController" class="com.openflux.controllers.ButtonController" />
@@ -24,7 +25,6 @@
     <!-- constants -->
     <component id="ButtonStates" class="com.openflux.constants.ButtonStates" />
     <component id="Layouts" class="com.openflux.constants.Layouts" />
-    <component id="ViewStates" class="com.openflux.constants.ViewStates" />
     
     <!-- layouts -->
     <component id="VerticalLayout" class="com.openflux.layouts.VerticalLayout" />

@@ -1,9 +1,10 @@
 package com.openflux.controllers
 {
-	import com.openflux.core.FluxController;
-	import com.openflux.core.IFluxComponent;
+	import com.openflux.core.IFluxController;
 	import com.openflux.core.IScrollBar;
+	import com.openflux.core.MetaControllerBase;
 	
+	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	import flash.events.MouseEvent;
@@ -15,129 +16,97 @@ package com.openflux.controllers
 	import mx.events.ScrollEvent;
 	import mx.events.ScrollEventDetail;
 	
-	public class ScrollBarController extends FluxController
+	public class ScrollBarController extends MetaControllerBase implements IFluxController
 	{
-		private var sdata:IScrollBar;
-		private var edata:IEventDispatcher;
 		
-		private var arrowDirection:int;
-		private var arrowTimer:Timer;
+		private static const LINE_SCROLL_SIZE:Number = 1;
+		private static const PAGE_SCROLL_SIZE:Number = 40;
+		
+		private static const SCROLL_MULTIPLIER:Number = 1.1;
+		
+		private var direction:int;
+		private var timer:Timer;
 		
 		private var trackScrollDirection:int;
 		private var trackScrollTimer:Timer;
 		private var trackScrollPosition:Number;
 		
-		private var view:UIComponent;
+		[ModelAlias] public var edata:IEventDispatcher;
+		[ModelAlias] public var sdata:IScrollBar;
+		[ModelAlias] public var view:UIComponent;
 		
-		private static const LINE_SCROLL_SIZE:Number = 1;
-		private static const PAGE_SCROLL_SIZE:Number = 40;
+		[EventHandler(event="mouseDown", handler="upButton_mouseDownHandler")]
+		[ViewContract] public var upButton:DisplayObject;
 		
-		override public function set data(value:IFluxComponent):void {
-			super.data = value;
-			if (value is IScrollBar) {
-				sdata = value as IScrollBar;
-			}
-			if (value is IEventDispatcher) {
-				edata = value as IEventDispatcher;
-			}
+		[EventHandler(event="mouseDown", handler="downButton_mouseDownHandler")]
+		[ViewContract] public var downButton:DisplayObject;
+		
+		[EventHandler(event="mouseDown", handler="thumb_mouseDownHandler")]
+		[ViewContract] public var thumb:DisplayObject;
+		
+		[EventHandler(event="mouseDown", handler="track_mouseDownHandler")]
+		[ViewContract] public var track:DisplayObject;
+		
+		public function ScrollBarController() {
+			super(function(t:*):*{return this[t]});
 		}
 		
-		override protected function addEventListeners(view:IEventDispatcher):void {
-			super.addEventListeners(view);		
-			if (view["upArrow"] != null) {
-				view["upArrow"].addEventListener(MouseEvent.MOUSE_DOWN, upArrowMouseDownHandler);
+		
+		//*************************************************************
+		// Arrow Event Handlers
+		//*************************************************************
+		
+		private function upButton_mouseDownHandler(event:MouseEvent):void {
+			direction = -1;
+			arrow_mouseDownHandler(event);
+		}
+		
+		private function downButton_mouseDownHandler(event:MouseEvent):void {
+			direction = 1;
+			arrow_mouseDownHandler(event);
+		}
+		
+		private function arrow_mouseDownHandler(event:MouseEvent):void {
+			if (!timer) {
+				timer = new Timer(1);
+				timer.addEventListener(TimerEvent.TIMER, arrow_timerHandler);
 			}
-			if (view["downArrow"] != null) {
-				view["downArrow"].addEventListener(MouseEvent.MOUSE_DOWN, downArrowMouseDownHandler);
-			}
-			if (view["thumb"] != null) {
-				view["thumb"].addEventListener(MouseEvent.MOUSE_DOWN, thumbMouseDownHandler);
-			}
-			if (view["track"] != null) {
-				view["track"].addEventListener(MouseEvent.MOUSE_DOWN, trackMouseDownHandler);
-			}
-			this.view = view as UIComponent;
+			event.target.addEventListener(MouseEvent.MOUSE_OUT, arrow_mouseOutHandler);
+			event.target.addEventListener(MouseEvent.MOUSE_OVER, arrow_mouseOverHandler);
+			view.systemManager.addEventListener(MouseEvent.MOUSE_UP, arrow_mouseUpHandler, true);
+			view.systemManager.stage.addEventListener(Event.MOUSE_LEAVE, arrow_mouseUpHandler);
+			timer.start();
 		}
 		
-		override protected function removeEventListeners(view:IEventDispatcher):void {
-			super.removeEventListeners(view);
-			if (view["upArrow"] != null) {
-				view["upArrow"].removeEventListener(MouseEvent.MOUSE_DOWN, upArrowMouseDownHandler);
-			}
-			if (view["downArrow"] != null) {
-				view["downArrow"].removeEventListener(MouseEvent.MOUSE_DOWN, downArrowMouseDownHandler);
-			}
-			if (view["thumb"] != null) {
-				view["thumb"].removeEventListener(MouseEvent.MOUSE_DOWN, thumbMouseDownHandler);
-			}
-			if (view["track"] != null) {
-				view["track"].removeEventListener(MouseEvent.MOUSE_DOWN, trackMouseDownHandler);
-			}
-			this.view = null;
+		private function arrow_mouseOutHandler(event:MouseEvent):void {
+			if (timer) timer.stop();
 		}
 		
-		/******************************
-		 * Arrow Event Handlers
-		 ******************************/
-		
-		private function upArrowMouseDownHandler(event:MouseEvent):void {
-			arrowPress(event, -1);
+		private function arrow_mouseOverHandler(event:MouseEvent):void {
+			if (timer) timer.start();
 		}
 		
-		private function downArrowMouseDownHandler(event:MouseEvent):void {
-			arrowPress(event, 1);
+		private function arrow_mouseUpHandler(event:Event):void {
+			if (timer) { timer.stop(); }
+			var arrow:Object = event.currentTarget;
+			arrow.removeEventListener(MouseEvent.MOUSE_OUT, arrow_mouseOutHandler);
+			arrow.removeEventListener(MouseEvent.MOUSE_OVER, arrow_mouseOverHandler);
+			view.systemManager.removeEventListener(MouseEvent.MOUSE_UP, arrow_mouseUpHandler, true);
+			view.systemManager.stage.removeEventListener(Event.MOUSE_LEAVE, arrow_mouseUpHandler);
 		}
 		
-		private function arrowPress(event:MouseEvent, direction:Number):void {
-			arrowDirection = direction;
-			
-			if (!arrowTimer) {
-				arrowTimer = new Timer(1);
-				arrowTimer.addEventListener(TimerEvent.TIMER, arrowTimerHandler);
-			}
-			
-			event.target.addEventListener(MouseEvent.MOUSE_OUT, arrowMouseOutHandler);
-			event.target.addEventListener(MouseEvent.MOUSE_OVER, arrowMouseOverHandler);
-			view.systemManager.addEventListener(MouseEvent.MOUSE_UP, arrowMouseUpHandler, true);
-			view.systemManager.stage.addEventListener(Event.MOUSE_LEAVE, arrowMouseLeaveHandler);
-			
-			arrowTimer.start();
+		private function arrow_timerHandler(event:TimerEvent):void {
+			//var oldPosition:Number = sdata.position;
+			sdata.position = sdata.position + direction * LINE_SCROLL_SIZE;
+			//dispatchScrollEvent(oldPosition, direction > 0 ? ScrollEventDetail.LINE_DOWN : ScrollEventDetail.LINE_UP);
 		}
 		
-		private function arrowMouseOutHandler(event:MouseEvent):void {
-			if (arrowTimer) arrowTimer.stop();
-		}
 		
-		private function arrowMouseOverHandler(event:MouseEvent):void {
-			if (arrowTimer) arrowTimer.start();
-		}
+		//*************************************************************
+		// Track Event Handlers
+		//*************************************************************
 		
-		private function arrowMouseUpHandler(event:MouseEvent):void {
-			arrowMouseLeaveHandler(event);
-		}
-		
-		private function arrowMouseLeaveHandler(event:Event):void
-		{
-			if (arrowTimer) arrowTimer.stop();
-			
-			var arrow:Object = arrowDirection == -1 ? view["upArrow"] : view["downArrow"];
-			arrow.removeEventListener(MouseEvent.MOUSE_OUT, arrowMouseOutHandler);
-			arrow.removeEventListener(MouseEvent.MOUSE_OVER, arrowMouseOverHandler);
-			view.systemManager.removeEventListener(MouseEvent.MOUSE_UP, arrowMouseUpHandler, true);
-			view.systemManager.stage.removeEventListener(Event.MOUSE_LEAVE, arrowMouseLeaveHandler);
-		}
-			
-		private function arrowTimerHandler(event:TimerEvent):void {
-			var oldPosition:Number = sdata.position;
-			sdata.position = sdata.position + arrowDirection * LINE_SCROLL_SIZE;
-			dispatchScrollEvent(oldPosition, arrowDirection > 0 ? ScrollEventDetail.LINE_DOWN : ScrollEventDetail.LINE_UP);
-		}
-		
-		/******************************
-		 * Track Event Handlers
-		 ******************************/
-		
-		private function trackMouseDownHandler(event:MouseEvent):void {
+		private function track_mouseDownHandler(event:MouseEvent):void {
 
 			if (view["trackShape"].width < view["trackShape"].height) {
 				trackScrollPosition = event.localY / view["trackShape"].height * (sdata.max - sdata.min);
@@ -207,16 +176,16 @@ package com.openflux.controllers
 				trackScrollDirection == 1 && trackScrollPosition <= sdata.position)
 				return;
 			
-			var oldPosition:Number = sdata.position;
+			//var oldPosition:Number = sdata.position;
 			sdata.position = sdata.position + trackScrollDirection * PAGE_SCROLL_SIZE;
-			dispatchScrollEvent(oldPosition, trackScrollDirection > 0 ? ScrollEventDetail.PAGE_DOWN : ScrollEventDetail.PAGE_UP);
+			//dispatchScrollEvent(oldPosition, trackScrollDirection > 0 ? ScrollEventDetail.PAGE_DOWN : ScrollEventDetail.PAGE_UP);
 		}
 		
 		/******************************
 		 * Thumb Event Handlers
 		 ******************************/
 		
-		private function thumbMouseDownHandler(event:MouseEvent):void {
+		private function thumb_mouseDownHandler(event:MouseEvent):void {
 			view.systemManager.addEventListener(MouseEvent.MOUSE_MOVE, thumbMouseMoveHandler, true);
 			view.systemManager.addEventListener(MouseEvent.MOUSE_UP, thumbMouseUpHandler, true);
 			view.systemManager.stage.addEventListener(MouseEvent.MOUSE_MOVE, thumbStageMouseMoveHandler);
@@ -251,7 +220,7 @@ package com.openflux.controllers
 		/******************************
 		 * Helpers
 		 ******************************/
-		 
+		/*
 		private function dispatchScrollEvent(oldPosition:Number, detail:String):void {
 			var event:ScrollEvent = new ScrollEvent(ScrollEvent.SCROLL);
 			event.detail = detail;
@@ -259,5 +228,6 @@ package com.openflux.controllers
 			event.delta = sdata.position - oldPosition;
 			edata.dispatchEvent(event);
 		}
+		*/
 	}
 }
