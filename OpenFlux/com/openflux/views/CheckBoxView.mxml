@@ -2,32 +2,29 @@
 <flux:FluxView
 	xmlns:flux="com.openflux.core.*"
 	xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:degrafa="http://www.degrafa.com/2008"
-	currentState="{ViewStateUtil.resolveButtonState(data.buttonState, data.selected, true)}"
-	width="{17 + lbl.width}"
-	height="14">
+	xmlns:degrafa="http://www.degrafa.com/2007"
+	width="{17 + lbl.width}" height="14">
 	<mx:Script>
 		<![CDATA[
-			import com.openflux.utils.ViewStateUtil;
-			import com.openflux.constants.ViewStates;
+			import com.openflux.constants.ButtonStates;
 		]]>
 	</mx:Script>
 	
 	<flux:states>
-		<mx:State name="{ViewStates.UP}" />
-		<mx:State name="{ViewStates.OVER}">
+		<mx:State name="{ButtonStates.UP}" />
+		<mx:State name="{ButtonStates.OVER}">
 			<mx:SetProperty target="{sStroke}" name="color" value="#0000ff"/>
 		</mx:State>
-		<mx:State name="{ViewStates.DOWN}">
+		<mx:State name="{ButtonStates.DOWN}">
 			<mx:SetProperty target="{sStroke}" name="color" value="#0000ff"/>
 		</mx:State>
-		<mx:State name="{ViewStates.SELECTED_OVER}">
+		<mx:State name="{ButtonStates.SELECTED_OVER}">
 			<mx:SetProperty target="{sFill}" name="alpha" value=".75"/>
 		</mx:State>
-		<mx:State name="{ViewStates.SELECTED_DOWN}">
+		<mx:State name="{ButtonStates.SELECTED_DOWN}">
 			<mx:SetProperty target="{sFill}" name="alpha" value=".75"/>
 		</mx:State>
-		<mx:State name="{ViewStates.SELECTED_UP}">
+		<mx:State name="{ButtonStates.SELECTED_UP}">
 			<mx:SetProperty target="{sFill}" name="alpha" value="1"/>
 		</mx:State>
 	</flux:states>

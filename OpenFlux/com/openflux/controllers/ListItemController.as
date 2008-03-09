@@ -24,22 +24,24 @@ package com.openflux.controllers
 			super.data = value;
 		}
 		
-		override protected function addEventListeners(view:IEventDispatcher):void {
-			super.addEventListeners(view);
+		/*
+		override protected function attachEventListeners(view:IEventDispatcher):void {
+			super.attachEventListeners(view);
 			
 			if(ldata && ldata.list) {
 				selectedItemsWatcher = BindingUtils.bindSetter(selectedItemsChange, ldata.list, "selectedItems", true);
 			}
 		}
 		
-		override protected function removeEventListeners(target:IEventDispatcher):void {
-			super.removeEventListeners(target);
+		override protected function detachEventListeners(target:IEventDispatcher):void {
+			super.detachEventListeners(target);
 			
 			if(selectedItemsWatcher) {
 				selectedItemsWatcher.unwatch();
 				selectedItemsWatcher = null;
 			}
 		}
+		*/
 		
 		private function selectedItemsChange(value:ArrayCollection):void {
 			if(value) {

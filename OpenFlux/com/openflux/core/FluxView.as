@@ -11,6 +11,16 @@ package com.openflux.core
 	public class FluxView extends Canvas implements IFluxView
 	{
 		
+		private var _state:String;
+		public function get state():String { return _state; }
+		public function set state(value:String):void {
+			_state = value;
+			for each(var state:State in states) {
+				if(state.name == value) {
+					super.currentState = value;
+				}
+			}
+		}
 		
 		//************************************
 		// Constructor
@@ -34,7 +44,7 @@ package com.openflux.core
 			dataChanged = true;
 			// data templates
 		}*/
-		
+		/*
 		override public function set currentState(value:String):void {
 			for each(var state:State in states) {
 				if(state.name == value) {
@@ -42,7 +52,7 @@ package com.openflux.core
 				}
 			}
 		}
-		
+		*/
 		//**********************************************
 		// Child Handling Overrides
 		//**********************************************
