@@ -2,7 +2,7 @@
 
 ListItem {
 	/* just for fun */
-	/* view: ClassReference("com.openflux.views.ButtonView"); */
+	view: ClassReference("com.openflux.views.ButtonView");
 }
 
 @font-face {
