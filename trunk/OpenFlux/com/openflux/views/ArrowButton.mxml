@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flux:FluxView 
+	xmlns:flux="com.openflux.core.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:degrafa="http://www.degrafa.com/2007">
+	<mx:Script>
+		<![CDATA[
+			
+			
+			
+		]]>
+	</mx:Script>
+	
+	<degrafa:SolidFill id="fill" color="0xFFFFFF" />
+	
+	<degrafa:GeometryComposition>
+		<degrafa:RoundedRectangle width="{width}" height="{height}" fill="{fill}" />
+	</degrafa:GeometryComposition>
+</flux:FluxView>
