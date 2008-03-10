@@ -13,8 +13,6 @@ package com.openflux.controllers
 	import flash.utils.Timer;
 	
 	import mx.core.UIComponent;
-	import mx.events.ScrollEvent;
-	import mx.events.ScrollEventDetail;
 	
 	public class ScrollBarController extends MetaControllerBase implements IFluxController
 	{
@@ -88,7 +86,7 @@ package com.openflux.controllers
 		
 		private function arrow_mouseUpHandler(event:Event):void {
 			if (timer) { timer.stop(); }
-			var arrow:Object = event.currentTarget;
+			var arrow:Object = direction == -1 ? upButton : downButton;
 			arrow.removeEventListener(MouseEvent.MOUSE_OUT, arrow_mouseOutHandler);
 			arrow.removeEventListener(MouseEvent.MOUSE_OVER, arrow_mouseOverHandler);
 			view.systemManager.removeEventListener(MouseEvent.MOUSE_UP, arrow_mouseUpHandler, true);
@@ -108,10 +106,10 @@ package com.openflux.controllers
 		
 		private function track_mouseDownHandler(event:MouseEvent):void {
 
-			if (view["trackShape"].width < view["trackShape"].height) {
-				trackScrollPosition = event.localY / view["trackShape"].height * (sdata.max - sdata.min);
+			if (track.width < track.height) {
+				trackScrollPosition = event.localY / track.height * (sdata.max - sdata.min);
 			} else {
-				trackScrollPosition = event.localX / view["trackShape"].width * (sdata.max - sdata.min);
+				trackScrollPosition = event.localX / track.width * (sdata.max - sdata.min);
 			}
 
 			trackScrollDirection = trackScrollPosition < sdata.position ? -1 : trackScrollPosition > sdata.position ? 1 : 0;
@@ -123,8 +121,8 @@ package com.openflux.controllers
 			
 			trackScrollTimer.start();
 			
-			view["track"].addEventListener(MouseEvent.MOUSE_OUT, trackMouseOutHandler);
-			view["track"].addEventListener(MouseEvent.MOUSE_OVER, trackMouseOverHandler);
+			track.addEventListener(MouseEvent.MOUSE_OUT, trackMouseOutHandler);
+			track.addEventListener(MouseEvent.MOUSE_OVER, trackMouseOverHandler);
 			view.systemManager.addEventListener(MouseEvent.MOUSE_UP, trackMouseUpHandler, true);
 			view.systemManager.addEventListener(MouseEvent.MOUSE_MOVE, trackMouseMoveHandler, true);
 			view.systemManager.stage.addEventListener(MouseEvent.MOUSE_MOVE, trackStageMouseMoveHandler);
@@ -136,8 +134,8 @@ package com.openflux.controllers
 		}
 		
 		private function trackMouseLeaveHandler(event:Event):void {
-			view["track"].removeEventListener(MouseEvent.MOUSE_OUT, trackMouseOutHandler);
-			view["track"].removeEventListener(MouseEvent.MOUSE_OVER, trackMouseOverHandler);
+			track.removeEventListener(MouseEvent.MOUSE_OUT, trackMouseOutHandler);
+			track.removeEventListener(MouseEvent.MOUSE_OVER, trackMouseOverHandler);
 			view.systemManager.removeEventListener(MouseEvent.MOUSE_UP, trackMouseUpHandler, true);
 			view.systemManager.removeEventListener(MouseEvent.MOUSE_MOVE, trackMouseMoveHandler, true);
 			view.systemManager.stage.removeEventListener(MouseEvent.MOUSE_MOVE, trackStageMouseMoveHandler);
@@ -148,12 +146,12 @@ package com.openflux.controllers
 		
 		private function trackMouseMoveHandler(event:MouseEvent):void {
 			var pt:Point = new Point(event.stageX, event.stageY);
-			pt = view["track"].globalToLocal(pt);
+			pt = track.globalToLocal(pt);
 			
-			if (view["trackShape"].width < view["trackShape"].height) {
-				trackScrollPosition = pt.y / view["trackShape"].height * (sdata.max - sdata.min);
+			if (track.width < track.height) {
+				trackScrollPosition = pt.y / track.height * (sdata.max - sdata.min);
 			} else {
-				trackScrollPosition = pt.x / view["trackShape"].width * (sdata.max - sdata.min);
+				trackScrollPosition = pt.x / track.width * (sdata.max - sdata.min);
 			}
 			
 			trackScrollDirection = trackScrollPosition < sdata.position ? -1 : trackScrollPosition > sdata.position ? 1 : 0;
@@ -201,12 +199,12 @@ package com.openflux.controllers
 		
 		private function thumbMouseMoveHandler(event:MouseEvent):void {
 			var pt:Point = new Point(event.stageX, event.stageY);
-			pt = view["track"].globalToLocal(pt);
+			pt = track.globalToLocal(pt);
 			
-			if (view["trackShape"].width < view["trackShape"].height) {
-				sdata.position = (pt.y - 16) / view["trackShape"].height * (sdata.max - sdata.min);
+			if (track.width < track.height) {
+				sdata.position = (pt.y - 16) / track.height * (sdata.max - sdata.min);
 			} else {
-				sdata.position = (pt.x - 16) / view["trackShape"].width * (sdata.max - sdata.min);
+				sdata.position = (pt.x - 16) / track.width * (sdata.max - sdata.min);
 			}
 		}
 		
