@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<flux:FluxView xmlns:flux="http://openflux.googlecode.com"
+<flux:FluxView 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:flux="http://openflux.googlecode.com" 
 	xmlns:degrafa="http://www.degrafa.com/2008">
-	<flux:ArrowButton id="upA" />
-	
+	<mx:Button id="upButton" label="up" top="0" bottom="0" left="0" />
+	<mx:Button id="downButton" label="dn" top="0" bottom="0" right="0" />
+	<mx:Button id="track" top="0" bottom="0" left="50" right="50" />
+	<mx:Button id="thumb" top="5" bottom="5" left="{track.x+(track.width-thumb.width)*(data.position/(data.max-data.min))}" />
 </flux:FluxView>
