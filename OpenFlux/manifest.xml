@@ -14,6 +14,7 @@
     <component id="ListItemView" class="com.openflux.views.ListItemView" />
     <component id="ListView" class="com.openflux.views.ListView" />
     <component id="VerticalScrollBarView" class="com.openflux.views.VerticalScrollBarView" />
+    <component id="HorizontalScrollBarView" class="com.openflux.views.HorizontalScrollBarView" />
     <component id="ArrowButton" class="com.openflux.views.ArrowButton" />
     
     <!-- controllers -->
