@@ -15,12 +15,19 @@
 		
 			public var loader:Loader;
 			
+			/*
+			 * App has loaded, load the deck of cards image
+			 */
 			public function initApp():void {
 				loader = new Loader();
 				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderComplete);
 				loader.load(new URLRequest("assets/images/cards.png"));
 			}
 			
+			/*
+			 * Extract each card in the deck into their own object
+			 * The object includes a label (rank of suit) and a Bitmap image of the card
+			 */
 			public function loaderComplete(event:Event):void {
 				var suits:Array = ['Clubs', 'Diamonds', 'Hearts', 'Spades'];
 				var ranks:Array = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King'];
