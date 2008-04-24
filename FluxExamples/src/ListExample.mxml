@@ -26,13 +26,15 @@
 		<mx:Object label="Test 10" />
 		<mx:Object label="Test 11" />
 		<mx:Object label="Test 12" />
+	</mx:ArrayCollection>
+	<mx:ArrayCollection id="data2">
 		<mx:Object label="Test 13" />	
 		<mx:Object label="Test 14" />
 		<mx:Object label="Test 15" />
 		<mx:Object label="Test 16" />
 		<mx:Object label="Test 17" />
 		<mx:Object label="Test 18" />
-		<mx:Object label="Test 19" />	
+		<mx:Object label="Test 19" />
 		<mx:Object label="Test 20" />
 		<mx:Object label="Test 21" />
 		<mx:Object label="Test 22" />
@@ -54,11 +56,19 @@
 	<layouts:CircleLayout id="circle" />
 	<layouts:StackLayout id="stack" />
 	
-	<mx:VBox left="20" right="20" top="20" bottom="20">
-		<mx:ComboBox id="combo" dataProvider="{layouts}" labelField="label" change="(list.view as IDataView).layout = combo.selectedItem.layout" />
-		<mx:HBox width="100%" height="100%">
-			<flux:List id="list" dataProvider="{data1}" width="100%" height="100%" styleName="fluxList" />
-			<mx:List dataProvider="{list.selectedItems}" width="100%" height="100%" />
-		</mx:HBox>
-	</mx:VBox>
+	<mx:HBox width="100%" height="100%">
+		<mx:VBox width="50%" height="100%">
+			<mx:ComboBox id="combo" dataProvider="{layouts}" labelField="label" change="(list.view as IDataView).layout = combo.selectedItem.layout" />
+			<mx:HBox width="100%" height="100%">
+				<flux:List id="list" dataProvider="{data1}" width="100%" height="100%" styleName="fluxList" />
+			</mx:HBox>
+		</mx:VBox>
+		<mx:VBox width="50%" height="100%">
+			<mx:ComboBox id="combo2" dataProvider="{layouts}" labelField="label" change="(list2.view as IDataView).layout = combo2.selectedItem.layout" />
+			<mx:HBox width="100%" height="100%">
+				<flux:List id="list2" dataProvider="{data2}" width="100%" height="100%" styleName="fluxList" />
+			</mx:HBox>
+		</mx:VBox>
+	</mx:HBox>
+
 </mx:Application>
