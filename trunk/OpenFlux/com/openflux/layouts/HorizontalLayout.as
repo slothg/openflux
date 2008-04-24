@@ -30,21 +30,49 @@ package com.openflux.layouts
 		}
 		
 		public function generateLayout():void {
-			if(animator) {
-				animator.startMove();
-				var position:Number = 0;
-				for each(var child:UIComponent in container.renderers) {
-					var token:Object = new Object();
-					token.x = position;
-					token.y = 0;
-					token.width = child.measuredWidth;
-					token.height = container.getExplicitOrMeasuredHeight();
-					token.rotation = 0;
-					animator.moveItem(child, token);
-					position += child.measuredWidth + gap;
-				}
-				animator.stopMove();
+			animator.startMove();
+			
+			var xPos:Number = 0;
+			var len:int = container.renderers.length;
+			var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
+			var child:UIComponent;
+			var width:Number;
+			var height:Number;
+			
+			for (var i:int = 0; i < len; i++) {
+				child = container.renderers[i];
+				width = child.getExplicitOrMeasuredWidth();
+				height = child.getExplicitOrMeasuredHeight();
+				
+				if (i == container.dragTargetIndex)
+					xPos += width + gap;
+					
+				animator.moveItem(child, {x:xPos, y:0, width:width, height:height, rotation:0, time:time});
+				xPos += width + gap;
 			}
+			
+			animator.stopMove();
+		}
+		
+		override public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {
+			var xPos:Number = 0;
+			var child:UIComponent;
+			var len:int = container.renderers.length;
+			var offset:Number = seamAligned ? gap : 0;
+			var width:Number;
+			var height:Number;
+			
+			for (var i:int = 0; i < len; i++) {
+				child = container.renderers[i] as UIComponent;
+				width = child.getExplicitOrMeasuredWidth();
+				height = child.getExplicitOrMeasuredHeight();
+				
+				if (py <= height && px >= xPos - offset && px <= xPos + width)
+					return i;
+				xPos += width + gap;
+			}
+			
+			return -1;
 		}
 		
 	}

@@ -28,28 +28,74 @@ package com.openflux.layouts
 		}
 		
 		public function generateLayout():void {
+			var containerWidth:Number = container.getExplicitOrMeasuredWidth();
 			var point:Point = measureGrid();
-			var cols:Number = Math.floor(container.getExplicitOrMeasuredWidth()/point.x);
-			var space:Number = container.getExplicitOrMeasuredWidth()-(point.x*cols);
-			space = space/(cols+1);
+			var cols:Number = Math.floor(containerWidth / point.x);
+			var space:Number = (containerWidth - (point.x * cols)) / (cols + 1);
+			
 			animator.startMove();
-			var x:Number = space/2;
-			var y:Number = space/2;
-			for each(var child:UIComponent in container.renderers) {
-				var token:Object = new Object();
-				token.x = x;
-				token.y = y;
-				token.width = child.measuredWidth;
-				token.height = child.measuredHeight;
-				token.rotation = 0;
-				animator.moveItem(child, token);
-				x += child.measuredWidth + 10;
-				if(x > container.getExplicitOrMeasuredWidth() - child.measuredWidth - space/2) {
-					x = space/2;
-					y += child.measuredHeight + 8;
+			
+			var xPos:Number = space / 2;
+			var yPos:Number = space / 2;
+			var len:int = container.renderers.length;
+			var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
+			var child:UIComponent;
+			var width:Number;
+			var height:Number;
+			
+			for (var i:int = 0; i < len; i++) {
+				child = container.renderers[i];
+				width = child.getExplicitOrMeasuredWidth();
+				height = child.getExplicitOrMeasuredHeight();
+				
+				if (i == container.dragTargetIndex) {
+					xPos += width + 10;
+					if(xPos > containerWidth - width - space / 2) {
+						xPos = space / 2;
+						yPos += height + 8;
+					}
+				}
+				
+				animator.moveItem(child, {x:xPos, y:yPos, width:width, height:height, rotation:0, time:time});
+				
+				xPos += width + 10;
+				if(xPos > containerWidth - width - space / 2) {
+					xPos = space / 2;
+					yPos += height + 8;
 				}
 			}
 			animator.stopMove();
+		}
+		
+		override public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {
+			var containerWidth:Number = container.getExplicitOrMeasuredWidth();
+			var point:Point = measureGrid();
+			var cols:Number = Math.floor(containerWidth / point.x);
+			var space:Number = (containerWidth - (point.x * cols)) / (cols + 1);
+			var xPos:Number = space / 2;
+			var yPos:Number = space / 2;
+			var len:int = container.renderers.length;
+			var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
+			var child:UIComponent;
+			var width:Number;
+			var height:Number;
+			
+			for (var i:int = 0; i < len; i++) {
+				child = container.renderers[i];
+				width = child.getExplicitOrMeasuredWidth();
+				height = child.getExplicitOrMeasuredHeight();
+				
+				if (px >= xPos - 10 && px <= xPos + width && py >= yPos - 8 && py <= yPos + height)
+					return i;
+				
+				xPos += width + 10;
+				if(xPos > containerWidth - width - space / 2) {
+					xPos = space / 2;
+					yPos += height + 8;
+				}
+			}
+			
+			return -1;
 		}
 		
 		private function measureGrid():Point {
