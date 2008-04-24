@@ -10,13 +10,13 @@ package com.openflux.layouts
 		private var _gap:Number = 0; [Bindable]
 		public function get gap():Number { return _gap; }
 		public function set gap(value:Number):void {
-			_gap = value;
-			container.invalidateSize();
-			container.invalidateDisplayList();
+			if (_gap != value) {
+				_gap = value;
+				container.invalidateLayout();
+			}
 		}
 		
-		public function VerticalLayout():void 
-		{
+		public function VerticalLayout():void {
 			super();
 		}
 		
@@ -30,22 +30,49 @@ package com.openflux.layouts
 		}
 		
 		public function generateLayout():void {
-			if(animator) {
-				animator.startMove();
-				var position:Number = 0;
-				for each(var child:UIComponent in container.renderers) {
-					var token:Object = new Object();
-					token.x = 0;
-					token.y = position;
-					token.height = child.measuredHeight;
-					token.width = container.getExplicitOrMeasuredWidth();
-					token.rotation = 0;
-					animator.moveItem(child, token);
-					position += child.measuredHeight + gap;
-				}
-				animator.stopMove();
+			animator.startMove();
+			
+			var yPos:Number = 0;
+			var len:int = container.renderers.length;
+			var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
+			var child:UIComponent;
+			var width:Number;
+			var height:Number;
+			
+			for (var i:int = 0; i < len; i++) {
+				child = container.renderers[i];
+				width = child.getExplicitOrMeasuredWidth();
+				height = child.getExplicitOrMeasuredHeight();
+				
+				if (i == container.dragTargetIndex)
+					yPos += height + gap;
+					
+				animator.moveItem(child, {x:0, y:yPos, width:width, height:height, rotation:0, time:time});
+				yPos += height + gap;
 			}
+			
+			animator.stopMove();
 		}
 		
+		override public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {
+			var yPos:Number = 0;
+			var len:int = container.renderers.length;
+			var offset:Number = seamAligned ? gap : 0;
+			var child:UIComponent;
+			var width:Number;
+			var height:Number;
+			
+			for (var i:int = 0; i < len; i++) {
+				child = container.renderers[i] as UIComponent;
+				width = child.getExplicitOrMeasuredWidth();
+				height = child.getExplicitOrMeasuredHeight();
+				
+				if (px <= width && py >= yPos - offset && py <= yPos + height)
+					return i;
+				yPos += height + gap;
+			}
+			
+			return -1;
+		}
 	}
 }

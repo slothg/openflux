@@ -13,16 +13,11 @@ package com.openflux.layouts
 	
 	public class StackLayout extends LayoutBase implements ILayout
 	{
-		private var _layoutChanged:Boolean;
-		
 		private var _selectMode:String = "ZigZag";
 		public function get selectMode():String { return _selectMode; }
 		public function set selectMode(value:String):void {
 			_selectMode = value;
-			_layoutChanged = true;
-			//container.invalidateSize();
-			//container.invalidateDisplayList();
-			generateLayout();
+			container.invalidateLayout();
 		}
 		
 		private var _gap:Number = 20;
@@ -30,10 +25,7 @@ package com.openflux.layouts
 		public function get gap():Number { return _gap; }
 		public function set gap(value:Number):void {
 			_gap = value;
-			_layoutChanged = true;
-			//container.invalidateSize();
-			//container.invalidateDisplayList();
-			generateLayout();
+			container.invalidateLayout();
 		}
 		
 		public function StackLayout():void {
@@ -54,15 +46,11 @@ package com.openflux.layouts
 		}
 		
 		public function dataViewChanged(event:DataViewEvent):void {
-			_layoutChanged = true;
-			generateLayout();
+			container.invalidateLayout();
 		}
 		
 		public function clickHandler(event:MouseEvent):void {
-			_layoutChanged = true;
-			//container.invalidateSize();
-			//container.invalidateDisplayList();
-			generateLayout();
+			container.invalidateLayout();
 		}
 		
 		public function getMeasuredSize():Point {
@@ -77,33 +65,77 @@ package com.openflux.layouts
 		}
 		
 		public function generateLayout():void {
-			if (_layoutChanged && container.renderers && container.renderers.length > 0) {
+			if (container.renderers && container.renderers.length > 0) {
 				animator.startMove();
-				var positionX:Number = 0;
-				var positionY:Number = 0;
-				var direction:Number = 1;
 				
-				for each(var child:UIComponent in container.renderers) {
-					var token:Object = new Object();
-					token.x = positionX;
-					token.y = positionY;
-					token.width = child.measuredWidth;
-					token.height = child.measuredHeight;
-					token.rotation = 0;
-					animator.moveItem(child, token);
+				var len:int = container.renderers.length;
+				var xPos:Number = 0;
+				var yPos:Number = 0;
+				var direction:Number = 1;
+				var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
+				var child:UIComponent;
+				var width:Number;
+				var height:Number;
+				
+				for (var i:int = 0; i < len; i++) {
+					child = container.renderers[i] as UIComponent;
+					width = child.getExplicitOrMeasuredWidth();
+					height = child.getExplicitOrMeasuredHeight();
+					
+					if (i == container.dragTargetIndex) {
+						if (selectMode == "ZigZag") {
+							xPos += gap;
+							yPos += gap * direction;
+						} else {
+							xPos += _gap;
+						}
+					}
+					
+					animator.moveItem(child, {x:xPos, y:yPos, width:width, height:height, rotation:0, time:time});
+					
 					if (selectMode == "ZigZag") {
 						if ((child as ISelectable).selected) direction = direction * -1;
-						positionX += gap;
-						positionY += gap * direction;
+						xPos += gap;
+						yPos += gap * direction;
 					} else {
-						if ((child as ISelectable).selected) positionX += child.width;
-						else positionX += _gap;
+						if ((child as ISelectable).selected) xPos += width;
+						else xPos += _gap;
 					}
 				}
 				
 				animator.stopMove();
-				_layoutChanged = false;
 			}
+		}
+		
+		override public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {
+			var xPos:Number = 0;
+			var yPos:Number = 0;
+			var direction:Number = 1;
+			var len:int = container.renderers.length - 1;
+			var offset:Number = seamAligned ? gap : 0;
+			var child:UIComponent;
+			var width:Number;
+			var height:Number;
+			
+			for (var i:int = 0; i < len; i++) {
+				child = container.renderers[i] as UIComponent;
+				width = child.getExplicitOrMeasuredWidth();
+				height = child.getExplicitOrMeasuredHeight();
+				
+				if (px >= xPos - offset && px <= xPos + gap && py >= yPos - offset && py <= yPos + gap)
+					return i;
+				
+				if (selectMode == "ZigZag") {
+					if ((child as ISelectable).selected) direction = direction * -1;
+					xPos += gap;
+					yPos += gap * direction;
+				} else {
+					if ((child as ISelectable).selected) xPos += width;
+					else xPos += _gap;
+				}
+			}
+			
+			return -1;
 		}
 	}
 }

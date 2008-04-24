@@ -1,8 +1,7 @@
 package com.openflux.layouts
 {
 	import flash.geom.Point;
-	
-	import mx.core.UIComponent;
+	import mx.utils.ObjectUtil;
 
 	public class CircleLayout extends LayoutBase implements ILayout
 	{
@@ -14,13 +13,39 @@ package com.openflux.layouts
 			super();
 		}
 		
+		override public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int
+		{
+			// Can't execute this if we aren't attached to a container.
+			if (!container || container.renderers.length == 0)
+				return NaN;
+				
+			// Get the radius and center of the circle.
+			var radius : Number = Math.min(container.getExplicitOrMeasuredWidth(), container.getExplicitOrMeasuredHeight()) / 2;
+			var hCenter : Number = container.getExplicitOrMeasuredWidth() / 2;
+			var vCenter : Number = container.getExplicitOrMeasuredHeight() / 2;
+			
+			var angle : Number = Math.atan2(py-vCenter, px-hCenter);
+			angle += 3.14;
+			if (angle < 0)
+				angle += 2 * Math.PI;
+			// figure out the closest "item" by working backwards from the angle to the index, using floating point math.
+			var result : Number = container.renderers.length * angle / (2 * Math.PI);
+			trace(result + " " + angle);
+			// depending on whether this is seam aligned, do a ceil or round.			
+			result = seamAligned ? int(result)+1 : Math.round(result);
+			
+			// do a modulo op to make sure that this is within [0, length-1]. Modulo is the correct
+			// operator in this case because this is a circle.
+			result %= container.renderers.length;
+			return result;
+		}
+		
 		public function getMeasuredSize():Point
 		{
 			return new Point(100, 100);
 		}
 		
 		public function generateLayout():void {
-			//if(!animator.isAnimating()) {
 			animator.startMove();
 			var length:int = container.renderers.length;
 			var width:Number = container.getExplicitOrMeasuredWidth()/2;
@@ -32,7 +57,11 @@ package com.openflux.layouts
 				var token:Object = new Object();
 				var w:Number = width;//-child.measuredWidth;
 				var h:Number = height;//-child.measuredHeight;
-				rad = ((Math.PI*i)/(length/2))+offset;
+				
+				if (i < container.dragTargetIndex)
+					rad = ((Math.PI*i)/(length/2))+offset;
+				else
+					rad = ((Math.PI*i+1)/(length/2))+offset;
 				token.x = (w*Math.cos(rad))+w;
 				token.y = (h*Math.sin(rad))+h;
 				token.width = child.measuredWidth;
@@ -44,9 +73,10 @@ package com.openflux.layouts
 					}
 				}
 				animator.moveItem(child, token);
+				
+				trace(ObjectUtil.toString(token));
 			}
 			animator.stopMove();
-			//}
 		}
 		
 	}

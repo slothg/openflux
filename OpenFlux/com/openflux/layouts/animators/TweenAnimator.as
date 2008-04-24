@@ -22,7 +22,7 @@ package com.openflux.layouts.animators
 		
 		public function moveItem(item:Object, token:Object):void
 		{
-			token.time = time;
+			if (!token.time) token.time = time;
 			token.transition = transition;
 			token.onComplete = onComplete;
 			Tweener.addTween(item, token);

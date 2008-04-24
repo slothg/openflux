@@ -1,7 +1,5 @@
 package com.openflux.core
 {
-	import caurina.transitions.Tweener;
-	
 	import com.openflux.ListItem;
 	import com.openflux.events.DataViewEvent;
 	import com.openflux.layouts.ILayout;
@@ -17,17 +15,18 @@ package com.openflux.core
 	import mx.core.UIComponent;
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
+	import mx.events.ResizeEvent;
 	
 	[Event(name="dataViewChanged", type="com.openflux.events.DataViewEvent")]
 	public class DataView extends FluxView implements IDataView
 	{
-		
-		private var collection:ICollectionView;
+		private var _collection:ICollectionView;
 		
 		private var _content:Object;
 		private var _itemRenderer:IFactory;
 		private var _layout:ILayout;
 		private var _renderers:Array = [];
+		private var _dragTargetIndex:int = -1;
 		
 		private var collectionChanged:Boolean;
 		
@@ -59,7 +58,12 @@ package com.openflux.core
 			}
 			collectionChanged = true;
 			invalidateProperties();
-			invalidateDisplayList();
+			invalidateLayout();
+		}
+		
+		public function get collection():ICollectionView { return _collection; }
+		public function set collection(value:ICollectionView):void {
+			_collection = value;
 		}
 		
 		public function get itemRenderer():IFactory { return _itemRenderer; }
@@ -76,15 +80,19 @@ package com.openflux.core
 			if(_layout) {
 				_layout.attach(this);
 			}
-			_layout.generateLayout();
-			//invalidateDisplayList();
+			invalidateLayout();
 		}
 		
 		public function get renderers():Array { return _renderers; }
 		
-		// unimplemeted
 		
-		public function get dragTargetIndex():int { return 0; }
+		public function get dragTargetIndex():int { return _dragTargetIndex; }
+		public function set dragTargetIndex(value:int):void {
+			if (_dragTargetIndex != value) {
+				_dragTargetIndex = value;
+				invalidateLayout();
+			}
+		}
 		//public function get horizontalScrollPosition():Number { return 0; }
 		//public function get verticalScrollPosition():Number { return 0; }
 		
@@ -101,6 +109,8 @@ package com.openflux.core
 			if(layout == null) {
 				layout = new VerticalLayout();
 			}
+			
+			this.addEventListener(ResizeEvent.RESIZE, resizeHandler);
 		}
 		
 		override protected function commitProperties():void {
@@ -114,8 +124,9 @@ package com.openflux.core
 		
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
-			if(_layout) {
-				//_layout.generateLayout();
+			if(_layout && layoutChanged) {
+				layoutChanged = false;
+				_layout.generateLayout();
 			}
 		}
 		
@@ -126,10 +137,16 @@ package com.openflux.core
 			measuredHeight = point.y;
 		}
 		
+		private var layoutChanged:Boolean = false;
+		public function invalidateLayout():void {
+			layoutChanged = true;
+			invalidateSize();
+			invalidateDisplayList();
+		}
+		
 		//*****************************************
 		// Private Functions
 		//*****************************************
-		
 		
 		private function collectionReset():void {
 			for each(var o:DisplayObject in _renderers) {
@@ -144,9 +161,9 @@ package com.openflux.core
 				_renderers.push(renderer);
 				addChild(renderer);
 			}
+			
+			this.invalidateLayout();
 		}
-		
-		
 		
 		//******************************************
 		// Event Listeners
@@ -154,10 +171,28 @@ package com.openflux.core
 		
 		private function collectionChangeHandler(event:CollectionEvent):void {
 			switch(event.kind) {
+				case CollectionEventKind.ADD:
+					var renderer:UIComponent = itemRenderer.newInstance() as UIComponent;
+					renderer.styleName = this; // ???
+					(renderer as IDataRenderer).data = collection[event.location];
+					(renderer as IFluxListItem).list = data as IFluxList;
+					_renderers.splice(event.location, 0, renderer);
+					addChildAt(renderer, event.location);
+					this.invalidateLayout();
+					break;
+				case CollectionEventKind.REMOVE:
+					removeChildAt(event.location);
+					renderers.splice(event.location, 1);					
+					this.invalidateLayout();
+					break;
 				case CollectionEventKind.RESET:
 					collectionReset();
 					break;
 			}
+		}
+		
+		private function resizeHandler(event:ResizeEvent):void {
+			invalidateLayout();
 		}
 	}
 }
