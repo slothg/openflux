@@ -93,6 +93,7 @@ package com.openflux.core
 				invalidateLayout();
 			}
 		}
+		
 		//public function get horizontalScrollPosition():Number { return 0; }
 		//public function get verticalScrollPosition():Number { return 0; }
 		
@@ -148,21 +149,31 @@ package com.openflux.core
 		// Private Functions
 		//*****************************************
 		
-		private function collectionReset():void {
+		protected function collectionReset():void {
 			for each(var o:DisplayObject in _renderers) {
 				removeChild(o);
 			}
 			_renderers = [];
 			for each(var item:Object in collection) {
-				var renderer:UIComponent = itemRenderer.newInstance() as UIComponent;
-				renderer.styleName = this; // ???
-				(renderer as IDataRenderer).data = item;
-				(renderer as IFluxListItem).list = data as IFluxList;
-				_renderers.push(renderer);
-				addChild(renderer);
+				addItem(item);
 			}
 			
 			this.invalidateLayout();
+		}
+		
+		protected function addItem(item:Object, index:int = 0):void {
+			var renderer:UIComponent = itemRenderer.newInstance() as UIComponent;
+			renderer.styleName = this; // ???
+			(renderer as IDataRenderer).data = item;
+			if (renderer is IFluxListItem) (renderer as IFluxListItem).list = data as IFluxList;
+			
+			if (index > 0) {
+				_renderers.splice(index, 0, renderer);
+				addChildAt(renderer, index);
+			} else {
+				_renderers.push(renderer);
+				addChild(renderer);
+			}
 		}
 		
 		//******************************************
@@ -172,12 +183,7 @@ package com.openflux.core
 		private function collectionChangeHandler(event:CollectionEvent):void {
 			switch(event.kind) {
 				case CollectionEventKind.ADD:
-					var renderer:UIComponent = itemRenderer.newInstance() as UIComponent;
-					renderer.styleName = this; // ???
-					(renderer as IDataRenderer).data = collection[event.location];
-					(renderer as IFluxListItem).list = data as IFluxList;
-					_renderers.splice(event.location, 0, renderer);
-					addChildAt(renderer, event.location);
+					addItem(collection[event.location], event.location);
 					this.invalidateLayout();
 					break;
 				case CollectionEventKind.REMOVE:
