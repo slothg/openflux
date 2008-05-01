@@ -33,7 +33,7 @@ package com.openflux.layouts
 			var cols:Number = Math.floor(containerWidth / point.x);
 			var space:Number = (containerWidth - (point.x * cols)) / (cols + 1);
 			
-			animator.startMove();
+			animator.begin();
 			
 			var xPos:Number = space / 2;
 			var yPos:Number = space / 2;
@@ -64,7 +64,7 @@ package com.openflux.layouts
 					yPos += height + 8;
 				}
 			}
-			animator.stopMove();
+			animator.end();
 		}
 		
 		override public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {

@@ -5,6 +5,7 @@ package com.openflux.core
 	import com.openflux.layouts.ILayout;
 	import com.openflux.layouts.VerticalLayout;
 	import com.openflux.utils.CollectionUtil;
+	import com.openflux.utils.MetaStyler;
 	
 	import flash.display.DisplayObject;
 	import flash.geom.Point;
@@ -61,8 +62,8 @@ package com.openflux.core
 			invalidateLayout();
 		}
 		
-		public function get collection():ICollectionView { return _collection; }
-		public function set collection(value:ICollectionView):void {
+		protected function get collection():ICollectionView { return _collection; }
+		protected function set collection(value:ICollectionView):void {
 			_collection = value;
 		}
 		
@@ -71,6 +72,7 @@ package com.openflux.core
 			_itemRenderer = value;
 		}
 		
+		[StyleBinding]
 		public function get layout():ILayout { return _layout; }
 		public function set layout(value:ILayout):void {
 			if(_layout) {
@@ -79,6 +81,7 @@ package com.openflux.core
 			_layout = value;
 			if(_layout) {
 				_layout.attach(this);
+				MetaStyler.initialize(_layout, this);
 			}
 			invalidateLayout();
 		}
@@ -143,6 +146,16 @@ package com.openflux.core
 			layoutChanged = true;
 			invalidateSize();
 			invalidateDisplayList();
+		}
+		
+		override public function stylesInitialized():void {
+			super.stylesInitialized();
+			if(layout) { MetaStyler.initialize(layout, this); }
+		}
+		
+		override public function styleChanged(styleProp:String):void {
+			super.styleChanged(styleProp);
+			if(layout) { MetaStyler.updateStyle(styleProp, layout, this); }
 		}
 		
 		//*****************************************

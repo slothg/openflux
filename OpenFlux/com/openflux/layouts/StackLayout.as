@@ -66,7 +66,7 @@ package com.openflux.layouts
 		
 		public function generateLayout():void {
 			if (container.renderers && container.renderers.length > 0) {
-				animator.startMove();
+				animator.begin();
 				
 				var len:int = container.renderers.length;
 				var xPos:Number = 0;
@@ -103,7 +103,7 @@ package com.openflux.layouts
 					}
 				}
 				
-				animator.stopMove();
+				animator.end();
 			}
 		}
 		

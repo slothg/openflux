@@ -1,7 +1,7 @@
 package com.openflux.controllers
 {
 	import com.openflux.core.IFluxController;
-	import com.openflux.core.IScrollBar;
+	import com.openflux.core.IFluxScrollBar;
 	import com.openflux.core.MetaControllerBase;
 	
 	import flash.display.DisplayObject;
@@ -30,7 +30,7 @@ package com.openflux.controllers
 		private var trackScrollPosition:Number;
 		
 		[ModelAlias] public var edata:IEventDispatcher;
-		[ModelAlias] public var sdata:IScrollBar;
+		[ModelAlias] public var sdata:IFluxScrollBar;
 		[ModelAlias] public var view:UIComponent;
 		
 		[EventHandler(event="mouseDown", handler="upButton_mouseDownHandler")]

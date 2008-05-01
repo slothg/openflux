@@ -3,15 +3,22 @@ package com.openflux
 	import com.openflux.controllers.ListController;
 	import com.openflux.core.FluxComponent;
 	import com.openflux.core.IEnabled;
-	import com.openflux.core.IFluxController;
 	import com.openflux.core.IFluxList;
-	import com.openflux.core.IFluxView;
 	import com.openflux.utils.CollectionUtil;
 	import com.openflux.views.ListView;
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.ICollectionView;
+	import mx.events.CollectionEvent;
+	import mx.events.ListEvent;
 	
+	[Event(name="change", type="mx.events.ListEvent")]
+	[Style(name="layout", type="com.openflux.core.layouts.ILayout")]
+	/* ???
+	[MeasuredSize(width="200", height="200")]
+	[MinimumSize(width="0", height="0")]
+	[MaximumSize(width="1000", height="1000")]
+	*/
 	public class List extends FluxComponent implements IFluxList, IEnabled
 	{
 		
@@ -25,6 +32,8 @@ package com.openflux
 		public function get selectedItems():ArrayCollection { return _selectedItems; }
 		public function set selectedItems(value:ArrayCollection):void {
 			_selectedItems = value;
+			_selectedItems.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+			dispatchEvent(new ListEvent(ListEvent.CHANGE, false, false));
 		}
 		
 		
@@ -39,12 +48,21 @@ package com.openflux
 			if(!view) {
 				view = new ListView();
 			}
+			
 		}
 		
 		override protected function measure():void {
 			super.measure();
 			measuredWidth = 200;
 			measuredHeight = 200;
+		}
+		
+		//**************
+		// Event Listeners
+		//******************
+		
+		private function collectionChangeHandler(event:CollectionEvent):void {
+			dispatchEvent(new ListEvent(ListEvent.CHANGE, false, false));
 		}
 		
 	}

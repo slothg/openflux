@@ -1,9 +1,10 @@
 package com.openflux.core
 {
 	
+	import com.openflux.utils.MetaStyler;
+	
 	import mx.core.UIComponent;
 	import mx.core.mx_internal;
-	import mx.states.State;
 	import mx.styles.CSSStyleDeclaration;
 	import mx.styles.StyleManager;
 	
@@ -24,7 +25,7 @@ package com.openflux.core
 		private var viewChanged:Boolean;
 		private var controllerChanged:Boolean;
 		
-		
+		[StyleBinding]
 		public function get view():IFluxView { return _view; }
 		public function set view(value:IFluxView):void {
 			if(_view != null && contains(_view as UIComponent)) {
@@ -32,9 +33,12 @@ package com.openflux.core
 			}
 			_view = value;
 			viewChanged = true;
+			invalidateProperties();
+			invalidateSize();
 			invalidateDisplayList();
 		}
 		
+		[StyleBinding]
 		public function get controller():IFluxController { return _controller; }
 		public function set controller(value:IFluxController):void {
 			_controller = value;
@@ -43,11 +47,12 @@ package com.openflux.core
 		}
 		
 		// should be moved/updated
+		/*
 		override public function set currentState(value:String):void {
 			updateState(value);
 			updateState(value, _view);
 		}
-		
+		*/
 		//******************************************
 		// Constructor
 		//******************************************
@@ -63,12 +68,14 @@ package com.openflux.core
 		override protected function commitProperties():void {
 			super.commitProperties();
 			if(viewChanged) {
-				_view.data = this;
-				addChild(_view as UIComponent);
+				view.data = this;
+				MetaStyler.initialize(view, this);
+				addChild(view as UIComponent);
 				viewChanged = false;
 			}
 			if(controllerChanged) {
 				controller.data = this;
+				MetaStyler.initialize(controller, this);
 				controllerChanged = false;
 			}
 		}
@@ -92,22 +99,31 @@ package com.openflux.core
 			}
 		}
 		
-		
 		override public function styleChanged(styleProp:String):void {
 			super.styleChanged(styleProp);
-			switch(styleProp) {
+			MetaStyler.updateStyle(styleProp, this);
+			if(view) MetaStyler.updateStyle(styleProp, view, this);
+			if(controller) MetaStyler.updateStyle(styleProp, controller, this);
+			/*switch(styleProp) {
 				case "view":
 					updateViewStyle();
 					break;
 				case "controller":
 					updateControllerStyle();
 					break;
-			}
+				case "layout":
+					trace("me");
+				default:
+					if(view) view.styleChanged(styleProp);
+					if(controller) controller.styleChanged(styleProp);
+					break;
+			}*/
 		}
 		
 		override public function stylesInitialized():void {
-			updateViewStyle();
-			updateControllerStyle();
+			//updateViewStyle();
+			//updateControllerStyle();
+			MetaStyler.initialize(this);
 		}
 		
 		//********************************************
@@ -151,7 +167,7 @@ package com.openflux.core
 			}
 		}
 		
-		
+		/*
 		protected function updateState(token:String, target:Object = null):void {
 			if(target == null) {
 				target = this;
@@ -165,7 +181,7 @@ package com.openflux.core
 				}
 			}
 		}
-		
+		*//*
 		private function updateViewStyle():void {
 			var o:Object;
 			var C:Class = getStyle("view");
@@ -173,6 +189,7 @@ package com.openflux.core
 				o = new C();
 			}
 			if(o is IFluxView) {
+				o.styleName = this;
 				view = o as IFluxView;
 			}
 		}
@@ -184,9 +201,10 @@ package com.openflux.core
 				o = new C();
 			}
 			if(o is IFluxController) {
+				o.styleName = this;
 				controller = o as IFluxController;
 			}
 		}
-		
+		*/
 	}
 }

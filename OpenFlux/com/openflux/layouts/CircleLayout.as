@@ -46,7 +46,7 @@ package com.openflux.layouts
 		}
 		
 		public function generateLayout():void {
-			animator.startMove();
+			animator.begin();
 			var length:int = container.renderers.length;
 			var width:Number = container.getExplicitOrMeasuredWidth()/2;
 			var height:Number = container.getExplicitOrMeasuredHeight()/2;
@@ -76,7 +76,7 @@ package com.openflux.layouts
 				
 				trace(ObjectUtil.toString(token));
 			}
-			animator.stopMove();
+			animator.end();
 		}
 		
 	}

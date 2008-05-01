@@ -21,7 +21,7 @@ package com.openflux.core
 		
 		public function FluxController() {
 			super();
-			MetaBinder.InitObject(this);
+			MetaBinder.initialize(this);
 		}
 		
 		protected function attachEventListeners(view:IEventDispatcher):void {

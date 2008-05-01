@@ -1,10 +1,13 @@
 package com.openflux.core
 {
 	
+	import com.openflux.utils.MetaStyler;
+	
 	import flash.events.IEventDispatcher;
 	import flash.system.ApplicationDomain;
 	import flash.utils.*;
 	
+	// todo: move all this code into a utility class
 	public class MetaControllerBase
 	{
 		
@@ -27,23 +30,27 @@ package com.openflux.core
 				var baseClassDirectives:ClassDirective = directivesForClass(baseClassName);
 				directives.modelAliases = baseClassDirectives.modelAliases.concat();
 				directives.viewContracts = baseClassDirectives.viewContracts.concat();
-				directives.viewHandlers = baseClassDirectives.viewHandlers.concat();
+				//directives.viewHandlers = baseClassDirectives.viewHandlers.concat();
 			}
+			
 			var des:XML = flash.utils.describeType(ty);
-			var metadata:XMLList = des.factory.variable.metadata.(@name == "ModelAlias");				
+			var metadata:XMLList = des.factory.accessor.metadata.(@name == "ModelAlias");
+			metadata += des.factory.variable.metadata.(@name == "ModelAlias");				
 			for (var i:int = 0; i < metadata.length(); i++) {
 				var alias:ModelAliasDirective = new ModelAliasDirective();
 				alias.property = metadata[i].parent().@name;
 				alias.type = metadata[i].parent().@type;
 				directives.modelAliases.push(alias);
 			}
-			metadata = des.factory.variable.metadata.(@name == "ViewContract");				
+			metadata = des.factory.accessor.metadata.(@name == "ViewContract");
+			metadata += des.factory.variable.metadata.(@name == "ViewContract");				
 			for (i = 0; i < metadata.length(); i++) {
 				var contract:ViewContractDirective = new ViewContractDirective();
 				contract.property = metadata[i].parent().@name;
 				contract.type = metadata[i].parent().@type;
 				directives.viewContracts.push(contract);
 			}
+			
 			metadata = des.factory.metadata.(@name == "ViewHandler");				
 			for (i = 0; i < metadata.length(); i++) {
 				var handler:ViewHandlerDirective = new ViewHandlerDirective();
@@ -51,6 +58,7 @@ package com.openflux.core
 				handler.handler = metadata[i].arg.(@key == "handler").@value;
 				directives.viewHandlers.push(handler);
 			}
+			
 			metadata = des.factory.accessor.metadata.(@name == "EventHandler");
 			metadata += des.factory.variable.metadata.(@name == "EventHandler");
 			for (i = 0; i < metadata.length(); i++) {
@@ -98,8 +106,8 @@ package com.openflux.core
 				tokenFunction = scope as Function;
 			}
 			directives = directivesForObject(this);
+			MetaStyler.initialize(this);
 		}
-		
 		
 		//********************************************
 		// Utility Functions

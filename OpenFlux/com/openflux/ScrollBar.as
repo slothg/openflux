@@ -2,10 +2,10 @@ package com.openflux
 {
 	import com.openflux.controllers.ScrollBarController;
 	import com.openflux.core.FluxComponent;
-	import com.openflux.core.IScrollBar;
+	import com.openflux.core.IFluxScrollBar;
 	import com.openflux.views.VerticalScrollBarView;
 	
-	public class ScrollBar extends FluxComponent implements IScrollBar
+	public class ScrollBar extends FluxComponent implements IFluxScrollBar
 	{
 		private var _min:Number = 0;
 		private var _max:Number = 0;
