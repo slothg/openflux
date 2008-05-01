@@ -6,7 +6,7 @@
 
 Milestone 1: Buttons, Scroll Bars, Progress Bars
   * ~~MVC Core Framework~~
-  * Base Styling Mechanism
+  * ~~Base Styling Mechanism~~
 
 Milestone 2 (Beta 1) : Lists, Lists, Lists
   * Core Layout Framework
