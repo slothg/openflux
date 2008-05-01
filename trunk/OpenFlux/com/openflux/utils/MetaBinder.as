@@ -14,7 +14,20 @@ package com.openflux.utils
 	{
 		
 		private static var directivesByClassName:Object = {};
-
+		
+		
+		public static function initialize(target:Object):void {
+			var directives:ClassDirective = directivesForObject(target);
+			var bindDirectives:Array = directives.bindDirectives;
+			for (var i:int = 0; i < bindDirectives.length; i++) {
+				createBinding(target,bindDirectives[i]);
+			}
+			var handlerDirectives:Array = directives.handleEventDirectives;
+			for (i=0; i < handlerDirectives.length; i++) {
+				bindHandler(target,handlerDirectives[i]);				
+			}
+		}
+		
 		private static function directivesForClass(className:String):ClassDirective
 		{
 			var directives:ClassDirective = directivesByClassName[className];
@@ -28,7 +41,6 @@ package com.openflux.utils
 				var baseClassDirectives:ClassDirective = directivesForClass(baseClassName);
 				directives.bindDirectives = baseClassDirectives.bindDirectives.concat();
 				// methods are inherited down in describeTypeData.
-				//directives.handleEventDirectives = baseClassDirectives.handleEventDirectives.concat();
 			}
 			var des:XML = flash.utils.describeType(ty);
 			var metadata:XMLList = des.factory.metadata.(@name == "Bind");				
@@ -69,18 +81,6 @@ package com.openflux.utils
 		private static function directivesForObject(target:Object):ClassDirective {
 			var cname:String = getQualifiedClassName(target);
 			return directivesForClass(cname);
-		}
-		
-		public static function InitObject(target:Object):void {
-			var directives:ClassDirective = directivesForObject(target);
-			var bindDirectives:Array = directives.bindDirectives;
-			for (var i:int = 0; i < bindDirectives.length; i++) {
-				createBinding(target,bindDirectives[i]);
-			}
-			var handlerDirectives:Array = directives.handleEventDirectives;
-			for (i=0; i < handlerDirectives.length; i++) {
-				bindHandler(target,handlerDirectives[i]);				
-			}
 		}
 		
 		private static function bind(target:Object,source:String,destination:String):void {

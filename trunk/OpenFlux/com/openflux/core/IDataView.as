@@ -23,7 +23,7 @@ package com.openflux.core
 		function get renderers():Array;
 		
 		function get itemRenderer():IFactory;
-		function get collection():ICollectionView;
+		//function get collection():ICollectionView;
 		//
 		
 		function get verticalScrollPosition():Number;

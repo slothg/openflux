@@ -3,7 +3,7 @@ package com.openflux.core
 	
 	/**
 	 * Defines the interface which all visual components extending from this library must implement.
-	 * This enforces a consistent seperation of model, view, and controller functionality (in which the component itself represents the model)
+	 * This enforces a consistent seperation of model, view, and controller functionality (in which the component itself represents the model).
 	 * @see IFluxController
 	 * @see IFluxView
 	 */

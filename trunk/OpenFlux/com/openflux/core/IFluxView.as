@@ -23,5 +23,6 @@ package com.openflux.core
 		function get state():String;
 		function set state(value:String):void;
 		
+		function styleChanged(styleProp:String):void;
 	}
 }

@@ -7,9 +7,13 @@
 	mouseChildren="false" >
 	<mx:Script>
 		<![CDATA[
+			import mx.graphics.IFill;
 			
 			import com.openflux.constants.ButtonStates;
 			[Bindable] public var offset:Number = 0;
+			
+			[Bindable] [StyleBinding]
+			public var background:IFill;
 			
 		]]>
 	</mx:Script>

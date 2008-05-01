@@ -1,6 +1,6 @@
 package com.openflux.core
 {
-	public interface IScrollBar
+	public interface IFluxScrollBar
 	{
 		function get min():Number;
 		function set min(value:Number):void;

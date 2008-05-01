@@ -16,5 +16,8 @@ package com.openflux.core
 		 */
 		function get data():IFluxComponent;
 		function set data(value:IFluxComponent):void;
+		
+		//function styleChanged(styleProp:String):void;
+		
 	}
 }

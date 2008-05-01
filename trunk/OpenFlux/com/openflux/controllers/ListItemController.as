@@ -11,6 +11,7 @@ package com.openflux.controllers
 	import mx.collections.ArrayCollection;
 	import mx.events.CollectionEvent;
 	
+	[ViewHandler(event="mouseOver", handler="mouseOverHandler")]
 	public class ListItemController extends ButtonController
 	{
 		

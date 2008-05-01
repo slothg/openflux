@@ -25,7 +25,6 @@
     
     <!-- constants -->
     <component id="ButtonStates" class="com.openflux.constants.ButtonStates" />
-    <component id="Layouts" class="com.openflux.constants.Layouts" />
     
     <!-- layouts -->
     <component id="VerticalLayout" class="com.openflux.layouts.VerticalLayout" />

@@ -18,11 +18,10 @@ package com.openflux.controllers
 	public class ButtonController extends MetaControllerBase implements IFluxController
 	{
 		
+		[StyleBinding] public var selectable:Boolean;
+		
 		[ModelAlias(required="false")] public var edata:IEnabled;
 		[ModelAlias(required="false")] public var sdata:ISelectable;
-		
-		// implementing later
-		[StyleProperty] public var selectable:Boolean;
 		
 		// really not hapy with this hacking,
 		// but it's better than public event handlers
