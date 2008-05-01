@@ -5,7 +5,7 @@
 			import com.openflux.views.HorizontalScrollBarView;
 		]]>
 	</mx:Script>
-
+	
 	<flux:ScrollBar id="sb" x="50" y="50" max="600" position="{sb2.position}" height="400"/>
 	<mx:Label x="125" y="125" text="{sb.position}"/>
 	<flux:ScrollBar id="sb2" x="100" y="50" max="600" position="{sb.position}" width="400">

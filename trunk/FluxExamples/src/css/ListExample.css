@@ -10,7 +10,7 @@ ListItem {
     fontFamily: ArialEmbedded;
     fontWeight: normal;
 }
- 
+
 @font-face {
     src: local("Arial");
     fontFamily: ArialEmbedded;
