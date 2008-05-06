@@ -1,8 +1,12 @@
 /* CSS file */
 
+List {
+	time: 1;
+}
+
 ListItem {
 	/* just for fun */
-	view: ClassReference("com.openflux.views.ButtonView");
+	/*view: ClassReference("com.openflux.views.ButtonView");*/
 }
 
 @font-face {
