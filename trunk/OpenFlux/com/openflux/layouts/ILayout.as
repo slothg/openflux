@@ -12,15 +12,14 @@ package com.openflux.layouts
 		function get animator():ILayoutAnimator;
 		function set animator(value:ILayoutAnimator):void;
 		
-		//IFluxList == FlexibleContainer
-		function attach(container:IDataView):void; // , animator:LayoutAnimator
+		function attach(container:IDataView):void;
 		function detach(container:IDataView):void;
 		
-		function getMeasuredSize():Point;
-		function generateLayout():void;
-		function findItemAt(px:Number, py:Number, seamAligned:Boolean):int;
+		function measure():Point;
+		function update(indices:Array = null):void;
 		
-		/* // not worrying about dnd right now.
+		// function findItemAt(px:Number, py:Number, seamAligned:Boolean):int; // moved to seperate interface IDragLayout
+		/* // not sure drag event handlers belong here
 		function dragStart(e:MouseEvent) : Boolean;
 		function dragEnter(e:DragEvent) : Boolean;
 		function dragOver(e:DragEvent) : Boolean;

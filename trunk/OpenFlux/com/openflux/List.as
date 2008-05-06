@@ -13,6 +13,7 @@ package com.openflux
 	import mx.events.ListEvent;
 	
 	[Event(name="change", type="mx.events.ListEvent")]
+	[Style(name="itemRenderer")]
 	[Style(name="layout", type="com.openflux.core.layouts.ILayout")]
 	/* ???
 	[MeasuredSize(width="200", height="200")]

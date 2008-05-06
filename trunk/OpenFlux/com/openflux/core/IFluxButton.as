@@ -7,9 +7,9 @@ package com.openflux.core
 		// we'll wait and see though
 		//function get label():String;
 		//function set label(value:String):void;
-		
+		/*
 		function get buttonState():String;
 		function set buttonState(value:String):void;
-		
+		*/
 	}
 }

@@ -17,6 +17,7 @@ package com.openflux.core
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 	import mx.events.ResizeEvent;
+	import mx.styles.IStyleClient;
 	
 	[Event(name="dataViewChanged", type="com.openflux.events.DataViewEvent")]
 	public class DataView extends FluxView implements IDataView
@@ -81,7 +82,8 @@ package com.openflux.core
 			_layout = value;
 			if(_layout) {
 				_layout.attach(this);
-				MetaStyler.initialize(_layout, this);
+				MetaStyler.initialize(_layout, this.data as IStyleClient);
+				if(_layout.animator) { MetaStyler.initialize(_layout.animator, this.data as IStyleClient); }
 			}
 			invalidateLayout();
 		}
@@ -130,13 +132,13 @@ package com.openflux.core
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
 			if(_layout && layoutChanged) {
 				layoutChanged = false;
-				_layout.generateLayout();
+				_layout.update();
 			}
 		}
 		
 		override protected function measure():void {
 			super.measure();
-			var point:Point = layout.getMeasuredSize();
+			var point:Point = layout.measure();
 			measuredWidth = point.x;
 			measuredHeight = point.y;
 		}
@@ -150,12 +152,14 @@ package com.openflux.core
 		
 		override public function stylesInitialized():void {
 			super.stylesInitialized();
-			if(layout) { MetaStyler.initialize(layout, this); }
+			if(layout) { MetaStyler.initialize(layout, this.data as IStyleClient); }
+			if(layout.animator) { MetaStyler.initialize(layout.animator, this.data as IStyleClient); }
 		}
 		
 		override public function styleChanged(styleProp:String):void {
 			super.styleChanged(styleProp);
-			if(layout) { MetaStyler.updateStyle(styleProp, layout, this); }
+			if(layout) { MetaStyler.updateStyle(styleProp, layout, this.data as IStyleClient); }
+			if(layout.animator) { MetaStyler.updateStyle(styleProp, layout.animator, this.data as IStyleClient); }
 		}
 		
 		//*****************************************

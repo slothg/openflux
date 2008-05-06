@@ -11,7 +11,7 @@ package com.openflux.layouts
 	
 	import mx.core.UIComponent;
 	
-	public class StackLayout extends LayoutBase implements ILayout
+	public class StackLayout extends LayoutBase implements ILayout, IDragLayout
 	{
 		private var _selectMode:String = "ZigZag";
 		public function get selectMode():String { return _selectMode; }
@@ -53,7 +53,7 @@ package com.openflux.layouts
 			container.invalidateLayout();
 		}
 		
-		public function getMeasuredSize():Point {
+		public function measure():Point {
 			var point:Point = new Point();
 			
 			for each(var child:UIComponent in container.renderers) {
@@ -64,7 +64,7 @@ package com.openflux.layouts
 			return point;
 		}
 		
-		public function generateLayout():void {
+		public function update(indices:Array = null):void {
 			if (container.renderers && container.renderers.length > 0) {
 				animator.begin();
 				
@@ -72,17 +72,17 @@ package com.openflux.layouts
 				var xPos:Number = 0;
 				var yPos:Number = 0;
 				var direction:Number = 1;
-				var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
+				//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
 				var child:UIComponent;
 				var width:Number;
 				var height:Number;
 				
 				for (var i:int = 0; i < len; i++) {
 					child = container.renderers[i] as UIComponent;
-					width = child.getExplicitOrMeasuredWidth();
-					height = child.getExplicitOrMeasuredHeight();
+					width = child.measuredWidth;
+					height = child.measuredHeight;
 					
-					if (i == container.dragTargetIndex) {
+					if(indices && indices.indexOf(i, 0) >= 0) {
 						if (selectMode == "ZigZag") {
 							xPos += gap;
 							yPos += gap * direction;
@@ -91,7 +91,7 @@ package com.openflux.layouts
 						}
 					}
 					
-					animator.moveItem(child, {x:xPos, y:yPos, width:width, height:height, rotation:0, time:time});
+					animator.moveItem(child, {x:xPos, y:yPos, width:width, height:height, rotation:0});
 					
 					if (selectMode == "ZigZag") {
 						if ((child as ISelectable).selected) direction = direction * -1;

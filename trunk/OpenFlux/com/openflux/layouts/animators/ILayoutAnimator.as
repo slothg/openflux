@@ -11,8 +11,8 @@ package com.openflux.layouts.animators
 		/**
 		 * attaches this animator to a given container
 		 */
-		function attach(container:IDataView):void;
-		function detach(container:IDataView):void;
+		//function attach(container:IDataView):void;
+		//function detach(container:IDataView):void;
 		
 		/**
 		 * Called before a series of addItem, moveItem, or removeItem calls.

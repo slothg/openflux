@@ -29,7 +29,7 @@
     <!-- layouts -->
     <component id="VerticalLayout" class="com.openflux.layouts.VerticalLayout" />
     <component id="HorizontalLayout" class="com.openflux.layouts.HorizontalLayout" />
-    <component id="TileLayout" class="com.openflux.layouts.TileLayout" />
+    <component id="FlowLayout" class="com.openflux.layouts.FlowLayout" />
     <component id="CircleLayout" class="com.openflux.layouts.CircleLayout" />
     <component id="StackLayout" class="com.openflux.layouts.StackLayout" />
     

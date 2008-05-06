@@ -57,7 +57,7 @@ package com.openflux.controllers
 		
 		private function resolveState(state:String):String {
 			var selected:Boolean = sdata && selectable ? sdata.selected : false;
-			if(edata && edata.enabled) {
+			if(!edata || edata.enabled) {
 				switch(state) {
 					case ButtonStates.OVER:
 						return selected ? ButtonStates.SELECTED_OVER : ButtonStates.OVER;

@@ -4,7 +4,7 @@ package com.openflux.layouts
 	
 	import mx.core.UIComponent;
 	
-	public class HorizontalLayout extends LayoutBase implements ILayout
+	public class HorizontalLayout extends LayoutBase implements ILayout, IDragLayout
 	{
 		
 		private var _gap:Number = 0; [Bindable]
@@ -20,7 +20,7 @@ package com.openflux.layouts
 			super();
 		}
 		
-		public function getMeasuredSize():Point {
+		public function measure():Point {
 			var point:Point = new Point(0, 0);
 			for each(var child:UIComponent in container.renderers) {
 				point.x += child.getExplicitOrMeasuredWidth() + gap;
@@ -29,25 +29,26 @@ package com.openflux.layouts
 			return point;
 		}
 		
-		public function generateLayout():void {
+		public function update(indices:Array = null):void {
 			animator.begin();
 			
 			var xPos:Number = 0;
 			var len:int = container.renderers.length;
-			var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
+			//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
 			var child:UIComponent;
 			var width:Number;
 			var height:Number;
 			
 			for (var i:int = 0; i < len; i++) {
 				child = container.renderers[i];
-				width = child.getExplicitOrMeasuredWidth();
-				height = child.getExplicitOrMeasuredHeight();
+				width = child.measuredWidth;
+				height = container.getExplicitOrMeasuredHeight();
 				
-				if (i == container.dragTargetIndex)
+				if(indices && indices.indexOf(i, 0) >= 0) {
 					xPos += width + gap;
+				}
 					
-				animator.moveItem(child, {x:xPos, y:0, width:width, height:height, rotation:0, time:time});
+				animator.moveItem(child, {x:xPos, y:0, width:width, height:height, rotation:0});
 				xPos += width + gap;
 			}
 			

@@ -30,7 +30,7 @@ package com.openflux.core
 				var baseClassDirectives:ClassDirective = directivesForClass(baseClassName);
 				directives.modelAliases = baseClassDirectives.modelAliases.concat();
 				directives.viewContracts = baseClassDirectives.viewContracts.concat();
-				//directives.viewHandlers = baseClassDirectives.viewHandlers.concat();
+				directives.viewHandlers = baseClassDirectives.viewHandlers.concat();
 			}
 			
 			var des:XML = flash.utils.describeType(ty);
@@ -141,8 +141,7 @@ package com.openflux.core
 			for each(var contract:ViewContractDirective in directives.viewContracts) {
 				if((data.view as Object).hasOwnProperty(contract.property)) {
 					var ty:Class = ApplicationDomain.currentDomain.getDefinition(contract.type) as Class;
-					if(data is ty) {
-						
+					if(data.view[contract.property] is ty) {
 						this[contract.property] = data.view[contract.property];
 					}
 				}
