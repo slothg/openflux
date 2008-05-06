@@ -11,9 +11,11 @@ package com.openflux.layouts.animators
 		private var count:int = 0;
 		
 		static public const TRANSITION_LINEAR:String = "linear";
+		static public const EASE_OUT_EXPO:String = "easeOutExpo";
+		static public const EASE_OUT_BOUNCE:String = "easeOutBounce";
 		
-		public var time:Number = 1;
-		public var transition:String = "linear";
+		[StyleBinding] public var time:Number = 0.500;
+		[StyleBinding] public var transition:String = EASE_OUT_EXPO;
 		
 		public function attach(container:IDataView):void {}
 		public function detach(container:IDataView):void {}
@@ -23,7 +25,7 @@ package com.openflux.layouts.animators
 		
 		public function moveItem(item:Object, token:Object):void
 		{
-			if (!token.time) token.time = time;
+			token.time = time;
 			token.transition = transition;
 			token.onComplete = onComplete;
 			Tweener.addTween(item, token);

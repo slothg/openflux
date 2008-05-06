@@ -48,7 +48,6 @@ package com.openflux.controllers
 		}
 		*/
 		
-		
 		private function selectedItemsChange(value:ArrayCollection):void {
 			if(value) {
 				value.addEventListener(CollectionEvent.COLLECTION_CHANGE, selectedItems_collectionChangeHandler, false, 0, true);

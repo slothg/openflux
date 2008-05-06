@@ -6,8 +6,7 @@ package com.openflux.core
 	import flash.display.DisplayObject;
 	import mx.core.IUIComponent;
 
-	public class UIBitmap extends Bitmap
-						 implements IFlexDisplayObject
+	public class UIBitmap extends Bitmap implements IFlexDisplayObject
  	{
 		public function UIBitmap(bmd:Object = null,pixelSnapping:String="auto",smoothing:Boolean=false):void
 		{

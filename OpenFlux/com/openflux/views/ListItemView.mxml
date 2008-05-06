@@ -10,7 +10,7 @@
 	</mx:Script>
 	
 	<flux:states>
-		<mx:State name="{ButtonStates.UP}" />
+		<mx:State name="{ButtonStates.UP}" basedOn="" />
 		<mx:State name="{ButtonStates.OVER}">
 			<mx:SetProperty target="{fill}" name="color" value="#7FCEFF" />
 			<mx:SetProperty target="{fill}" name="alpha" value="0.7" />

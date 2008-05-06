@@ -6,19 +6,19 @@ package com.openflux.layouts
 	
 	import mx.core.UIComponent;
 
-	public class TileLayout extends LayoutBase implements ILayout
+	public class FlowLayout extends LayoutBase implements ILayout, IDragLayout
 	{
 		
 		public var measuredGap:Number;
 		public var horizontalAlignment:String = "left";
 		public var verticalAlignment:String = "top";
 		
-		public function TileLayout():void {
+		public function FlowLayout():void {
 			super();
 			animator = new TweenAnimator();
 		}
 		
-		public function getMeasuredSize():Point {
+		public function measure():Point {
 			var point:Point = new Point();
 			for each(var child:UIComponent in container.renderers) {
 				point.x = Math.max(child.getExplicitOrMeasuredWidth(), point.x);
@@ -27,7 +27,7 @@ package com.openflux.layouts
 			return point;
 		}
 		
-		public function generateLayout():void {
+		public function update(indices:Array = null):void {
 			var containerWidth:Number = container.getExplicitOrMeasuredWidth();
 			var point:Point = measureGrid();
 			var cols:Number = Math.floor(containerWidth / point.x);
@@ -38,17 +38,17 @@ package com.openflux.layouts
 			var xPos:Number = space / 2;
 			var yPos:Number = space / 2;
 			var len:int = container.renderers.length;
-			var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
+			//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
 			var child:UIComponent;
 			var width:Number;
 			var height:Number;
 			
 			for (var i:int = 0; i < len; i++) {
 				child = container.renderers[i];
-				width = child.getExplicitOrMeasuredWidth();
-				height = child.getExplicitOrMeasuredHeight();
+				width = child.measuredWidth;
+				height = child.measuredHeight;
 				
-				if (i == container.dragTargetIndex) {
+				if(indices && indices.indexOf(i, 0) >= 0) {
 					xPos += width + 10;
 					if(xPos > containerWidth - width - space / 2) {
 						xPos = space / 2;
@@ -56,7 +56,7 @@ package com.openflux.layouts
 					}
 				}
 				
-				animator.moveItem(child, {x:xPos, y:yPos, width:width, height:height, rotation:0, time:time});
+				animator.moveItem(child, {x:xPos, y:yPos, width:width, height:height, rotation:0});
 				
 				xPos += width + 10;
 				if(xPos > containerWidth - width - space / 2) {
@@ -75,7 +75,7 @@ package com.openflux.layouts
 			var xPos:Number = space / 2;
 			var yPos:Number = space / 2;
 			var len:int = container.renderers.length;
-			var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
+			//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
 			var child:UIComponent;
 			var width:Number;
 			var height:Number;

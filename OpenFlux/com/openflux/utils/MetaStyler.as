@@ -57,10 +57,10 @@ package com.openflux.utils
 					case "Number":
 					case "int":
 					case "uint":
-						return resolveNumber(value, none.valueOf());
+						return resolveNumber(value, none as Number);
 						break;
 					case "String":
-						return resolveString(value, none.toString());
+						return resolveString(value, none as String);
 						break;
 					default:
 						var type:Object = flash.utils.getDefinitionByName(directive.type);

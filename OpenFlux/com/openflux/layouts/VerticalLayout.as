@@ -2,12 +2,13 @@ package com.openflux.layouts
 {
 	import flash.geom.Point;
 	
+	import mx.collections.ArrayCollection;
 	import mx.core.UIComponent;
 	
-	public class VerticalLayout extends LayoutBase implements ILayout
+	public class VerticalLayout extends LayoutBase implements ILayout, IDragLayout
 	{
 		
-		private var _gap:Number = 0; [Bindable]
+		private var _gap:Number = 0; [Bindable] [StyleBinding]
 		public function get gap():Number { return _gap; }
 		public function set gap(value:Number):void {
 			if (_gap != value) {
@@ -16,11 +17,7 @@ package com.openflux.layouts
 			}
 		}
 		
-		public function VerticalLayout():void {
-			super();
-		}
-		
-		public function getMeasuredSize():Point {
+		public function measure():Point {
 			var point:Point = new Point(0, 0);
 			for each(var child:UIComponent in container.renderers) {
 				point.x = Math.max(child.getExplicitOrMeasuredWidth(), point.x);
@@ -29,31 +26,28 @@ package com.openflux.layouts
 			return point;
 		}
 		
-		public function generateLayout():void {
+		public function update(indices:Array = null):void {
 			animator.begin();
-			
-			var yPos:Number = 0;
-			var len:int = container.renderers.length;
-			var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
-			var child:UIComponent;
-			var width:Number;
-			var height:Number;
-			
-			for (var i:int = 0; i < len; i++) {
-				child = container.renderers[i];
-				width = child.getExplicitOrMeasuredWidth();
-				height = child.getExplicitOrMeasuredHeight();
-				
-				if (i == container.dragTargetIndex)
-					yPos += height + gap;
-					
-				animator.moveItem(child, {x:0, y:yPos, width:width, height:height, rotation:0, time:time});
-				yPos += height + gap;
+			var position:Number = 0;
+			var length:int = container.renderers.length;
+			//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
+			for (var i:int = 0; i < length; i++) {
+				var token:Object = new Object();
+				var child:UIComponent = container.renderers[i];
+				token.width = container.getExplicitOrMeasuredWidth();
+				token.height = child.measuredHeight;
+				if(indices && indices.indexOf(i, 0) >= 0) {
+					position += token.height + gap;
+				}
+				token.x = 0;
+				token.y = position;
+				token.rotation;
+				animator.moveItem(child, token);
+				position += token.height + gap;
 			}
-			
 			animator.end();
 		}
-		
+		/*
 		override public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {
 			var yPos:Number = 0;
 			var len:int = container.renderers.length;
@@ -73,6 +67,6 @@ package com.openflux.layouts
 			}
 			
 			return -1;
-		}
+		}*/
 	}
 }

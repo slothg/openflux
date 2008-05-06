@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<flux:DataView 
+<flux:DataView backgroundColor="#FFFFFF" backgroundAlpha="0"
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:flux="com.openflux.core.*" 
 	xmlns:views="com.openflux.views.*" 
@@ -13,4 +13,5 @@
 			</layout:animator>
 		</layout:VerticalLayout>
 	</flux:layout>
+	
 </flux:DataView>
