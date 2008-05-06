@@ -7,8 +7,55 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.openflux.core.IFluxComponent;
+			import com.openflux.core.UIBitmap;
+			import mx.core.UIComponent;
+			import mx.managers.DragManager;
+			import mx.core.DragSource;
+			import mx.core.IFlexDisplayObject;
+			import mx.core.IUIComponent;
+			import com.openflux.layouts.IDragLayout;
+			import mx.events.DragEvent;
 			import com.openflux.core.IDataView;
 			import com.openflux.core.DataView;
+			
+			// Trying to think about where this part of drag/drop belongs
+			// maybe in it's own control? We may need to hook into this for
+			// sorted layouts with drag/drop support
+			private function dragStartHandler(event:MouseEvent):void {
+				//if (!_allowDrag) return;
+				
+				var view:IDataView = (event.currentTarget as List).view as IDataView;
+				// Search for item renderer index at local x/y
+				var p:Point = view.globalToLocal(new Point(event.stageX, event.stageY));
+				var dragIdx:Number = -1;
+				if(view.layout is IDragLayout) {
+					dragIdx = IDragLayout(view.layout).findItemAt(p.x, p.y, false);
+				}
+				if(dragIdx == -1) dragIdx = 0;
+				
+				// Reference the item renderer
+				// If it's a 3D renderer, the UIComponent is at item.material.movie
+				// ahhh!!! why's this here? :-)
+				var dragItem:IUIComponent = view.renderers[dragIdx].hasOwnProperty("material") ? view.renderers[dragIdx].material.movie : view.renderers[dragIdx];
+				if (!dragItem) return;
+				
+				// Init the DragImage and DragSource
+				var dragImage:IFlexDisplayObject = new UIBitmap(dragItem, PixelSnapping.NEVER);			
+				var dragSrc:DragSource = new DragSource();
+				dragSrc.addData([list.dataProvider[dragIdx]], "items");
+				//dragSrc.addData(dragIdx, "index");
+				
+				DragManager.doDrag(view as UIComponent, dragSrc, event, dragImage, -dragItem.x , -dragItem.y, .6, true);
+			}
+			
+			private function dragEnterHandler(event:DragEvent):void {
+				// Blindly accept the drag
+				event.action = "move";
+				DragManager.acceptDragDrop((event.currentTarget as IFluxComponent).view as UIComponent);
+				DragManager.showFeedback(event.action);
+			}
+			
 		]]>
 	</mx:Script>
 	<mx:Style source="css/ListExample.css" />
@@ -27,6 +74,7 @@
 		<mx:Object label="Test 11" />
 		<mx:Object label="Test 12" />
 	</mx:ArrayCollection>
+	
 	<mx:ArrayCollection id="data2">
 		<mx:Object label="Test 13" />	
 		<mx:Object label="Test 14" />
@@ -52,7 +100,7 @@
 	
 	<layouts:VerticalLayout id="vertical" />
 	<layouts:HorizontalLayout id="horizontal" />
-	<layouts:TileLayout id="tiled" />
+	<layouts:FlowLayout id="tiled" />
 	<layouts:CircleLayout id="circle" />
 	<layouts:StackLayout id="stack" />
 	
@@ -60,14 +108,15 @@
 		<mx:VBox width="50%" height="100%">
 			<mx:ComboBox id="combo" dataProvider="{layouts}" labelField="label" />
 			<mx:HBox width="100%" height="100%">
-				<flux:List id="list" dataProvider="{data1}" width="100%" height="100%" layout="{combo.selectedItem.layout}" styleName="fluxList" />
+				<flux:List id="list" dataProvider="{data1}" layout="{combo.selectedItem.layout}" width="100%" height="100%" styleName="fluxList" 
+					 dragEnter="dragEnterHandler(event)" mouseDown="dragStartHandler(event)"/>
 			</mx:HBox>
-		</mx:VBox>
+		</mx:VBox><!--
 		<mx:VBox width="50%" height="100%">
 			<mx:ComboBox id="combo2" dataProvider="{layouts}" labelField="label" />
 			<mx:HBox width="100%" height="100%">
-				<flux:List id="list2" dataProvider="{data2}" width="100%" height="100%" layout="{combo2.selectedItem.layout}" styleName="fluxList" />
+				<flux:List id="list2" dataProvider="{data2}" layout="{combo2.selectedItem.layout}" width="100%" height="100%" styleName="fluxList" />
 			</mx:HBox>
-		</mx:VBox>
+		</mx:VBox>-->
 	</mx:HBox>
 </mx:Application>
