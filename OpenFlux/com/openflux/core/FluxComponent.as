@@ -69,8 +69,8 @@ package com.openflux.core
 			super.commitProperties();
 			if(viewChanged) {
 				view.data = this;
-				MetaStyler.initialize(view, this);
 				addChild(view as UIComponent);
+				MetaStyler.initialize(view, this);
 				viewChanged = false;
 			}
 			if(controllerChanged) {
