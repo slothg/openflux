@@ -75,7 +75,7 @@ package com.openflux.utils
 			return value != null ? value : none;
 		}
 		
-		private static function resolveNumber(value:Object, none:Number):Boolean {
+		private static function resolveNumber(value:Object, none:Number):Number {
 			return value != null ? value.valueOf() : none;
 		}
 		
