@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flux:FluxView 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:flux="http://openflux.googlecode.com" 
+	xmlns:degrafa="http://www.degrafa.com/2007" 
+	xmlns:filters="flash.filters.*" 
+	mouseChildren="false" >
+	<mx:Script>
+		<![CDATA[
+			import mx.graphics.IFill;
+			
+			import com.openflux.constants.ButtonStates;
+			[Bindable] public var offset:Number = 0;
+			
+			[Bindable] [StyleBinding]
+			public var background:IFill;
+			
+		]]>
+	</mx:Script>
+	
+	<flux:states>
+		<mx:State name="{ButtonStates.UP}" />
+		<mx:State name="{ButtonStates.OVER}">
+			<mx:SetProperty target="{color1}" name="color" value="#FFFFFF" />
+			<mx:SetProperty target="{color2}" name="color" value="#FFFFFF" />
+		</mx:State>
+		<mx:State name="{ButtonStates.DOWN}">
+			<mx:SetProperty target="{this}" name="offset" value="2" />
+			<mx:SetProperty target="{color1}" name="color" value="#009DFF" />
+			<mx:SetProperty target="{color2}" name="color" value="#009DFF" />
+		</mx:State>
+	</flux:states>
+	
+	
+	<!-- defining the fills/strokes used -->
+	
+	<degrafa:LinearGradientStroke id="stroke" angle="90" weight="1" caps="round" joints="round" pixelHinting="true">
+		<degrafa:GradientStop color="#B7BABC" ratio="0" />
+		<degrafa:GradientStop color="#5B5D5E" ratio="1" />
+	</degrafa:LinearGradientStroke>
+	
+	<degrafa:ComplexFill id="fill">
+		<degrafa:LinearGradientFill angle="90">
+			<degrafa:GradientStop id="color1" color="#FFFFFF" alpha="0.6" />
+			<degrafa:GradientStop id="color2" color="#CCCCCC" alpha="0.4" />
+		</degrafa:LinearGradientFill>
+		<degrafa:LinearGradientFill angle="90">
+			<degrafa:GradientStop color="#FFFFFF" alpha="0.3" ratio="0" />
+			<degrafa:GradientStop color="#FFFFFF" alpha="0.0" ratio="0.5" />
+		</degrafa:LinearGradientFill>
+	</degrafa:ComplexFill>
+	
+	
+	<!-- drawing the background -->
+	<degrafa:GeometryComposition graphicsTarget="{[this]}">
+		<degrafa:RoundedRectangleComplex x="{offset}" y="{offset}" width="{width}" height="{height}" fill="{fill}" stroke="{stroke}" topLeftRadius="4" topRightRadius="4" bottomLeftRadius="4" bottomRightRadius="4" />
+	</degrafa:GeometryComposition>
+	
+	<!-- here's the label -->
+	<mx:Label text="{component.hasOwnProperty('label') ? component.label : component.data.label}" color="#0B333C" horizontalCenter="{offset}" verticalCenter="{offset+1}">
+		<mx:filters>
+			<filters:GradientBevelFilter angle="45" distance="2" colors="{[0xFFFFFF]}" />
+		</mx:filters>
+	</mx:Label>
+	
+</flux:FluxView>

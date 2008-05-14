@@ -7,6 +7,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.openflux.core.IFluxContainer;
 			import com.openflux.core.IFluxComponent;
 			import com.openflux.core.UIBitmap;
 			import mx.core.UIComponent;
@@ -25,7 +26,7 @@
 			private function dragStartHandler(event:MouseEvent):void {
 				//if (!_allowDrag) return;
 				
-				var view:IDataView = (event.currentTarget as List).view as IDataView;
+				var view:IFluxContainer = (event.currentTarget as List).view as IFluxContainer;
 				// Search for item renderer index at local x/y
 				var p:Point = view.globalToLocal(new Point(event.stageX, event.stageY));
 				var dragIdx:Number = -1;
@@ -119,4 +120,5 @@
 			</mx:HBox>
 		</mx:VBox>-->
 	</mx:HBox>
+	
 </mx:Application>
