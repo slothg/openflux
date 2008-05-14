@@ -2,8 +2,10 @@ package com.openflux.core
 {
 	
 	/**
-	 * Defines the interface which all visual components extending from this library must implement.
-	 * This enforces a consistent seperation of model, view, and controller functionality (in which the component itself represents the model).
+	 * Defines the interface which all components extending from this library must implement.
+	 * This interface enforces a consistent seperation of model, view, and controller functionality (in which the component itself represents the model).
+	 * An IFluxComponent should contain only the core data model which is inherent to the component. Properties which only effect the behavior
+	 * or appearance of a component should be declared on the controller or view respectively.
 	 * @see IFluxController
 	 * @see IFluxView
 	 */
@@ -11,17 +13,15 @@ package com.openflux.core
 	{
 		
 		/**
-		 * An instance of IFluxController.
-		 * The IFluxController instance should be responsible for the behavior of this component, 
-		 * including reacting to user input/gestures or changes in the model.
+		 * The controller is responsible for the behavior of a component
+		 * , which includes reacting to user input/gestures.
 		 */
 		function get controller():IFluxController;
 		function set controller(value:IFluxController):void;
 		
 		/**
-		 * An instance of IFluxView.
-		 * The IFluxView instance should be responsible for the visual appearance of this component,
-		 * including graphics, child management, states, and transitions.
+		 * The view is responsible for the visual appearance of a component
+		 * , which includes graphics, child management, states, and transitions.
 		 */
 		function get view():IFluxView;
 		function set view(value:IFluxView):void;

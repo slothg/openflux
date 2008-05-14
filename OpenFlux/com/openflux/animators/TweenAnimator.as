@@ -1,11 +1,11 @@
-package com.openflux.layouts.animators
+package com.openflux.animators
 {
 	import caurina.transitions.Tweener;
 	
 	import com.openflux.core.IDataView;
 	
 	
-	public class TweenAnimator implements ILayoutAnimator
+	public class TweenAnimator implements IAnimator
 	{
 		
 		private var count:int = 0;

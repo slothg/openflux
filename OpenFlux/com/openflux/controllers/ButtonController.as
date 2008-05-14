@@ -34,20 +34,20 @@ package com.openflux.controllers
 		//*************************************************
 		
 		private function mouseOverHandler(event:MouseEvent):void {
-			data.view.state = resolveState(ButtonStates.OVER);
+			component.view.state = resolveState(ButtonStates.OVER);
 		}
 		
 		private function mouseOutHandler(event:MouseEvent):void {
-			data.view.state = resolveState(ButtonStates.UP);
+			component.view.state = resolveState(ButtonStates.UP);
 		}
 		
 		private function mouseDownHandler(event:MouseEvent):void {
-			data.view.state = resolveState(ButtonStates.DOWN);
+			component.view.state = resolveState(ButtonStates.DOWN);
 		}
 		
 		private function mouseUpHandler(event:MouseEvent):void {
 			if(sdata) { sdata.selected = !sdata.selected; }
-			data.view.state = resolveState(ButtonStates.OVER);
+			component.view.state = resolveState(ButtonStates.OVER);
 		}
 		
 		

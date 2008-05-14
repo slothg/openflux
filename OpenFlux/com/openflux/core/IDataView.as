@@ -10,25 +10,25 @@ package com.openflux.core
 	
 	// inferred dataViewChanged event
 	// this needs to get split up to seperate dragging (perhaps scrolling) interfaces
-	public interface IDataView extends IUIComponent, IInvalidating
+	public interface IDataView
 	{
 		
 		//function get dataProvider():Object;
 		function get content():Object;
 		function get itemRenderer():IFactory;
 		
-		function get layout():ILayout;
-		function set layout(value:ILayout):void;
+		//function get layout():ILayout;
+		//function set layout(value:ILayout):void;
 		
-		function get renderers():Array; // always DisplayObjects
+		//function get renderers():Array; // always DisplayObjects
 		
-		function get verticalScrollPosition():Number;
-		function get horizontalScrollPosition():Number;
+		//function get verticalScrollPosition():Number;
+		//function get horizontalScrollPosition():Number;
 		/* // figuring out where this belongs
 		function get dragTargetIndex():int;
 		function set dragTargetIndex(value:int):void;
 		*/
-		function invalidateLayout():void;
+		//function invalidateLayout():void;
 		
 		//function localToGlobal(point:Point):Point;
 		

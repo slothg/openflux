@@ -16,10 +16,10 @@ package com.openflux.controllers
 		}
 
 		
-		override public function set data(value:IFluxComponent):void {
-			super.data = value;
+		override public function set component(value:IFluxComponent):void {
+			super.component = value;
 			for each(var c:IFluxController in controllers) {
-				c.data = value;
+				c.component = value;
 			}
 		}
 		

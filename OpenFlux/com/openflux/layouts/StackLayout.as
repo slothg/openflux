@@ -1,11 +1,11 @@
 package com.openflux.layouts
 {
 	
-	import com.openflux.core.IDataView;
+	import com.openflux.core.IFluxContainer;
 	import com.openflux.core.ISelectable;
 	import com.openflux.events.DataViewEvent;
-	import com.openflux.layouts.animators.TweenAnimator;
 	
+	import flash.events.IEventDispatcher;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
@@ -30,19 +30,25 @@ package com.openflux.layouts
 		
 		public function StackLayout():void {
 			super();
-			animator = new TweenAnimator();
+			//animator = new TweenAnimator();
 		}
 		
-		override public function attach(container:IDataView):void {
+		override public function attach(container:IFluxContainer):void {
 			super.attach(container);
-			container.addEventListener(MouseEvent.CLICK, clickHandler);
-			container.addEventListener(DataViewEvent.DATA_VIEW_CHANGED, dataViewChanged);
+			var dispatcher:IEventDispatcher = container as IEventDispatcher;
+			if(dispatcher) {
+				dispatcher.addEventListener(MouseEvent.CLICK, clickHandler);
+				dispatcher.addEventListener(DataViewEvent.DATA_VIEW_CHANGED, dataViewChanged);
+			}
 		}
 		
-		override public function detach(container:IDataView):void {
+		override public function detach(container:IFluxContainer):void {
 			super.detach(container);
-			container.removeEventListener(MouseEvent.CLICK, clickHandler);
-			container.removeEventListener(DataViewEvent.DATA_VIEW_CHANGED, dataViewChanged);
+			var dispatcher:IEventDispatcher = container as IEventDispatcher;
+			if(dispatcher) {
+				dispatcher.removeEventListener(MouseEvent.CLICK, clickHandler);
+				dispatcher.removeEventListener(DataViewEvent.DATA_VIEW_CHANGED, dataViewChanged);
+			}
 		}
 		
 		public function dataViewChanged(event:DataViewEvent):void {
@@ -65,8 +71,8 @@ package com.openflux.layouts
 		}
 		
 		public function update(indices:Array = null):void {
-			if (container.renderers && container.renderers.length > 0) {
-				animator.begin();
+			if (container.renderers && container.renderers.length > 0 && container.animator) {
+				container.animator.begin();
 				
 				var len:int = container.renderers.length;
 				var xPos:Number = 0;
@@ -91,7 +97,7 @@ package com.openflux.layouts
 						}
 					}
 					
-					animator.moveItem(child, {x:xPos, y:yPos, width:width, height:height, rotation:0});
+					container.animator.moveItem(child, {x:xPos, y:yPos, width:width, height:height, rotation:0});
 					
 					if (selectMode == "ZigZag") {
 						if ((child as ISelectable).selected) direction = direction * -1;
@@ -103,7 +109,7 @@ package com.openflux.layouts
 					}
 				}
 				
-				animator.end();
+				container.animator.end();
 			}
 		}
 		

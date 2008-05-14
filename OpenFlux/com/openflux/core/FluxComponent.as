@@ -68,13 +68,13 @@ package com.openflux.core
 		override protected function commitProperties():void {
 			super.commitProperties();
 			if(viewChanged) {
-				view.data = this;
+				view.component = this;
 				addChild(view as UIComponent);
 				MetaStyler.initialize(view, this);
 				viewChanged = false;
 			}
 			if(controllerChanged) {
-				controller.data = this;
+				controller.component = this;
 				MetaStyler.initialize(controller, this);
 				controllerChanged = false;
 			}

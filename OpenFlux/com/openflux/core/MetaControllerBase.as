@@ -82,16 +82,16 @@ package com.openflux.core
 		
 		private var directives:ClassDirective;
 		
-		private var _data:IFluxComponent;
-		public function get data():IFluxComponent { return _data; }
-		public function set data(value:IFluxComponent):void {
-			if(_data && _data.view is IEventDispatcher) {
+		private var _component:IFluxComponent;
+		public function get component():IFluxComponent { return _component; }
+		public function set component(value:IFluxComponent):void {
+			if(_component && _component.view is IEventDispatcher) {
 				detachHandlers();
 			}
-			_data = value;
+			_component = value;
 			applyAliasDirectives();
 			applyContractDirectives();
-			if(_data && _data.view is IEventDispatcher) {
+			if(_component && _component.view is IEventDispatcher) {
 				attachHandlers();
 			}
 			//MetaBinder.InitObject(this);
@@ -114,7 +114,7 @@ package com.openflux.core
 		//********************************************
 		
 		protected function attachHandlers():void {
-			var dispatcher:IEventDispatcher = data.view as IEventDispatcher;
+			var dispatcher:IEventDispatcher = component.view as IEventDispatcher;
 			for each(var handler:ViewHandlerDirective in directives.viewHandlers) {
 				var f:Function = tokenFunction(handler.handler) as Function;
 				dispatcher.addEventListener(handler.event, f, false, 0, true);
@@ -122,7 +122,7 @@ package com.openflux.core
 		}
 		
 		protected function detachHandlers():void {
-			var dispatcher:IEventDispatcher = data.view as IEventDispatcher;
+			var dispatcher:IEventDispatcher = component.view as IEventDispatcher;
 			for each(var handler:ViewHandlerDirective in directives.viewHandlers) {
 				dispatcher.removeEventListener(handler.event, this[handler.handler], false);
 			}
@@ -131,18 +131,18 @@ package com.openflux.core
 		private function applyAliasDirectives():void {
 			for each(var alias:ModelAliasDirective in directives.modelAliases) {
 				var ty:Class = ApplicationDomain.currentDomain.getDefinition(alias.type) as Class;
-				if(data is ty) {
-					this[alias.property] = data;
+				if(component is ty) {
+					this[alias.property] = component;
 				}
 			}
 		}
 		
 		private function applyContractDirectives():void {
 			for each(var contract:ViewContractDirective in directives.viewContracts) {
-				if((data.view as Object).hasOwnProperty(contract.property)) {
+				if((component.view as Object).hasOwnProperty(contract.property)) {
 					var ty:Class = ApplicationDomain.currentDomain.getDefinition(contract.type) as Class;
-					if(data.view[contract.property] is ty) {
-						this[contract.property] = data.view[contract.property];
+					if(component.view[contract.property] is ty) {
+						this[contract.property] = component.view[contract.property];
 					}
 				}
 			}

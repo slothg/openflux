@@ -4,14 +4,12 @@
 	xmlns:flux="com.openflux.core.*" 
 	xmlns:views="com.openflux.views.*" 
 	xmlns:layout="com.openflux.layouts.*" 
-	xmlns:animators="com.openflux.layouts.animators.*" 
-	content="{data.dataProvider}" >
+	xmlns:animators="com.openflux.animators.*" 
+	content="{component.dataProvider}" >
+	<flux:animator>
+		<animators:TweenAnimator transition="linear" />
+	</flux:animator>
 	<flux:layout>
-		<layout:VerticalLayout id="l" gap="0">
-			<layout:animator>
-				<animators:TweenAnimator transition="easeInBack" />
-			</layout:animator>
-		</layout:VerticalLayout>
+		<layout:VerticalLayout />
 	</flux:layout>
-	
 </flux:DataView>

@@ -18,7 +18,7 @@ package com.openflux.controllers
 		private var ldata:IFluxListItem;
 		private var selectedItemsWatcher:ChangeWatcher;
 		
-		override public function set data(value:IFluxComponent):void {
+		override public function set component(value:IFluxComponent):void {
 			if(value is IFluxListItem) {
 				ldata = value as IFluxListItem;
 				
@@ -26,7 +26,7 @@ package com.openflux.controllers
 				if(ldata && ldata.list)
 					selectedItemsWatcher = BindingUtils.bindSetter(selectedItemsChange, ldata.list, "selectedItems", true);
 			}
-			super.data = value;
+			super.component = value;
 		}
 		
 		/*

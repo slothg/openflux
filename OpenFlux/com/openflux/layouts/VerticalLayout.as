@@ -27,7 +27,7 @@ package com.openflux.layouts
 		}
 		
 		public function update(indices:Array = null):void {
-			animator.begin();
+			container.animator.begin();
 			var position:Number = 0;
 			var length:int = container.renderers.length;
 			//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
@@ -42,10 +42,10 @@ package com.openflux.layouts
 				token.x = 0;
 				token.y = position;
 				token.rotation;
-				animator.moveItem(child, token);
+				container.animator.moveItem(child, token);
 				position += token.height + gap;
 			}
-			animator.end();
+			container.animator.end();
 		}
 		/*
 		override public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {
