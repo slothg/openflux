@@ -1,8 +1,6 @@
 package com.openflux.layouts
 {
-	import com.openflux.core.IDataView;
-	import com.openflux.layouts.animators.ILayoutAnimator;
-	import com.openflux.layouts.animators.TweenAnimator;
+	import com.openflux.core.IFluxContainer;
 	
 	import flash.geom.Point;
 	
@@ -11,15 +9,8 @@ package com.openflux.layouts
 	public class LayoutBase
 	{
 		
-		private var _animator:ILayoutAnimator = new TweenAnimator();
-		private var _dragItems:Array;
-		
-		protected var container:IDataView;
-		
-		public function get animator():ILayoutAnimator { return _animator; }		
-		public function set animator(value:ILayoutAnimator):void {
-			_animator = value;
-		}
+		//private var _dragItems:Array;
+		protected var container:IFluxContainer;
 		
 		public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {
 			var length:int = container.renderers.length - 1;
@@ -38,11 +29,11 @@ package com.openflux.layouts
 			return index;
 		}
 		
-		public function attach(container:IDataView):void {
+		public function attach(container:IFluxContainer):void {
 			this.container = container;
 		}
 		
-		public function detach(container:IDataView):void {
+		public function detach(container:IFluxContainer):void {
 			this.container = null;
 		}
 		

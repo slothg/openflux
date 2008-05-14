@@ -7,15 +7,17 @@ package com.openflux.core
 	public class FluxController implements IFluxController
 	{
 		
-		private var _data:IFluxComponent; [Bindable]
-		public function get data():IFluxComponent { return _data; }		
-		public function set data(value:IFluxComponent):void {
-			if(_data && _data.view is IEventDispatcher) {
-				detachEventListeners(_data.view as IEventDispatcher);
+		private var _component:IFluxComponent;
+		
+		[Bindable]
+		public function get component():IFluxComponent { return _component; }		
+		public function set component(value:IFluxComponent):void {
+			if(_component && _component.view is IEventDispatcher) {
+				detachEventListeners(_component.view as IEventDispatcher);
 			}
-			_data = value;
-			if(_data && _data.view is IEventDispatcher) {
-				attachEventListeners(_data.view as IEventDispatcher);
+			_component = value;
+			if(_component && _component.view is IEventDispatcher) {
+				attachEventListeners(_component.view as IEventDispatcher);
 			}
 		}
 		
@@ -25,11 +27,11 @@ package com.openflux.core
 		}
 		
 		protected function attachEventListeners(view:IEventDispatcher):void {
-			// stubbed out for extending classes
+			// abstract
 		}
 		
 		protected function detachEventListeners(view:IEventDispatcher):void {
-			// stubbed out for extending classes
+			// abstract
 		}
 		
 		

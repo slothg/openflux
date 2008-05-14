@@ -42,7 +42,7 @@ package com.openflux.layouts
 		}
 		
 		public function update(indices:Array = null):void {
-			animator.begin();
+			container.animator.begin();
 			var length:int = container.renderers.length;
 			var width:Number = container.getExplicitOrMeasuredWidth()/2;
 			var height:Number = container.getExplicitOrMeasuredHeight()/2;
@@ -69,11 +69,11 @@ package com.openflux.layouts
 						token.rotation -= 360;
 					}
 				}
-				animator.moveItem(child, token);
+				container.animator.moveItem(child, token);
 				
 				trace(ObjectUtil.toString(token));
 			}
-			animator.end();
+			container.animator.end();
 		}
 		
 	}

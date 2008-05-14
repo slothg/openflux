@@ -15,7 +15,7 @@ package com.openflux.layouts
 		
 		public function FlowLayout():void {
 			super();
-			animator = new TweenAnimator();
+			//animator = new TweenAnimator();
 		}
 		
 		public function measure():Point {
@@ -33,7 +33,7 @@ package com.openflux.layouts
 			var cols:Number = Math.floor(containerWidth / point.x);
 			var space:Number = (containerWidth - (point.x * cols)) / (cols + 1);
 			
-			animator.begin();
+			container.animator.begin();
 			
 			var xPos:Number = space / 2;
 			var yPos:Number = space / 2;
@@ -56,7 +56,7 @@ package com.openflux.layouts
 					}
 				}
 				
-				animator.moveItem(child, {x:xPos, y:yPos, width:width, height:height, rotation:0});
+				container.animator.moveItem(child, {x:xPos, y:yPos, width:width, height:height, rotation:0});
 				
 				xPos += width + 10;
 				if(xPos > containerWidth - width - space / 2) {
@@ -64,7 +64,7 @@ package com.openflux.layouts
 					yPos += height + 8;
 				}
 			}
-			animator.end();
+			container.animator.end();
 		}
 		
 		override public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {

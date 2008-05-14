@@ -27,12 +27,13 @@ package com.openflux
 			_selected = value;
 		}
 		
+		/* // No longer used
 		[Bindable]
 		public function get buttonState():String { return _buttonState; }
 		public function set buttonState(value:String):void {
 			_buttonState = value;
 		}
-		
+		*/
 		
 		//***************************************************
 		// Framework Overrides

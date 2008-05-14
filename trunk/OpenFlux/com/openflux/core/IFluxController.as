@@ -11,13 +11,10 @@ package com.openflux.core
 	{
 		
 		/**
-		 * Usually an instance of IFluxComponent.
-		 * 
+		 * A reference to the component which the implementing class controls
 		 */
-		function get data():IFluxComponent;
-		function set data(value:IFluxComponent):void;
-		
-		//function styleChanged(styleProp:String):void;
+		function get component():IFluxComponent;
+		function set component(value:IFluxComponent):void;
 		
 	}
 }

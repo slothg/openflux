@@ -30,7 +30,7 @@ package com.openflux.layouts
 		}
 		
 		public function update(indices:Array = null):void {
-			animator.begin();
+			container.animator.begin();
 			
 			var xPos:Number = 0;
 			var len:int = container.renderers.length;
@@ -48,11 +48,11 @@ package com.openflux.layouts
 					xPos += width + gap;
 				}
 					
-				animator.moveItem(child, {x:xPos, y:0, width:width, height:height, rotation:0});
+				container.animator.moveItem(child, {x:xPos, y:0, width:width, height:height, rotation:0});
 				xPos += width + gap;
 			}
 			
-			animator.end();
+			container.animator.end();
 		}
 		
 		override public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {

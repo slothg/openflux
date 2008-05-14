@@ -1,19 +1,19 @@
 package com.openflux.layouts
 {
-	import com.openflux.core.IDataView;
-	import com.openflux.layouts.animators.ILayoutAnimator;
+	import com.openflux.core.IFluxContainer;
 	
 	import flash.geom.Point;
 	//import flash.events.MouseEvent;
 	//import mx.events.DragEvent;
 	
 	public interface ILayout
-	{			
+	{	
+		/*
 		function get animator():ILayoutAnimator;
 		function set animator(value:ILayoutAnimator):void;
-		
-		function attach(container:IDataView):void;
-		function detach(container:IDataView):void;
+		*/
+		function attach(container:IFluxContainer):void;
+		function detach(container:IFluxContainer):void;
 		
 		function measure():Point;
 		function update(indices:Array = null):void;

@@ -1,6 +1,7 @@
 package com.openflux.core
 {
 	import com.openflux.ListItem;
+	import com.openflux.animators.IAnimator;
 	import com.openflux.events.DataViewEvent;
 	import com.openflux.layouts.ILayout;
 	import com.openflux.layouts.VerticalLayout;
@@ -20,12 +21,13 @@ package com.openflux.core
 	import mx.styles.IStyleClient;
 	
 	[Event(name="dataViewChanged", type="com.openflux.events.DataViewEvent")]
-	public class DataView extends FluxView implements IDataView
+	public class DataView extends FluxView implements IFluxContainer, IDataView
 	{
 		private var _collection:ICollectionView;
 		
 		private var _content:Object;
 		private var _itemRenderer:IFactory;
+		private var _animator:IAnimator;
 		private var _layout:ILayout;
 		private var _renderers:Array = [];
 		private var _dragTargetIndex:int = -1;
@@ -74,6 +76,12 @@ package com.openflux.core
 		}
 		
 		[StyleBinding]
+		public function get animator():IAnimator { return _animator; }
+		public function set animator(value:IAnimator):void {
+			_animator = value;
+		}
+		
+		[StyleBinding]
 		public function get layout():ILayout { return _layout; }
 		public function set layout(value:ILayout):void {
 			if(_layout) {
@@ -83,7 +91,10 @@ package com.openflux.core
 			if(_layout) {
 				_layout.attach(this);
 				MetaStyler.initialize(_layout, this.data as IStyleClient);
-				if(_layout.animator) { MetaStyler.initialize(_layout.animator, this.data as IStyleClient); }
+				//if(_layout.animator) { MetaStyler.initialize(_layout.animator, this.data as IStyleClient); }
+			}
+			if(_animator) {
+				MetaStyler.initialize(_animator, this.data as IStyleClient);
 			}
 			invalidateLayout();
 		}
@@ -153,13 +164,13 @@ package com.openflux.core
 		override public function stylesInitialized():void {
 			super.stylesInitialized();
 			if(layout) { MetaStyler.initialize(layout, this.data as IStyleClient); }
-			if(layout.animator) { MetaStyler.initialize(layout.animator, this.data as IStyleClient); }
+			if(animator) { MetaStyler.initialize(animator, this.data as IStyleClient); }
 		}
 		
 		override public function styleChanged(styleProp:String):void {
 			super.styleChanged(styleProp);
 			if(layout) { MetaStyler.updateStyle(styleProp, layout, this.data as IStyleClient); }
-			if(layout.animator) { MetaStyler.updateStyle(styleProp, layout.animator, this.data as IStyleClient); }
+			if(animator) { MetaStyler.updateStyle(styleProp, animator, this.data as IStyleClient); }
 		}
 		
 		//*****************************************
