@@ -34,7 +34,7 @@
     <component id="StackLayout" class="com.openflux.layouts.StackLayout" />
     
     <!-- animators -->
-    <component id="TweenAnimator" class="com.openflux.layouts.animators.TweenAnimator" />
+    <component id="TweenAnimator" class="com.openflux.animators.TweenAnimator" />
     
     <!-- core -->
     <component id="FluxComponent" class="com.openflux.core.FluxComponent" />
