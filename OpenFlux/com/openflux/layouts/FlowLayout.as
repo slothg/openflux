@@ -1,6 +1,6 @@
 package com.openflux.layouts
 {
-	import com.openflux.layouts.animators.TweenAnimator;
+	import com.openflux.animators.TweenAnimator;
 	
 	import flash.geom.Point;
 	
