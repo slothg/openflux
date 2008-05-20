@@ -1,15 +1,11 @@
 package com.openflux.core
 {
 	import com.openflux.ListItem;
-	import com.openflux.animators.IAnimator;
 	import com.openflux.events.DataViewEvent;
-	import com.openflux.layouts.ILayout;
 	import com.openflux.layouts.VerticalLayout;
 	import com.openflux.utils.CollectionUtil;
-	import com.openflux.utils.MetaStyler;
 	
 	import flash.display.DisplayObject;
-	import flash.geom.Point;
 	
 	import mx.collections.ICollectionView;
 	import mx.core.IDataRenderer;
@@ -17,23 +13,18 @@ package com.openflux.core
 	import mx.core.UIComponent;
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
-	import mx.events.ResizeEvent;
-	import mx.styles.IStyleClient;
 	
 	[Event(name="dataViewChanged", type="com.openflux.events.DataViewEvent")]
-	public class DataView extends FluxView implements IFluxContainer, IDataView
+	public class DataView extends FluxContainer implements IDataView
 	{
 		private var _collection:ICollectionView;
 		
 		private var _content:Object;
 		private var _itemRenderer:IFactory;
-		private var _animator:IAnimator;
-		private var _layout:ILayout;
 		private var _renderers:Array = [];
 		private var _dragTargetIndex:int = -1;
 		
 		private var collectionChanged:Boolean;
-		
 		
 		//*********************************
 		// Constructor
@@ -43,7 +34,6 @@ package com.openflux.core
 		{
 			super();
 		}
-		
 		
 		//************************************
 		// Public Properties
@@ -65,42 +55,12 @@ package com.openflux.core
 			invalidateLayout();
 		}
 		
-		protected function get collection():ICollectionView { return _collection; }
-		protected function set collection(value:ICollectionView):void {
-			_collection = value;
-		}
-		
 		public function get itemRenderer():IFactory { return _itemRenderer; }
 		public function set itemRenderer(value:IFactory):void {
 			_itemRenderer = value;
 		}
 		
-		[StyleBinding]
-		public function get animator():IAnimator { return _animator; }
-		public function set animator(value:IAnimator):void {
-			_animator = value;
-		}
-		
-		[StyleBinding]
-		public function get layout():ILayout { return _layout; }
-		public function set layout(value:ILayout):void {
-			if(_layout) {
-				_layout.detach(this);
-			}
-			_layout = value;
-			if(_layout) {
-				_layout.attach(this);
-				MetaStyler.initialize(_layout, this.data as IStyleClient);
-				//if(_layout.animator) { MetaStyler.initialize(_layout.animator, this.data as IStyleClient); }
-			}
-			if(_animator) {
-				MetaStyler.initialize(_animator, this.data as IStyleClient);
-			}
-			invalidateLayout();
-		}
-		
-		public function get renderers():Array { return _renderers; }
-		
+		override public function get renderers():Array { return _renderers; }
 		
 		public function get dragTargetIndex():int { return _dragTargetIndex; }
 		public function set dragTargetIndex(value:int):void {
@@ -110,9 +70,14 @@ package com.openflux.core
 			}
 		}
 		
-		//public function get horizontalScrollPosition():Number { return 0; }
-		//public function get verticalScrollPosition():Number { return 0; }
+		//***********************************************
+		// Protected Properties
+		//***********************************************
 		
+		protected function get collection():ICollectionView { return _collection; }
+		protected function set collection(value:ICollectionView):void {
+			_collection = value;
+		}
 		
 		//***********************************************
 		// Framework Overrides
@@ -126,8 +91,6 @@ package com.openflux.core
 			if(layout == null) {
 				layout = new VerticalLayout();
 			}
-			
-			this.addEventListener(ResizeEvent.RESIZE, resizeHandler);
 		}
 		
 		override protected function commitProperties():void {
@@ -137,40 +100,6 @@ package com.openflux.core
 				collectionChanged = false;
 				dispatchEvent(new DataViewEvent(DataViewEvent.DATA_VIEW_CHANGED));
 			}
-		}
-		
-		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
-			super.updateDisplayList(unscaledWidth, unscaledHeight);
-			if(_layout && layoutChanged) {
-				layoutChanged = false;
-				_layout.update();
-			}
-		}
-		
-		override protected function measure():void {
-			super.measure();
-			var point:Point = layout.measure();
-			measuredWidth = point.x;
-			measuredHeight = point.y;
-		}
-		
-		private var layoutChanged:Boolean = false;
-		public function invalidateLayout():void {
-			layoutChanged = true;
-			invalidateSize();
-			invalidateDisplayList();
-		}
-		
-		override public function stylesInitialized():void {
-			super.stylesInitialized();
-			if(layout) { MetaStyler.initialize(layout, this.data as IStyleClient); }
-			if(animator) { MetaStyler.initialize(animator, this.data as IStyleClient); }
-		}
-		
-		override public function styleChanged(styleProp:String):void {
-			super.styleChanged(styleProp);
-			if(layout) { MetaStyler.updateStyle(styleProp, layout, this.data as IStyleClient); }
-			if(animator) { MetaStyler.updateStyle(styleProp, animator, this.data as IStyleClient); }
 		}
 		
 		//*****************************************
@@ -223,10 +152,6 @@ package com.openflux.core
 					collectionReset();
 					break;
 			}
-		}
-		
-		private function resizeHandler(event:ResizeEvent):void {
-			invalidateLayout();
 		}
 	}
 }
