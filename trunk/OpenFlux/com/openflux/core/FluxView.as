@@ -7,12 +7,18 @@ package com.openflux.core
 	
 	// Here's one of the biggest hurtle we have so far. Everything's a Canvas, that's no good :-)
 	// I'll be looking at taking this out after beta release.
+	/**
+	 * View class you would usually extend when creating your own custom views
+	 */
 	public class FluxView extends Canvas implements IFluxView
 	{
 		
 		private var _component:Object;
 		private var _state:String;
 		
+		/**
+		 * Stores the component model instance
+		 */
 		[Bindable]
 		public function get component():Object { return _component; }
 		public function set component(value:Object):void {
