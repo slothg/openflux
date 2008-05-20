@@ -100,11 +100,11 @@ package com.openflux.layouts
 					container.animator.moveItem(child, {x:xPos, y:yPos, width:width, height:height, rotation:0});
 					
 					if (selectMode == "ZigZag") {
-						if ((child as ISelectable).selected) direction = direction * -1;
+						if (child is ISelectable && (child as ISelectable).selected) direction = direction * -1;
 						xPos += gap;
 						yPos += gap * direction;
 					} else {
-						if ((child as ISelectable).selected) xPos += width;
+						if (child is ISelectable && (child as ISelectable).selected) xPos += width;
 						else xPos += _gap;
 					}
 				}

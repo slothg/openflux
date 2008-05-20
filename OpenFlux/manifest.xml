@@ -40,6 +40,7 @@
     <component id="FluxComponent" class="com.openflux.core.FluxComponent" />
     <component id="FluxView" class="com.openflux.core.FluxView" />
     <component id="FluxController" class="com.openflux.core.FluxController" />
+    <component id="FluxContainer" class="com.openflux.core.FluxContainer" />
     <component id="DataView" class="com.openflux.core.DataView" />
     
     <!-- utils -->
