@@ -1,4 +1,4 @@
-<project name="OpenFlux" basedir="/Users/mac/Workspace/FluxDocs" default="docs">
+<project name="OpenFlux" basedir="/Users/mac/Workspace/FluxDocs" default="fixDocMimeTypes">
 	
 	<property file="build.properties"/>
 	<taskdef resource="flexTasks.tasks" classpath="${basedir}/libs/flexTasks.jar" />
