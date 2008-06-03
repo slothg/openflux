@@ -1,7 +1,6 @@
 package com.plexiglass.views
 {
 	import away3d.cameras.HoverCamera3D;
-	import away3d.cameras.Camera3D;
 	import away3d.containers.View3D;
 	import away3d.core.math.Number3D;
 	import away3d.materials.MovieMaterial;
@@ -17,6 +16,7 @@ package com.plexiglass.views
 	import flash.events.Event;
 	import flash.utils.Dictionary;
 	
+	import mx.containers.Canvas;
 	import mx.core.UIComponent;
 	
 	public class PlexiContainerView extends ContainerView
@@ -35,7 +35,7 @@ package com.plexiglass.views
 		public function PlexiContainerView()
 		{
 			super();
-			container = new UIComponent();
+			container = new Canvas();
 			container.visible = false;
 			center = new Sphere();
 			camera = new HoverCamera3D({z:-1200, zoom:11, focus:100, target:center, distance:-1200});
