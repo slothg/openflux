@@ -5,23 +5,23 @@
 		<mx:Object label="Horizontal" layout="{horizontal}" />
 		<mx:Object label="Flow" layout="{tiled}" />
 		<mx:Object label="Circle" layout="{circle}" />
-		<mx:Object label="Stack" layout="{stack}" />
+		<!-- <mx:Object label="Stack" layout="{stack}" /> -->
 	</mx:ArrayCollection>
 	
 	<openflux:VerticalLayout id="vertical" />
 	<openflux:HorizontalLayout id="horizontal" />
 	<openflux:FlowLayout id="tiled" />
 	<openflux:CircleLayout id="circle" />
-	<openflux:StackLayout id="stack" />
+	<!--<openflux:StackLayout id="stack" />-->
 	
 	<mx:ComboBox id="combo" dataProvider="{layouts}" labelField="label" />
 	
-	<openflux:FluxContainer width="400" height="400" layout="{combo.selectedItem.layout}">
+	<openflux:ContainerView width="400" height="400" layout="{combo.selectedItem.layout}">
 		<mx:DateField/>
 		<mx:Button label="Button"/>
 		<mx:TextInput/>
 		<mx:RadioButton label="Radio"/>
 		<mx:HSlider/>
 		<mx:CheckBox label="Checkbox"/>
-	</openflux:FluxContainer>
+	</openflux:ContainerView>
 </mx:Application>

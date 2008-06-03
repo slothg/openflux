@@ -8,7 +8,7 @@
 	<mx:Script>
 		<![CDATA[
 			import mx.controls.Alert;
-			import com.openflux.views.ImageView;
+			//import com.openflux.views.ImageView;
 			import flash.display.BitmapData;
 			import flash.geom.Rectangle;
 			import flash.geom.Point;
@@ -58,21 +58,16 @@
 			}
 		]]>
 	</mx:Script>
-	<mx:Style>
-		ListView {
-			view: ClassReference("com.openflux.views.ImageView");
-		}
-	</mx:Style>
 
 	<openflux:List id="l" y="150" width="100%" height="100%">
 		<openflux:view>
-			<views:ListView>
+			<views:DataView>
 				<views:layout>
 					<layouts:StackLayout
 						gap="{hs.value}"
 						selectMode="{selectMode.selectedValue}"/>
 				</views:layout>
-			</views:ListView>
+			</views:DataView>
 		</openflux:view>
 	</openflux:List>
 	

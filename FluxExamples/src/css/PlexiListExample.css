@@ -1,0 +1,27 @@
+/* CSS file */
+
+List {
+	/* just for fun */
+	view: ClassReference("com.plexiglass.views.PlexiListView");
+}
+
+ListItem {
+	/*view: ClassReference("com.openflux.views.ButtonView");*/
+	/*view: ClassReference("com.plexiglass.temp.TempRenderer");*/
+}
+
+@font-face {
+    src: local("Arial");
+    fontFamily: ArialEmbedded;
+    fontWeight: normal;
+}
+ 
+@font-face {
+    src: local("Arial");
+    fontFamily: ArialEmbedded;
+    fontWeight: bold;
+}
+ 
+Application {
+    font-family: ArialEmbedded;
+}
