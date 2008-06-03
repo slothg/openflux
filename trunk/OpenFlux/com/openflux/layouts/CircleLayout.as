@@ -38,14 +38,15 @@ package com.openflux.layouts
 		
 		public function measure():Point
 		{
-			return new Point(100, 100);
+			var point:Point = new Point(100, 100);
+			return point;
 		}
 		
 		public function update(indices:Array = null):void {
 			container.animator.begin();
 			var length:int = container.renderers.length;
-			var width:Number = container.getExplicitOrMeasuredWidth()/2;
-			var height:Number = container.getExplicitOrMeasuredHeight()/2;
+			var width:Number = container.width/2;
+			var height:Number = container.height/2;
 			var offset:Number = 180*(Math.PI/180);
 			var rad:Number;
 			for (var i:int = 0; i < length; i++) {

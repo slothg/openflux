@@ -12,10 +12,8 @@
     <component id="CheckBoxView" class="com.openflux.views.CheckBoxView" />
     <component id="HorizontalScrollBarView" class="com.openflux.views.HorizontalScrollBarView" />
     <component id="ListItemView" class="com.openflux.views.ListItemView" />
-    <component id="ListView" class="com.openflux.views.ListView" />
     <component id="VerticalScrollBarView" class="com.openflux.views.VerticalScrollBarView" />
     <component id="HorizontalScrollBarView" class="com.openflux.views.HorizontalScrollBarView" />
-    <component id="ArrowButton" class="com.openflux.views.ArrowButton" />
     
     <!-- controllers -->
     <component id="ButtonController" class="com.openflux.controllers.ButtonController" />
@@ -31,7 +29,6 @@
     <component id="HorizontalLayout" class="com.openflux.layouts.HorizontalLayout" />
     <component id="FlowLayout" class="com.openflux.layouts.FlowLayout" />
     <component id="CircleLayout" class="com.openflux.layouts.CircleLayout" />
-    <component id="StackLayout" class="com.openflux.layouts.StackLayout" />
     
     <!-- animators -->
     <component id="TweenAnimator" class="com.openflux.animators.TweenAnimator" />
@@ -40,10 +37,17 @@
     <component id="FluxComponent" class="com.openflux.core.FluxComponent" />
     <component id="FluxView" class="com.openflux.core.FluxView" />
     <component id="FluxController" class="com.openflux.core.FluxController" />
-    <component id="FluxContainer" class="com.openflux.core.FluxContainer" />
-    <component id="DataView" class="com.openflux.core.DataView" />
+    <component id="ContainerView" class="com.openflux.views.ContainerView" />
+    <component id="DataView" class="com.openflux.views.DataView" />
+    <component id="IContainerView" class="com.openflux.views.IContainerView" />
     
     <!-- utils -->
     
+    <!-- plexiglass -->
+    <component id="PlexiContainerView" class="com.plexiglass.views.PlexiContainerView" />
+    <component id="PlexiDataView" class="com.plexiglass.views.PlexiDataView" />
+    <component id="PlexiAnimator" class="com.plexiglass.animators.PlexiAnimator" />
+    <component id="PlexiListView" class="com.plexiglass.views.PlexiListView" />
+    <component id="CoverFlowLayout" class="com.plexiglass.layouts.CoverFlowLayout" />
     
 </componentPackage>    

@@ -46,13 +46,7 @@ package com.openflux.core
 			invalidateProperties();
 		}
 		
-		// should be moved/updated
-		/*
-		override public function set currentState(value:String):void {
-			updateState(value);
-			updateState(value, _view);
-		}
-		*/
+		
 		//******************************************
 		// Constructor
 		//******************************************
@@ -61,9 +55,10 @@ package com.openflux.core
 			super();
 		}
 		
-		//******************************************
+		
+		//***************************************************
 		// Framework Overrides
-		//******************************************
+		//***************************************************
 		
 		override protected function commitProperties():void {
 			super.commitProperties();
@@ -104,25 +99,9 @@ package com.openflux.core
 			MetaStyler.updateStyle(styleProp, this);
 			if(view) MetaStyler.updateStyle(styleProp, view, this);
 			if(controller) MetaStyler.updateStyle(styleProp, controller, this);
-			/*switch(styleProp) {
-				case "view":
-					updateViewStyle();
-					break;
-				case "controller":
-					updateControllerStyle();
-					break;
-				case "layout":
-					trace("me");
-				default:
-					if(view) view.styleChanged(styleProp);
-					if(controller) controller.styleChanged(styleProp);
-					break;
-			}*/
 		}
 		
 		override public function stylesInitialized():void {
-			//updateViewStyle();
-			//updateControllerStyle();
 			MetaStyler.initialize(this);
 		}
 		
@@ -167,44 +146,6 @@ package com.openflux.core
 			}
 		}
 		
-		/*
-		protected function updateState(token:String, target:Object = null):void {
-			if(target == null) {
-				target = this;
-			}
-			if(target is UIComponent) {
-				var component:UIComponent = target as UIComponent;
-				for each(var state:State in component.states) {
-					if(state.name == token) {
-						component.currentState = token;
-					}
-				}
-			}
-		}
-		*//*
-		private function updateViewStyle():void {
-			var o:Object;
-			var C:Class = getStyle("view");
-			if(C) {
-				o = new C();
-			}
-			if(o is IFluxView) {
-				o.styleName = this;
-				view = o as IFluxView;
-			}
-		}
 		
-		private function updateControllerStyle():void {
-			var o:Object;
-			var C:Class = getStyle("controller");
-			if(C) {
-				o = new C();
-			}
-			if(o is IFluxController) {
-				o.styleName = this;
-				controller = o as IFluxController;
-			}
-		}
-		*/
 	}
 }

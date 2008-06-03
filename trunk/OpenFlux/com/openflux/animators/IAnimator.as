@@ -1,6 +1,6 @@
 package com.openflux.animators
 {
-	import com.openflux.core.IDataView;
+	import com.openflux.views.IContainerView;
 	
 	/**
 	 * Defines the interface used by animators.
@@ -11,8 +11,8 @@ package com.openflux.animators
 		/**
 		 * attaches this animator to a given container
 		 */
-		//function attach(container:IDataView):void;
-		//function detach(container:IDataView):void;
+		function attach(container:IContainerView):void;
+		function detach(container:IContainerView):void;
 		
 		/**
 		 * Called before a series of addItem, moveItem, or removeItem calls.

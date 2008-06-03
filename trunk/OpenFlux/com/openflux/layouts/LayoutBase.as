@@ -1,6 +1,6 @@
 package com.openflux.layouts
 {
-	import com.openflux.core.IFluxContainer;
+	import com.openflux.views.IContainerView;
 	
 	import flash.geom.Point;
 	
@@ -10,7 +10,7 @@ package com.openflux.layouts
 	{
 		
 		//private var _dragItems:Array;
-		protected var container:IFluxContainer;
+		protected var container:IContainerView;
 		
 		public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {
 			var length:int = container.renderers.length - 1;
@@ -29,11 +29,11 @@ package com.openflux.layouts
 			return index;
 		}
 		
-		public function attach(container:IFluxContainer):void {
+		public function attach(container:IContainerView):void {
 			this.container = container;
 		}
 		
-		public function detach(container:IFluxContainer):void {
+		public function detach(container:IContainerView):void {
 			this.container = null;
 		}
 		

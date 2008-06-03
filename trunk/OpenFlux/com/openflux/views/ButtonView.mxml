@@ -8,13 +8,16 @@
 	<mx:Script>
 		<![CDATA[
 			import com.openflux.constants.ButtonStates;
+			
+			[Bindable] [StyleBinding] public var color:uint;
+			
 		]]>
 	</mx:Script>
 	
 	<flux:states>
 		<mx:State name="{ButtonStates.UP}" />
 		<mx:State name="{ButtonStates.OVER}">
-			<mx:SetProperty target="{fill}" name="color" value="#FF0000" />
+			<mx:SetProperty target="{fill}" name="color" value="{color}" />
 		</mx:State>
 		<mx:State name="{ButtonStates.DOWN}">
 			<mx:SetProperty target="{stroke}" name="color" value="#FF0000" />

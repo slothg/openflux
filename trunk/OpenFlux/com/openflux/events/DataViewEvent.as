@@ -5,7 +5,7 @@ package com.openflux.events
 	public class DataViewEvent extends Event
 	{
 		
-		public static var DATA_VIEW_CHANGED:String = "dataViewChanged";
+		//public static var DATA_VIEW_CHANGED:String = "dataViewChanged";
 		
 		public function DataViewEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
