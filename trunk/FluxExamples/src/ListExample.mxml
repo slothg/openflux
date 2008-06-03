@@ -3,11 +3,12 @@
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:flux="com.openflux.*" 
 	xmlns:layouts="com.openflux.layouts.*" 
+	xmlns:layouts3d="com.plexiglass.layouts.*" 
 	layout="absolute">
 	
 	<mx:Script>
 		<![CDATA[
-			import com.openflux.core.IFluxContainer;
+			import com.openflux.views.IContainerView;
 			import com.openflux.core.IFluxComponent;
 			import com.openflux.core.UIBitmap;
 			import mx.core.UIComponent;
@@ -17,8 +18,8 @@
 			import mx.core.IUIComponent;
 			import com.openflux.layouts.IDragLayout;
 			import mx.events.DragEvent;
-			import com.openflux.core.IDataView;
-			import com.openflux.core.DataView;
+			import com.openflux.views.IDataView;
+			import com.openflux.views.DataView;
 			
 			// Trying to think about where this part of drag/drop belongs
 			// maybe in it's own control? We may need to hook into this for
@@ -26,7 +27,7 @@
 			private function dragStartHandler(event:MouseEvent):void {
 				//if (!_allowDrag) return;
 				
-				var view:IFluxContainer = (event.currentTarget as List).view as IFluxContainer;
+				var view:IContainerView = (event.currentTarget as List).view as IContainerView;
 				// Search for item renderer index at local x/y
 				var p:Point = view.globalToLocal(new Point(event.stageX, event.stageY));
 				var dragIdx:Number = -1;
@@ -97,6 +98,7 @@
 		<mx:Object label="Flow" layout="{tiled}" />
 		<mx:Object label="Circle" layout="{circle}" />
 		<mx:Object label="Stack" layout="{stack}" />
+		<!--<mx:Object label="Cover" layout="{cover}" />-->
 	</mx:ArrayCollection>
 	
 	<layouts:VerticalLayout id="vertical" />
@@ -104,6 +106,7 @@
 	<layouts:FlowLayout id="tiled" />
 	<layouts:CircleLayout id="circle" />
 	<layouts:StackLayout id="stack" />
+	<!--<layouts3d:CoverFlowLayout id="cover" />-->
 	
 	<mx:HBox width="100%" height="100%">
 		<mx:VBox width="50%" height="100%">

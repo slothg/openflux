@@ -1,4 +1,9 @@
 /* CSS file */
+
+Button {
+	color: #00FF00;
+}
+
 .check {
 	selectable: true;
 	view: ClassReference("com.openflux.views.CheckBoxView");

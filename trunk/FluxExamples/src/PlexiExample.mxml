@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:flux="http://openflux.googlecode.com" 
+	layout="absolute">
+	<mx:Script>
+		<![CDATA[
+			import com.openflux.views.IContainerView;
+			import com.openflux.views.IDataView;
+			import com.openflux.views.ButtonView;
+		]]>
+	</mx:Script>
+	<mx:Style source="css/PlexiListExample.css" />
+	<mx:ArrayCollection id="data1">
+		<mx:Object label="Test 1" />	
+		<mx:Object label="Test 2" />
+		<mx:Object label="Test 3" />
+		<mx:Object label="Test 4" />
+		<mx:Object label="Test 5" />
+		<mx:Object label="Test 6" />
+		<mx:Object label="Test 7" />	
+		<mx:Object label="Test 8" />
+		<mx:Object label="Test 9" />
+		<mx:Object label="Test 10" />
+		<mx:Object label="Test 11" />
+		<mx:Object label="Test 12" />
+		<mx:Object label="Test 13" />	
+		<mx:Object label="Test 14" />
+		<mx:Object label="Test 15" />
+		<mx:Object label="Test 16" />
+		<mx:Object label="Test 17" />
+		<mx:Object label="Test 18" />
+		<mx:Object label="Test 19" />	
+		<mx:Object label="Test 20" />
+		<mx:Object label="Test 21" />
+		<mx:Object label="Test 22" />
+		<mx:Object label="Test 23" />
+		<mx:Object label="Test 24" />
+	</mx:ArrayCollection>
+	
+	<mx:ArrayCollection id="layouts">
+		<mx:Object label="Vertical" layout="{vertical}" />
+		<mx:Object label="Horizontal" layout="{horizontal}" />
+		<mx:Object label="Tiled" layout="{tiled}" />
+		<mx:Object label="Circle" layout="{circle}" />
+		<!--<mx:Object label="Cover" layout="{cover}" />-->
+	</mx:ArrayCollection>
+	
+	<flux:VerticalLayout id="vertical" />
+	<flux:HorizontalLayout id="horizontal" />
+	<flux:FlowLayout id="tiled" />
+	<flux:CircleLayout id="circle" />
+	<!--<plexi:CoverFlowLayout id="cover" />-->
+	
+	<mx:VBox left="20" right="20" top="20" bottom="20">
+		<mx:ComboBox id="combo" dataProvider="{layouts}" labelField="label" change="(list.view as IContainerView).layout = combo.selectedItem.layout" />
+		<mx:HBox width="100%" height="100%">
+			<flux:List id="list" dataProvider="{data1}" width="100%" height="100%" styleName="fluxList" />
+			<mx:List dataProvider="{list.selectedItems}" width="100%" height="100%" />
+		</mx:HBox>
+	</mx:VBox>
+</mx:Application>
