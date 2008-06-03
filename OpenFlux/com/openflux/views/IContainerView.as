@@ -1,4 +1,4 @@
-package com.openflux.core
+package com.openflux.views
 {
 	import com.openflux.animators.IAnimator;
 	import com.openflux.layouts.ILayout;
@@ -6,7 +6,7 @@ package com.openflux.core
 	import mx.core.IInvalidating;
 	import mx.core.IUIComponent;
 	
-	public interface IFluxContainer extends IUIComponent, IInvalidating
+	public interface IContainerView extends IUIComponent, IInvalidating
 	{
 		
 		function get animator():IAnimator;
@@ -17,8 +17,8 @@ package com.openflux.core
 		
 		function get renderers():Array; // always DisplayObjects
 		
-		function get verticalScrollPosition():Number;
-		function get horizontalScrollPosition():Number;
+		//function get verticalScrollPosition():Number;
+		//function get horizontalScrollPosition():Number;
 		
 		function invalidateLayout():void;
 		

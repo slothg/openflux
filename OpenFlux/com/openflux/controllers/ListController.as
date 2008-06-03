@@ -1,6 +1,7 @@
 package com.openflux.controllers
 {
 	import com.openflux.core.*;
+	import com.openflux.views.*;
 	import com.openflux.events.DataViewEvent;
 	import com.openflux.layouts.IDragLayout;
 	import com.openflux.layouts.ILayout;
@@ -29,14 +30,14 @@ package com.openflux.controllers
 		
 		[ViewContract(required="false")] [StyleBinding] public var layout:ILayout;
 		
-		private var view:IFluxContainer;
+		private var view:IContainerView;
 		
 		//private var _allowDrag:Boolean = true;
 		//private var _allowDrop:Boolean = true;
 		
 		override public function set component(value:IFluxComponent):void {
 			super.component = value;
-			view = component.view as IFluxContainer;
+			view = component.view as IContainerView;
 			/*if(value is IFluxList) {
 				list = (value as IFluxList);
 			}*/
@@ -90,7 +91,7 @@ package com.openflux.controllers
 		
 		private function dataViewChangedHandler(event:DataViewEvent):void {
 			if(event.target is IDataView) {
-				var view:IFluxContainer = event.target as IFluxContainer;
+				var view:IContainerView = event.target as IContainerView;
 				for each(var renderer:IEventDispatcher in view.renderers) {
 					// duplicate handlers?
 					renderer.addEventListener(MouseEvent.CLICK, clickHandler, false, 0, true);

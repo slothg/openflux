@@ -11,9 +11,12 @@ package com.openflux
 	public class Button extends FluxComponent implements IFluxButton, ISelectable, IEnabled
 	{
 		
+		//**********************************************************
+		// IFluxButton & ISelectable Implementations
+		//**********************************************************
+		
 		private var _label:String;
 		private var _selected:Boolean;
-		private var _buttonState:String;
 		
 		[Bindable]
 		public function get label():String { return _label; }
@@ -27,13 +30,6 @@ package com.openflux
 			_selected = value;
 		}
 		
-		/* // No longer used
-		[Bindable]
-		public function get buttonState():String { return _buttonState; }
-		public function set buttonState(value:String):void {
-			_buttonState = value;
-		}
-		*/
 		
 		//***************************************************
 		// Framework Overrides
@@ -49,13 +45,6 @@ package com.openflux
 			super.createChildren();
 		}
 		
-		override protected function measure():void {
-			super.measure();
-			if(view) {
-				measuredWidth = view.measuredWidth;
-				measuredHeight = view.measuredHeight;
-			}
-		}
 		
 	}
 }

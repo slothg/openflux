@@ -5,7 +5,7 @@ package com.openflux
 	import com.openflux.core.IEnabled;
 	import com.openflux.core.IFluxList;
 	import com.openflux.utils.CollectionUtil;
-	import com.openflux.views.ListView;
+	import com.openflux.views.DataView;
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.ICollectionView;
@@ -15,13 +15,12 @@ package com.openflux
 	[Event(name="change", type="mx.events.ListEvent")]
 	[Style(name="itemRenderer")]
 	[Style(name="layout", type="com.openflux.core.layouts.ILayout")]
-	/* ???
-	[MeasuredSize(width="200", height="200")]
-	[MinimumSize(width="0", height="0")]
-	[MaximumSize(width="1000", height="1000")]
-	*/
 	public class List extends FluxComponent implements IFluxList, IEnabled
 	{
+		
+		//****************************************************************************
+		// IFluxList Implementation
+		//****************************************************************************
 		
 		private var collection:ICollectionView; [Bindable]
 		public function get dataProvider():Object { return collection; }
@@ -47,20 +46,21 @@ package com.openflux
 				controller = new ListController();
 			}
 			if(!view) {
-				view = new ListView();
+				view = new DataView();
 			}
 			
 		}
-		
+		/*
 		override protected function measure():void {
 			super.measure();
 			measuredWidth = 200;
 			measuredHeight = 200;
 		}
+		*/
 		
-		//**************
+		//********************************************************************
 		// Event Listeners
-		//******************
+		//********************************************************************
 		
 		private function collectionChangeHandler(event:CollectionEvent):void {
 			dispatchEvent(new ListEvent(ListEvent.CHANGE, false, false));

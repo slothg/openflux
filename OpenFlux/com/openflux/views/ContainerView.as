@@ -1,16 +1,19 @@
-package com.openflux.core
+package com.openflux.views
 {
 	import com.openflux.animators.IAnimator;
 	import com.openflux.animators.TweenAnimator;
+	import com.openflux.core.FluxView;
 	import com.openflux.layouts.ILayout;
+	import com.openflux.layouts.VerticalLayout;
 	import com.openflux.utils.MetaStyler;
 	
+	import flash.display.DisplayObject;
 	import flash.geom.Point;
 	
 	import mx.events.ResizeEvent;
 	import mx.styles.IStyleClient;
 	
-	public class FluxContainer extends FluxView implements IFluxContainer
+	public class ContainerView extends FluxView implements IContainerView
 	{
 		private var _animator:IAnimator;
 		private var _layout:ILayout;
@@ -21,7 +24,7 @@ package com.openflux.core
 		// Constructor
 		//*********************************
 		
-		public function FluxContainer()
+		public function ContainerView()
 		{
 			super();
 		}
@@ -33,7 +36,9 @@ package com.openflux.core
 		[StyleBinding]
 		public function get animator():IAnimator { return _animator; }
 		public function set animator(value:IAnimator):void {
+			if(_animator) { _animator.detach(this); }
 			_animator = value;
+			if(_animator) { _animator.attach(this); }
 		}
 		
 		[StyleBinding]
@@ -66,6 +71,9 @@ package com.openflux.core
 			super.createChildren();
 			if (!_animator) {
 				_animator = new TweenAnimator();
+			}
+			if (!_layout) {
+				layout = new VerticalLayout();
 			}
 			this.addEventListener(ResizeEvent.RESIZE, resizeHandler);
 		}

@@ -35,7 +35,7 @@ package com.openflux.layouts
 				var token:Object = new Object();
 				var child:UIComponent = container.renderers[i];
 				token.width = container.getExplicitOrMeasuredWidth();
-				token.height = child.measuredHeight;
+				token.height = child.getExplicitOrMeasuredHeight();
 				if(indices && indices.indexOf(i, 0) >= 0) {
 					position += token.height + gap;
 				}

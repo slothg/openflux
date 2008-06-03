@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plexi:PlexiDataView backgroundColor="#FFFFFF" backgroundAlpha="0"
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:plexi="com.plexiglass.views.*" 
+	xmlns:views="com.openflux.views.*" 
+	xmlns:layout="com.openflux.layouts.*" 
+	xmlns:animators="com.plexiglass.animators.*" 
+	collection="{component.dataProvider}" >
+	<plexi:animator>
+		<animators:PlexiAnimator />
+	</plexi:animator>
+	<plexi:layout>
+		<layout:VerticalLayout />
+	</plexi:layout>
+</plexi:PlexiDataView>

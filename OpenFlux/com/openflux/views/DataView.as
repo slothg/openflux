@@ -1,6 +1,9 @@
-package com.openflux.core
+package com.openflux.views
 {
 	import com.openflux.ListItem;
+	import com.openflux.views.IDataView;
+	import com.openflux.core.IFluxList;
+	import com.openflux.core.IFluxListItem;
 	import com.openflux.events.DataViewEvent;
 	import com.openflux.layouts.VerticalLayout;
 	import com.openflux.utils.CollectionUtil;
@@ -14,12 +17,12 @@ package com.openflux.core
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 	
-	[Event(name="dataViewChanged", type="com.openflux.events.DataViewEvent")]
-	public class DataView extends FluxContainer implements IDataView
+	//[Event(name="dataViewChanged", type="com.openflux.events.DataViewEvent")]
+	public class DataView extends ContainerView implements IDataView
 	{
 		private var _collection:ICollectionView;
 		
-		private var _content:Object;
+		//private var _content:Object;
 		private var _itemRenderer:IFactory;
 		private var _renderers:Array = [];
 		private var _dragTargetIndex:int = -1;
@@ -40,23 +43,23 @@ package com.openflux.core
 		//************************************
 		
 		[Bindable] // holds data (like dataProvider)
-		public function get content():Object { return _content; }
-		public function set content(value:Object):void {
-			_content = value;
-			if(collection) {
-				collection.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+		public function get collection():Object { return _collection; }
+		public function set collection(value:Object):void {
+			//_collection = value;
+			if(_collection) {
+				_collection.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
 			}
-			collection = CollectionUtil.resolveCollection(value);
-			if(collection) {
-				collection.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+			_collection = CollectionUtil.resolveCollection(value);
+			if(_collection) {
+				_collection.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
 			}
 			collectionChanged = true;
 			invalidateProperties();
 			invalidateLayout();
 		}
 		
-		public function get itemRenderer():IFactory { return _itemRenderer; }
-		public function set itemRenderer(value:IFactory):void {
+		public function get renderer():IFactory { return _itemRenderer; }
+		public function set renderer(value:IFactory):void {
 			_itemRenderer = value;
 		}
 		
@@ -71,22 +74,13 @@ package com.openflux.core
 		}
 		
 		//***********************************************
-		// Protected Properties
-		//***********************************************
-		
-		protected function get collection():ICollectionView { return _collection; }
-		protected function set collection(value:ICollectionView):void {
-			_collection = value;
-		}
-		
-		//***********************************************
 		// Framework Overrides
 		//***********************************************
 		
 		override protected function createChildren():void {
 			super.createChildren();
-			if(itemRenderer == null) {
-				itemRenderer = new ListItem();
+			if(renderer == null) {
+				renderer = new ListItem();
 			}
 			if(layout == null) {
 				layout = new VerticalLayout();
@@ -98,7 +92,7 @@ package com.openflux.core
 			if(collectionChanged) {
 				collectionReset();
 				collectionChanged = false;
-				dispatchEvent(new DataViewEvent(DataViewEvent.DATA_VIEW_CHANGED));
+				//dispatchEvent(new DataViewEvent(DataViewEvent.DATA_VIEW_CHANGED));
 			}
 		}
 		
@@ -119,17 +113,17 @@ package com.openflux.core
 		}
 		
 		protected function addItem(item:Object, index:int = 0):void {
-			var renderer:UIComponent = itemRenderer.newInstance() as UIComponent;
-			renderer.styleName = this; // ???
-			(renderer as IDataRenderer).data = item;
-			if (renderer is IFluxListItem) (renderer as IFluxListItem).list = data as IFluxList;
+			var instance:UIComponent = renderer.newInstance() as UIComponent;
+			instance.styleName = this; // ???
+			(instance as IDataRenderer).data = item;
+			if(instance is IFluxListItem) (instance as IFluxListItem).list = data as IFluxList;
 			
 			if (index > 0) {
-				_renderers.splice(index, 0, renderer);
-				addChildAt(renderer, index);
+				_renderers.splice(index, 0, instance);
+				addChildAt(instance, index);
 			} else {
-				_renderers.push(renderer);
-				addChild(renderer);
+				_renderers.push(instance);
+				addChild(instance);
 			}
 		}
 		

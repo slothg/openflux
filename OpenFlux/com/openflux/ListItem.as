@@ -33,13 +33,6 @@ package com.openflux
 			_selected = value;
 		}
 		
-		/*
-		[Bindable]
-		public function get buttonState():String { return _buttonState; }
-		public function set buttonState(value:String):void {
-			_buttonState = value;
-		}*/
-		
 		public function newInstance():* {
 			var instance:ListItem = new ListItem();
 			// instantiate view and controller?
@@ -59,7 +52,7 @@ package com.openflux
 			}
 			super.createChildren();
 		}
-		
+		/*
 		override protected function measure():void {
 			//super.measure();
 			if(view) {
@@ -70,6 +63,6 @@ package com.openflux
 				measuredHeight = 22;
 			}
 		}
-		
+		*/
 	}
 }
