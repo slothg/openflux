@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:ArrayCollection xmlns:mx="http://www.adobe.com/2006/mxml">
+	<mx:source>
+		<mx:Object label="Test 1" />	
+		<mx:Object label="Test 2" />
+		<mx:Object label="Test 3" />
+		<mx:Object label="Test 4" />
+		<mx:Object label="Test 5" />
+		<mx:Object label="Test 6" />
+		<mx:Object label="Test 7" />	
+		<mx:Object label="Test 8" />
+		<mx:Object label="Test 9" />
+		<mx:Object label="Test 10" />
+		<mx:Object label="Test 11" />
+		<mx:Object label="Test 12" />
+	</mx:source>
+</mx:ArrayCollection>

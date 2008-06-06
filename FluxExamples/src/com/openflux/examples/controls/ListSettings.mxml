@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:flux="http://openflux.googlecode.com" 
+	xmlns:data="com.openflux.examples.data.*">
+	<mx:Script>
+		<![CDATA[
+			import com.openflux.containers.Container;
+			
+			public var component:Container;
+			
+		]]>
+	</mx:Script>
+	
+	<data:ContainerViewCollection id="views" />
+	<data:LayoutCollection id="layouts" />
+	
+	<mx:VBox width="100%">
+		<mx:ComboBox id="view" prompt="Select View" width="100%" 
+			dataProvider="{views}" />
+		
+		<mx:ComboBox id="layout" prompt="Select Layout" width="100%"
+			dataProvider="{layouts}" change="component.layout = new layout.selectedItem.layout()" />
+		
+	</mx:VBox>
+</mx:Canvas>

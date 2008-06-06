@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:ArrayCollection xmlns:mx="http://www.adobe.com/2006/mxml">
+	<mx:Script>
+		<![CDATA[
+			
+			import com.openflux.containers.*;
+			import com.plexiglass.containers.*;
+			
+		]]>
+	</mx:Script>
+	<mx:source>
+		<mx:Object label="ContainerView" view="{Container}" />
+		<mx:Object label="PlexiContainerView" view="{PlexiContainer}" />
+	</mx:source>
+</mx:ArrayCollection>
