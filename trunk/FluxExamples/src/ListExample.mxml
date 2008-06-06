@@ -8,7 +8,7 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import com.openflux.views.IContainerView;
+			import com.openflux.containers.IFluxContainer;
 			import com.openflux.core.IFluxComponent;
 			import com.openflux.core.UIBitmap;
 			import mx.core.UIComponent;
@@ -27,7 +27,7 @@
 			private function dragStartHandler(event:MouseEvent):void {
 				//if (!_allowDrag) return;
 				
-				var view:IContainerView = (event.currentTarget as List).view as IContainerView;
+				var view:IFluxContainer = (event.currentTarget as List).view as IFluxContainer;
 				// Search for item renderer index at local x/y
 				var p:Point = view.globalToLocal(new Point(event.stageX, event.stageY));
 				var dragIdx:Number = -1;
@@ -39,7 +39,7 @@
 				// Reference the item renderer
 				// If it's a 3D renderer, the UIComponent is at item.material.movie
 				// ahhh!!! why's this here? :-)
-				var dragItem:IUIComponent = view.renderers[dragIdx].hasOwnProperty("material") ? view.renderers[dragIdx].material.movie : view.renderers[dragIdx];
+				var dragItem:IUIComponent = view.children[dragIdx].hasOwnProperty("material") ? view.children[dragIdx].material.movie : view.children[dragIdx];
 				if (!dragItem) return;
 				
 				// Init the DragImage and DragSource

@@ -1,7 +1,7 @@
 package com.openflux.layouts
 {
 	
-	import com.openflux.views.IContainerView;
+	import com.openflux.containers.IFluxContainer;
 	import com.openflux.core.ISelectable;
 	import com.openflux.events.DataViewEvent;
 	
@@ -33,7 +33,7 @@ package com.openflux.layouts
 			//animator = new TweenAnimator();
 		}
 		
-		override public function attach(container:IContainerView):void {
+		override public function attach(container:IFluxContainer):void {
 			super.attach(container);
 			var dispatcher:IEventDispatcher = container as IEventDispatcher;
 			if(dispatcher) {
@@ -42,7 +42,7 @@ package com.openflux.layouts
 			}
 		}
 		
-		override public function detach(container:IContainerView):void {
+		override public function detach(container:IFluxContainer):void {
 			super.detach(container);
 			var dispatcher:IEventDispatcher = container as IEventDispatcher;
 			if(dispatcher) {
@@ -62,7 +62,7 @@ package com.openflux.layouts
 		public function measure():Point {
 			var point:Point = new Point();
 			
-			for each(var child:UIComponent in container.renderers) {
+			for each(var child:UIComponent in container.children) {
 				point.y = Math.max(child.y + child.measuredHeight, point.y);
 				point.x = Math.max(child.x + child.measuredWidth, point.x);
 			}
@@ -71,10 +71,10 @@ package com.openflux.layouts
 		}
 		
 		public function update(indices:Array = null):void {
-			if (container.renderers && container.renderers.length > 0 && container.animator) {
+			if (container.children && container.children.length > 0 && container.animator) {
 				container.animator.begin();
 				
-				var len:int = container.renderers.length;
+				var len:int = container.children.length;
 				var xPos:Number = 0;
 				var yPos:Number = 0;
 				var direction:Number = 1;
@@ -84,7 +84,7 @@ package com.openflux.layouts
 				var height:Number;
 				
 				for (var i:int = 0; i < len; i++) {
-					child = container.renderers[i] as UIComponent;
+					child = container.children[i] as UIComponent;
 					width = child.measuredWidth;
 					height = child.measuredHeight;
 					
@@ -117,14 +117,14 @@ package com.openflux.layouts
 			var xPos:Number = 0;
 			var yPos:Number = 0;
 			var direction:Number = 1;
-			var len:int = container.renderers.length - 1;
+			var len:int = container.children.length - 1;
 			var offset:Number = seamAligned ? gap : 0;
 			var child:UIComponent;
 			var width:Number;
 			var height:Number;
 			
 			for (var i:int = 0; i < len; i++) {
-				child = container.renderers[i] as UIComponent;
+				child = container.children[i] as UIComponent;
 				width = child.getExplicitOrMeasuredWidth();
 				height = child.getExplicitOrMeasuredHeight();
 				
