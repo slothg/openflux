@@ -38,11 +38,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("In
 <td class="classHeaderTableLabel">Interface</td><td class="classSignature">public interface ILayout</td>
 </tr>
 <tr>
-<td class="classHeaderTableLabel">Implementors</td><td><a href="../layouts/VerticalLayout.html">VerticalLayout</a></td>
+<td class="classHeaderTableLabel">Implementors</td><td><a href="../layouts/CircleLayout.html">CircleLayout</a>, <a href="../../plexiglass/layouts/CoverFlowLayout.html">CoverFlowLayout</a>, <a href="../layouts/FlowLayout.html">FlowLayout</a>, <a href="../layouts/HorizontalLayout.html">HorizontalLayout</a>, <a href="../layouts/VerticalLayout.html">VerticalLayout</a></td>
 </tr>
 </table>
 <p></p>
-<p></p>
+  Used to layout items in containers, lists, etc.
+  <p></p>
 <br>
 <hr>
 </div>
@@ -56,14 +57,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("In
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#attach()">attach</a>(container:<a href="../core/IFluxContainer.html">IFluxContainer</a>):void</div>
+<a class="signatureLink" href="#attach()">attach</a>(container:<a href="../containers/IFluxContainer.html">IFluxContainer</a>):void</div>
 <div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">ILayout</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#detach()">detach</a>(container:<a href="../core/IFluxContainer.html">IFluxContainer</a>):void</div>
+<a class="signatureLink" href="#detach()">detach</a>(container:<a href="../containers/IFluxContainer.html">IFluxContainer</a>):void</div>
 <div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">ILayout</td>
 </tr>
@@ -97,10 +98,10 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function attach(container:<a href="../core/IFluxContainer.html">IFluxContainer</a>):void</code><span class="label">Parameters</span>
+<code>public function attach(container:<a href="../containers/IFluxContainer.html">IFluxContainer</a>):void</code><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">container</span>:<a href="../core/IFluxContainer.html">IFluxContainer</a></code></td>
+<td width="20px"></td><td><code><span class="label">container</span>:<a href="../containers/IFluxContainer.html">IFluxContainer</a></code></td>
 </tr>
 </table>
 </div>
@@ -111,10 +112,10 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function detach(container:<a href="../core/IFluxContainer.html">IFluxContainer</a>):void</code><span class="label">Parameters</span>
+<code>public function detach(container:<a href="../containers/IFluxContainer.html">IFluxContainer</a>):void</code><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">container</span>:<a href="../core/IFluxContainer.html">IFluxContainer</a></code></td>
+<td width="20px"></td><td><code><span class="label">container</span>:<a href="../containers/IFluxContainer.html">IFluxContainer</a></code></td>
 </tr>
 </table>
 </div>

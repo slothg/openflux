@@ -1,4 +1,4 @@
-<project name="OpenFlux" basedir="/Users/mac/Workspace/FluxDocs" default="fixDocMimeTypes">
+<project name="OpenFlux" basedir="/Users/mac/Workspace/FluxDocs" default="default">
 	
 	<property file="build.properties"/>
 	<taskdef resource="flexTasks.tasks" classpath="${basedir}/libs/flexTasks.jar" />
@@ -14,6 +14,11 @@
 		<format property="build.timestamp" pattern="MM-dd-yyyy" />
 	</tstamp>
 	
+	<target name="default">
+		<antcall target="docs" />
+		<antcall target="fixDocMimeTypes" />
+	</target>
+	
 	<target name="docs">
 		
 		<!-- Clean out the contents of the doc directory, without deleting "docs" -->
@@ -26,11 +31,14 @@
 			<arg line="-o '${core.docs.dir}'" />
 			
 			<!-- Specify the main source path as "src" -->
-			<arg line="-sp '${core.src.dir}'" />
+			<arg line="-source-path '${core.src.dir}'" />
+			
+			<arg line="-namespace http://openflux.googlecode.com ${core.src.dir}/openflux.xml " />
+			<arg line="-doc-namespaces http://openflux.googlecode.com " />
 			
 			<!-- Document all of the classes in the "src" tree -->
-			<arg line="-ds '${core.src.dir}/com/openflux/animators' " />
-			<arg line="-ds '${core.src.dir}/com/openflux/core' " />
+			<!--<arg line="-include-sources '${core.src.dir}/com/openflux' " />-->
+			
 			<!--
 			<arg line="-namespace http://openflux.googlecode.com ${core.src.dir}/manifest.xml" />-->
 			<!-- <arg line="-namespace http://mq.universalmind.com/launchpad/ ${core.src.dir}/mq_manifest.xml" /> -->
