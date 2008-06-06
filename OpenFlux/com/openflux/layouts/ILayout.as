@@ -2,7 +2,7 @@ package com.openflux.layouts
 {
 	
 	import flash.geom.Point;
-	import com.openflux.views.IContainerView;
+	import com.openflux.containers.IFluxContainer;
 	
 	/**
 	 * Used to layout items in containers, lists, etc.
@@ -10,8 +10,8 @@ package com.openflux.layouts
 	public interface ILayout
 	{	
 		
-		function attach(container:IContainerView):void;
-		function detach(container:IContainerView):void;
+		function attach(container:IFluxContainer):void;
+		function detach(container:IFluxContainer):void;
 		
 		function measure():Point;
 		function update(indices:Array = null):void;

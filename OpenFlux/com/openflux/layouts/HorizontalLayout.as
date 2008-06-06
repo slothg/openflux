@@ -22,9 +22,9 @@ package com.openflux.layouts
 		
 		public function measure():Point {
 			var point:Point = new Point(0, 0);
-			for each(var child:UIComponent in container.renderers) {
-				point.x += child.getExplicitOrMeasuredWidth() + gap;
-				point.y = Math.max(child.getExplicitOrMeasuredHeight(), point.y);
+			for each(var child:UIComponent in container.children) {
+				point.x += child.measuredWidth + gap;
+				point.y = Math.max(child.measuredHeight, point.y);
 			}
 			return point;
 		}
@@ -32,24 +32,23 @@ package com.openflux.layouts
 		public function update(indices:Array = null):void {
 			container.animator.begin();
 			
-			var xPos:Number = 0;
-			var len:int = container.renderers.length;
-			//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
-			var child:UIComponent;
-			var width:Number;
-			var height:Number;
-			
-			for (var i:int = 0; i < len; i++) {
-				child = container.renderers[i];
-				width = child.measuredWidth;
-				height = container.getExplicitOrMeasuredHeight();
+			var position:Number = 0;
+			var length:int = container.children.length;
+			for (var i:int = 0; i < length; i++) {
+				var child:UIComponent = container.children[i];
+				var token:Object = new Object();
 				
+				token.x = position;
+				token.y = 0
+				token.width = child.width;
+				token.height = child.height;
+				token.rotation = 0;
 				if(indices && indices.indexOf(i, 0) >= 0) {
-					xPos += width + gap;
+					position += child.width + gap;
 				}
-					
-				container.animator.moveItem(child, {x:xPos, y:0, width:width, height:height, rotation:0});
-				xPos += width + gap;
+				
+				container.animator.moveItem(child, token);
+				position += child.width + gap;
 			}
 			
 			container.animator.end();
@@ -58,13 +57,13 @@ package com.openflux.layouts
 		override public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {
 			var xPos:Number = 0;
 			var child:UIComponent;
-			var len:int = container.renderers.length;
+			var len:int = container.children.length;
 			var offset:Number = seamAligned ? gap : 0;
 			var width:Number;
 			var height:Number;
 			
 			for (var i:int = 0; i < len; i++) {
-				child = container.renderers[i] as UIComponent;
+				child = container.children[i] as UIComponent;
 				width = child.getExplicitOrMeasuredWidth();
 				height = child.getExplicitOrMeasuredHeight();
 				

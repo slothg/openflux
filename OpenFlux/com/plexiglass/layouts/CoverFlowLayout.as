@@ -53,12 +53,12 @@ package com.plexiglass.layouts
 		
 		public function update(indices:Array = null):void
 		{
-			if (container.renderers.length > 0) {
+			if (container.children.length > 0) {
 				var selectedIndex:int = 0; //container["selectedIndex"] as int;
 				if(container is IFluxList) {
 					(container as IFluxList).selectedItems;
 				}
-				var selectedChild:DisplayObject = container.renderers[selectedIndex]; //.material.movie;
+				var selectedChild:DisplayObject = container.children[selectedIndex]; //.material.movie;
 				
 				var maxChildHeight:Number = 123;
 				var maxChildWidth:Number = 79;	
@@ -74,9 +74,9 @@ package com.plexiglass.layouts
 				
 				container.animator.begin();
 				
-				for (var i:int = 0; i < container.renderers.length; i++) {
+				for (var i:int = 0; i < container.children.length; i++) {
 					//var plane:Object = container.renderers[i];
-					var child:DisplayObject = container.renderers[i]; //plane.material["movie"];
+					var child:DisplayObject = container.children[i]; //plane.material["movie"];
 					
 					abs = Math.abs(selectedIndex - i);
 					
@@ -113,7 +113,7 @@ package com.plexiglass.layouts
 							xRotation = 0;
 						}
 					}
-
+					
 					if(i != selectedIndex) {
 						//animator.moveItem(plane, {z:zPosition, time:1/3});
 						container.animator.moveItem(child, {x:xPosition, y:yPosition, rotationY:yRotation, rotationX:xRotation, time:0.500});

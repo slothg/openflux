@@ -1,4 +1,4 @@
-package com.openflux.views
+package com.openflux.containers
 {
 	import com.openflux.animators.IAnimator;
 	import com.openflux.animators.TweenAnimator;
@@ -7,31 +7,37 @@ package com.openflux.views
 	import com.openflux.layouts.VerticalLayout;
 	import com.openflux.utils.MetaStyler;
 	
-	import flash.display.DisplayObject;
 	import flash.geom.Point;
+	import flash.utils.Dictionary;
 	
+	import mx.core.UIComponent;
 	import mx.events.ResizeEvent;
 	import mx.styles.IStyleClient;
 	
-	public class ContainerView extends FluxView implements IContainerView
+	public class Container extends FluxView implements IFluxContainer
 	{
 		private var _animator:IAnimator;
 		private var _layout:ILayout;
+		private var _tokens:Dictionary;
 		
 		private var layoutChanged:Boolean = false;
+		private var childrenChanged:Boolean = false;
 		
 		//*********************************
 		// Constructor
 		//*********************************
 		
-		public function ContainerView()
+		public function Container()
 		{
 			super();
+			_tokens = new Dictionary(true);
 		}
 		
 		//************************************
 		// Public Properties
 		//************************************
+		
+		public function get tokens():Dictionary { return _tokens; }
 		
 		[StyleBinding]
 		public function get animator():IAnimator { return _animator; }
@@ -58,7 +64,7 @@ package com.openflux.views
 			invalidateLayout();
 		}
 		
-		public function get renderers():Array { return getChildren(); }
+		public function get children():Array { return getChildren(); }
 		
 		//public function get horizontalScrollPosition():Number { return 0; }
 		//public function get verticalScrollPosition():Number { return 0; }
@@ -75,6 +81,7 @@ package com.openflux.views
 			if (!_layout) {
 				layout = new VerticalLayout();
 			}
+			childrenChanged = true;
 			this.addEventListener(ResizeEvent.RESIZE, resizeHandler);
 		}
 		
@@ -87,7 +94,28 @@ package com.openflux.views
 		
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
+			if(childrenChanged) {
+				for each(var child:UIComponent in children) {
+					if(child.getStyle("width") == null) {
+						child.setStyle("width", child.getExplicitOrMeasuredWidth());
+					}
+					if(child.getStyle("height") == null) {
+						child.setStyle("height", child.getExplicitOrMeasuredHeight());
+					}
+					if(child.width) { child.measuredWidth = child.width; }
+					if(child.height) { child.measuredHeight = child.height; }
+				}
+				childrenChanged = false;
+			}
 			if(_layout && layoutChanged) {
+				for each(var child:UIComponent in children) {
+					if(child.getStyle("width") != null) {
+						child.width = child.getStyle("width");
+					}
+					if(child.getStyle("height") != null) {
+						child.height = child.getStyle("height");
+					}
+				}
 				layoutChanged = false;
 				_layout.update();
 			}

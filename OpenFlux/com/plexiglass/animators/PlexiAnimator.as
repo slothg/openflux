@@ -4,8 +4,8 @@ package com.plexiglass.animators
 	import away3d.materials.MovieMaterial;
 	
 	import com.openflux.animators.IAnimator;
-	import com.openflux.views.IContainerView;
-	import com.plexiglass.views.PlexiContainerView;
+	import com.openflux.containers.IFluxContainer;
+	import com.plexiglass.containers.PlexiContainer;
 	import caurina.transitions.Tweener;
 	import flash.display.DisplayObject;
 
@@ -15,18 +15,18 @@ package com.plexiglass.animators
 		public var time:Number = 1;
 		public var transition:String = "easeInOutCirc";
 		
-		private var container:IContainerView;
+		private var container:IFluxContainer;
 		
 		public function PlexiAnimator()
 		{
 			super();
 		}
 		
-		public function attach(container:IContainerView):void {
+		public function attach(container:IFluxContainer):void {
 			this.container = container;
 		}
 		
-		public function detach(layout:IContainerView):void {
+		public function detach(layout:IFluxContainer):void {
 			this.container = null;
 		}
 		
@@ -37,7 +37,7 @@ package com.plexiglass.animators
 		{
 			token.time = time;
 			token.transition = transition;
-			if(container is PlexiContainerView) {
+			if(container is PlexiContainer) {
 				var token3d:Object = new Object();
 				token3d.x = token.x + item.width/2;
 				token3d.y = (token.y + item.height/2) * -1;
@@ -51,7 +51,7 @@ package com.plexiglass.animators
 				token3d.time = token.time;
 				token3d.transition = transition;
 				
-				var pv:PlexiContainerView = container as PlexiContainerView;
+				var pv:PlexiContainer = container as PlexiContainer;
 				for each(var o:Plane in pv.planes) {
 					if(o.material is MovieMaterial) {
 						var material:MovieMaterial = o.material as MovieMaterial;

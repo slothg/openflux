@@ -25,14 +25,14 @@ package com.openflux.layouts
 			if (angle < 0)
 				angle += 2 * Math.PI;
 			// figure out the closest "item" by working backwards from the angle to the index, using floating point math.
-			var result : Number = container.renderers.length * angle / (2 * Math.PI);
+			var result : Number = container.children.length * angle / (2 * Math.PI);
 			//trace(result + " " + angle);
 			// depending on whether this is seam aligned, do a ceil or round.			
 			result = seamAligned ? int(result)+1 : Math.round(result);
 			
 			// do a modulo op to make sure that this is within [0, length-1]. Modulo is the correct
 			// operator in this case because this is a circle.
-			result %= container.renderers.length;
+			result %= container.children.length;
 			return result;
 		}
 		
@@ -44,16 +44,16 @@ package com.openflux.layouts
 		
 		public function update(indices:Array = null):void {
 			container.animator.begin();
-			var length:int = container.renderers.length;
+			var length:int = container.children.length;
 			var width:Number = container.width/2;
 			var height:Number = container.height/2;
 			var offset:Number = 180*(Math.PI/180);
 			var rad:Number;
 			for (var i:int = 0; i < length; i++) {
-				var child:Object = container.renderers[i];
+				var child:Object = container.children[i];
 				var token:Object = new Object();
-				var w:Number = width;//-child.measuredWidth;
-				var h:Number = height;//-child.measuredHeight;
+				var w:Number = width-child.width;
+				var h:Number = height-child.height;
 				
 				if(indices && indices.indexOf(i, 0) >= 0) {
 					rad = ((Math.PI*i)/(length/2))+offset;
@@ -62,8 +62,8 @@ package com.openflux.layouts
 				}
 				token.x = (w*Math.cos(rad))+w;
 				token.y = (h*Math.sin(rad))+h;
-				token.width = child.measuredWidth;
-				token.height = child.measuredHeight;
+				token.width = child.width;
+				token.height = child.height;
 				if(rotate) {
 					token.rotation = ((360/length)*i);
 					while(token.rotation > 180) {

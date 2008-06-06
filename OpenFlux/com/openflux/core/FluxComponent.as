@@ -68,7 +68,7 @@ package com.openflux.core
 				MetaStyler.initialize(view, this);
 				viewChanged = false;
 			}
-			if(controllerChanged) {
+			if(controllerChanged && controller) {
 				controller.component = this;
 				MetaStyler.initialize(controller, this);
 				controllerChanged = false;

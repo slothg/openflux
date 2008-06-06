@@ -2,7 +2,7 @@ package com.openflux.animators
 {
 	import caurina.transitions.Tweener;
 	
-	import com.openflux.views.IContainerView;
+	import com.openflux.containers.IFluxContainer;
 	
 	
 	public class TweenAnimator implements IAnimator
@@ -17,8 +17,8 @@ package com.openflux.animators
 		[StyleBinding] public var time:Number = 1;
 		[StyleBinding] public var transition:String = EASE_OUT_EXPO;
 		
-		public function attach(container:IContainerView):void {}
-		public function detach(container:IContainerView):void {}
+		public function attach(container:IFluxContainer):void {}
+		public function detach(container:IFluxContainer):void {}
 		
 		public function begin():void {} // unused
 		public function end():void {} // unused

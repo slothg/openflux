@@ -1,14 +1,17 @@
 package com.openflux.layouts
 {
+	import com.openflux.animators.AnimationToken;
+	
 	import flash.geom.Point;
 	
-	import mx.collections.ArrayCollection;
 	import mx.core.UIComponent;
 	
 	public class VerticalLayout extends LayoutBase implements ILayout, IDragLayout
 	{
 		
-		private var _gap:Number = 0; [Bindable] [StyleBinding]
+		private var _gap:Number = 0;
+		
+		[Bindable] [StyleBinding]
 		public function get gap():Number { return _gap; }
 		public function set gap(value:Number):void {
 			if (_gap != value) {
@@ -19,9 +22,9 @@ package com.openflux.layouts
 		
 		public function measure():Point {
 			var point:Point = new Point(0, 0);
-			for each(var child:UIComponent in container.renderers) {
-				point.x = Math.max(child.getExplicitOrMeasuredWidth(), point.x);
-				point.y += child.getExplicitOrMeasuredHeight() + gap;
+			for each(var child:UIComponent in container.children) {
+				point.x = Math.max(child.measuredWidth, point.x);
+				point.y += child.measuredHeight + gap;
 			}
 			return point;
 		}
@@ -29,19 +32,19 @@ package com.openflux.layouts
 		public function update(indices:Array = null):void {
 			container.animator.begin();
 			var position:Number = 0;
-			var length:int = container.renderers.length;
-			//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
+			var length:int = container.children.length;
 			for (var i:int = 0; i < length; i++) {
+				var child:UIComponent = container.children[i];
 				var token:Object = new Object();
-				var child:UIComponent = container.renderers[i];
-				token.width = container.getExplicitOrMeasuredWidth();
-				token.height = child.getExplicitOrMeasuredHeight();
+				
 				if(indices && indices.indexOf(i, 0) >= 0) {
-					position += token.height + gap;
+					position += child.measuredHeight + gap;
 				}
 				token.x = 0;
 				token.y = position;
-				token.rotation;
+				token.width = child.width;
+				token.height = child.height;
+				
 				container.animator.moveItem(child, token);
 				position += token.height + gap;
 			}
@@ -67,6 +70,7 @@ package com.openflux.layouts
 			}
 			
 			return -1;
-		}*/
+		}
+		*/
 	}
 }

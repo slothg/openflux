@@ -77,7 +77,7 @@ package com.plexiglass.views
 			var m:MovieMaterial = new MovieMaterial(child, {smooth:true, interactive:true});
 			var p:Plane = new Plane({yUp:false, material:m, width:child.getExplicitOrMeasuredWidth(), height:child.getExplicitOrMeasuredHeight()});
 			view.scene.addChild(p);
-			renderers.push(p);
+			children.push(p);
 			p.addOnMouseUp(planeClicked);
 		}
 		
@@ -86,7 +86,7 @@ package com.plexiglass.views
 		//************************************
 		
 		private function planeClicked(event:MouseEvent3D):void {
-			this.selectedIndex = renderers.indexOf(event.object);
+			this.selectedIndex = children.indexOf(event.object);
 			this.invalidateDisplayList();
 		}
 		
