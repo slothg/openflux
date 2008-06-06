@@ -6,6 +6,7 @@
     <component id="List" class="com.openflux.List" />
     <component id="ListItem" class="com.openflux.ListItem" />
     <component id="ScrollBar" class="com.openflux.ScrollBar" />
+    <component id="Container" class="com.openflux.containers.Container" />
     
     <!-- views -->
     <component id="ButtonView" class="com.openflux.views.ButtonView" />
@@ -37,14 +38,14 @@
     <component id="FluxComponent" class="com.openflux.core.FluxComponent" />
     <component id="FluxView" class="com.openflux.core.FluxView" />
     <component id="FluxController" class="com.openflux.core.FluxController" />
-    <component id="ContainerView" class="com.openflux.views.ContainerView" />
+    
     <component id="DataView" class="com.openflux.views.DataView" />
-    <component id="IContainerView" class="com.openflux.views.IContainerView" />
+    <component id="IFluxContainer" class="com.openflux.containers.IFluxContainer" />
     
     <!-- utils -->
     
     <!-- plexiglass -->
-    <component id="PlexiContainerView" class="com.plexiglass.views.PlexiContainerView" />
+    <component id="PlexiContainer" class="com.plexiglass.containers.PlexiContainer" />
     <component id="PlexiDataView" class="com.plexiglass.views.PlexiDataView" />
     <component id="PlexiAnimator" class="com.plexiglass.animators.PlexiAnimator" />
     <component id="PlexiListView" class="com.plexiglass.views.PlexiListView" />

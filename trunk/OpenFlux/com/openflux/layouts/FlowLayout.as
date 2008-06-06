@@ -20,15 +20,15 @@ package com.openflux.layouts
 		
 		public function measure():Point {
 			var point:Point = new Point();
-			for each(var child:UIComponent in container.renderers) {
-				point.x = Math.max(child.getExplicitOrMeasuredWidth(), point.x);
-				point.y += child.getExplicitOrMeasuredHeight() + 10;
+			for each(var child:UIComponent in container.children) {
+				point.x = Math.max(child.width, point.x);
+				point.y += child.height + 10;
 			}
 			return point;
 		}
 		
 		public function update(indices:Array = null):void {
-			var containerWidth:Number = container.getExplicitOrMeasuredWidth();
+			var containerWidth:Number = container.width;
 			var point:Point = measureGrid();
 			var cols:Number = Math.floor(containerWidth / point.x);
 			var space:Number = (containerWidth - (point.x * cols)) / (cols + 1);
@@ -37,16 +37,16 @@ package com.openflux.layouts
 			
 			var xPos:Number = space / 2;
 			var yPos:Number = space / 2;
-			var len:int = container.renderers.length;
+			var len:int = container.children.length;
 			//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
 			var child:UIComponent;
 			var width:Number;
 			var height:Number;
 			
 			for (var i:int = 0; i < len; i++) {
-				child = container.renderers[i];
-				width = child.measuredWidth;
-				height = child.measuredHeight;
+				child = container.children[i];
+				width = child.width;
+				height = child.height;
 				
 				if(indices && indices.indexOf(i, 0) >= 0) {
 					xPos += width + 10;
@@ -74,14 +74,14 @@ package com.openflux.layouts
 			var space:Number = (containerWidth - (point.x * cols)) / (cols + 1);
 			var xPos:Number = space / 2;
 			var yPos:Number = space / 2;
-			var len:int = container.renderers.length;
+			var len:int = container.children.length;
 			//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
 			var child:UIComponent;
 			var width:Number;
 			var height:Number;
 			
 			for (var i:int = 0; i < len; i++) {
-				child = container.renderers[i];
+				child = container.children[i];
 				width = child.getExplicitOrMeasuredWidth();
 				height = child.getExplicitOrMeasuredHeight();
 				
@@ -101,7 +101,7 @@ package com.openflux.layouts
 		private function measureGrid():Point {
 			
 			var point:Point = new Point();
-			for each(var child:UIComponent in container.renderers) {
+			for each(var child:UIComponent in container.children) {
 				var w:Number = child.measuredWidth;
 				var h:Number = child.measuredHeight;
 				if(w > point.x) {

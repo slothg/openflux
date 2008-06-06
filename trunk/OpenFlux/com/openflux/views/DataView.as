@@ -1,10 +1,9 @@
 package com.openflux.views
 {
 	import com.openflux.ListItem;
-	import com.openflux.views.IDataView;
+	import com.openflux.containers.Container;
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxListItem;
-	import com.openflux.events.DataViewEvent;
 	import com.openflux.layouts.VerticalLayout;
 	import com.openflux.utils.CollectionUtil;
 	
@@ -18,7 +17,7 @@ package com.openflux.views
 	import mx.events.CollectionEventKind;
 	
 	//[Event(name="dataViewChanged", type="com.openflux.events.DataViewEvent")]
-	public class DataView extends ContainerView implements IDataView
+	public class DataView extends Container implements IDataView
 	{
 		private var _collection:ICollectionView;
 		
@@ -63,7 +62,7 @@ package com.openflux.views
 			_itemRenderer = value;
 		}
 		
-		override public function get renderers():Array { return _renderers; }
+		override public function get children():Array { return _renderers; }
 		
 		public function get dragTargetIndex():int { return _dragTargetIndex; }
 		public function set dragTargetIndex(value:int):void {
@@ -139,7 +138,7 @@ package com.openflux.views
 					break;
 				case CollectionEventKind.REMOVE:
 					removeChildAt(event.location);
-					renderers.splice(event.location, 1);					
+					children.splice(event.location, 1);					
 					this.invalidateLayout();
 					break;
 				case CollectionEventKind.RESET:
