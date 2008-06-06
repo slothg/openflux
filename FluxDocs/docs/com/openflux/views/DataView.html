@@ -4,8 +4,8 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="DataView,com.openflux.core.DataView,collection,content,dragTargetIndex,itemRenderer,renderers,addItem,collectionReset,commitProperties,createChildren" name="keywords">
-<title>com.openflux.core.DataView</title>
+<meta content="DataView,com.openflux.views.DataView,children,collection,dragTargetIndex,renderer,addItem,collectionReset,commitProperties,createChildren" name="keywords">
+<title>com.openflux.views.DataView</title>
 </head>
 <body>
 <script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
@@ -16,10 +16,10 @@
 			--></script>
 <table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
 <tr>
-<td align="left" class="titleTableTitle">API Documentation</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?com/openflux/core/DataView.html&amp;com/openflux/core/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
+<td align="left" class="titleTableTitle">API Documentation</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?com/openflux/views/DataView.html&amp;com/openflux/views/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
 </tr>
 <tr class="titleTableRow2">
-<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;DataView</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#eventSummary">Events</a></td>
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;DataView</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td>
 </tr>
 <tr class="titleTableRow3">
 <td colspan="2">&nbsp;</td>
@@ -27,21 +27,24 @@
 </table>
 <script type="text/javascript" language="javascript">
 <!--
-if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class DataView"); titleBar_setSubNav(false,true,false,false,true,false,true,false,false,false,false,false,false,false);}
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class DataView"); titleBar_setSubNav(false,true,false,false,false,false,true,false,false,false,false,false,false,false);}
 --></script>
 <div class="MainContent">
 <table cellspacing="0" cellpadding="0" class="classHeaderTable">
 <tr>
-<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.openflux.core</a></td>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">com.openflux.views</a></td>
 </tr>
 <tr>
 <td class="classHeaderTableLabel">Class</td><td class="classSignature">public class DataView</td>
 </tr>
 <tr>
-<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">DataView <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> <a href="FluxContainer.html">FluxContainer</a> <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> <a href="FluxView.html">FluxView</a> <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> mx.containers.Canvas</td>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">DataView <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> <a href="../containers/Container.html">Container</a> <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> <a href="../core/FluxView.html">FluxView</a> <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> mx.containers.Canvas</td>
 </tr>
 <tr>
 <td class="classHeaderTableLabel">Implements</td><td><a href="IDataView.html">IDataView</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Subclasses</td><td><a href="../../plexiglass/views/PlexiDataView.html">PlexiDataView</a></td>
 </tr>
 </table>
 <p></p>
@@ -65,53 +68,44 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="FluxContainer.html#animator">animator</a> : <a href="../animators/IAnimator.html">IAnimator</a>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../containers/Container.html#animator">animator</a> : <a href="../animators/IAnimator.html">IAnimator</a>
 <div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="FluxContainer.html">FluxContainer</a></td>
-</tr>
-<tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="FluxView.html#component">component</a> : Object<div class="summaryTableDescription">
-   Stores the component model instance
-   </div>
-</td><td class="summaryTableOwnerCol"><a href="FluxView.html">FluxView</a></td>
+</td><td class="summaryTableOwnerCol"><a href="../containers/Container.html">Container</a></td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#content">content</a> : Object<div class="summaryTableDescription"></div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#children">children</a> : Array<div class="summaryTableDescription">[read-only]</div>
 </td><td class="summaryTableOwnerCol">DataView</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#collection">collection</a> : Object<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">DataView</td>
+</tr>
+<tr class="hideInheritedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/FluxView.html#component">component</a> : Object<div class="summaryTableDescription">
+   Stores the component model instance
+   </div>
+</td><td class="summaryTableOwnerCol"><a href="../core/FluxView.html">FluxView</a></td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#dragTargetIndex">dragTargetIndex</a> : int<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">DataView</td>
 </tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#itemRenderer">itemRenderer</a> : IFactory<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">DataView</td>
-</tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="FluxContainer.html#layout">layout</a> : <a href="../layouts/ILayout.html">ILayout</a>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../containers/Container.html#layout">layout</a> : <a href="../layouts/ILayout.html">ILayout</a>
 <div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="FluxContainer.html">FluxContainer</a></td>
+</td><td class="summaryTableOwnerCol"><a href="../containers/Container.html">Container</a></td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#renderers">renderers</a> : Array<div class="summaryTableDescription">[read-only]</div>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#renderer">renderer</a> : IFactory<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">DataView</td>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="FluxView.html#state">state</a> : String<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="FluxView.html">FluxView</a></td>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/FluxView.html#state">state</a> : String<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../core/FluxView.html">FluxView</a></td>
 </tr>
-</table>
-</div>
-<a name="protectedPropertySummary"></a>
-<div class="summarySection">
-<div class="summaryTableTitle">Protected Properties</div>
-<table id="summaryTableProtectedProperty" class="summaryTable " cellpadding="3" cellspacing="0">
-<tr>
-<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#collection">collection</a> : ICollectionView<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">DataView</td>
+<tr class="hideInheritedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../containers/Container.html#tokens">tokens</a> : Dictionary<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../containers/Container.html">Container</a></td>
 </tr>
 </table>
 </div>
@@ -140,23 +134,23 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="FluxContainer.html#invalidateLayout()">invalidateLayout</a>():void</div>
+<a class="signatureLink" href="../containers/Container.html#invalidateLayout()">invalidateLayout</a>():void</div>
 <div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="FluxContainer.html">FluxContainer</a></td>
+</td><td class="summaryTableOwnerCol"><a href="../containers/Container.html">Container</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="FluxContainer.html#styleChanged()">styleChanged</a>(styleProp:String):void</div>
+<a class="signatureLink" href="../containers/Container.html#styleChanged()">styleChanged</a>(styleProp:String):void</div>
 <div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="FluxContainer.html">FluxContainer</a></td>
+</td><td class="summaryTableOwnerCol"><a href="../containers/Container.html">Container</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="FluxContainer.html#stylesInitialized()">stylesInitialized</a>():void</div>
+<a class="signatureLink" href="../containers/Container.html#stylesInitialized()">stylesInitialized</a>():void</div>
 <div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="FluxContainer.html">FluxContainer</a></td>
+</td><td class="summaryTableOwnerCol"><a href="../containers/Container.html">Container</a></td>
 </tr>
 </table>
 </div>
@@ -206,32 +200,16 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="hideInheritedProtectedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="FluxContainer.html#measure()">measure</a>():void</div>
+<a class="signatureLink" href="../containers/Container.html#measure()">measure</a>():void</div>
 <div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="FluxContainer.html">FluxContainer</a></td>
+</td><td class="summaryTableOwnerCol"><a href="../containers/Container.html">Container</a></td>
 </tr>
 <tr class="hideInheritedProtectedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="FluxContainer.html#updateDisplayList()">updateDisplayList</a>(unscaledWidth:Number, unscaledHeight:Number):void</div>
+<a class="signatureLink" href="../containers/Container.html#updateDisplayList()">updateDisplayList</a>(unscaledWidth:Number, unscaledHeight:Number):void</div>
 <div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="FluxContainer.html">FluxContainer</a></td>
-</tr>
-</table>
-</div>
-<a name="eventSummary"></a>
-<div class="summarySection">
-<div class="summaryTableTitle">Events</div>
-<table id="summaryTableEvent" class="summaryTable " cellpadding="3" cellspacing="0">
-<tr>
-<th>&nbsp;</th><th colspan="2">Event</th><th>Summary</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="#event:dataViewChanged">dataViewChanged</a>
-</div>
-</td><td class="summaryTableDescription summaryTableCol">&nbsp;</td><td class="summaryTableOwnerCol">DataView</td>
+</td><td class="summaryTableOwnerCol"><a href="../containers/Container.html">Container</a></td>
 </tr>
 </table>
 </div>
@@ -242,33 +220,31 @@ showHideInherited();
 <div class="MainContent">
 <a name="propertyDetail"></a>
 <div class="detailSectionHeader">Property detail</div>
+<a name="children"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">children</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>children:Array</code>&nbsp;&nbsp;[read-only]<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get children():Array</code>
+<br>
+</div>
 <a name="collection"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">collection</td><td class="detailHeaderType">property</td>
+<td class="detailHeaderName">collection</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
 </tr>
 </table>
 <div class="detailBody">
-<code>collection:ICollectionView</code>&nbsp;&nbsp;[read-write]<span class="label">Implementation</span>
-<br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;protected function get collection():ICollectionView</code>
-<br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;protected function set collection(value:ICollectionView):void</code>
-<br>
-</div>
-<a name="content"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">content</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>content:Object</code>&nbsp;&nbsp;[read-write]<p>This property can be used as the source for data binding.</p>
+<code>collection:Object</code>&nbsp;&nbsp;[read-write]<p>This property can be used as the source for data binding.</p>
 <span class="label">Implementation</span>
 <br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get content():Object</code>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get collection():Object</code>
 <br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set content(value:Object):void</code>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set collection(value:Object):void</code>
 <br>
 </div>
 <a name="dragTargetIndex"></a>
@@ -285,30 +261,18 @@ showHideInherited();
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function set dragTargetIndex(value:int):void</code>
 <br>
 </div>
-<a name="itemRenderer"></a>
+<a name="renderer"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">itemRenderer</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+<td class="detailHeaderName">renderer</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
 </tr>
 </table>
 <div class="detailBody">
-<code>itemRenderer:IFactory</code>&nbsp;&nbsp;[read-write]<span class="label">Implementation</span>
+<code>renderer:IFactory</code>&nbsp;&nbsp;[read-write]<span class="label">Implementation</span>
 <br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get itemRenderer():IFactory</code>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get renderer():IFactory</code>
 <br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set itemRenderer(value:IFactory):void</code>
-<br>
-</div>
-<a name="renderers"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">renderers</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>renderers:Array</code>&nbsp;&nbsp;[read-only]<span class="label">Implementation</span>
-<br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get renderers():Array</code>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set renderer(value:IFactory):void</code>
 <br>
 </div>
 <a name="constructorDetail"></a>
@@ -370,18 +334,6 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>protected override function createChildren():void</code>
-</div>
-<div class="detailSectionHeader">Event detail</div>
-<a name="event:dataViewChanged"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">dataViewChanged</td><td class="detailHeaderType">event&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<span class="label">Event object type: </span><a href="../events/DataViewEvent.html"><code>com.openflux.events.DataViewEvent</code></a>
-<br>
-<p></p>
 </div>
 <br>
 <br>
