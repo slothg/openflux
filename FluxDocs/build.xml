@@ -1,6 +1,7 @@
-<project name="OpenFlux" basedir="/Users/mac/Workspace/FluxDocs" default="default">
+<project name="OpenFlux" basedir="/Users/mac/Workspace/FluxDocs" default="docs">
 	
 	<property file="build.properties"/>
+	
 	<taskdef resource="flexTasks.tasks" classpath="${basedir}/libs/flexTasks.jar" />
 	
 	<!-- Extension for ANT to allow for tasks like "for" and "propertyregex" -->
@@ -27,29 +28,32 @@
 		</delete>
 		
 		<exec executable="${asdoc.exe}" spawn="no">
+			
 			<!-- Place the documentation in the "docs" directory -->
-			<arg line="-o '${core.docs.dir}'" />
+			<arg line="-output '${core.docs.dir}'" />
 			
 			<!-- Specify the main source path as "src" -->
 			<arg line="-source-path '${core.src.dir}'" />
 			
-			<arg line="-namespace http://openflux.googlecode.com ${core.src.dir}/openflux.xml " />
-			<arg line="-doc-namespaces http://openflux.googlecode.com " />
-			
-			<!-- Document all of the classes in the "src" tree -->
-			<!--<arg line="-include-sources '${core.src.dir}/com/openflux' " />-->
-			
-			<!--
-			<arg line="-namespace http://openflux.googlecode.com ${core.src.dir}/manifest.xml" />-->
-			<!-- <arg line="-namespace http://mq.universalmind.com/launchpad/ ${core.src.dir}/mq_manifest.xml" /> -->
-			<!--<arg line="-doc-namespaces http://openflux.googlecode.com" />-->
-			
+			<arg line="-templates-path '${flexsdk.templates.dir}' "/>
+			<arg line="-external-library-path='${core.libs.dir}'"/>
 			
 			<!-- Include the library name in the window title -->
 			<arg line="-window-title '${core.name}' "/>
+			<arg line="-main-title '${core.name}' "/>
 			
-			<arg line="-templates-path '${flexsdk.templates.dir}' "/>
-			<arg line="-external-library-path='${core.libs.dir}'"/>
+			<!--<arg line="-load-config+=${basedir}/build.config" />-->
+			
+			<arg line="-package com.openflux.animators 'Animators are responsible for moving DisplayObjects from point A to point B.'" />
+			<arg line="-package com.openflux.containers 'Containers hold and display Flex UIComponents.'" />
+			<arg line="-package com.openflux.controllers 'Controllers are responsible for the behavior of FluxComponents.'" />
+			<arg line="-package com.openflux.core 'The core package defines interfaces and base-classes which are fundamental to the framework.'" />
+			<arg line="-package com.openflux.layouts 'Layouts are responsible for the placement of DisplayObject in list and/or container components.'" />
+			<arg line="-package com.openflux.views 'Views are responsible for the graphical representation of a component.'" />
+				
+			<!-- run documentation on the manifest file -->
+			<arg line="-namespace http://openflux.googlecode.com ${core.src.dir}/openflux.xml " />
+			<arg line="-doc-namespaces http://openflux.googlecode.com " />
 			
 		</exec>
 	</target>
