@@ -4,7 +4,9 @@ package com.openflux.animators
 	
 	import com.openflux.containers.IFluxContainer;
 	
-	
+	/**
+	 * An animator class which uses the Tweener library. This is the default animator provided by OpenFlux. 
+	 */
 	public class TweenAnimator implements IAnimator
 	{
 		
@@ -14,7 +16,14 @@ package com.openflux.animators
 		static public const EASE_OUT_EXPO:String = "easeOutExpo";
 		static public const EASE_OUT_BOUNCE:String = "easeOutBounce";
 		
+		/**
+		 * The duration of time used to animate a component.
+		 */
 		[StyleBinding] public var time:Number = 1;
+		
+		/**
+		 * The transition path on which to animate a component.
+		 */
 		[StyleBinding] public var transition:String = EASE_OUT_EXPO;
 		
 		public function attach(container:IFluxContainer):void {}

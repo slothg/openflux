@@ -37,7 +37,7 @@ package com.openflux.containers
 		// Public Properties
 		//************************************
 		
-		public function get tokens():Dictionary { return _tokens; }
+		//public function get tokens():Dictionary { return _tokens; }
 		
 		[StyleBinding]
 		public function get animator():IAnimator { return _animator; }
@@ -73,6 +73,7 @@ package com.openflux.containers
 		// Framework Overrides
 		//***********************************************
 		
+		/** @private */
 		override protected function createChildren():void {
 			super.createChildren();
 			if (!_animator) {
@@ -85,6 +86,7 @@ package com.openflux.containers
 			this.addEventListener(ResizeEvent.RESIZE, resizeHandler);
 		}
 		
+		/** @private */
 		override protected function measure():void {
 			super.measure();
 			var point:Point = layout.measure();
@@ -92,41 +94,32 @@ package com.openflux.containers
 			measuredHeight = point.y;
 		}
 		
-		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
-			super.updateDisplayList(unscaledWidth, unscaledHeight);
+		/** @private */
+		override protected function commitProperties():void {
+			super.commitProperties();
 			if(childrenChanged) {
-				for each(var child:UIComponent in children) {
-					if(child.getStyle("width") == null) {
-						child.setStyle("width", child.getExplicitOrMeasuredWidth());
-					}
-					if(child.getStyle("height") == null) {
-						child.setStyle("height", child.getExplicitOrMeasuredHeight());
-					}
-					if(child.width) { child.measuredWidth = child.width; }
-					if(child.height) { child.measuredHeight = child.height; }
-				}
+				updateChildren();
 				childrenChanged = false;
 			}
+		}
+		
+		/** @private */
+		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
+			super.updateDisplayList(unscaledWidth, unscaledHeight);
 			if(_layout && layoutChanged) {
-				for each(var child:UIComponent in children) {
-					if(child.getStyle("width") != null) {
-						child.width = child.getStyle("width");
-					}
-					if(child.getStyle("height") != null) {
-						child.height = child.getStyle("height");
-					}
-				}
 				layoutChanged = false;
 				_layout.update();
 			}
 		}
 		
+		/** @private */
 		override public function stylesInitialized():void {
 			super.stylesInitialized();
 			if(layout) { MetaStyler.initialize(layout, this.data as IStyleClient); }
 			if(animator) { MetaStyler.initialize(animator, this.data as IStyleClient); }
 		}
 		
+		/** @private */
 		override public function styleChanged(styleProp:String):void {
 			super.styleChanged(styleProp);
 			if(layout) { MetaStyler.updateStyle(styleProp, layout, this.data as IStyleClient); }
@@ -137,6 +130,15 @@ package com.openflux.containers
 			layoutChanged = true;
 			invalidateSize();
 			invalidateDisplayList();
+		}
+		
+		private function updateChildren():void {
+			for each(var child:UIComponent in children) {
+				if(child.measuredWidth == 0 || child.measuredHeight == 0) {
+					child.measuredWidth = child.width;
+					child.measuredHeight = child.height;
+				}
+			}
 		}
 		
 		//******************************************
