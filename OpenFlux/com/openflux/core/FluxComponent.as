@@ -51,6 +51,7 @@ package com.openflux.core
 		// Constructor
 		//******************************************
 		
+		/** @private */
 		public function FluxComponent():void {
 			super();
 		}
@@ -60,6 +61,7 @@ package com.openflux.core
 		// Framework Overrides
 		//***************************************************
 		
+		/** @private */
 		override protected function commitProperties():void {
 			super.commitProperties();
 			if(viewChanged) {
@@ -75,6 +77,7 @@ package com.openflux.core
 			}
 		}
 		
+		/** @private */
 		override protected function measure():void {
 			super.measure();
 			if(view) {
@@ -85,7 +88,7 @@ package com.openflux.core
 			}
 		}
 		
-		
+		/** @private */
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
 			if(_view) {
@@ -94,6 +97,7 @@ package com.openflux.core
 			}
 		}
 		
+		/** @private */
 		override public function styleChanged(styleProp:String):void {
 			super.styleChanged(styleProp);
 			MetaStyler.updateStyle(styleProp, this);
@@ -101,6 +105,7 @@ package com.openflux.core
 			if(controller) MetaStyler.updateStyle(styleProp, controller, this);
 		}
 		
+		/** @private */
 		override public function stylesInitialized():void {
 			MetaStyler.initialize(this);
 		}
@@ -109,6 +114,7 @@ package com.openflux.core
 		// UIComponent upgrades
 		//********************************************
 		
+		/** @private */
 		override public function set styleName(value:Object):void {
 			if(value is String) {
 				styleNames = (value as String).split(" ");

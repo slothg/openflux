@@ -46,6 +46,7 @@ package com.openflux.core
 		// Constructor
 		//***********************************************************
 		
+		/** @private */
 		public function FluxView()
 		{
 			super();
@@ -53,6 +54,7 @@ package com.openflux.core
 			MetaStyler.initialize(this);
 		}
 		
+		/** @private */
 		override public function styleChanged(styleProp:String):void {
 			super.styleChanged(styleProp);
 			MetaStyler.updateStyle(styleProp, this);
