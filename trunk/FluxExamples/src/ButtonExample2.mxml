@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:flux="http://openflux.googlecode.com" 
+	layout="absolute" viewSourceURL="srcview/index.html">
+	<flux:Button label="Button Example" left="20" top="20">
+		<flux:view>
+			<flux:CheckBoxView />
+		</flux:view>
+		<flux:controller>
+			<flux:ButtonController selectable="true" />
+		</flux:controller>
+	</flux:Button>
+</mx:Application>
