@@ -7,7 +7,7 @@
 			<node label="OpenFlux.swc" url="source/libs/OpenFlux.swc"/>
 		</node>
 		<node label="src" icon="classpathIcon" expanded="true">
-			<node selected="true" label="ButtonExample1.mxml" icon="mxmlAppIcon" url="source/ButtonExample1.mxml.html"/>
+			<node selected="true" label="ButtonExample3.mxml" icon="mxmlAppIcon" url="source/ButtonExample3.mxml.html"/>
 		</node>
 	</nodes>
 </index>
