@@ -1,15 +1,15 @@
 package com.plexiglass.containers
 {
-	import away3d.cameras.HoverCamera3D;
 	import away3d.containers.View3D;
-	import away3d.core.math.Number3D;
 	import away3d.materials.MovieMaterial;
 	import away3d.primitives.Plane;
-	import away3d.primitives.Sphere;
 	
 	import com.openflux.containers.Container;
 	import com.openflux.core.*;
+	import com.openflux.utils.MetaStyler;
 	import com.plexiglass.animators.PlexiAnimator;
+	import com.plexiglass.cameras.HoverCamera;
+	import com.plexiglass.cameras.ICamera;
 	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
@@ -18,17 +18,17 @@ package com.plexiglass.containers
 	
 	import mx.containers.Canvas;
 	import mx.core.UIComponent;
+	import mx.styles.IStyleClient;
 	
-	public class PlexiContainer extends Container
+	public class PlexiContainer extends Container implements IPlexiContainer
 	{
-		private var view:View3D;
-		public var camera:HoverCamera3D;
+		private var _view:View3D;
 		private var viewContainer:UIComponent;
 		private var container:UIComponent;
 		private var _selectedIndex:int = 0;
 		private var _renderers:Array = new Array();
-		private var center:Sphere;
-		
+		private var _camera:ICamera;
+
 		override public function get children():Array { return _renderers; }
 		public var planes:Dictionary = new Dictionary(true);
 		
@@ -37,10 +37,7 @@ package com.plexiglass.containers
 			super();
 			container = new Canvas();
 			container.visible = false;
-			center = new Sphere();
-			camera = new HoverCamera3D({z:-1200, zoom:11, focus:100, target:center, distance:-1200});
-			view = new View3D({camera:camera}); // x:getExplicitOrMeasuredWidth() / 2, y:getExplicitOrMeasuredHeight() / 2
-			//view.scene.addChild(center);
+			_view = new View3D(); // x:getExplicitOrMeasuredWidth() / 2, y:getExplicitOrMeasuredHeight() / 2
 		}
 		
 		//************************************
@@ -53,6 +50,22 @@ package com.plexiglass.containers
 			invalidateLayout();
 		}
 		*/
+		
+		public function get view():View3D { return _view; }
+		
+		[StyleBinding]
+		public function get camera():ICamera { return _camera; }
+		public function set camera(value:ICamera):void {
+			if(_camera) {
+				_camera.detach(this);
+			}
+			_camera = value;
+			if(_camera) {
+				_camera.attach(this);
+				MetaStyler.initialize(_camera, this.data as IStyleClient);
+			}
+		}
+		
 		//************************************
 		// Framework overides
 		//************************************
@@ -67,17 +80,17 @@ package com.plexiglass.containers
 			rawChildren.addChild(container);
 			viewContainer.addChild(view);
 			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			if (!camera) {
+				camera = new HoverCamera();
+			}
 		}
 		
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
       		view.x = unscaledWidth/2;
 			view.y = unscaledHeight/2;
-			camera.x = (unscaledWidth/2);
-			camera.y = -(unscaledHeight/2);
-			center.x = camera.x;
-			center.y = camera.y;
-			camera.lookAt(new Number3D(0, 0, 0));
+			if (_camera)
+				_camera.update(unscaledWidth, unscaledHeight);
 		}
 		
 		override public function addChild(child:DisplayObject):DisplayObject {
@@ -93,10 +106,11 @@ package com.plexiglass.containers
 		}
 		
 		override public function getChildAt(index:int):DisplayObject {
-			return view.scene.children[index].material.movie;
+			return container.getChildAt(index);
 		}
 		
-		override public function removeChild(child:DisplayObject):DisplayObject {		
+		override public function removeChild(child:DisplayObject):DisplayObject {
+			container.removeChild(child);
 			view.scene.removeChild(planes[child]);
 			delete planes[child];
 			return child;
@@ -108,9 +122,6 @@ package com.plexiglass.containers
 		
 		private function enterFrameHandler(event:Event):void {
 			if (view && view.stage) {
-				camera.targetpanangle = 90 * (width/2-mouseX)/(width/2);
-				camera.targettiltangle = 90 * (height/2-mouseY)/(height/2) * -1;
-				camera.hover();
 				view.render();
 			}
 		}
