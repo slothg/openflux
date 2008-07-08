@@ -7,6 +7,7 @@ package com.plexiglass.cameras
 	import com.plexiglass.containers.IPlexiContainer;
 	
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	public class HoverCamera implements ICamera
 	{
@@ -14,29 +15,42 @@ package com.plexiglass.cameras
 		private var camera:HoverCamera3D;
 		private var center:Sphere;
 		
+		private var rotCamera:Boolean = false;
+		private var lastMouseX:Number = 0;
+		private var lastMouseY:Number = 0;
+		private var firstClick:Boolean = true;
+		
 		public function HoverCamera()
 		{
 			center = new Sphere();
-			camera = new HoverCamera3D({target:center});//{z:-1200, zoom:11, focus:100, , distance:-1200});
+			camera = new HoverCamera3D({zoom:11, focus:200, distance:1000, target:center});
+			camera.tiltangle = 40;
+			camera.targettiltangle = 40;
+			camera.mintiltangle =  20;
+			camera.maxtiltangle = 50;
+			camera.yfactor = 1;
+			camera.steps = 7;
 		}
 		
 		public function attach(container:IPlexiContainer):void
 		{	
 			this.container = container;
 			this.container.view.camera = camera;
-			//this.container.view.scene.addChild(center);
+			lastMouseX = container.mouseX;
+			lastMouseY = container.mouseY;
 			this.container.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 		}
 		
 		public function detach(container:IPlexiContainer):void
 		{
 			this.container.removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
-			//this.container.view.scene.removeChild(center);
 			this.container = null;
 		}
 		
 		public function update(w:Number, h:Number):void
 		{
+			container.view.x = w/2;
+			container.view.y = h/2;
 			camera.x = (w/2);
 			camera.y = -(h/2);
 			center.x = camera.x;
@@ -48,8 +62,14 @@ package com.plexiglass.cameras
 		{
 			if (container.view && container.view.scene)
 			{
-				camera.targetpanangle = 90 * (container.getExplicitOrMeasuredWidth() / 2 - container.mouseX) / (container.getExplicitOrMeasuredWidth() / 2);
-				camera.targettiltangle = 90 * (container.getExplicitOrMeasuredHeight() / 2 - container.mouseY) / (container.getExplicitOrMeasuredHeight() / 2) * -1;
+				var dragX:Number = (container.view.mouseX - lastMouseX);
+				var dragY:Number = (container.view.mouseY - lastMouseY);
+				
+				lastMouseX = container.view.mouseX;
+				lastMouseY = container.view.mouseY;
+				
+				camera.targetpanangle += dragX;
+				camera.targettiltangle += dragY
 				camera.hover();
 			}
 		}

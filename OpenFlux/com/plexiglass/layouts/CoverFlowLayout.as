@@ -75,8 +75,7 @@ package com.plexiglass.layouts
 				container.animator.begin();
 				
 				for (var i:int = 0; i < container.children.length; i++) {
-					//var plane:Object = container.renderers[i];
-					var child:DisplayObject = container.children[i]; //plane.material["movie"];
+					var child:DisplayObject = container.children[i];
 					
 					abs = Math.abs(selectedIndex - i);
 					
@@ -115,7 +114,7 @@ package com.plexiglass.layouts
 					}
 					
 					if(i != selectedIndex) {
-						//animator.moveItem(plane, {z:zPosition, time:1/3});
+						container.animator.moveItem(child, {z:zPosition, time:1/3});
 						container.animator.moveItem(child, {x:xPosition, y:yPosition, rotationY:yRotation, rotationX:xRotation, time:0.500});
 					} else {
 						container.animator.moveItem(child, {x:xPosition, y:yPosition, z:zPosition, rotationZ:0, rotationY:yRotation, rotationX:xRotation, time:0.500});
