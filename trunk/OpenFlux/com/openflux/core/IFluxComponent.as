@@ -26,5 +26,16 @@ package com.openflux.core
 		function get view():IFluxView;
 		function set view(value:IFluxView):void;
 		
+		/**
+		 * Used for PlexiGlass Simple3DLayout
+		 */
+		function get z():Number;
+		function set z(value:Number):void;
+		function get rotationX():Number;
+		function set rotationX(value:Number):void;
+		function get rotationY():Number;
+		function set rotationY(value:Number):void;
+		function get rotationZ():Number;
+		function set rotationZ(value:Number):void;
 	}
 }
