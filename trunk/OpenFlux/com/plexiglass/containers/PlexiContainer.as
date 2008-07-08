@@ -28,9 +28,7 @@ package com.plexiglass.containers
 		private var _selectedIndex:int = 0;
 		private var _renderers:Array = new Array();
 		private var _camera:ICamera;
-
-		override public function get children():Array { return _renderers; }
-		public var planes:Dictionary = new Dictionary(true);
+		private var planes:Dictionary = new Dictionary(true);
 		
 		public function PlexiContainer()
 		{
@@ -43,13 +41,12 @@ package com.plexiglass.containers
 		//************************************
 		// Public Properties
 		//************************************
-		/*
-		public function get selectedIndex():int { return _selectedIndex; }
-		public function set selectedIndex(value:int):void {
-			_selectedIndex = value;
-			invalidateLayout();
+		
+		override public function get children():Array { return _renderers; }
+		
+		public function getChildPlane(child:UIComponent):Plane {
+			return planes[child];
 		}
-		*/
 		
 		public function get view():View3D { return _view; }
 		
@@ -87,8 +84,6 @@ package com.plexiglass.containers
 		
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
-      		view.x = unscaledWidth/2;
-			view.y = unscaledHeight/2;
 			if (_camera)
 				_camera.update(unscaledWidth, unscaledHeight);
 		}

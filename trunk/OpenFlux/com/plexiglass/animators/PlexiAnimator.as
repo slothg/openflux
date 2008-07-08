@@ -1,13 +1,14 @@
 package com.plexiglass.animators
 {
 	import away3d.primitives.Plane;
-	import away3d.materials.MovieMaterial;
+	
+	import caurina.transitions.Tweener;
 	
 	import com.openflux.animators.IAnimator;
 	import com.openflux.containers.IFluxContainer;
-	import com.plexiglass.containers.PlexiContainer;
-	import caurina.transitions.Tweener;
-	import flash.display.DisplayObject;
+	import com.plexiglass.containers.IPlexiContainer;
+	
+	import mx.core.UIComponent;
 
 	public class PlexiAnimator implements IAnimator
 	{
@@ -37,7 +38,7 @@ package com.plexiglass.animators
 		{
 			token.time = time;
 			token.transition = transition;
-			if(container is PlexiContainer) {
+			if(container is IPlexiContainer) {
 				var token3d:Object = new Object();
 				token3d.x = token.x + item.width/2;
 				token3d.y = (token.y + item.height/2) * -1;
@@ -51,14 +52,10 @@ package com.plexiglass.animators
 				token3d.time = token.time;
 				token3d.transition = transition;
 				
-				var pv:PlexiContainer = container as PlexiContainer;
-				for each(var o:Plane in pv.planes) {
-					if(o.material is MovieMaterial) {
-						var material:MovieMaterial = o.material as MovieMaterial;
-						if(material.movie == item) {
-							Tweener.addTween(o, token3d);
-						}
-					}
+				var pv:IPlexiContainer = container as IPlexiContainer;
+				var plane:Plane = pv.getChildPlane(item as UIComponent);
+				if (plane) {
+					Tweener.addTween(plane, token3d);
 				}
 			}
 			
