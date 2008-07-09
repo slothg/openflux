@@ -25,7 +25,6 @@ package com.plexiglass.containers
 		private var _view:View3D;
 		private var viewContainer:UIComponent;
 		private var container:UIComponent;
-		private var _selectedIndex:int = 0;
 		private var _renderers:Array = new Array();
 		private var _camera:ICamera;
 		private var planes:Dictionary = new Dictionary(true);
@@ -35,7 +34,7 @@ package com.plexiglass.containers
 			super();
 			container = new Canvas();
 			container.visible = false;
-			_view = new View3D(); // x:getExplicitOrMeasuredWidth() / 2, y:getExplicitOrMeasuredHeight() / 2
+			_view = new View3D();
 		}
 		
 		//************************************
