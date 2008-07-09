@@ -1,40 +1,67 @@
 package com.plexiglass.views
 {
-	import away3d.cameras.Camera3D;
 	import away3d.containers.View3D;
-	import away3d.core.math.Number3D;
-	import away3d.events.MouseEvent3D;
 	import away3d.materials.MovieMaterial;
 	import away3d.primitives.Plane;
 	
 	import com.openflux.core.*;
-	import com.openflux.views.IDataView;
+	import com.openflux.utils.MetaStyler;
 	import com.openflux.views.DataView;
+	import com.plexiglass.animators.PlexiAnimator;
+	import com.plexiglass.cameras.HoverCamera;
+	import com.plexiglass.cameras.ICamera;
+	import com.plexiglass.containers.IPlexiContainer;
 	
+	import flash.display.DisplayObject;
+	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.utils.Dictionary;
 	
-	import mx.core.ClassFactory;
+	import mx.containers.Canvas;
 	import mx.core.IDataRenderer;
 	import mx.core.UIComponent;
+	import mx.styles.IStyleClient;
 	
-	public class PlexiDataView extends DataView implements IFluxView, IDataView
+	public class PlexiDataView extends DataView implements IPlexiContainer
 	{
-		private var view:View3D;
-		public var camera:Camera3D;
-		private var container:UIComponent;
+		private var _view:View3D;
 		private var viewContainer:UIComponent;
-		private var _selectedIndex:int = 0;
+		private var container:UIComponent;
+		private var _renderers:Array = new Array();
+		private var _camera:ICamera;
+		private var planes:Dictionary = new Dictionary(true);
+		
+		public function PlexiDataView()
+		{
+			super();
+			container = new Canvas();
+			container.visible = false;
+			_view = new View3D();
+		}
 		
 		//************************************
 		// Public Properties
 		//************************************
 		
-		// TODO: Move this to model
-		[Bindable]
-		public function get selectedIndex():Number { return _selectedIndex; }
-		public function set selectedIndex(value:Number):void {
-			_selectedIndex = value;
-			this.invalidateLayout();
+		override public function get children():Array { return _renderers; }
+		
+		public function getChildPlane(child:UIComponent):Plane {
+			return planes[child];
+		}
+		
+		public function get view():View3D { return _view; }
+		
+		[StyleBinding]
+		public function get camera():ICamera { return _camera; }
+		public function set camera(value:ICamera):void {
+			if(_camera) {
+				_camera.detach(this);
+			}
+			_camera = value;
+			if(_camera) {
+				_camera.attach(this);
+				MetaStyler.initialize(_camera, this.data as IStyleClient);
+			}
 		}
 		
 		//************************************
@@ -42,57 +69,63 @@ package com.plexiglass.views
 		//************************************
 		
 		override protected function createChildren():void {
+			if (!animator) {
+				animator = new PlexiAnimator();
+			}
 			super.createChildren();
-			
-			//if(itemRenderer == null) {
-				//itemRenderer = new ClassFactory(ImageView);
-			//}
-			
-			container = new UIComponent();
-			container.visible = false;
-			addChild(container);
-			
 			viewContainer = new UIComponent();
-			addChild(viewContainer);
-			
-			camera = new Camera3D({z:-200, zoom:2, focus:100});
-			view = new View3D({camera:camera, x:getExplicitOrMeasuredWidth() / 2, y:getExplicitOrMeasuredHeight() / 2});
+			rawChildren.addChild(viewContainer);
+			rawChildren.addChild(container);
 			viewContainer.addChild(view);
-			
 			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			if (!camera) {
+				camera = new HoverCamera();
+			}
 		}
 		
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
-      		view.x = this.getExplicitOrMeasuredWidth() / 2;
-			view.y = this.getExplicitOrMeasuredHeight() / 2;
+			if (_camera)
+				_camera.update(unscaledWidth, unscaledHeight);
+		}
+		
+		override public function addChild(child:DisplayObject):DisplayObject {
+			container.addChild(child);
+			if (child.width > 0 && child.height > 0) {
+				var m:MovieMaterial = new MovieMaterial(child as Sprite, {smooth:true, interactive:true});
+				var p:Plane = new Plane({yUp:false, material:m, width:child.width, height:child.height, bothsides:true});
+				view.scene.addChild(p);
+				children.push(child);
+				planes[child] = p;
+			}
+			return child;
 		}
 		
 		override protected function addItem(item:Object, index:int=0):void {
 			var child:UIComponent = renderer.newInstance() as UIComponent;
 			(child as IDataRenderer).data = item;
 			if (child is IFluxListItem) (child as IFluxListItem).list = data as IFluxList;
-			container.addChild(child);
 			
-			var m:MovieMaterial = new MovieMaterial(child, {smooth:true, interactive:true});
-			var p:Plane = new Plane({yUp:false, material:m, width:child.getExplicitOrMeasuredWidth(), height:child.getExplicitOrMeasuredHeight()});
-			view.scene.addChild(p);
-			children.push(p);
-			p.addOnMouseUp(planeClicked);
+			addChild(child);
+		}
+		
+		override public function getChildAt(index:int):DisplayObject {
+			return container.getChildAt(index);
+		}
+		
+		override public function removeChild(child:DisplayObject):DisplayObject {
+			container.removeChild(child);
+			view.scene.removeChild(planes[child]);
+			delete planes[child];
+			return child;
 		}
 		
 		//************************************
 		// Event Handlers
 		//************************************
 		
-		private function planeClicked(event:MouseEvent3D):void {
-			this.selectedIndex = children.indexOf(event.object);
-			this.invalidateDisplayList();
-		}
-		
 		private function enterFrameHandler(event:Event):void {
 			if (view && view.stage) {
-				camera.lookAt(new Number3D(0, 0, 0));
 				view.render();
 			}
 		}
