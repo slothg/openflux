@@ -21,40 +21,39 @@ package com.openflux.layouts
 	public class PhysicsLayout extends LayoutBase implements ILayout
 	{
 		private var foam:Foam;
-        
-        private var leftWall:RigidBody;
-        private var rightWall:RigidBody;
-        private var topWall:RigidBody;
-        private var bottomWall:RigidBody;
-        
-        private var childBody:Dictionary = new Dictionary(true);
+		
+		private var leftWall:RigidBody;
+		private var rightWall:RigidBody;
+		private var topWall:RigidBody;
+		private var bottomWall:RigidBody;
+		
+		private var childBody:Dictionary = new Dictionary(true);
         
 		public function PhysicsLayout()
 		{
 			super();
-			
+		
 			foam = new Foam();
-            foam.solverIterations = 4;
-            foam.setRenderer( new DisplayObjectFoamRenderer() );
-            foam.useMouseDragger( true );
-            
-            foam.addGlobalForceGenerator( new Friction( 0.01 ) );
+			foam.solverIterations = 4;
+			foam.setRenderer( new DisplayObjectFoamRenderer() );
+			foam.useMouseDragger( true );
+		
+			foam.addGlobalForceGenerator( new Friction( 0.01 ) );
 		}
 		
 		private var _gravityForce:Gravity;
-        
-        public function setGravity(yValue:Number=0, xValue:Number=0):void {
-            
-            if(_gravityForce) {
-                foam.removeGlobalForceGenerator(_gravityForce);
-            }
-            else {
-                foam.simulate();
-            }
-            
-            _gravityForce = new Gravity( new Vector(xValue, yValue) );
-            foam.addGlobalForceGenerator(_gravityForce);
-        }
+
+		public function setGravity(yValue:Number=0, xValue:Number=0):void {
+			if(_gravityForce) {
+				foam.removeGlobalForceGenerator(_gravityForce);
+			}
+			else {
+				foam.simulate();
+			}
+			
+			_gravityForce = new Gravity( new Vector(xValue, yValue) );
+			foam.addGlobalForceGenerator(_gravityForce);
+		}
 		
 		override public function attach(container:IFluxContainer):void
 		{
@@ -62,10 +61,13 @@ package com.openflux.layouts
 			Container(container).rawChildren.addChild(foam);
 			container.addEventListener(ChildExistenceChangedEvent.CHILD_ADD, onChildAdd);
 			container.addEventListener(ChildExistenceChangedEvent.CHILD_REMOVE, onChildRemove);
-			for each (var child:UIComponent in container.children)
+
+			var child:UIComponent;
+			for each (child in container.children)
 			{
 				addChild(child);
 			}
+			
 			setGravity(.5);
 		}
 		
@@ -75,7 +77,9 @@ package com.openflux.layouts
 			Container(container).rawChildren.removeChild(foam);
 			container.removeEventListener(ChildExistenceChangedEvent.CHILD_ADD, onChildAdd);
 			container.removeEventListener(ChildExistenceChangedEvent.CHILD_REMOVE, onChildRemove);
-			for each (var child:UIComponent in container.children)
+
+			var child:UIComponent;
+			for each (child in container.children)
 			{
 				removeChild(child);
 			}
@@ -92,53 +96,53 @@ package com.openflux.layouts
 		}
 		
 		private function createWalls(w:Number, h:Number):void {
-            foam.removeElement(bottomWall);
-            bottomWall = new RigidBody( w/2, h + 10, Simplification.INFINITE_MASS, ShapeUtil.createRectangle( w, 20 ) );
-            foam.addElement( bottomWall, true, false);
-            
-            foam.removeElement(leftWall);
-            leftWall = new RigidBody( -10, h/2, Simplification.INFINITE_MASS, ShapeUtil.createRectangle( 20, h ) );
-            foam.addElement(leftWall, true, false);
-            
-            foam.removeElement(rightWall);
-            rightWall = new RigidBody( w + 10, h/2, Simplification.INFINITE_MASS, ShapeUtil.createRectangle( 20, h ) );
-            foam.addElement(rightWall, true, false);
-            
-            foam.removeElement(topWall);
-            topWall = new RigidBody( w/2,-10, Simplification.INFINITE_MASS, ShapeUtil.createRectangle( w, 20 ) );
-            foam.addElement(topWall, true, false);
-        }
+			foam.removeElement(bottomWall);
+			bottomWall = new RigidBody( w/2, h + 10, Simplification.INFINITE_MASS, ShapeUtil.createRectangle( w, 20 ) );
+			foam.addElement( bottomWall, true, false);
+			
+			foam.removeElement(leftWall);
+			leftWall = new RigidBody( -10, h/2, Simplification.INFINITE_MASS, ShapeUtil.createRectangle( 20, h ) );
+			foam.addElement(leftWall, true, false);
+			
+			foam.removeElement(rightWall);
+			rightWall = new RigidBody( w + 10, h/2, Simplification.INFINITE_MASS, ShapeUtil.createRectangle( 20, h ) );
+			foam.addElement(rightWall, true, false);
+			
+			foam.removeElement(topWall);
+			topWall = new RigidBody( w/2,-10, Simplification.INFINITE_MASS, ShapeUtil.createRectangle( w, 20 ) );
+			foam.addElement(topWall, true, false);
+		}
         
-        private function onChildAdd(event:ChildExistenceChangedEvent):void
-        {
-        	addChild(event.relatedObject as UIComponent);
-        }
+		private function onChildAdd(event:ChildExistenceChangedEvent):void
+		{
+			addChild(event.relatedObject as UIComponent);
+		}
         
-        private function addChild(child:UIComponent):void
-        {
-        	child.validateSize(true);
-
+		private function addChild(child:UIComponent):void
+		{
+			child.validateSize(true);
+			
 			var childWidth:Number = child.getExplicitOrMeasuredWidth();
-            var childHeight:Number = child.getExplicitOrMeasuredHeight();
-            
-            var body:RigidBody = new RigidBody(child.x, child.y, .5, ShapeUtil.createRectangle(childWidth, childHeight));
-            childBody[child] = body;
-            foam.addElement(body, true, true, child);
-            
-            if(_gravityForce) {
-                foam.simulate();
-            }
-        }
+			var childHeight:Number = child.getExplicitOrMeasuredHeight();
+			
+			var body:RigidBody = new RigidBody(child.x, child.y, .5, ShapeUtil.createRectangle(childWidth, childHeight));
+			childBody[child] = body;
+			foam.addElement(body, true, true, child);
+			
+			if(_gravityForce) {
+				foam.simulate();
+			}
+		}
         
-        private function onChildRemove(event:ChildExistenceChangedEvent):void
-        {
-        	removeChild(event.relatedObject as UIComponent);
-        }
-        
-        private function removeChild(child:UIComponent):void
-        {
-        	foam.removeElement(childBody[child]);
-        	delete childBody[child];
-        }
+		private function onChildRemove(event:ChildExistenceChangedEvent):void
+		{
+			removeChild(event.relatedObject as UIComponent);
+		}
+		
+		private function removeChild(child:UIComponent):void
+		{
+			foam.removeElement(childBody[child]);
+			delete childBody[child];
+		}
 	}
 }
