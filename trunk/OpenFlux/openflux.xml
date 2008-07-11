@@ -41,7 +41,7 @@
     <component id="FluxView" class="com.openflux.core.FluxView" />
     <component id="FluxController" class="com.openflux.core.FluxController" />
     
-    <component id="DataView" class="com.openflux.views.DataView" />
+    <component id="DataView" class="com.openflux.containers.DataView" />
     <component id="IFluxContainer" class="com.openflux.containers.IFluxContainer" />
     
     <!-- utils -->

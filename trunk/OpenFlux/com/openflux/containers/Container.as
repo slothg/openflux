@@ -16,12 +16,14 @@ package com.openflux.containers
 	
 	public class Container extends FluxView implements IFluxContainer
 	{
+		
 		private var _animator:IAnimator;
 		private var _layout:ILayout;
-		private var _tokens:Dictionary;
+		//private var _tokens:Dictionary;
 		
 		private var layoutChanged:Boolean = false;
 		private var childrenChanged:Boolean = false;
+		
 		
 		//*********************************
 		// Constructor
@@ -30,8 +32,9 @@ package com.openflux.containers
 		public function Container()
 		{
 			super();
-			_tokens = new Dictionary(true);
+			//_tokens = new Dictionary(true);
 		}
+		
 		
 		//************************************
 		// Public Properties
@@ -69,6 +72,7 @@ package com.openflux.containers
 		//public function get horizontalScrollPosition():Number { return 0; }
 		//public function get verticalScrollPosition():Number { return 0; }
 		
+		
 		//***********************************************
 		// Framework Overrides
 		//***********************************************
@@ -83,7 +87,7 @@ package com.openflux.containers
 				layout = new VerticalLayout();
 			}
 			childrenChanged = true;
-			this.addEventListener(ResizeEvent.RESIZE, resizeHandler);
+			addEventListener(ResizeEvent.RESIZE, resizeHandler);
 		}
 		
 		/** @private */
@@ -141,6 +145,7 @@ package com.openflux.containers
 			}
 		}
 		
+		
 		//******************************************
 		// Event Listeners
 		//******************************************
@@ -148,5 +153,6 @@ package com.openflux.containers
 		private function resizeHandler(event:ResizeEvent):void {
 			invalidateLayout();
 		}
+		
 	}
 }

@@ -5,8 +5,12 @@ package com.plexiglass.views
 	import away3d.primitives.Plane;
 	
 	import com.openflux.core.*;
+
+	import com.openflux.containers.IDataView;
+	import com.openflux.containers.DataView;
+
 	import com.openflux.utils.MetaStyler;
-	import com.openflux.views.DataView;
+
 	import com.plexiglass.animators.PlexiAnimator;
 	import com.plexiglass.cameras.HoverCamera;
 	import com.plexiglass.cameras.ICamera;

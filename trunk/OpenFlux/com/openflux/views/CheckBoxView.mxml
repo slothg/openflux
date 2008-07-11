@@ -2,7 +2,7 @@
 <flux:FluxView
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:flux="http://openflux.googlecode.com"
-	xmlns:degrafa="http://www.degrafa.com/2007"
+	xmlns:degrafa="http://www.degrafa.com/2008"
 	width="{17 + lbl.width}" height="14">
 	
 	<mx:Script>
@@ -14,10 +14,11 @@
 	<flux:states>
 		<mx:State name="{ButtonStates.UP}" />
 		<mx:State name="{ButtonStates.OVER}">
-			<mx:SetProperty target="{fill}" name="color" value="#FF0000"/>
+			<mx:SetProperty target="{fill}" name="color" value="#E5E5E5"/>
 		</mx:State>
 		<mx:State name="{ButtonStates.DOWN}">
-			<mx:SetProperty target="{stroke}" name="color" value="#FF0000"/>
+			<mx:SetProperty target="{fill}" name="color" value="#666666"/>
+			<mx:SetProperty target="{stroke}" name="color" value="#FFFFFF"/>
 		</mx:State>
 		<mx:State name="{ButtonStates.SELECTED_OVER}" basedOn="{ButtonStates.OVER}">
 			<mx:SetProperty target="{line}" name="alpha" value="1"/>
@@ -31,8 +32,8 @@
 	</flux:states>
 	
 	<!-- defining the fills/strokes used -->
-	<degrafa:SolidFill id="fill" color="#000000" />
-	<degrafa:SolidStroke id="stroke" color="#FFFFFF" weight="1" caps="round" joints="round" pixelHinting="true" />
+	<degrafa:SolidFill id="fill" color="#FFFFFF" />
+	<degrafa:SolidStroke id="stroke" color="#000000" weight="1" caps="round" joints="round" pixelHinting="true" />
 	<degrafa:SolidStroke id="line" color="{stroke.color}" alpha="0" weight="2" caps="round" joints="round" pixelHinting="true" />
 	
 	<!-- drawing the checkbox -->
@@ -45,6 +46,6 @@
 	</degrafa:Surface>
 	
 	<!-- here's the label -->
-	<mx:Label id="lbl" text="{component.hasOwnProperty('label') ? component.label : component.data.label}" color="#FFFFFF" left="17" verticalCenter="0" />
+	<mx:Label id="lbl" text="{component.label}" left="17" verticalCenter="1" />
 	
 </flux:FluxView>

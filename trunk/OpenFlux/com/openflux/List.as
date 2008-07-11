@@ -5,7 +5,7 @@ package com.openflux
 	import com.openflux.core.IEnabled;
 	import com.openflux.core.IFluxList;
 	import com.openflux.utils.CollectionUtil;
-	import com.openflux.views.DataView;
+	import com.openflux.views.ListView;
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.ICollectionView;
@@ -46,7 +46,7 @@ package com.openflux
 				controller = new ListController();
 			}
 			if(!view) {
-				view = new DataView();
+				view = new ListView();
 			}
 			
 		}
