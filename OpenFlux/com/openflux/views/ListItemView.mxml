@@ -2,7 +2,7 @@
 <flux:FluxView 
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:flux="com.openflux.core.*" 
-	xmlns:degrafa="http://www.degrafa.com/2007" minWidth="30" minHeight="30" >
+	xmlns:degrafa="http://www.degrafa.com/2008" minWidth="30" minHeight="30" >
 	<mx:Script>
 		<![CDATA[
 			import com.openflux.constants.ButtonStates

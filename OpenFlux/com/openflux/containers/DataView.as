@@ -1,4 +1,4 @@
-package com.openflux.views
+package com.openflux.containers
 {
 	import com.openflux.ListItem;
 	import com.openflux.containers.Container;
@@ -24,7 +24,7 @@ package com.openflux.views
 		//private var _content:Object;
 		private var _itemRenderer:IFactory;
 		private var _renderers:Array = [];
-		private var _dragTargetIndex:int = -1;
+		//private var _dragTargetIndex:int = -1;
 		
 		private var collectionChanged:Boolean;
 		
@@ -60,17 +60,20 @@ package com.openflux.views
 		public function get renderer():IFactory { return _itemRenderer; }
 		public function set renderer(value:IFactory):void {
 			_itemRenderer = value;
+			collectionChanged = true;
+			invalidateProperties();
+			invalidateLayout();
 		}
 		
 		override public function get children():Array { return _renderers; }
-		
+		/*
 		public function get dragTargetIndex():int { return _dragTargetIndex; }
 		public function set dragTargetIndex(value:int):void {
 			if (_dragTargetIndex != value) {
 				_dragTargetIndex = value;
 				invalidateLayout();
 			}
-		}
+		}*/
 		
 		//***********************************************
 		// Framework Overrides

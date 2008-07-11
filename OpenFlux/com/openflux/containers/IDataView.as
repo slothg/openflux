@@ -1,4 +1,4 @@
-package com.openflux.views
+package com.openflux.containers
 {
 	
 	import com.openflux.layouts.ILayout;

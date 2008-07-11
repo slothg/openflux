@@ -10,7 +10,7 @@ package com.openflux.core
 	
 	use namespace mx_internal;
 	
-	
+	[DefaultProperty("capacitor")]
 	public class FluxComponent extends UIComponent implements IFluxComponent
 	{
 		
@@ -24,6 +24,18 @@ package com.openflux.core
 		// invalidation flags
 		private var viewChanged:Boolean;
 		private var controllerChanged:Boolean;
+		
+		public function get capacitor():Array { return [view, controller]; }
+		public function set capacitor(value:Array):void {
+			for each(var item:Object in value) {
+				if(item is IFluxView) {
+					view = item as IFluxView;
+				}
+				if(item is IFluxController) {
+					controller = item as IFluxController;
+				}
+			}
+		}
 		
 		[StyleBinding]
 		public function get view():IFluxView { return _view; }
