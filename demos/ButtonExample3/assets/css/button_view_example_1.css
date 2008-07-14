@@ -1,0 +1,6 @@
+/* CSS file */
+
+.circle {
+	selectable: true;
+	view: ClassReference("com.examples.views.CloseButton");
+}
