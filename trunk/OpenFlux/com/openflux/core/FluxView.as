@@ -4,6 +4,7 @@ package com.openflux.core
 	
 	import mx.containers.Canvas;
 	import mx.states.State;
+	import mx.styles.IStyleClient;
 	
 	// Everything's a Canvas!? That's no good. :-)
 	// I'll look at fixing this after beta release.
@@ -57,7 +58,7 @@ package com.openflux.core
 		/** @private */
 		override public function styleChanged(styleProp:String):void {
 			super.styleChanged(styleProp);
-			MetaStyler.updateStyle(styleProp, this);
+			MetaStyler.updateStyle(styleProp, this, this.component as IStyleClient);
 		}
 		
 		

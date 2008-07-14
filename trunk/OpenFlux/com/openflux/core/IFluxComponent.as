@@ -29,6 +29,9 @@ package com.openflux.core
 		/**
 		 * Used for PlexiGlass Simple3DLayout
 		 */
+		// these shouldn't be required on the interface
+		// we put them in FluxComponent just for convenience
+		/*
 		function get z():Number;
 		function set z(value:Number):void;
 		function get rotationX():Number;
@@ -37,5 +40,6 @@ package com.openflux.core
 		function set rotationY(value:Number):void;
 		function get rotationZ():Number;
 		function set rotationZ(value:Number):void;
+		 */
 	}
 }

@@ -7,19 +7,23 @@ package com.openflux.containers
 	import com.openflux.layouts.VerticalLayout;
 	import com.openflux.utils.MetaStyler;
 	
+	import flash.display.DisplayObject;
 	import flash.geom.Point;
-	import flash.utils.Dictionary;
 	
 	import mx.core.UIComponent;
+	import mx.events.ChildExistenceChangedEvent;
 	import mx.events.ResizeEvent;
 	import mx.styles.IStyleClient;
 	
+	// dispatched by Canvas
+	//[Event(name="childAdd", type="mx.events.ChildExistenceChangedEvent")]
+	//[Event(name="childRemove", type="mx.events.ChildExistenceChangedEvent")]
+	//[Event(name="childIndexChange", type="mx.events.IndexChangedEvent")]
 	public class Container extends FluxView implements IFluxContainer
 	{
 		
 		private var _animator:IAnimator;
 		private var _layout:ILayout;
-		//private var _tokens:Dictionary;
 		
 		private var layoutChanged:Boolean = false;
 		private var childrenChanged:Boolean = false;
@@ -32,7 +36,6 @@ package com.openflux.containers
 		public function Container()
 		{
 			super();
-			//_tokens = new Dictionary(true);
 		}
 		
 		
@@ -40,9 +43,7 @@ package com.openflux.containers
 		// Public Properties
 		//************************************
 		
-		//public function get tokens():Dictionary { return _tokens; }
-		
-		[StyleBinding]
+		[StyleBinding] [Bindable]
 		public function get animator():IAnimator { return _animator; }
 		public function set animator(value:IAnimator):void {
 			if(_animator) { _animator.detach(this); }
@@ -50,7 +51,7 @@ package com.openflux.containers
 			if(_animator) { _animator.attach(this); }
 		}
 		
-		[StyleBinding]
+		[StyleBinding] [Bindable]
 		public function get layout():ILayout { return _layout; }
 		public function set layout(value:ILayout):void {
 			if(_layout) {
@@ -68,9 +69,6 @@ package com.openflux.containers
 		}
 		
 		public function get children():Array { return getChildren(); }
-		
-		//public function get horizontalScrollPosition():Number { return 0; }
-		//public function get verticalScrollPosition():Number { return 0; }
 		
 		
 		//***********************************************

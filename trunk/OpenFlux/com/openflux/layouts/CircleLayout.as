@@ -52,8 +52,8 @@ package com.openflux.layouts
 			for (var i:int = 0; i < length; i++) {
 				var child:Object = container.children[i];
 				var token:Object = new Object();
-				var w:Number = width-child.width;
-				var h:Number = height-child.height;
+				var w:Number = width-child.measuredWidth;
+				var h:Number = height-child.measuredHeight;
 				
 				if(indices && indices.indexOf(i, 0) >= 0) {
 					rad = ((Math.PI*i)/(length/2))+offset;
@@ -62,8 +62,8 @@ package com.openflux.layouts
 				}
 				token.x = (w*Math.cos(rad))+w;
 				token.y = (h*Math.sin(rad))+h;
-				token.width = child.width;
-				token.height = child.height;
+				token.width = child.measuredWidth;
+				token.height = child.measuredHeight;
 				if(rotate) {
 					token.rotation = ((360/length)*i);
 					while(token.rotation > 180) {
