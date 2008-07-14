@@ -40,15 +40,15 @@ package com.openflux.layouts
 				
 				token.x = position;
 				token.y = 0
-				token.width = child.width;
-				token.height = child.height;
+				token.width = child.measuredWidth;
+				token.height = container.height;
 				token.rotation = 0;
 				if(indices && indices.indexOf(i, 0) >= 0) {
-					position += child.width + gap;
+					position += child.measuredWidth + gap;
 				}
 				
 				container.animator.moveItem(child, token);
-				position += child.width + gap;
+				position += child.measuredWidth + gap;
 			}
 			
 			container.animator.end();

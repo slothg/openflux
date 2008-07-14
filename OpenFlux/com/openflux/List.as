@@ -13,8 +13,13 @@ package com.openflux
 	import mx.events.ListEvent;
 	
 	[Event(name="change", type="mx.events.ListEvent")]
-	[Style(name="itemRenderer")]
-	[Style(name="layout", type="com.openflux.core.layouts.ILayout")]
+	[Event(name="itemClick", type="mx.events.ListEvent")]
+	[Event(name="itemDoubleClick", type="mx.events.ListEvent")]
+	[Event(name="itemRollOver", type="mx.events.ListEvent")]
+	[Event(name="itemRollOut", type="mx.events.ListEvent")]
+	
+	[Style(name="itemRenderer", type="mx.core.IFactory")] // ???
+	[Style(name="layout", type="com.openflux.layouts.ILayout")]
 	public class List extends FluxComponent implements IFluxList, IEnabled
 	{
 		
@@ -32,8 +37,9 @@ package com.openflux
 		public function get selectedItems():ArrayCollection { return _selectedItems; }
 		public function set selectedItems(value:ArrayCollection):void {
 			_selectedItems = value;
-			_selectedItems.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
-			dispatchEvent(new ListEvent(ListEvent.CHANGE, false, false));
+			// move to controller
+			//_selectedItems.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+			//dispatchEvent(new ListEvent(ListEvent.CHANGE, false, false));
 		}
 		
 		
@@ -50,21 +56,17 @@ package com.openflux
 			}
 			
 		}
-		/*
-		override protected function measure():void {
-			super.measure();
-			measuredWidth = 200;
-			measuredHeight = 200;
-		}
-		*/
+		
 		
 		//********************************************************************
 		// Event Listeners
 		//********************************************************************
 		
+		// move to controller
+		/*
 		private function collectionChangeHandler(event:CollectionEvent):void {
 			dispatchEvent(new ListEvent(ListEvent.CHANGE, false, false));
 		}
-		
+		*/
 	}
 }

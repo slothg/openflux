@@ -16,12 +16,11 @@ package com.openflux.containers
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 	
-	//[Event(name="dataViewChanged", type="com.openflux.events.DataViewEvent")]
+	
 	public class DataView extends Container implements IDataView
 	{
 		private var _collection:ICollectionView;
 		
-		//private var _content:Object;
 		private var _itemRenderer:IFactory;
 		private var _renderers:Array = [];
 		//private var _dragTargetIndex:int = -1;
@@ -94,7 +93,6 @@ package com.openflux.containers
 			if(collectionChanged) {
 				collectionReset();
 				collectionChanged = false;
-				//dispatchEvent(new DataViewEvent(DataViewEvent.DATA_VIEW_CHANGED));
 			}
 		}
 		
@@ -118,8 +116,9 @@ package com.openflux.containers
 			var instance:UIComponent = renderer.newInstance() as UIComponent;
 			instance.styleName = this; // ???
 			(instance as IDataRenderer).data = item;
-			if(instance is IFluxListItem) (instance as IFluxListItem).list = data as IFluxList;
-			
+			if(instance is IFluxListItem) {
+				(instance as IFluxListItem).list = component as IFluxList;
+			}
 			if (index > 0) {
 				_renderers.splice(index, 0, instance);
 				addChildAt(instance, index);

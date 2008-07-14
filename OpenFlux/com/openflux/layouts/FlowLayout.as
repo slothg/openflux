@@ -45,8 +45,8 @@ package com.openflux.layouts
 			
 			for (var i:int = 0; i < len; i++) {
 				child = container.children[i];
-				width = child.width;
-				height = child.height;
+				width = child.measuredWidth;
+				height = child.measuredHeight;
 				
 				if(indices && indices.indexOf(i, 0) >= 0) {
 					xPos += width + 10;

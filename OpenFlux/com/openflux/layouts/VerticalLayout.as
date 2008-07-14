@@ -43,7 +43,7 @@ package com.openflux.layouts
 				token.x = 0;
 				token.y = position;
 				token.width = container.width;
-				token.height = child.height;
+				token.height = child.measuredHeight;
 				
 				container.animator.moveItem(child, token);
 				position += token.height + gap;

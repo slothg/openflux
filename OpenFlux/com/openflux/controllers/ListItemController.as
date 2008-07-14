@@ -4,67 +4,64 @@ package com.openflux.controllers
 	import com.openflux.core.IFluxListItem;
 	import com.openflux.core.ISelectable;
 	
-	import flash.events.IEventDispatcher;
-	
 	import mx.binding.utils.BindingUtils;
 	import mx.binding.utils.ChangeWatcher;
 	import mx.collections.ArrayCollection;
 	import mx.events.CollectionEvent;
 	
-	[ViewHandler(event="mouseOver", handler="mouseOverHandler")]
+	//[ViewHandler(event="mouseOver", handler="mouseOverHandler")]
 	public class ListItemController extends ButtonController
 	{
 		
-		private var ldata:IFluxListItem;
+		private var listItem:IFluxListItem;
+		private var selectedItems:ArrayCollection;
 		private var selectedItemsWatcher:ChangeWatcher;
 		
 		override public function set component(value:IFluxComponent):void {
-			if(value is IFluxListItem) {
-				ldata = value as IFluxListItem;
-				
-				if(selectedItemsWatcher) selectedItemsWatcher.unwatch();
-				if(ldata && ldata.list)
-					selectedItemsWatcher = BindingUtils.bindSetter(selectedItemsChange, ldata.list, "selectedItems", true);
-			}
 			super.component = value;
-		}
-		
-		/*
-		override protected function attachEventListeners(view:IEventDispatcher):void {
-			super.attachEventListeners(view);
-			
-			if(ldata && ldata.list) {
-				selectedItemsWatcher = BindingUtils.bindSetter(selectedItemsChange, ldata.list, "selectedItems", true);
+			if(value is IFluxListItem) {
+				listItem = value as IFluxListItem;
+				if(selectedItemsWatcher) { selectedItemsWatcher.unwatch(); }
+				if(listItem && listItem.list) {
+					selectedItemsWatcher = BindingUtils.bindSetter(selectedItemsChange, listItem.list, "selectedItems", true);
+				}
 			}
 		}
 		
-		override protected function detachEventListeners(target:IEventDispatcher):void {
-			super.detachEventListeners(target);
-			
-			if(selectedItemsWatcher) {
-				selectedItemsWatcher.unwatch();
-				selectedItemsWatcher = null;
-			}
-		}
-		*/
+		
+		//****************************************************************
+		// Event Handlers
+		//****************************************************************
 		
 		private function selectedItemsChange(value:ArrayCollection):void {
-			if(value) {
-				value.addEventListener(CollectionEvent.COLLECTION_CHANGE, selectedItems_collectionChangeHandler, false, 0, true);
+			if(selectedItems) {
+				selectedItems.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false);
+			}
+			selectedItems = value;
+			if(selectedItems) {
+				selectedItems.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false, 0, true);
 			}
 			updateSelected();
 		}
 		
-		private function selectedItems_collectionChangeHandler(event:CollectionEvent):void {
+		private function collectionChangeHandler(event:CollectionEvent):void {
+			// this needs to be optimized to take 
+			// advantage of the collection event info
 			updateSelected();
 		}
 		
+		
+		//**************************************
+		// Utility Functions
+		//**************************************
+		
 		private function updateSelected():void {
-			if(ldata is ISelectable) {
-				if(ldata.list && ldata.list.selectedItems) {
-					(ldata as ISelectable).selected = ldata.list.selectedItems.contains(ldata.data);
+			if(component is ISelectable) {
+				if(listItem.list && listItem.list.selectedItems) {
+					var v:Boolean = listItem.list.selectedItems.contains(listItem.data);
+					(component as ISelectable).selected = v;
 				} else {
-					(ldata as ISelectable).selected = false;
+					(component as ISelectable).selected = false;
 				}
 			}
 		}
