@@ -21,6 +21,7 @@ package com.plexiglass.cameras
 		{
 			this.container = container;
 			this.container.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+			this.container.view.camera = camera;
 		}
 		
 		public function detach(container:IPlexiContainer):void

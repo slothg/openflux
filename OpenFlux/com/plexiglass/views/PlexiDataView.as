@@ -4,16 +4,12 @@ package com.plexiglass.views
 	import away3d.materials.MovieMaterial;
 	import away3d.primitives.Plane;
 	
-	import com.openflux.core.*;
-
-	import com.openflux.containers.IDataView;
 	import com.openflux.containers.DataView;
-
+	import com.openflux.core.*;
 	import com.openflux.utils.MetaStyler;
-
 	import com.plexiglass.animators.PlexiAnimator;
-	import com.plexiglass.cameras.HoverCamera;
 	import com.plexiglass.cameras.ICamera;
+	import com.plexiglass.cameras.SimpleCamera;
 	import com.plexiglass.containers.IPlexiContainer;
 	
 	import flash.display.DisplayObject;
@@ -24,6 +20,7 @@ package com.plexiglass.views
 	import mx.containers.Canvas;
 	import mx.core.IDataRenderer;
 	import mx.core.UIComponent;
+	import mx.events.ChildExistenceChangedEvent;
 	import mx.styles.IStyleClient;
 	
 	public class PlexiDataView extends DataView implements IPlexiContainer
@@ -83,7 +80,7 @@ package com.plexiglass.views
 			viewContainer.addChild(view);
 			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 			if (!camera) {
-				camera = new HoverCamera();
+				camera = new SimpleCamera();
 			}
 		}
 		
@@ -94,33 +91,57 @@ package com.plexiglass.views
 		}
 		
 		override public function addChild(child:DisplayObject):DisplayObject {
-			container.addChild(child);
-			if (child.width > 0 && child.height > 0) {
+			var hasWidth:Boolean = child.width > 0;
+			var hasHeight:Boolean = child.height > 0;
+			
+			var ui:UIComponent = child as UIComponent;
+			
+			if (!hasWidth || !hasHeight)
+			{
+				container.addChild(child);
+				ui.validateSize(true);
+				ui.validateNow();
+				if (!hasWidth) ui.width = ui.getExplicitOrMeasuredWidth();
+				if (!hasHeight) ui.height = ui.getExplicitOrMeasuredHeight();
+				container.removeChild(child);
+			}
+			
+			if (ui.width > 0 && ui.height > 0) {
 				var m:MovieMaterial = new MovieMaterial(child as Sprite, {smooth:true, interactive:true});
-				var p:Plane = new Plane({yUp:false, material:m, width:child.width, height:child.height, bothsides:true});
+				var p:Plane = new Plane({yUp:false, material:m, width:ui.width, height:ui.height, bothsides:true});
 				view.scene.addChild(p);
-				children.push(child);
 				planes[child] = p;
 			}
+			
+			children.push(child);
+			
+			dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD, false, false, child));
 			return child;
 		}
-		
-		override protected function addItem(item:Object, index:int=0):void {
+
+		/*override protected function addItem(item:Object, index:int=0):void {
 			var child:UIComponent = renderer.newInstance() as UIComponent;
 			(child as IDataRenderer).data = item;
+			if(instance is IFluxListItem) {
+				(instance as IFluxListItem).list = component as IFluxList;
+			}
+			
 			if (child is IFluxListItem) (child as IFluxListItem).list = data as IFluxList;
 			
 			addChild(child);
-		}
+		}*/
 		
 		override public function getChildAt(index:int):DisplayObject {
-			return container.getChildAt(index);
+			return children[index];
 		}
 		
 		override public function removeChild(child:DisplayObject):DisplayObject {
-			container.removeChild(child);
+			//container.removeChild(child);
 			view.scene.removeChild(planes[child]);
+			children.splice(children.indexOf(child), 1);
 			delete planes[child];
+			
+			dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_REMOVE, false, false, child));
 			return child;
 		}
 		
