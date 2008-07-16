@@ -100,7 +100,7 @@ http://openflux.googlecode.com/files/ClickOKInAddSWCWindow.png
 
  * Click on *Flex Library Compiler* in the left half of the _Properties_ window.
  * Enter {{{http://openflux.googlecode.com}}} into the _Namespace URL_ text box.
- * Enter {{{-compiler.keep-as3-metadata}}} into the _Additional compiler arguments_ text box:
+ * Enter {{{-compiler.keep-as3-metadata+=ModelAlias,ViewContract,ViewHandler,EventHandler,StyleBinding}}} into the _Additional compiler arguments_ text box:
 
 http://openflux.googlecode.com/files/ModifyFlexLibraryCompilerSettings.png
 
