@@ -9,12 +9,12 @@ package com.plexiglass.cameras
 
 	public class SimpleCamera implements ICamera
 	{
-		private var camera:Camera3D;
+		public var camera:Camera3D;
 		private var container:IPlexiContainer;
 		
 		public function SimpleCamera()
 		{
-			camera = new Camera3D({z:-200, zoom:2, focus:100});
+			camera = new Camera3D({z:-100, zoom:2, focus:100});
 		}
 
 		public function attach(container:IPlexiContainer):void
