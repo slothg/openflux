@@ -1,11 +1,16 @@
 package com.plexiglass.layouts
 {
+	import com.openflux.containers.IFluxContainer;
 	import com.openflux.core.IFluxList;
+	import com.openflux.core.IFluxView;
 	import com.openflux.layouts.ILayout;
 	import com.openflux.layouts.LayoutBase;
 	
 	import flash.display.DisplayObject;
 	import flash.geom.Point;
+	
+	import mx.collections.ArrayCollection;
+	import mx.events.ListEvent;
 
 	public class CoverFlowLayout extends LayoutBase implements ILayout
 	{
@@ -46,6 +51,28 @@ package com.plexiglass.layouts
 			container.invalidateDisplayList();
 		} 
 		
+		override public function attach(container:IFluxContainer):void
+		{
+			super.attach(container);
+			
+			if ((container as IFluxView).component is IFluxList)
+				(container as IFluxView).component.addEventListener(ListEvent.CHANGE, onChange);
+		}
+		
+		override public function detach(container:IFluxContainer):void
+		{
+			super.detach(container);
+			
+			if ((container as IFluxView).component is IFluxList)
+				(container as IFluxView).component.removeEventListener(ListEvent.CHANGE, onChange);
+			
+		}
+		
+		private function onChange(event:ListEvent):void
+		{
+			container.invalidateLayout();
+		}
+		
 		public function measure():Point
 		{
 			return new Point(100, 100);
@@ -54,7 +81,9 @@ package com.plexiglass.layouts
 		public function update(indices:Array = null):void
 		{
 			if (container.children.length > 0) {
-				var selectedIndex:int = 0; //container["selectedIndex"] as int;
+				var list:IFluxList = (container as IFluxView).component as IFluxList;
+				var selectedIndex:int = list ? (list.dataProvider as ArrayCollection).getItemIndex(list.selectedItems.getItemAt(0)) : 0;
+				
 				if(container is IFluxList) {
 					(container as IFluxList).selectedItems;
 				}
