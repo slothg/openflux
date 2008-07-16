@@ -94,11 +94,10 @@ package com.plexiglass.views
 			var hasWidth:Boolean = child.width > 0;
 			var hasHeight:Boolean = child.height > 0;
 			
-			var ui:UIComponent = child as UIComponent;
-			
 			if (!hasWidth || !hasHeight)
 			{
 				container.addChild(child);
+				var ui:UIComponent = child as UIComponent;
 				ui.validateSize(true);
 				ui.validateNow();
 				if (!hasWidth) ui.width = ui.getExplicitOrMeasuredWidth();
@@ -106,9 +105,9 @@ package com.plexiglass.views
 				container.removeChild(child);
 			}
 			
-			if (ui.width > 0 && ui.height > 0) {
+			if (child.width > 0 && child.height > 0) {
 				var m:MovieMaterial = new MovieMaterial(child as Sprite, {smooth:true, interactive:true});
-				var p:Plane = new Plane({yUp:false, material:m, width:ui.width, height:ui.height, bothsides:true});
+				var p:Plane = new Plane({yUp:false, material:m, width:child.width, height:child.height, bothsides:true});
 				view.scene.addChild(p);
 				planes[child] = p;
 			}
@@ -118,25 +117,12 @@ package com.plexiglass.views
 			dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD, false, false, child));
 			return child;
 		}
-
-		/*override protected function addItem(item:Object, index:int=0):void {
-			var child:UIComponent = renderer.newInstance() as UIComponent;
-			(child as IDataRenderer).data = item;
-			if(instance is IFluxListItem) {
-				(instance as IFluxListItem).list = component as IFluxList;
-			}
-			
-			if (child is IFluxListItem) (child as IFluxListItem).list = data as IFluxList;
-			
-			addChild(child);
-		}*/
 		
 		override public function getChildAt(index:int):DisplayObject {
 			return children[index];
 		}
 		
 		override public function removeChild(child:DisplayObject):DisplayObject {
-			//container.removeChild(child);
 			view.scene.removeChild(planes[child]);
 			children.splice(children.indexOf(child), 1);
 			delete planes[child];

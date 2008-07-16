@@ -8,8 +8,8 @@ package com.plexiglass.containers
 	import com.openflux.core.*;
 	import com.openflux.utils.MetaStyler;
 	import com.plexiglass.animators.PlexiAnimator;
-	import com.plexiglass.cameras.HoverCamera;
 	import com.plexiglass.cameras.ICamera;
+	import com.plexiglass.cameras.SimpleCamera;
 	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
@@ -18,6 +18,7 @@ package com.plexiglass.containers
 	
 	import mx.containers.Canvas;
 	import mx.core.UIComponent;
+	import mx.events.ChildExistenceChangedEvent;
 	import mx.styles.IStyleClient;
 	
 	public class PlexiContainer extends Container implements IPlexiContainer
@@ -77,7 +78,7 @@ package com.plexiglass.containers
 			viewContainer.addChild(view);
 			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 			if (!camera) {
-				camera = new HoverCamera();
+				camera = new SimpleCamera();
 			}
 		}
 		
@@ -88,14 +89,30 @@ package com.plexiglass.containers
 		}
 		
 		override public function addChild(child:DisplayObject):DisplayObject {
-			container.addChild(child);
+			var hasWidth:Boolean = child.width > 0;
+			var hasHeight:Boolean = child.height > 0;
+			
+			if (!hasWidth || !hasHeight)
+			{
+				container.addChild(child);
+				var ui:UIComponent = child as UIComponent;
+				ui.validateSize(true);
+				ui.validateNow();
+				if (!hasWidth) ui.width = ui.getExplicitOrMeasuredWidth();
+				if (!hasHeight) ui.height = ui.getExplicitOrMeasuredHeight();
+				container.removeChild(child);
+			}
+			
 			if (child.width > 0 && child.height > 0) {
 				var m:MovieMaterial = new MovieMaterial(child as Sprite, {smooth:true, interactive:true});
 				var p:Plane = new Plane({yUp:false, material:m, width:child.width, height:child.height, bothsides:true});
 				view.scene.addChild(p);
-				children.push(child);
 				planes[child] = p;
 			}
+			
+			children.push(child);
+			
+			dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD, false, false, child));
 			return child;
 		}
 		
