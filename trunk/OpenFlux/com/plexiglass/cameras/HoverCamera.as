@@ -51,11 +51,11 @@ package com.plexiglass.cameras
 		{
 			container.view.x = w/2;
 			container.view.y = h/2;
-			camera.x = (w/2);
-			camera.y = -(h/2);
-			center.x = camera.x;
-			center.y = camera.y;
-			camera.lookAt(new Number3D(0, 0, 0));
+			camera.x = w/2;
+			//camera.y = -(Math.min(h/2,200));
+			//center.x = camera.x;
+			//center.y = camera.y;
+			camera.lookAt(new Number3D(w/2, 0, 0));
 		}
 		
 		private function enterFrameHandler(event:Event):void
