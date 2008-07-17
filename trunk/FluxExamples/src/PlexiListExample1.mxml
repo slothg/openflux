@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:flux="http://openflux.googlecode.com" 
-	layout="absolute" xmlns:cameras="com.plexiglass.cameras.*" viewSourceURL="srcview/index.html" xmlns:layouts="com.plexiglass.layouts.*">
+	layout="absolute" viewSourceURL="srcview/index.html">
 	
 	<!-- layouts -->
 	<flux:VerticalLayout id="vertical" />
@@ -9,32 +9,11 @@
 	<flux:FlowLayout id="flow" />
 	<flux:CircleLayout id="circle" />
 	<flux:CoverFlowLayout id="coverFlow" />
-	<layouts:CarouselLayout id="carousel" />
-	<layouts:SpiralLayout id="spiral"/>
+	<flux:CarouselLayout id="carousel" />
+	<flux:SpiralLayout id="spiral" />
 	
 	<!-- data -->
 	<mx:ArrayCollection id="data">
-		<mx:Object label="Vertical Layout" layout="{vertical}" />
-		<mx:Object label="Horizontal Layout" layout="{horizontal}" />
-		<mx:Object label="Flow Layout" layout="{flow}" />
-		<mx:Object label="Circle Layout" layout="{circle}" />
-		<mx:Object label="Cover Flow Layout" layout="{coverFlow}" />
-		<mx:Object label="Carousel Layout" layout="{carousel}" />
-		<mx:Object label="Spiral Layout" layout="{spiral}" />
-		<mx:Object label="Vertical Layout" layout="{vertical}" />
-		<mx:Object label="Horizontal Layout" layout="{horizontal}" />
-		<mx:Object label="Flow Layout" layout="{flow}" />
-		<mx:Object label="Circle Layout" layout="{circle}" />
-		<mx:Object label="Cover Flow Layout" layout="{coverFlow}" />
-		<mx:Object label="Carousel Layout" layout="{carousel}" />
-		<mx:Object label="Spiral Layout" layout="{spiral}" />
-		<mx:Object label="Vertical Layout" layout="{vertical}" />
-		<mx:Object label="Horizontal Layout" layout="{horizontal}" />
-		<mx:Object label="Flow Layout" layout="{flow}" />
-		<mx:Object label="Circle Layout" layout="{circle}" />
-		<mx:Object label="Cover Flow Layout" layout="{coverFlow}" />
-		<mx:Object label="Carousel Layout" layout="{carousel}" />
-		<mx:Object label="Spiral Layout" layout="{spiral}" />
 		<mx:Object label="Vertical Layout" layout="{vertical}" />
 		<mx:Object label="Horizontal Layout" layout="{horizontal}" />
 		<mx:Object label="Flow Layout" layout="{flow}" />

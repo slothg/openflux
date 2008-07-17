@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:flux="http://openflux.googlecode.com" 
-	layout="absolute" >
+	layout="absolute"  viewSourceURL="srcview/index.html">
 	
 	<!-- layouts -->
 	<flux:VerticalLayout id="vertical" />
