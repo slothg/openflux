@@ -7,14 +7,10 @@ package com.plexiglass.cameras
 	import com.plexiglass.containers.IPlexiContainer;
 	
 	import flash.events.Event;
-	import flash.events.MouseEvent;
 	
-	public class HoverCamera implements ICamera
+	public class HoverCamera extends CameraBase implements ICamera
 	{
-		private var container:IPlexiContainer;
-		private var camera:HoverCamera3D;
-		private var center:Sphere;
-		
+		private var center:Sphere;		
 		private var rotCamera:Boolean = false;
 		private var lastMouseX:Number = 0;
 		private var lastMouseY:Number = 0;
@@ -23,28 +19,21 @@ package com.plexiglass.cameras
 		public function HoverCamera()
 		{
 			center = new Sphere();
-			camera = new HoverCamera3D({zoom:11, focus:200, distance:1000, target:center});
-			camera.tiltangle = 40;
-			camera.targettiltangle = 40;
-			camera.mintiltangle =  20;
-			camera.maxtiltangle = 50;
-			camera.yfactor = 1;
-			camera.steps = 7;
+			var hc:HoverCamera3D;
+			camera = hc = new HoverCamera3D({zoom:11, focus:200, distance:1000, target:center});
+			hc.tiltangle = 40;
+			hc.targettiltangle = 40;
+			hc.mintiltangle =  20;
+			hc.maxtiltangle = 50;
+			hc.yfactor = 1;
+			hc.steps = 7;
 		}
 		
-		public function attach(container:IPlexiContainer):void
+		override public function attach(container:IPlexiContainer):void
 		{	
-			this.container = container;
-			this.container.view.camera = camera;
+			super.attach(container);
 			lastMouseX = container.mouseX;
 			lastMouseY = container.mouseY;
-			this.container.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
-		}
-		
-		public function detach(container:IPlexiContainer):void
-		{
-			this.container.removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
-			this.container = null;
 		}
 		
 		public function update(w:Number, h:Number):void
@@ -58,7 +47,7 @@ package com.plexiglass.cameras
 			camera.lookAt(new Number3D(w/2, 0, 0));
 		}
 		
-		private function enterFrameHandler(event:Event):void
+		override protected function onEnterFrame(event:Event):void
 		{
 			if (container.view && container.view.scene)
 			{
@@ -68,9 +57,10 @@ package com.plexiglass.cameras
 				lastMouseX = container.view.mouseX;
 				lastMouseY = container.view.mouseY;
 				
-				camera.targetpanangle += dragX;
-				camera.targettiltangle += dragY
-				camera.hover();
+				var hc:HoverCamera3D = camera as HoverCamera3D;
+				hc.targetpanangle += dragX;
+				hc.targettiltangle += dragY
+				hc.hover();
 			}
 		}
 	}

@@ -7,5 +7,8 @@ package com.plexiglass.cameras
 		function attach(container:IPlexiContainer):void;
 		function detach(container:IPlexiContainer):void;
 		function update(w:Number, h:Number):void;
+		
+		function get zoom():Boolean;
+		function set zoom(value:Boolean):void;
 	}
 }

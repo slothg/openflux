@@ -3,41 +3,18 @@ package com.plexiglass.cameras
 	import away3d.cameras.Camera3D;
 	import away3d.core.math.Number3D;
 	
-	import com.plexiglass.containers.IPlexiContainer;
-	
 	import flash.events.Event;
 
-	public class SimpleCamera implements ICamera
-	{
-		public var camera:Camera3D;
-		private var container:IPlexiContainer;
-		
+	public class SimpleCamera extends CameraBase implements ICamera
+	{		
 		public function SimpleCamera()
 		{
-			camera = new Camera3D({z:-100, zoom:2, focus:100});
+			super();
+			camera = new Camera3D({z:-100, zoom:2, focus:100, steps:20});
 		}
 
-		public function attach(container:IPlexiContainer):void
-		{
-			this.container = container;
-			this.container.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-			this.container.view.camera = camera;
-		}
-		
-		public function detach(container:IPlexiContainer):void
-		{
-			this.container.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
-			this.container = null;
-		}
-		
 		public function update(w:Number, h:Number):void
 		{
 		}
-		
-		private function onEnterFrame(event:Event):void
-		{
-			camera.lookAt(new Number3D(0, 0, 0));
-		}
-		
 	}
 }
