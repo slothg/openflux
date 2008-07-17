@@ -6,6 +6,7 @@ package com.plexiglass.layouts
 	
 	import flash.display.DisplayObject;
 	import flash.geom.Point;
+	import flash.utils.Dictionary;
 	
 	public class SpiralLayout extends LayoutBase implements ILayout
 	{
@@ -33,7 +34,6 @@ package com.plexiglass.layouts
 			
 			for(var i:uint=0; i<numOfItems; i++) {
 				var child:DisplayObject = container.children[i];
-				
 				var x:Number = Math.cos(i * angle) * radius;
                 var y:Number = Math.sin(i * angle) * radius;
                 var z:Number = zPos += 50;

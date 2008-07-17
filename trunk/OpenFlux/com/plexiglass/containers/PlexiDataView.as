@@ -90,7 +90,8 @@ package com.plexiglass.containers
 				_camera.update(unscaledWidth, unscaledHeight);
 		}
 		
-		override public function addChild(child:DisplayObject):DisplayObject {
+		override public function addChildAt(child:DisplayObject, index:int):DisplayObject
+		{
 			var hasWidth:Boolean = child.width > 0;
 			var hasHeight:Boolean = child.height > 0;
 			
@@ -112,14 +113,23 @@ package com.plexiglass.containers
 				planes[child] = p;
 			}
 			
-			children.push(child);
+			children.splice(index, 0, child);
 			
 			dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD, false, false, child));
 			return child;
 		}
 		
+		override public function addChild(child:DisplayObject):DisplayObject {
+			return addChildAt(child, children.length);
+		}
+		
 		override public function getChildAt(index:int):DisplayObject {
 			return children[index];
+		}
+		
+		override public function removeChildAt(index:int):DisplayObject
+		{
+			return removeChild(getChildAt(index));
 		}
 		
 		override public function removeChild(child:DisplayObject):DisplayObject {
