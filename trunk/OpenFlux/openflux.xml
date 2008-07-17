@@ -51,5 +51,9 @@
     <component id="CoverFlowLayout" class="com.plexiglass.layouts.CoverFlowLayout" />
     <component id="CarouselLayout" class="com.plexiglass.layouts.CarouselLayout" />
     <component id="SpiralLayout" class="com.plexiglass.layouts.SpiralLayout" />
+    <component id="SimpleCamera" class="com.plexiglass.cameras.SimpleCamera" />
+    <component id="HoverCamera" class="com.plexiglass.cameras.HoverCamera" />
+    <component id="CarouselLayout" class="com.plexiglass.layouts.CarouselLayout" />
+    <component id="SpiralLayout" class="com.plexiglass.layouts.SpiralLayout" />
     
 </componentPackage>    
