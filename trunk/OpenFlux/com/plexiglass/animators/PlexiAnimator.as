@@ -1,5 +1,6 @@
 package com.plexiglass.animators
 {
+	import away3d.containers.View3D;
 	import away3d.primitives.Plane;
 	
 	import caurina.transitions.Tweener;
@@ -38,7 +39,7 @@ package com.plexiglass.animators
 		{
 			token.time = time;
 			token.transition = transition;
-			if(container is IPlexiContainer) {
+			if(container is IPlexiContainer && item != container["view"]) {
 				var token3d:Object = new Object();
 				token3d.x = token.x + item.width/2;
 				token3d.y = (token.y + item.height/2) * -1;
@@ -57,6 +58,10 @@ package com.plexiglass.animators
 				if (plane) {
 					Tweener.addTween(plane, token3d);
 				}
+			}
+			else
+			{
+				Tweener.addTween(item, token);
 			}
 			
 		}

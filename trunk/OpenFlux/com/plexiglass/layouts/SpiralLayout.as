@@ -1,5 +1,6 @@
 package com.plexiglass.layouts
 {
+	import com.openflux.containers.IFluxContainer;
 	import com.openflux.layouts.ILayout;
 	import com.openflux.layouts.LayoutBase;
 	
@@ -13,9 +14,17 @@ package com.plexiglass.layouts
 			return new Point();
 		}
 		
+		override public function detach(container:IFluxContainer):void
+		{
+			super.detach(container);
+			container.animator.moveItem(container["view"], {x:0, y:0});
+		}
+		
 		public function update(indices:Array = null):void {
 			var numOfItems:int = container.children.length;		
 			if(numOfItems == 0) return;
+			
+			container.animator.moveItem(container["view"], {x:container.width / 2, y:container.height / 2});
 			
 			var radius:Number = Math.min(container.width, container.height);
 			var rotations:Number = 5;

@@ -5,6 +5,7 @@ package com.plexiglass.layouts
 	import com.openflux.core.IFluxView;
 	import com.openflux.layouts.ILayout;
 	import com.openflux.layouts.LayoutBase;
+	import com.plexiglass.containers.IPlexiContainer;
 	
 	import flash.display.DisplayObject;
 	import flash.geom.Point;
@@ -66,6 +67,7 @@ package com.plexiglass.layouts
 			if ((container as IFluxView).component is IFluxList)
 				(container as IFluxView).component.removeEventListener(ListEvent.ITEM_CLICK, onChange);
 			
+			container.animator.moveItem(container["view"], {x:0, y:0});
 		}
 		
 		private function onChange(event:ListEvent):void
@@ -81,6 +83,8 @@ package com.plexiglass.layouts
 		public function update(indices:Array = null):void
 		{
 			if (container.children.length > 0) {
+				container.animator.moveItem(container["view"], {x:container.width / 2, y:container.height / 2});
+				
 				var list:IFluxList = (container as IFluxView).component as IFluxList;
 				var selectedIndex:int = list ? (list.dataProvider as ArrayCollection).getItemIndex(list.selectedItems.getItemAt(0)) : 0;
 				
