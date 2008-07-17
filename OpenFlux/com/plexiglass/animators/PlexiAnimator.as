@@ -1,6 +1,5 @@
 package com.plexiglass.animators
 {
-	import away3d.containers.View3D;
 	import away3d.primitives.Plane;
 	
 	import caurina.transitions.Tweener;
@@ -9,15 +8,17 @@ package com.plexiglass.animators
 	import com.openflux.containers.IFluxContainer;
 	import com.plexiglass.containers.IPlexiContainer;
 	
+	import flash.utils.Dictionary;
+	
 	import mx.core.UIComponent;
 
 	public class PlexiAnimator implements IAnimator
 	{
-		
 		public var time:Number = 1;
 		public var transition:String = "easeInOutCirc";
 		
 		private var container:IFluxContainer;
+		private var known:Dictionary = new Dictionary(true);
 		
 		public function PlexiAnimator()
 		{
@@ -56,7 +57,19 @@ package com.plexiglass.animators
 				var pv:IPlexiContainer = container as IPlexiContainer;
 				var plane:Plane = pv.getChildPlane(item as UIComponent);
 				if (plane) {
-					Tweener.addTween(plane, token3d);
+					//if (known[item])
+					//{
+						Tweener.addTween(plane, token3d);
+					/*}
+					else
+					{
+						//for (var key:String in token3d)
+						//{
+						//	if (key != "time" && key != "transition" && token3d[key] > 0)
+								plane[key] = token3d[key];
+						}
+						known[item] = true;
+					}*/
 				}
 			}
 			else

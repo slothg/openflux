@@ -226,7 +226,7 @@ package com.openflux.containers
 			//this.invalidateLayout();
 		}
 		
-		protected function addItem(item:Object, index:int = 0):void {
+		protected function addItem(item:Object, index:int=-1):void {
 			var instance:UIComponent;
 			if(item is UIComponent) {
 				instance = item as UIComponent;
@@ -240,7 +240,7 @@ package com.openflux.containers
 				(instance as IFluxListItem).list = component as IFluxList;
 			}
 			
-			if (index > 0) {
+			if (index != -1) {
 				_renderers.splice(index, 0, instance);
 				addChildAt(instance, index);
 			} else {
@@ -274,7 +274,7 @@ package com.openflux.containers
 					break;
 				case CollectionEventKind.REMOVE:
 					removeChildAt(event.location);
-					children.splice(event.location, 1);					
+					//children.splice(event.location, 1);					
 					//this.invalidateLayout();
 					break;
 				case CollectionEventKind.RESET:
