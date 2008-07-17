@@ -48,5 +48,7 @@
     <component id="PlexiAnimator" class="com.plexiglass.animators.PlexiAnimator" />
     <component id="PlexiListView" class="com.plexiglass.views.PlexiListView" />
     <component id="CoverFlowLayout" class="com.plexiglass.layouts.CoverFlowLayout" />
+    <component id="CarouselLayout" class="com.plexiglass.layouts.CarouselLayout" />
+    <component id="SpiralLayout" class="com.plexiglass.layouts.SpiralLayout" />
     
 </componentPackage>

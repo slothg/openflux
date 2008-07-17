@@ -39,7 +39,7 @@ package com.plexiglass.layouts
 		
 		private function onChange(event:ListEvent):void
 		{
-			container.invalidateLayout();
+			//container.invalidateLayout();
 		}
 		
 		public function measure():Point
