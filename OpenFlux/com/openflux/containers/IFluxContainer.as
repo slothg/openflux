@@ -18,9 +18,7 @@ package com.openflux.containers
 		function set layout(value:ILayout):void;
 		
 		function get children():Array; // always DisplayObjects
-		//function get tokens():Dictionary;
-		
-		function invalidateLayout():void;
+		//function invalidateLayout():void;
 		
 	}
 }

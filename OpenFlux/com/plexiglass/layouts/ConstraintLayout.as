@@ -6,7 +6,7 @@ package com.plexiglass.layouts
 	import com.openflux.core.FluxComponent;
 	import com.openflux.layouts.ILayout;
 	import com.openflux.layouts.LayoutBase;
-	import com.plexiglass.containers.PlexiContainer;
+	import com.plexiglass.containers.PlexiDataView;
 	
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
@@ -43,8 +43,8 @@ package com.plexiglass.layouts
 		}
 		
 		public function update(indices:Array = null):void {
-			if (container is PlexiContainer) {
-				var view:PlexiContainer = container as PlexiContainer;
+			if (container is PlexiDataView) {
+				var view:PlexiDataView = container as PlexiDataView; // wtf?
 				var child:Object;
 				var cw:ChangeWatcher;
 				var p:String;

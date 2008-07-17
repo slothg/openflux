@@ -235,7 +235,7 @@ package com.openflux.controllers
 				(list.dataProvider as ArrayCollection).removeItemAt(dragFromIndex);
 			}*/
 			
-			view.invalidateLayout();
+			//view.invalidateLayout();
 		}
 		
 		//************************************

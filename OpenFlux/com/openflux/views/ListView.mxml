@@ -1,6 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<flux:DataView xmlns:mx="http://www.adobe.com/2006/mxml" 
-	xmlns:flux="http://openflux.googlecode.com" 
-	collection="{component.dataProvider}" >
-	
-</flux:DataView>
+<flux:DataView xmlns:flux="http://openflux.googlecode.com" content="{component.dataProvider}" />

@@ -1,4 +1,4 @@
-package com.plexiglass.views
+package com.plexiglass.containers
 {
 	import away3d.containers.View3D;
 	import away3d.materials.MovieMaterial;
