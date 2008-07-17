@@ -32,8 +32,6 @@ package com.plexiglass.cameras
 		
 		public function update(w:Number, h:Number):void
 		{
-			container.view.x = w / 2;
-			container.view.y = h / 2;
 		}
 		
 		private function onEnterFrame(event:Event):void

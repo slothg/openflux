@@ -12,7 +12,6 @@ package com.plexiglass.layouts
 	import mx.collections.ArrayCollection;
 	import mx.core.UIComponent;
 	import mx.events.ListEvent;
-	import mx.utils.ObjectUtil;
 	
 	public class CarouselLayout extends LayoutBase implements ILayout
 	{		
@@ -33,7 +32,9 @@ package com.plexiglass.layouts
 			super.detach(container);
 			
 			if ((container as IFluxView).component is IFluxList)
-				(container as IFluxView).component.removeEventListener(ListEvent.ITEM_CLICK, onChange);		
+				(container as IFluxView).component.removeEventListener(ListEvent.ITEM_CLICK, onChange);
+				
+			container.animator.moveItem(container["view"], {x:0, y:0});
 		}
 		
 		private function onChange(event:ListEvent):void
@@ -50,6 +51,8 @@ package com.plexiglass.layouts
 			var numOfItems:int = container.children.length;		
 			if(numOfItems == 0) return;
 			
+			container.animator.moveItem(container["view"], {x:container.width / 2, y:container.height / 2});
+			
 			var list:IFluxList = (container as IFluxView).component as IFluxList;
 			var selectedIndex:int = list && list.dataProvider && list.selectedItems && list.selectedItems.getItemAt(0) ? (list.dataProvider as ArrayCollection).getItemIndex(list.selectedItems.getItemAt(0)) : 0;
 			var radius:Number = container.width;
@@ -60,8 +63,9 @@ package com.plexiglass.layouts
 				var zPosition:Number = -(Math.cos((i-selectedIndex) * anglePer) * radius) + radius;
 				var xPosition:Number = Math.sin((i-selectedIndex) * anglePer) * radius;
 				var yRotation:Number = (-(i-selectedIndex) * anglePer) * (180 / Math.PI);
+				var yPosition:Number = 0;
 				
-				container.animator.moveItem(child, {x:xPosition, y:0, z:zPosition, rotationY:yRotation});
+				container.animator.moveItem(child, {x:xPosition, y:yPosition, z:zPosition, rotationY:yRotation});
 			}
 		}
 
