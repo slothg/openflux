@@ -56,7 +56,7 @@ package com.plexiglass.layouts
 			super.attach(container);
 			
 			if ((container as IFluxView).component is IFluxList)
-				(container as IFluxView).component.addEventListener(ListEvent.CHANGE, onChange);
+				(container as IFluxView).component.addEventListener(ListEvent.ITEM_CLICK, onChange);
 		}
 		
 		override public function detach(container:IFluxContainer):void
@@ -64,7 +64,7 @@ package com.plexiglass.layouts
 			super.detach(container);
 			
 			if ((container as IFluxView).component is IFluxList)
-				(container as IFluxView).component.removeEventListener(ListEvent.CHANGE, onChange);
+				(container as IFluxView).component.removeEventListener(ListEvent.ITEM_CLICK, onChange);
 			
 		}
 		
