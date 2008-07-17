@@ -1,7 +1,6 @@
 package com.openflux.layouts
 {
-	import com.openflux.animators.AnimationToken;
-	
+	import flash.events.Event;
 	import flash.geom.Point;
 	
 	import mx.core.UIComponent;
@@ -16,7 +15,8 @@ package com.openflux.layouts
 		public function set gap(value:Number):void {
 			if (_gap != value) {
 				_gap = value;
-				container.invalidateLayout();
+				//container.invalidateLayout();
+				dispatchEvent(new Event(Event.RESIZE));
 			}
 		}
 		

@@ -12,8 +12,8 @@ package com.openflux.containers
 	public interface IDataView
 	{
 		
-		function get collection():Object;
-		function get renderer():IFactory;
+		function get content():Object;
+		function get itemRenderer():IFactory;
 		
 	}
 }

@@ -2,11 +2,12 @@ package com.openflux.layouts
 {
 	import com.openflux.containers.IFluxContainer;
 	
+	import flash.events.EventDispatcher;
 	import flash.geom.Point;
 	
 	import mx.core.IFlexDisplayObject;
 	
-	public class LayoutBase
+	public class LayoutBase extends EventDispatcher
 	{
 		
 		//private var _dragItems:Array;

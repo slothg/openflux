@@ -8,6 +8,7 @@ package com.plexiglass.layouts
 	import com.plexiglass.containers.IPlexiContainer;
 	
 	import flash.display.DisplayObject;
+	import flash.events.Event;
 	import flash.geom.Point;
 	
 	import mx.collections.ArrayCollection;
@@ -72,7 +73,8 @@ package com.plexiglass.layouts
 		
 		private function onChange(event:ListEvent):void
 		{
-			container.invalidateLayout();
+			//container.invalidateLayout();
+			dispatchEvent(new Event(Event.RENDER));
 		}
 		
 		public function measure():Point
