@@ -3,7 +3,9 @@ package com.openflux.containers
 	import com.openflux.ListItem;
 	import com.openflux.animators.IAnimator;
 	import com.openflux.animators.TweenAnimator;
+	import com.openflux.core.FluxFactory;
 	import com.openflux.core.FluxView;
+	import com.openflux.core.IFluxFactory;
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxListItem;
 	import com.openflux.layouts.ILayout;
@@ -18,7 +20,6 @@ package com.openflux.containers
 	import mx.collections.ICollectionView;
 	import mx.core.IDataRenderer;
 	import mx.core.IFactory;
-	import mx.core.IUIComponent;
 	import mx.core.UIComponent;
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
@@ -176,8 +177,9 @@ package com.openflux.containers
 		/** @private */
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
-			if(layout && animator) {
-				layout.update();
+			if(layoutChanged) {
+				updateLayout();
+				layoutChanged = false;
 			}
 		}
 		
@@ -227,6 +229,10 @@ package com.openflux.containers
 		}
 		
 		protected function addItem(item:Object, index:int=-1):void {
+			// testing CSS Data declarations 
+			//var factory:IFluxFactory = new FluxFactory();
+			//factory.createComponent(item);
+			
 			var instance:UIComponent;
 			if(item is UIComponent) {
 				instance = item as UIComponent;
