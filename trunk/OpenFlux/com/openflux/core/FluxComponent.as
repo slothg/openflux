@@ -3,8 +3,12 @@ package com.openflux.core
 	
 	import com.openflux.utils.MetaStyler;
 	
+	import flash.display.DisplayObject;
+	
+	import mx.core.IInvalidating;
 	import mx.core.UIComponent;
 	import mx.core.mx_internal;
+	import mx.managers.ILayoutManagerClient;
 	import mx.styles.CSSStyleDeclaration;
 	import mx.styles.StyleManager;
 	
@@ -99,7 +103,12 @@ package com.openflux.core
 			super.commitProperties();
 			if(viewChanged) {
 				view.component = this;
+				//(view as UIComponent).styleName = this;
 				addChild(view as UIComponent);
+				this.measuredWidth = view.measuredWidth;
+				this.measuredHeight = view.measuredHeight;
+				this.measuredMinWidth = view.measuredMinWidth;
+				this.measuredMinHeight = view.measuredMinHeight;
 				MetaStyler.initialize(view, this);
 				viewChanged = false;
 			}
@@ -155,7 +164,30 @@ package com.openflux.core
 			super.styleName = value;
 		}
 		
-		
+		/** @private */
+		/*
+		override public function validateSize(recursive:Boolean = false):void {
+			if (recursive) {
+				for (var i:int = 0; i < numChildren; i++) {
+					var child:DisplayObject = getChildAt(i);
+					if (child is ILayoutManagerClient )
+						(child as ILayoutManagerClient ).validateSize(true);
+				}
+			}
+			
+			if (invalidateSizeFlag) {
+				var sizeChanging:Boolean = measureSizes();
+				if (sizeChanging && includeInLayout) {
+					invalidateDisplayList();
+					var p:IInvalidating = parent as IInvalidating;
+					if (p) {
+						p.invalidateSize();
+						p.invalidateDisplayList();
+					}
+				}
+			}
+		}
+		*/
 		//********************************************
 		// mx_internal hacking
 		//********************************************
@@ -185,6 +217,112 @@ package com.openflux.core
 			}
 		}
 		
+		//private var oldMinWidth:Number, oldMinHeight:Number;
+		//private var oldExplicitWidth:Number, oldExplicitHeight:Number;
+		
+		/** @private */
+		/*
+		private function measureSizes():Boolean {
+			var changed:Boolean = false;
+			//this.validateSize();
+			if (!invalidateSizeFlag) 
+				return changed;
+			
+			var scalingFactor:Number;
+			var newValue:Number;
+			
+			// We can skip the measure function if the object's width and height
+			// have been explicitly specified (e.g.: the object's MXML tag has
+			// attributes like width="50" and height="100").
+			//
+			// If an object's width and height have been explicitly specified,
+			// then the explicitWidth and explicitHeight properties contain
+			// Numbers (as opposed to NaN)
+			//if (isNaN(explicitWidth) || isNaN(explicitHeight)) {
+				var xScale:Number = Math.abs(scaleX);
+				var yScale:Number = Math.abs(scaleY);
+				
+				if (xScale != 1.0) {
+					measuredMinWidth /= xScale;
+					measuredWidth /= xScale;
+				}
+				
+				if (yScale != 1.0) {
+					measuredMinHeight /= yScale;
+					measuredHeight /= yScale;
+				}
+				
+				measure();
+				invalidateSizeFlag = false;
+				
+				if (!isNaN(explicitMinWidth) && measuredWidth < explicitMinWidth)
+					measuredWidth = explicitMinWidth;
+				
+				if (!isNaN(explicitMaxWidth) && measuredWidth > explicitMaxWidth)
+					measuredWidth = explicitMaxWidth;
+				
+				if (!isNaN(explicitMinHeight) && measuredHeight < explicitMinHeight)
+					measuredHeight = explicitMinHeight;
+				
+				if (!isNaN(explicitMaxHeight) && measuredHeight > explicitMaxHeight)
+					measuredHeight = explicitMaxHeight;
+				
+				if (xScale != 1.0) {
+					measuredMinWidth *= xScale;
+					measuredWidth *= xScale;
+				}
+				
+				if (yScale != 1.0) {
+					measuredMinHeight *= yScale;
+					measuredHeight *= yScale;
+				}
+			//} else {
+				//invalidateSizeFlag = false;
+				//measuredMinWidth = 0;
+				//measuredMinHeight = 0;
+			//}
+			
+			adjustSizesForScaleChanges();
+			
+			if (isNaN(oldMinWidth)) {
+				// This branch does the same thing as the else branch,
+				// but it is optimized for the first time that
+				// measureSizes() is called on this object.
+				oldMinWidth = !isNaN(explicitMinWidth) ? explicitMinWidth : measuredMinWidth;
+				oldMinHeight = !isNaN(explicitMinHeight) ? explicitMinHeight : measuredMinHeight;
+				oldExplicitWidth = !isNaN(explicitWidth) ? explicitWidth : measuredWidth;
+				oldExplicitHeight = !isNaN(explicitHeight) ? explicitHeight : measuredHeight;
+				changed = true;
+			} else {
+				newValue = !isNaN(explicitMinWidth) ? explicitMinWidth : measuredMinWidth;
+				if (newValue != oldMinWidth) {
+					oldMinWidth = newValue;
+					changed = true;
+				}
+				
+				newValue = !isNaN(explicitMinHeight) ? explicitMinHeight : measuredMinHeight;
+				
+				if (newValue != oldMinHeight) {
+					oldMinHeight = newValue;
+					changed = true;
+				}
+				
+				newValue = !isNaN(explicitWidth) ? explicitWidth : measuredWidth;
+				
+				if (newValue != oldExplicitWidth) {
+					oldExplicitWidth = newValue;
+					changed = true;
+				}
+				
+				newValue = !isNaN(explicitHeight) ? explicitHeight : measuredHeight;
+				
+				if (newValue != oldExplicitHeight) {
+					oldExplicitHeight = newValue;
+					changed = true;
+				}
+			}
+			return changed;
+		}*/
 		
 	}
 }

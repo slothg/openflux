@@ -88,7 +88,8 @@ package com.plexiglass.layouts
 				container.animator.moveItem(container["view"], {x:container.width / 2, y:container.height / 2});
 				
 				var list:IFluxList = (container as IFluxView).component as IFluxList;
-				var selectedIndex:int = list ? (list.dataProvider as ArrayCollection).getItemIndex(list.selectedItems.getItemAt(0)) : 0;
+				
+				var selectedIndex:int = (list && list.selectedItems) ? (list.dataProvider as ArrayCollection).getItemIndex(list.selectedItems.getItemAt(0)) : 0;
 				
 				if(container is IFluxList) {
 					(container as IFluxList).selectedItems;
@@ -118,7 +119,7 @@ package com.plexiglass.layouts
 						xPosition = selectedChild.width + ((abs - 1) * horizontalGap);
 						if (_gap > 0) xPosition += (abs - 1) * (_gap + child.width);
 						yPosition = -(maxChildHeight - child.height) / 2;
-						zPosition = -200 / 2 + selectedChild.width + abs * verticalGap;
+						zPosition = 0; //selectedChild.measuredWidth + abs * verticalGap; // -200 / 2 + 
 						yRotation = rotationAngle;
 						xRotation = 0;
 						
@@ -127,14 +128,14 @@ package com.plexiglass.layouts
 							yRotation *= -1;
 						} else if(i == selectedIndex) {
 							xPosition = 0;
-							zPosition = -200 / 2;
+							zPosition = 0; //-200 / 2;
 							yRotation = 0;
 						}
 					} else {
 						yPosition = selectedChild.height + ((abs - 1) * verticalGap);
 						if (_gap > 0) yPosition += (abs - 1) * (_gap + child.height);
 						xPosition = 0;
-						zPosition = -200 / 2 + selectedChild.height + abs * horizontalGap;
+						zPosition = 200/2 - selectedChild.height + abs * horizontalGap; 
 						xRotation = rotationAngle;
 						yRotation = 0;
 						
@@ -143,7 +144,7 @@ package com.plexiglass.layouts
 							xRotation *= -1;
 						} else if(i == selectedIndex) {
 							yPosition = 0;
-							zPosition = -200 / 2;
+							zPosition = 200 / 2; 
 							xRotation = 0;
 						}
 					}

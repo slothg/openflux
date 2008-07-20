@@ -69,16 +69,20 @@ package com.openflux.containers
 				collection.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
 			}
 			collectionChanged = true;
+			layoutChanged = true;
 			invalidateProperties();
 			//invalidateLayout();
+			invalidateDisplayList();
 		}
 		
 		public function get itemRenderer():IFactory { return _itemRenderer; }
 		public function set itemRenderer(value:IFactory):void {
 			_itemRenderer = value;
 			collectionChanged = true;
+			layoutChanged = true;
 			invalidateProperties();
 			//invalidateLayout();
+			invalidateDisplayList();
 		}
 		
 		
@@ -114,9 +118,9 @@ package com.openflux.containers
 				MetaStyler.initialize(_animator, this.data as IStyleClient);
 			}
 			layoutChanged = true;
-			invalidateProperties();
+			//invalidateProperties();
 			//invalidateLayout();
-			//invalidateDisplayList();
+			invalidateDisplayList();
 		}
 		
 		public function get children():Array { return _renderers; }
@@ -146,7 +150,7 @@ package com.openflux.containers
 			if(itemRenderer == null) {
 				itemRenderer = new ListItem();
 			}
-			//childrenChanged = true;
+			// childrenChanged = true;
 		}
 		
 		/** @private */
@@ -159,11 +163,11 @@ package com.openflux.containers
 			if(childrenChanged) {
 				updateChildren();
 				childrenChanged = false;
-			}
+			}/*
 			if(layoutChanged) {
 				updateLayout();
 				layoutChanged = false;
-			}
+			}*/
 		}
 		
 		/** @private */
