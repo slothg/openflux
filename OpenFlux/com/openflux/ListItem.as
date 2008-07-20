@@ -13,7 +13,7 @@ package com.openflux
 		private var _data:Object;
 		private var _list:IFluxList;
 		private var _selected:Boolean;
-		private var _buttonState:String;
+		//private var _buttonState:String;
 		
 		[Bindable]
 		public function get data():Object { return _data; }

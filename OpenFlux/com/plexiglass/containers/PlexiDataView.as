@@ -2,6 +2,7 @@ package com.plexiglass.containers
 {
 	import away3d.containers.View3D;
 	import away3d.materials.MovieMaterial;
+	import away3d.materials.PhongMovieMaterial;
 	import away3d.primitives.Plane;
 	
 	import com.openflux.containers.DataView;
@@ -10,7 +11,6 @@ package com.plexiglass.containers
 	import com.plexiglass.animators.PlexiAnimator;
 	import com.plexiglass.cameras.ICamera;
 	import com.plexiglass.cameras.SimpleCamera;
-	import com.plexiglass.containers.IPlexiContainer;
 	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
@@ -18,7 +18,6 @@ package com.plexiglass.containers
 	import flash.utils.Dictionary;
 	
 	import mx.containers.Canvas;
-	import mx.core.IDataRenderer;
 	import mx.core.UIComponent;
 	import mx.events.ChildExistenceChangedEvent;
 	import mx.styles.IStyleClient;
@@ -108,6 +107,7 @@ package com.plexiglass.containers
 			
 			if (child.width > 0 && child.height > 0) {
 				var m:MovieMaterial = new MovieMaterial(child as Sprite, {smooth:true, interactive:true});
+				//var m:PhongMovieMaterial = new PhongMovieMaterial(child as Sprite, {smooth:true, interactive:true});
 				var p:Plane = new Plane({yUp:false, material:m, width:child.width, height:child.height, bothsides:true});
 				view.scene.addChild(p);
 				planes[child] = p;

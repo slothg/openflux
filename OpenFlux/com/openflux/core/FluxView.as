@@ -56,11 +56,19 @@ package com.openflux.core
 		}
 		
 		/** @private */
+		override protected function createChildren():void {
+			super.createChildren();
+			measuredWidth = explicitWidth;
+			measuredHeight = explicitHeight;
+			measuredMinWidth = explicitMinWidth;
+			measuredMinHeight = explicitMinHeight;
+		}
+		
+		/** @private */
 		override public function styleChanged(styleProp:String):void {
 			super.styleChanged(styleProp);
 			MetaStyler.updateStyle(styleProp, this, this.component as IStyleClient);
 		}
-		
 		
 	}
 }
