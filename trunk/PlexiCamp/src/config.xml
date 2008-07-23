@@ -1,0 +1,56 @@
+<config>
+	<message>To send a message, add ApolloCamp as a friend to your Twitter account and prepend your update with @ApolloCamp.</message>
+	
+	<schedule>
+		
+		<session begin="Sun Aug 17 9:00:00 2008" end="Sun Aug 17 12:30:00 2008">
+			<speaker>TBD</speaker>
+			<location>Room 1</location>
+			<title>Lynda.com Trainer - Flex 101</title>
+		</session>
+		
+		<session begin="Sun Aug 17 9:00:00 2008" end="Sun Aug 17 12:30:00 2008">
+			<speaker>TBD</speaker>
+			<location>Room 2</location>
+			<title>Ribbit Spawn</title>
+		</session>
+		
+		<session begin="Sun Aug 17 9:00:00 2008" end="Sun Aug 17 12:30:00 2008">
+			<speaker>TBD</speaker>
+			<location>Room 3</location>
+			<title>Yahoo! API hands on </title>
+		</session>
+		
+		<session begin="Sun Aug 17 9:00:00 2008" end="Sun Aug 17 12:30:00 2008">
+			<speaker>TBD</speaker>
+			<location>Room 4</location>
+			<title>WebORB Business Intelligence Hands On.</title>
+		</session>
+		
+		<session begin="Sun Aug 17 13:00:00 2008" end="Sun Aug 17 17:00:00 2008">
+			<speaker>TBD</speaker>
+			<location>Room 1</location>
+			<title>Lynda.com Trainer - Flex 101</title>
+		</session>
+		
+		<session begin="Sun Aug 17 13:00:00 2008" end="Sun Aug 17 17:00:00 2008">
+			<speaker>TBD</speaker>
+			<location>Room 2</location>
+			<title>Ribbit Spawn</title>
+		</session>
+		
+		<session begin="Sun Aug 17 13:00:00 2008" end="Sun Aug 17 17:00:00 2008">
+			<speaker>James Huang</speaker>
+			<location>Room 3</location>
+			<title>The R1-RPC/J Toolkit and the D.eval API Hands On.</title>
+		</session>
+		
+		<session begin="Sun Aug 17 13:00:00 2008" end="Sun Aug 17 17:00:00 2008">
+			<speaker>Ben Stucki</speaker>
+			<location>Room 4</location>
+			<title>Hands On OpenFlux</title>
+		</session>
+		
+	</schedule>
+	
+</config>
