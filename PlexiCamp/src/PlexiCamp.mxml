@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:flux="http://openflux.googlecode.com" layout="absolute"
+	creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import twitter.api.events.TwitterEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			import twitter.api.Twitter;
+			import mx.collections.ArrayCollection;
+			import com.openflux.layouts.*;
+			
+			[Bindable] private var tweets:Array;
+			
+			private var userName:String;
+			private var t:Twitter = new Twitter();
+			
+			private function init():void {
+				t.addEventListener(TwitterEvent.ON_PUBLIC_TIMELINE_RESULT, timelineHandler);
+				t.addEventListener(TwitterEvent.ON_FRIENDS_TIMELINE_RESULT, timelineHandler);
+				this.addEventListener(MouseEvent.CLICK, clickHandler);
+			}
+			
+			private function login(userName:String, password:String):void {
+				this.userName = userName;
+				t.setAuth(userName, password);
+				loadTweets();
+			}
+			
+			private function loadTweets():void {
+				t.loadFriendsTimeline(userName);
+			}
+			
+			//****************************************
+			// User Interface
+			//****************************************
+			
+			private function toggleFullScreen():void {
+				var full:Boolean = (systemManager.stage.displayState == StageDisplayState.FULL_SCREEN);
+				systemManager.stage.displayState = full ? StageDisplayState.NORMAL : StageDisplayState.FULL_SCREEN;
+			}
+			
+			private var timer:Timer = new Timer(5000);
+			private function clickHandler(event:MouseEvent):void {
+				var index:int = Math.round(Math.random()*(layouts.length - 1));
+				list.setStyle("layout", layouts.getItemAt(index));
+				timer.addEventListener(TimerEvent.TIMER, timerHandler);
+				timer.start();
+			}
+			
+			private function timerHandler(event:TimerEvent):void {
+				timer.stop();
+				list.setStyle("layout", flow);
+			}
+			
+			
+			//*********************************************************
+			// Twitter API
+			//*********************************************************
+			
+			private function timelineHandler(event:TwitterEvent):void {
+				tweets = event.data as Array;
+			}
+			
+			private function faultHandler(event:FaultEvent):void {
+				trace(event.fault.message);
+			}
+			
+			
+		]]>
+	</mx:Script>
+	<mx:Style source="assets/css/style.css" />
+	
+	<!-- layouts -->
+	<flux:FlowLayout id="flow" />
+	<mx:ArrayCollection id="layouts">
+		<flux:CircleLayout id="circle" />
+		<flux:CarouselLayout id="carousel" />
+		<flux:CoverFlowLayout id="coverflow" />
+		<flux:SpiralLayout id="spiral" />
+	</mx:ArrayCollection>
+	
+	<mx:Canvas left="0" right="0" top="0" bottom="168" styleName="content">
+		<flux:List id="list" left="10" right="10" top="10" bottom="5" dataProvider="{tweets}" />
+	</mx:Canvas>
+	
+	<mx:Canvas height="168" left="0" right="0" bottom="0" styleName="footer">
+		<mx:Image source="{null}" doubleClickEnabled="true" doubleClick="toggleFullScreen()" verticalCenter="-10" right="20"/>
+        <mx:Text x="20" y="10" verticalCenter="-10" width="551" fontSize="22" text="To send a message, add ApolloCamp as a friend to your Twitter account and prepend your update with @ApolloCamp." />
+        <!--<mx:Label text="TwitterCamp Developed by Daniel Dura - http://www.danieldura.com/twittercamp/" color="#666666"  horizontalCenter="0" bottom="5"/>-->
+	</mx:Canvas>
+	
+	<mx:Form right="120" top="0" styleName="login" filters="{[new DropShadowFilter(4, 45, 0, 0.5)]}">
+		<mx:FormItem label="User Name">
+			<mx:TextInput id="userNameInput" />
+		</mx:FormItem>
+		<mx:FormItem label="Password">
+			<mx:TextInput id="passwordInput" displayAsPassword="true" />
+		</mx:FormItem>
+		<mx:FormItem width="100%" direction="horizontal">
+			<mx:Spacer width="100%" />
+			<flux:Button label="Submit" click="login(userNameInput.text, passwordInput.text)" />
+		</mx:FormItem>
+	</mx:Form>
+	
+</mx:WindowedApplication>
