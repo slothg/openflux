@@ -4,6 +4,9 @@
 	creationComplete="init()">
 	<mx:Script>
 		<![CDATA[
+			import com.adobe.webapis.flickr.PagedPhotoList;
+			import com.adobe.webapis.flickr.events.FlickrResultEvent;
+			import com.adobe.webapis.flickr.FlickrService;
 			import twitter.api.events.TwitterEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
@@ -12,14 +15,22 @@
 			import com.openflux.layouts.*;
 			
 			[Bindable] private var tweets:Array;
+			[Bindable] private var photos:Array;
 			
 			private var userName:String;
 			private var t:Twitter = new Twitter();
+			private var f:FlickrService = new FlickrService("fa5d101b8564317c248aa429302468ee");
 			
 			private function init():void {
+				systemManager.stage.stageWidth = 1365;
+				systemManager.stage.stageHeight = 768;
+				systemManager.stage.nativeWindow.x = 10;
+				systemManager.stage.nativeWindow.y = 10;
 				t.addEventListener(TwitterEvent.ON_PUBLIC_TIMELINE_RESULT, timelineHandler);
 				t.addEventListener(TwitterEvent.ON_FRIENDS_TIMELINE_RESULT, timelineHandler);
-				this.addEventListener(MouseEvent.CLICK, clickHandler);
+				f.addEventListener(FlickrResultEvent.PHOTOS_SEARCH, photosSearchHandler);
+				addEventListener(MouseEvent.CLICK, clickHandler);
+				f.photos.search("", "360Flex");
 			}
 			
 			private function login(userName:String, password:String):void {
@@ -46,7 +57,7 @@
 				var index:int = Math.round(Math.random()*(layouts.length - 1));
 				list.setStyle("layout", layouts.getItemAt(index));
 				timer.addEventListener(TimerEvent.TIMER, timerHandler);
-				timer.start();
+				//timer.start();
 			}
 			
 			private function timerHandler(event:TimerEvent):void {
@@ -56,15 +67,22 @@
 			
 			
 			//*********************************************************
-			// Twitter API
+			// API Handlers
 			//*********************************************************
+			
+			private function photosSearchHandler(event:FlickrResultEvent):void {
+				var p:Array = event.data.photos.photos;
+				photos = p.slice(0, 10);
+			}
 			
 			private function timelineHandler(event:TwitterEvent):void {
 				tweets = event.data as Array;
+				loginForm.visible = false;
 			}
 			
 			private function faultHandler(event:FaultEvent):void {
 				trace(event.fault.message);
+				loginForm.visible = true;
 			}
 			
 			
@@ -72,26 +90,33 @@
 	</mx:Script>
 	<mx:Style source="assets/css/style.css" />
 	
+	<mx:Move id="moveOutEffect" yTo="-100" />
+	<mx:Move id="moveInEffect" yTo="0" />
+	
 	<!-- layouts -->
 	<flux:FlowLayout id="flow" />
 	<mx:ArrayCollection id="layouts">
-		<flux:CircleLayout id="circle" />
+		<!--<flux:CircleLayout id="circle" />-->
 		<flux:CarouselLayout id="carousel" />
 		<flux:CoverFlowLayout id="coverflow" />
 		<flux:SpiralLayout id="spiral" />
 	</mx:ArrayCollection>
 	
+	<flux:ComplexCollection id="stuff" collections="{[tweets, photos]}" />
+	
 	<mx:Canvas left="0" right="0" top="0" bottom="168" styleName="content">
-		<flux:List id="list" left="10" right="10" top="10" bottom="5" dataProvider="{tweets}" />
+		<!--<flux:List id="list" left="10" right="10" top="10" bottom="5" dataProvider="{tweets}" />-->
+		<flux:List id="list" left="10" right="10" top="10" bottom="5" data="{stuff}" />
 	</mx:Canvas>
 	
 	<mx:Canvas height="168" left="0" right="0" bottom="0" styleName="footer">
 		<mx:Image source="{null}" doubleClickEnabled="true" doubleClick="toggleFullScreen()" verticalCenter="-10" right="20"/>
         <mx:Text x="20" y="10" verticalCenter="-10" width="551" fontSize="22" text="To send a message, add ApolloCamp as a friend to your Twitter account and prepend your update with @ApolloCamp." />
         <!--<mx:Label text="TwitterCamp Developed by Daniel Dura - http://www.danieldura.com/twittercamp/" color="#666666"  horizontalCenter="0" bottom="5"/>-->
+		<!--<flux:List right="0" dataProvider="{photos}" />-->
 	</mx:Canvas>
 	
-	<mx:Form right="120" top="0" styleName="login" filters="{[new DropShadowFilter(4, 45, 0, 0.5)]}">
+	<mx:Form id="loginForm" right="120" top="0" styleName="login" hideEffect="{moveOutEffect}" showEffect="{moveInEffect}" filters="{[new DropShadowFilter(4, 45, 0, 0.5)]}">
 		<mx:FormItem label="User Name">
 			<mx:TextInput id="userNameInput" />
 		</mx:FormItem>
