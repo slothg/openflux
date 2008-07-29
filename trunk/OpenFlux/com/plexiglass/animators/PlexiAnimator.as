@@ -45,7 +45,9 @@ package com.plexiglass.animators
 			if(container is IPlexiContainer && item != container["view"] && item is DisplayObject) {
 				var token3d:Object = new Object();
 				token3d.x = token.x + item.width/2;
-				token3d.y = (token.y + item.height/2) * -1;
+				if(!isNaN(token.y)) {
+					token3d.y = (token.y + item.height/2) * -1;
+				}
 				token3d.z = token.z ? token.z : 0; //getDepth(item as DisplayObject)/100;
 				
 				token3d.rotationZ = token.rotation ? token.rotation : 0;

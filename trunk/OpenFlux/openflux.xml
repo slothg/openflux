@@ -13,9 +13,12 @@
     <component id="ButtonView" class="com.openflux.views.ButtonView" />
     <component id="CheckBoxView" class="com.openflux.views.CheckBoxView" />
     <component id="HorizontalScrollBarView" class="com.openflux.views.HorizontalScrollBarView" />
+    <component id="ListView" class="com.openflux.views.ListView" />
     <component id="ListItemView" class="com.openflux.views.ListItemView" />
+    <component id="HierarchicalItemView" class="com.openflux.views.HierarchicalItemView" />
     <component id="VerticalScrollBarView" class="com.openflux.views.VerticalScrollBarView" />
     <component id="HorizontalScrollBarView" class="com.openflux.views.HorizontalScrollBarView" />
+    <component id="Container" class="com.openflux.containers.Container" />
     
     <!-- controllers -->
     <component id="ButtonController" class="com.openflux.controllers.ButtonController" />
@@ -39,8 +42,10 @@
     <component id="FluxComponent" class="com.openflux.core.FluxComponent" />
     <component id="FluxView" class="com.openflux.core.FluxView" />
     <component id="FluxController" class="com.openflux.core.FluxController" />
-    <component id="DataView" class="com.openflux.containers.DataView" />
     <component id="IFluxContainer" class="com.openflux.containers.IFluxContainer" />
+    
+    <!-- collections -->
+    <component id="ComplexCollection" class="com.openflux.collections.ComplexCollection" />
     
     <!-- utils -->
     

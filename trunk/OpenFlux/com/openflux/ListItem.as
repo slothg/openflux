@@ -39,6 +39,7 @@ package com.openflux
 			return instance;
 		}
 		
+		
 		//***************************************************
 		// Framework Overrides
 		//***************************************************
@@ -52,17 +53,7 @@ package com.openflux
 			}
 			super.createChildren();
 		}
-		/*
-		override protected function measure():void {
-			//super.measure();
-			if(view) {
-				measuredWidth = view.measuredWidth;
-				measuredHeight = view.measuredHeight;
-			} else {
-				measuredWidth = 100;
-				measuredHeight = 22;
-			}
-		}
-		*/
+		
+		
 	}
 }

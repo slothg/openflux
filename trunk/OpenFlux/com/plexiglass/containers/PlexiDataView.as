@@ -5,7 +5,7 @@ package com.plexiglass.containers
 	import away3d.materials.PhongMovieMaterial;
 	import away3d.primitives.Plane;
 	
-	import com.openflux.containers.DataView;
+	import com.openflux.containers.Container;
 	import com.openflux.core.*;
 	import com.openflux.utils.MetaStyler;
 	import com.plexiglass.animators.PlexiAnimator;
@@ -22,7 +22,7 @@ package com.plexiglass.containers
 	import mx.events.ChildExistenceChangedEvent;
 	import mx.styles.IStyleClient;
 	
-	public class PlexiDataView extends DataView implements IPlexiContainer
+	public class PlexiDataView extends Container implements IPlexiContainer
 	{
 		private var _view:View3D;
 		private var viewContainer:UIComponent;
@@ -106,9 +106,9 @@ package com.plexiglass.containers
 			}
 			
 			if (child.width > 0 && child.height > 0) {
-				var m:MovieMaterial = new MovieMaterial(child as Sprite, {smooth:true, interactive:true});
+				var m:MovieMaterial = new MovieMaterial(child as Sprite, {smooth:false, interactive:true});
 				//var m:PhongMovieMaterial = new PhongMovieMaterial(child as Sprite, {smooth:true, interactive:true});
-				var p:Plane = new Plane({yUp:false, material:m, width:child.width, height:child.height, bothsides:true});
+				var p:Plane = new Plane({yUp:false, material:m, width:child.width, height:child.height, segmentsW:10, segmentsH:5, bothsides:true});
 				view.scene.addChild(p);
 				planes[child] = p;
 			}
