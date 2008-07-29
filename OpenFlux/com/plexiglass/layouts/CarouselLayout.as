@@ -54,7 +54,7 @@ package com.plexiglass.layouts
 			container.animator.moveItem(container["view"], {x:container.width / 2, y:container.height / 2});
 			
 			var list:IFluxList = (container as IFluxView).component as IFluxList;
-			var selectedIndex:int = list && list.dataProvider && list.selectedItems && list.selectedItems.getItemAt(0) ? (list.dataProvider as ArrayCollection).getItemIndex(list.selectedItems.getItemAt(0)) : 0;
+			var selectedIndex:int = list && list.data && list.selectedItems && list.selectedItems.getItemAt(0) ? (list.data as ArrayCollection).getItemIndex(list.selectedItems.getItemAt(0)) : 0;
 			var radius:Number = container.width;
 			var anglePer:Number = (Math.PI * 2) / numOfItems;
 

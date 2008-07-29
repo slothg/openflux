@@ -5,8 +5,8 @@ package com.openflux.core
 	public interface IFluxList
 	{
 		
-		function get dataProvider():Object;
-		function set dataProvider(value:Object):void;
+		function get data():Object;
+		function set data(value:Object):void;
 		
 		function get selectedItems():ArrayCollection;
 		function set selectedItems(value:ArrayCollection):void;

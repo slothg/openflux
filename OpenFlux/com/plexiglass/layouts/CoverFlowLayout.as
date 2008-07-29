@@ -89,7 +89,7 @@ package com.plexiglass.layouts
 				
 				var list:IFluxList = (container as IFluxView).component as IFluxList;
 				
-				var selectedIndex:int = (list && list.selectedItems) ? (list.dataProvider as ArrayCollection).getItemIndex(list.selectedItems.getItemAt(0)) : 0;
+				var selectedIndex:int = (list && list.selectedItems) ? (list.data as ArrayCollection).getItemIndex(list.selectedItems.getItemAt(0)) : 0;
 				
 				if(container is IFluxList) {
 					(container as IFluxList).selectedItems;

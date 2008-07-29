@@ -26,7 +26,7 @@ package com.openflux.containers
 	import mx.styles.IStyleClient;
 	
 	[DefaultProperty("content")]
-	public class DataView extends FluxView implements IDataView, IFluxContainer
+	public class Container extends FluxView implements IDataView, IFluxContainer
 	{
 		
 		
@@ -41,7 +41,7 @@ package com.openflux.containers
 		// Constructor
 		//*********************************
 		
-		public function DataView()
+		public function Container()
 		{
 			super();
 		}
@@ -52,15 +52,15 @@ package com.openflux.containers
 		//************************************
 		
 		// backing vars
-		private var _itemRenderer:IFactory;
+		private var _factory:Object;
 		
 		// ivalidation flags
 		private var childrenChanged:Boolean = false;
 		
 		
 		[Bindable] // holds data (like dataProvider) or UIComponents
-		public function get content():Object { return collection; }
-		public function set content(value:Object):void {
+		public function get content():* { return collection; }
+		public function set content(value:*):void {
 			if(collection) {
 				collection.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
 			}
@@ -75,9 +75,9 @@ package com.openflux.containers
 			invalidateDisplayList();
 		}
 		
-		public function get itemRenderer():IFactory { return _itemRenderer; }
-		public function set itemRenderer(value:IFactory):void {
-			_itemRenderer = value;
+		public function get factory():Object { return _factory; }
+		public function set factory(value:Object):void {
+			_factory = value;
 			collectionChanged = true;
 			layoutChanged = true;
 			invalidateProperties();
@@ -147,8 +147,8 @@ package com.openflux.containers
 			if (layout == null) {
 				layout = new VerticalLayout();
 			}
-			if(itemRenderer == null) {
-				itemRenderer = new ListItem();
+			if(factory == null) {
+				factory = new ListItem();
 			}
 			// childrenChanged = true;
 		}
@@ -233,19 +233,20 @@ package com.openflux.containers
 		}
 		
 		protected function addItem(item:Object, index:int=-1):void {
-			// testing CSS Data declarations 
-			//var factory:IFluxFactory = new FluxFactory();
-			//factory.createComponent(item);
-			
 			var instance:UIComponent;
+			var factory:IFluxFactory = new FluxFactory(this.factory as IFactory); // testing CSS Data declarations
 			if(item is UIComponent) {
 				instance = item as UIComponent;
-			} else {
+			} else if(factory is IFluxFactory) {
+				instance = factory.createComponent(item) as UIComponent;
+			} /*else {
 				instance = itemRenderer.newInstance() as UIComponent;
-				(instance as IDataRenderer).data = item;
-			}
+			}*/
 			
 			instance.styleName = this; // ???
+			if(instance is IDataRenderer) {
+				(instance as IDataRenderer).data = item;
+			}
 			if(instance is IFluxListItem) {
 				(instance as IFluxListItem).list = component as IFluxList;
 			}

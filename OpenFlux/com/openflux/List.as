@@ -4,12 +4,13 @@ package com.openflux
 	import com.openflux.core.FluxComponent;
 	import com.openflux.core.IEnabled;
 	import com.openflux.core.IFluxList;
+	import com.openflux.core.IFluxListItem;
 	import com.openflux.utils.CollectionUtil;
 	import com.openflux.views.ListView;
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.ICollectionView;
-	import mx.events.CollectionEvent;
+	import mx.core.IFactory;
 	import mx.events.ListEvent;
 	
 	[Event(name="change", type="mx.events.ListEvent")]
@@ -18,7 +19,7 @@ package com.openflux
 	[Event(name="itemRollOver", type="mx.events.ListEvent")]
 	[Event(name="itemRollOut", type="mx.events.ListEvent")]
 	
-	[Style(name="itemRenderer", type="mx.core.IFactory")] // ???
+	/*[Style(name="itemRenderer", type="mx.core.IFactory")]*/ // ???
 	[Style(name="layout", type="com.openflux.layouts.ILayout")]
 	public class List extends FluxComponent implements IFluxList, IEnabled
 	{
@@ -28,8 +29,8 @@ package com.openflux
 		//****************************************************************************
 		
 		private var collection:ICollectionView; [Bindable]
-		public function get dataProvider():Object { return collection; }
-		public function set dataProvider(value:Object):void {
+		public function get data():Object { return collection; }
+		public function set data(value:Object):void {
 			collection = CollectionUtil.resolveCollection(value);
 		}
 		
@@ -43,6 +44,33 @@ package com.openflux
 		}
 		
 		
+		//****************************************************************************
+		// IFluxListItem Implementation (for hierarchical data)
+		//****************************************************************************
+		/*
+		private var _data:Object; [Bindable]
+		public function get data():Object { return _data; }
+		public function set data(value:Object):void {
+			_data = value;
+		}
+		
+		private var _list:IFluxList; [Bindable]
+		public function get list():IFluxList { return _list; }
+		public function set list(value:IFluxList):void {
+			_list = value;
+		}
+		
+		*/
+		//****************************************************************************
+		// IFactory Implementation
+		//****************************************************************************
+		/*
+		public function newInstance():* {
+			var instance:List = new List();
+			return instance;
+		}
+		
+		*/
 		//*****************************************************************
 		// Framework Overrides
 		//*****************************************************************
@@ -54,7 +82,6 @@ package com.openflux
 			if(!view) {
 				view = new ListView();
 			}
-			
 		}
 		
 		
