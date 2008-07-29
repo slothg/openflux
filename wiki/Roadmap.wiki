@@ -12,10 +12,11 @@ Milestone 2 (Beta 1) : Lists, Containers, 3D
   * ~~Core Layout Framework~~
   * Drag n Drop Layout Framework
   * ~~Base Animation Implementation~~
-  * Virtualized Collections
-  * List Scrolling
+  * Hierarchical Data Views
 
 Milestone 3: Views, Views, Views
+  * List Scrolling
+  * Virtualized Collections
   * Evaluate Canvas Dependancy
   * Evaluate UIComponent Model
   * Clear Issues and Debug
@@ -25,5 +26,4 @@ Milestone 3: Views, Views, Views
 == Future Releases ==
 
   * Visual indication of filtering/sorting changes.
-  * Hierarchical Data Views
   * Evaluate dependencies on Flex. Is it feasible to be an AS3 only framework?
