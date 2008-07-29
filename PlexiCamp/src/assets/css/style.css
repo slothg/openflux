@@ -39,8 +39,13 @@ Label, Button, Text, TextInput {
 List {
 	layout: ClassReference("com.openflux.layouts.FlowLayout");
 	view: ClassReference("com.plexiglass.views.PlexiListView");
+	/*camera: ClassReference("com.plexiglass.cameras.HoverCamera");*/
 }
 
-ListItem {
+TwitterStatus {
 	view: ClassReference("com.plexitwitter.views.TwitterStatusView");
+}
+
+Photo {
+	view: ClassReference("com.plexitwitter.views.FlickrPhotoView");
 }
