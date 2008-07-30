@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns="http://ns.adobe.com/mxml/2009" xmlns:mx="library:adobe/flex/halo" layout="absolute" xmlns:ns="library:adobe/flex/gumbo" xmlns:layout="flex.layout.*" xmlns:local="*">
+	<ns:List id="list" content="{[VerticalLayout,HorizontalLayout,CircleLayout,FlowLayout]}" width="100%" height="100%" layout="{list.selectedItem}" selectedIndex="0"/>
+</mx:Application>
