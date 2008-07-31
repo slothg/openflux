@@ -18,11 +18,6 @@ package
 			container.layout = layout;
 		}
 		
-		public function get layout():com.openflux.layouts.ILayout { return container.layout; }
-		public function set layout(value:com.openflux.layouts.ILayout):void {
-			container.layout = value;
-		}
-		
 		private var _target:Group;
 		public function get target():Group { return _target; }
 		public function set target(value:Group):void {
