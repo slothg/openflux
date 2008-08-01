@@ -1,26 +1,19 @@
 package com.openflux.layouts
 {
+	import com.openflux.animators.AnimationToken;
+	
+	import flash.display.DisplayObject;
 	import flash.geom.Point;
 	
+	import mx.core.IUIComponent;
 	import mx.core.UIComponent;
 	
-	public class HorizontalLayout extends LayoutBase implements ILayout, IDragLayout
+	public class HorizontalLayout extends LayoutBase implements ILayout//, IDragLayout
 	{
 		
-		private var _gap:Number = 0; [Bindable]
-		public function get gap():Number { return _gap; }
-		public function set gap(value:Number):void {
-			_gap = value;
-			container.invalidateSize();
-			container.invalidateDisplayList();
-		}
+		public var gap:Number = 0;
 		
-		public function HorizontalLayout():void 
-		{
-			super();
-		}
-		
-		public function measure():Point {
+		public function measure(children:Array):Point {
 			var point:Point = new Point(0, 0);
 			for each(var child:UIComponent in container.children) {
 				point.x += child.measuredWidth + gap;
@@ -29,29 +22,17 @@ package com.openflux.layouts
 			return point;
 		}
 		
-		public function update(indices:Array = null):void {
-			container.animator.begin();
-			
+		public function update(children:Array, width:Number, height:Number):void {
+			animator.begin();
 			var position:Number = 0;
-			var length:int = container.children.length;
+			var length:int = children.length;
 			for (var i:int = 0; i < length; i++) {
-				var child:UIComponent = container.children[i];
-				var token:Object = new Object();
-				
-				token.x = position;
-				token.y = 0
-				token.width = child.measuredWidth;
-				token.height = container.height;
-				token.rotation = 0;
-				if(indices && indices.indexOf(i, 0) >= 0) {
-					position += child.measuredWidth + gap;
-				}
-				
-				container.animator.moveItem(child, token);
+				var child:IUIComponent = children[i];
+				var token:AnimationToken = new AnimationToken(child.measuredWidth, height, position);
+				animator.moveItem(child as DisplayObject, token);
 				position += child.measuredWidth + gap;
 			}
-			
-			container.animator.end();
+			animator.end();
 		}
 		
 		override public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {

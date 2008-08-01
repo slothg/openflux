@@ -13,8 +13,8 @@ package com.openflux.controllers
 	
 	import mx.events.PropertyChangeEvent;
 	
-	[ViewHandler(event="mouseOver", handler="mouseOverHandler")]
-	[ViewHandler(event="mouseOut", handler="mouseOutHandler")]
+	[ViewHandler(event="rollOver", handler="rollOverHandler")]
+	[ViewHandler(event="rollOut", handler="rollOutHandler")]
 	[ViewHandler(event="mouseDown", handler="mouseDownHandler")]
 	[ViewHandler(event="mouseUp", handler="mouseUpHandler")]
 	public class ButtonController extends MetaControllerBase implements IFluxController
@@ -55,11 +55,12 @@ package com.openflux.controllers
 			}
 		}
 		
-		private function mouseOverHandler(event:MouseEvent):void {
+		private function rollOverHandler(event:MouseEvent):void {
+			
 			component.view.state = resolveState(ButtonStates.OVER);
 		}
 		
-		private function mouseOutHandler(event:MouseEvent):void {
+		private function rollOutHandler(event:MouseEvent):void {
 			component.view.state = resolveState(ButtonStates.UP);
 		}
 		

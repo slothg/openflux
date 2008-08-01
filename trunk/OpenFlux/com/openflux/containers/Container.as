@@ -173,7 +173,7 @@ package com.openflux.containers
 		/** @private */
 		override protected function measure():void {
 			super.measure();
-			var point:Point = layout.measure();
+			var point:Point = layout.measure(children); // filter out !includeInLayout
 			measuredWidth = point.x;
 			measuredHeight = point.y;
 		}
@@ -207,7 +207,7 @@ package com.openflux.containers
 		
 		private function updateLayout():void {
 			if(layout && animator) {
-				layout.update();
+				layout.update(children, width, height);
 			}
 		}
 		

@@ -4,13 +4,15 @@ package com.openflux.animators
 	
 	import com.openflux.containers.IFluxContainer;
 	
+	import flash.display.DisplayObject;
+	
 	/**
 	 * An animator class which uses the Tweener library. This is the default animator provided by OpenFlux. 
 	 */
 	public class TweenAnimator implements IAnimator
 	{
 		
-		private var count:int = 0;
+		//private var count:int = 0;
 		
 		static public const TRANSITION_LINEAR:String = "linear";
 		static public const EASE_OUT_EXPO:String = "easeOutExpo";
@@ -32,19 +34,13 @@ package com.openflux.animators
 		public function begin():void {} // unused
 		public function end():void {} // unused
 		
-		public function moveItem(item:Object, token:Object):void
+		public function moveItem(item:DisplayObject, token:AnimationToken):void
 		{
-			token.time = 1;
-			token.transition = transition;
-			token.onComplete = onComplete;
-			delete token.z;
-			delete token.rotationX;
-			delete token.rotationY;
-			delete token.rotationZ;
-			Tweener.addTween(item, token);
-			count++;
+			var parameters:Object = createTweenerParameters(token);
+			Tweener.addTween(item, parameters);
+			//count++;
 		}
-		
+		/*
 		public function addItem(item:Object, token:Object):void
 		{
 			moveItem(item, token);
@@ -59,14 +55,30 @@ package com.openflux.animators
 			token.height = 0;
 			moveItem(item, token);
 		}
-		
+		*/
 		// review for interface
+		/*
 		public function isAnimating():Boolean {
 			return count > 0 ? true : false;
 		}
 		
 		private function onComplete():void {
 			count--;
+		}
+		*/
+		
+		private function createTweenerParameters(token:AnimationToken):Object {
+			var parameters:Object = new Object();
+			parameters.time = 1;
+			parameters.transition = transition;
+			
+			parameters.x = token.x;
+			parameters.y = token.y;
+			parameters.width = token.width;
+			parameters.height = token.height;
+			parameters.rotation = token.rotationY;
+			//object.onComplete = onComplete;
+			return parameters;
 		}
 		
 	}

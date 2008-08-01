@@ -1,5 +1,6 @@
 package com.plexiglass.layouts
 {
+	import com.openflux.animators.AnimationToken;
 	import com.openflux.containers.IFluxContainer;
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxView;
@@ -10,6 +11,7 @@ package com.plexiglass.layouts
 	import flash.geom.Point;
 	
 	import mx.collections.ArrayCollection;
+	import mx.core.IUIComponent;
 	import mx.core.UIComponent;
 	import mx.events.ListEvent;
 	
@@ -34,7 +36,7 @@ package com.plexiglass.layouts
 			if ((container as IFluxView).component is IFluxList)
 				(container as IFluxView).component.removeEventListener(ListEvent.ITEM_CLICK, onChange);
 				
-			container.animator.moveItem(container["view"], {x:0, y:0});
+			//container.animator.moveItem(container["view"], {x:0, y:0});
 		}
 		
 		private function onChange(event:ListEvent):void
@@ -42,16 +44,16 @@ package com.plexiglass.layouts
 			container.invalidateDisplayList();
 		}
 		
-		public function measure():Point
+		public function measure(children:Array):Point
 		{
 			return new Point();
 		}
 		
-		public function update(indices:Array = null):void {
+		public function update(children:Array, width:Number, height:Number):void {
 			var numOfItems:int = container.children.length;		
 			if(numOfItems == 0) return;
 			
-			container.animator.moveItem(container["view"], {x:container.width / 2, y:container.height / 2});
+			//container.animator.moveItem(container["view"], {x:container.width / 2, y:container.height / 2});
 			
 			var list:IFluxList = (container as IFluxView).component as IFluxList;
 			var selectedIndex:int = list && list.data && list.selectedItems && list.selectedItems.getItemAt(0) ? (list.data as ArrayCollection).getItemIndex(list.selectedItems.getItemAt(0)) : 0;
@@ -59,13 +61,13 @@ package com.plexiglass.layouts
 			var anglePer:Number = (Math.PI * 2) / numOfItems;
 
 			for(var i:uint=0; i<numOfItems; i++) {
-				var child:DisplayObject = container.children[i];
-				var zPosition:Number = -(Math.cos((i-selectedIndex) * anglePer) * radius) + radius;
-				var xPosition:Number = Math.sin((i-selectedIndex) * anglePer) * radius;
-				var yRotation:Number = (-(i-selectedIndex) * anglePer) * (180 / Math.PI);
-				var yPosition:Number = 0;
-				
-				container.animator.moveItem(child, {x:xPosition, y:yPosition, z:zPosition, rotationY:yRotation});
+				var child:IUIComponent = container.children[i];
+				var token:AnimationToken = new AnimationToken(child.measuredWidth, child.measuredHeight)
+				token.x = Math.sin((i-selectedIndex) * anglePer) * radius;
+				token.y = 0;
+				token.z = -(Math.cos((i-selectedIndex) * anglePer) * radius) + radius;
+				token.rotationY = (-(i-selectedIndex) * anglePer) * (180 / Math.PI);
+				container.animator.moveItem(child as DisplayObject, token);
 			}
 		}
 

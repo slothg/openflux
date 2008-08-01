@@ -2,7 +2,7 @@
 <flux:FluxView xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:flux="http://openflux.googlecode.com" 
 	xmlns:degrafa="http://www.degrafa.com/2008" 
-	minWidth="30" minHeight="30">
+	minWidth="30" minHeight="30" height="50">
 	
 	<mx:Script>
 		<![CDATA[
