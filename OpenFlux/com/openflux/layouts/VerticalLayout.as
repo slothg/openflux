@@ -1,76 +1,38 @@
 package com.openflux.layouts
 {
-	import flash.events.Event;
+	import com.openflux.animators.AnimationToken;
+	
+	import flash.display.DisplayObject;
 	import flash.geom.Point;
 	
-	import mx.core.UIComponent;
+	import mx.core.IUIComponent;
 	
-	public class VerticalLayout extends LayoutBase implements ILayout, IDragLayout
+	public class VerticalLayout extends LayoutBase implements ILayout//, IDragLayout
 	{
 		
-		private var _gap:Number = 0;
+		[Bindable] [StyleBinding] public var gap:Number; // container listens for propertyChange
 		
-		[Bindable] [StyleBinding]
-		public function get gap():Number { return _gap; }
-		public function set gap(value:Number):void {
-			if (_gap != value) {
-				_gap = value;
-				//container.invalidateLayout();
-				dispatchEvent(new Event(Event.RESIZE));
-			}
-		}
-		
-		public function measure():Point {
+		public function measure(children:Array):Point {
 			var point:Point = new Point(0, 0);
-			for each(var child:UIComponent in container.children) {
+			for each(var child:IUIComponent in children) {
 				point.x = Math.max(child.measuredWidth, point.x);
 				point.y += child.measuredHeight + gap;
 			}
 			return point;
 		}
 		
-		public function update(indices:Array = null):void {
-			container.animator.begin();
+		public function update(children:Array, width:Number, height:Number):void {
+			animator.begin();
 			var position:Number = 0;
-			var length:int = container.children.length;
+			var length:int = children.length; //container.children.length;
 			for (var i:int = 0; i < length; i++) {
-				var child:UIComponent = container.children[i];
-				var token:Object = new Object();
-				
-				if(indices && indices.indexOf(i, 0) >= 0) {
-					position += child.measuredHeight + gap;
-				}
-				token.x = 0;
-				token.y = position;
-				token.width = container.width;
-				token.height = child.measuredHeight;
-				
-				container.animator.moveItem(child, token);
+				var child:IUIComponent = children[i];
+				var token:AnimationToken = new AnimationToken(width, child.measuredHeight, 0, position);
+				animator.moveItem(child as DisplayObject, token);
 				position += token.height + gap;
 			}
-			container.animator.end();
+			animator.end();
 		}
-		/*
-		override public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {
-			var yPos:Number = 0;
-			var len:int = container.renderers.length;
-			var offset:Number = seamAligned ? gap : 0;
-			var child:UIComponent;
-			var width:Number;
-			var height:Number;
-			
-			for (var i:int = 0; i < len; i++) {
-				child = container.renderers[i] as UIComponent;
-				width = child.getExplicitOrMeasuredWidth();
-				height = child.getExplicitOrMeasuredHeight();
-				
-				if (px <= width && py >= yPos - offset && py <= yPos + height)
-					return i;
-				yPos += height + gap;
-			}
-			
-			return -1;
-		}
-		*/
+		
 	}
 }

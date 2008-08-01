@@ -4,6 +4,7 @@ package com.plexiglass.animators
 	
 	import caurina.transitions.Tweener;
 	
+	import com.openflux.animators.AnimationToken;
 	import com.openflux.animators.IAnimator;
 	import com.openflux.containers.IFluxContainer;
 	import com.plexiglass.containers.IPlexiContainer;
@@ -12,7 +13,6 @@ package com.plexiglass.animators
 	import flash.utils.Dictionary;
 	
 	import mx.core.UIComponent;
-	import mx.utils.ObjectUtil;
 
 	public class PlexiAnimator implements IAnimator
 	{
@@ -38,7 +38,7 @@ package com.plexiglass.animators
 		public function begin():void {} // unused
 		public function end():void {} // unused
 		
-		public function moveItem(item:Object, token:Object):void
+		public function moveItem(item:DisplayObject, token:AnimationToken):void
 		{
 			token.time = time;
 			token.transition = transition;

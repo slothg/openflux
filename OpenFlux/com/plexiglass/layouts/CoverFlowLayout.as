@@ -1,17 +1,18 @@
 package com.plexiglass.layouts
 {
+	import com.openflux.animators.AnimationToken;
 	import com.openflux.containers.IFluxContainer;
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxView;
 	import com.openflux.layouts.ILayout;
 	import com.openflux.layouts.LayoutBase;
-	import com.plexiglass.containers.IPlexiContainer;
 	
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.geom.Point;
 	
 	import mx.collections.ArrayCollection;
+	import mx.core.IUIComponent;
 	import mx.events.ListEvent;
 
 	public class CoverFlowLayout extends LayoutBase implements ILayout
@@ -68,7 +69,7 @@ package com.plexiglass.layouts
 			if ((container as IFluxView).component is IFluxList)
 				(container as IFluxView).component.removeEventListener(ListEvent.ITEM_CLICK, onChange);
 			
-			container.animator.moveItem(container["view"], {x:0, y:0});
+			//container.animator.moveItem(container["view"], {x:0, y:0});
 		}
 		
 		private function onChange(event:ListEvent):void
@@ -77,15 +78,15 @@ package com.plexiglass.layouts
 			dispatchEvent(new Event(Event.RENDER));
 		}
 		
-		public function measure():Point
+		public function measure(children:Array):Point
 		{
 			return new Point(100, 100);
 		}
 		
-		public function update(indices:Array = null):void
+		public function update(children:Array, width:Number, height:Number):void
 		{
-			if (container.children.length > 0) {
-				container.animator.moveItem(container["view"], {x:container.width / 2, y:container.height / 2});
+			if (children.length > 0) {
+				//container.animator.moveItem(container["view"], {x:container.width / 2, y:container.height / 2});
 				
 				var list:IFluxList = (container as IFluxView).component as IFluxList;
 				
@@ -111,49 +112,50 @@ package com.plexiglass.layouts
 				container.animator.begin();
 				
 				for (var i:int = 0; i < container.children.length; i++) {
-					var child:DisplayObject = container.children[i];
-					
+					var child:IUIComponent = container.children[i];
+					var token:AnimationToken = new AnimationToken(child.measuredWidth, child.measuredHeight);
 					abs = Math.abs(selectedIndex - i);
 					
 					if (direction == "horizontal") {
-						xPosition = selectedChild.width + ((abs - 1) * horizontalGap);
-						if (_gap > 0) xPosition += (abs - 1) * (_gap + child.width);
-						yPosition = -(maxChildHeight - child.height) / 2;
-						zPosition = 0; //selectedChild.measuredWidth + abs * verticalGap; // -200 / 2 + 
-						yRotation = rotationAngle;
-						xRotation = 0;
+						token.x = selectedChild.width + ((abs - 1) * horizontalGap);
+						if (_gap > 0) token.x += (abs - 1) * (_gap + child.width);
+						token.y = -(maxChildHeight - child.height) / 2;
+						token.z = 0; //selectedChild.measuredWidth + abs * verticalGap; // -200 / 2 + 
+						token.rotationY = rotationAngle;
 						
 						if(i < selectedIndex) {
-							xPosition *= -1;
-							yRotation *= -1;
+							token.x *= -1;
+							token.rotationY *= -1;
 						} else if(i == selectedIndex) {
-							xPosition = 0;
-							zPosition = 0; //-200 / 2;
-							yRotation = 0;
+							token.x = 0;
+							token.z = 0; //-200 / 2;
+							token.rotationY = 0;
 						}
 					} else {
-						yPosition = selectedChild.height + ((abs - 1) * verticalGap);
-						if (_gap > 0) yPosition += (abs - 1) * (_gap + child.height);
-						xPosition = 0;
-						zPosition = 200/2 - selectedChild.height + abs * horizontalGap; 
-						xRotation = rotationAngle;
-						yRotation = 0;
+						token.y = selectedChild.height + ((abs - 1) * verticalGap);
+						if (_gap > 0) token.y += (abs - 1) * (_gap + child.height);
+						token.x = 0;
+						token.z = 200/2 - selectedChild.height + abs * horizontalGap; 
+						token.rotationX = rotationAngle;
+						token.rotationY = 0;
 						
 						if(i < selectedIndex) {
-							yPosition *= -1;
-							xRotation *= -1;
+							token.y *= -1;
+							token.rotationX *= -1;
 						} else if(i == selectedIndex) {
-							yPosition = 0;
-							zPosition = 200 / 2; 
-							xRotation = 0;
+							token.y = 0;
+							token.z = 200 / 2; 
+							token.rotationX = 0;
 						}
 					}
 					
 					if(i != selectedIndex) {
-						container.animator.moveItem(child, {z:zPosition, time:1/3});
-						container.animator.moveItem(child, {x:xPosition, y:yPosition, rotationY:yRotation, rotationX:xRotation, time:0.500});
+						//container.animator.moveItem(child, {z:zPosition, time:1/3});
+						//container.animator.moveItem(child, {x:xPosition, y:yPosition, rotationY:yRotation, rotationX:xRotation, time:0.500});
+						container.animator.moveItem(child as DisplayObject, token);
 					} else {
-						container.animator.moveItem(child, {x:xPosition, y:yPosition, z:zPosition, rotationZ:0, rotationY:yRotation, rotationX:xRotation, time:0.500});
+						//container.animator.moveItem(child, {x:xPosition, y:yPosition, z:zPosition, rotationZ:0, rotationY:yRotation, rotationX:xRotation, time:0.500});
+						container.animator.moveItem(child as DisplayObject, token);
 					}
 				}
 				

@@ -1,10 +1,13 @@
 package com.openflux.layouts
 {
+	import com.openflux.animators.AnimationToken;
+	
+	import flash.display.DisplayObject;
 	import flash.geom.Point;
 	
-	import mx.utils.ObjectUtil;
+	import mx.core.IUIComponent;
 
-	public class CircleLayout extends LayoutBase implements ILayout, IDragLayout
+	public class CircleLayout extends LayoutBase implements ILayout//, IDragLayout
 	{
 		
 		[StyleBinding] public var rotate:Boolean = true;
@@ -36,45 +39,42 @@ package com.openflux.layouts
 			return result;
 		}
 		
-		public function measure():Point
+		public function measure(children:Array):Point
 		{
 			var point:Point = new Point(100, 100);
 			return point;
 		}
 		
-		public function update(indices:Array = null):void {
-			container.animator.begin();
-			var length:int = container.children.length;
+		public function update(children:Array, width:Number, height:Number):void {
+			animator.begin();
+			var length:int = children.length;
 			var width:Number = container.width/2;
 			var height:Number = container.height/2;
 			var offset:Number = 180*(Math.PI/180);
 			var rad:Number;
 			for (var i:int = 0; i < length; i++) {
-				var child:Object = container.children[i];
-				var token:Object = new Object();
+				var child:IUIComponent = children[i];
+				var token:AnimationToken = new AnimationToken(child.measuredWidth, child.measuredHeight);
 				var w:Number = width-child.measuredWidth;
 				var h:Number = height-child.measuredHeight;
-				
+				/*
 				if(indices && indices.indexOf(i, 0) >= 0) {
 					rad = ((Math.PI*i)/(length/2))+offset;
-				} else {
+				} else {*/
 					rad = ((Math.PI*i+1)/(length/2))+offset;
-				}
+				//}
 				token.x = (w*Math.cos(rad))+w;
 				token.y = (h*Math.sin(rad))+h;
-				token.width = child.measuredWidth;
-				token.height = child.measuredHeight;
+				
 				if(rotate) {
-					token.rotation = ((360/length)*i);
-					while(token.rotation > 180) {
-						token.rotation -= 360;
+					token.rotationY = ((360/length)*i);
+					while(token.rotationY > 180) {
+						token.rotationY -= 360;
 					}
 				}
-				container.animator.moveItem(child, token);
-				
-				trace(ObjectUtil.toString(token));
+				animator.moveItem(child as DisplayObject, token);
 			}
-			container.animator.end();
+			animator.end();
 		}
 		
 	}

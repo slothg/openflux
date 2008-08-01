@@ -168,9 +168,9 @@ package com.openflux.controllers
 				view.dragTargetIndex = IDragLayout(view.layout).findItemAt(p.x, p.y, true);
 			}*/
 			if(layout is IDragLayout) {
-				var index:Array = [IDragLayout(layout).findItemAt(p.x, p.y, true)];
+				var index:Array = [IDragLayout(layout).findIndexAt(view.children, view.width, view.height, p.x, p.y/*, true*/)];
 				if(ObjectUtil.compare(index, indices)) {
-					layout.update(indices = index);
+					//layout.update(indices = index);
 				}
 			}
 		}
@@ -182,7 +182,7 @@ package com.openflux.controllers
 		private function dragExitHandler(event:DragEvent):void {
 			//view.dragTargetIndex = -1;
 			//if(layout) layout.dragItems = null;
-			if(layout) layout.update();
+			//if(layout) layout.update();
 		}
 		
 		/**

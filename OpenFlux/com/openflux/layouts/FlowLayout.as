@@ -1,12 +1,14 @@
 package com.openflux.layouts
 {
-	import com.openflux.animators.TweenAnimator;
+	import com.openflux.animators.AnimationToken;
 	
+	import flash.display.DisplayObject;
 	import flash.geom.Point;
 	
+	import mx.core.IUIComponent;
 	import mx.core.UIComponent;
 
-	public class FlowLayout extends LayoutBase implements ILayout, IDragLayout
+	public class FlowLayout extends LayoutBase implements ILayout//, IDragLayout
 	{
 		
 		public var measuredGap:Number;
@@ -18,7 +20,7 @@ package com.openflux.layouts
 			//animator = new TweenAnimator();
 		}
 		
-		public function measure():Point {
+		public function measure(children:Array):Point {
 			var point:Point = new Point();
 			for each(var child:UIComponent in container.children) {
 				point.x = Math.max(child.width, point.x);
@@ -27,27 +29,22 @@ package com.openflux.layouts
 			return point;
 		}
 		
-		public function update(indices:Array = null):void {
-			var containerWidth:Number = container.width;
+		public function update(children:Array, width:Number, height:Number):void {
 			var point:Point = measureGrid();
-			var cols:Number = Math.floor(containerWidth / point.x);
-			var space:Number = (containerWidth - (point.x * cols)) / (cols + 1);
+			var cols:Number = Math.floor(width / point.x);
+			var space:Number = (width - (point.x * cols)) / (cols + 1);
 			
-			container.animator.begin();
+			animator.begin();
 			
 			var xPos:Number = space / 2;
 			var yPos:Number = space / 2;
-			var len:int = container.children.length;
+			var length:int = children.length;
 			//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
-			var child:UIComponent;
-			var width:Number;
-			var height:Number;
-			
-			for (var i:int = 0; i < len; i++) {
-				child = container.children[i];
-				width = child.measuredWidth;
-				height = child.measuredHeight;
-				
+			var child:IUIComponent;
+			for (var i:int = 0; i < length; i++) {
+				child = children[i];
+				var token:AnimationToken = new AnimationToken(child.measuredWidth, child.measuredHeight, xPos, yPos);
+				/*
 				if(indices && indices.indexOf(i, 0) >= 0) {
 					xPos += width + 10;
 					if(xPos > containerWidth - width - space / 2) {
@@ -55,16 +52,16 @@ package com.openflux.layouts
 						yPos += height + 8;
 					}
 				}
+				*/
+				animator.moveItem(child as DisplayObject, token);
 				
-				container.animator.moveItem(child, {x:xPos, y:yPos, width:width, height:height, rotation:0});
-				
-				xPos += width + 10;
-				if(xPos > containerWidth - width - space / 2) {
+				xPos += child.measuredWidth + 10;
+				if(xPos > width - child.measuredWidth - space / 2) {
 					xPos = space / 2;
-					yPos += height + 8;
+					yPos += child.measuredHeight + 8;
 				}
 			}
-			container.animator.end();
+			animator.end();
 		}
 		
 		override public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {

@@ -15,8 +15,9 @@ package com.plexiglass.layouts
 	import mx.binding.utils.ChangeWatcher;
 	import mx.core.UIComponent;
 	
-	public class ConstraintLayout extends LayoutBase implements ILayout
+	public class ConstraintLayout //extends LayoutBase implements ILayout
 	{
+		/*
 		private var watchers:Dictionary = new Dictionary(true);
 		private static const props:Array = ['z','rotationX','rotationY','rotationZ'];//,'width','height'];
 		
@@ -89,5 +90,6 @@ package com.plexiglass.layouts
 			var n:Number = (child.height / 2 + child.y) * -1;
 			return isNaN(n) ? 0 : n;
 		}
+		*/
 	}
 }

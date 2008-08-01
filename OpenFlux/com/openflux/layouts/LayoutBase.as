@@ -1,5 +1,6 @@
 package com.openflux.layouts
 {
+	import com.openflux.animators.IAnimator;
 	import com.openflux.containers.IFluxContainer;
 	
 	import flash.events.EventDispatcher;
@@ -10,8 +11,21 @@ package com.openflux.layouts
 	public class LayoutBase extends EventDispatcher
 	{
 		
-		//private var _dragItems:Array;
 		protected var container:IFluxContainer;
+		
+		protected function get animator():IAnimator {
+			if(container) return container.animator;
+			return null;
+		}
+		
+		public function attach(container:IFluxContainer):void {
+			this.container = container;
+		}
+		
+		public function detach(container:IFluxContainer):void {
+			this.container = null;
+		}
+		
 		
 		public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {
 			var length:int = container.children.length - 1;
@@ -28,14 +42,6 @@ package com.openflux.layouts
 				}
 			}
 			return index;
-		}
-		
-		public function attach(container:IFluxContainer):void {
-			this.container = container;
-		}
-		
-		public function detach(container:IFluxContainer):void {
-			this.container = null;
 		}
 		
 	}

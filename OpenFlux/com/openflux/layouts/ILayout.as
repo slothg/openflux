@@ -1,11 +1,12 @@
 package com.openflux.layouts
 {
 	
-	import flash.geom.Point;
 	import com.openflux.containers.IFluxContainer;
 	
+	import flash.geom.Point;
+	
 	/**
-	 * Used to layout items in containers, lists, etc.
+	 * Used to organize the layout of children in containers, lists, and related components.
 	 */
 	public interface ILayout
 	{	
@@ -13,10 +14,16 @@ package com.openflux.layouts
 		function attach(container:IFluxContainer):void;
 		function detach(container:IFluxContainer):void;
 		
-		function measure():Point;
-		function update(indices:Array = null):void;
+		/**
+		 * The measure function is used to determine the measured width and height 
+		 * of a container given the current contents and layout.
+		 */
+		function measure(children:Array):Point;
 		
-		// function findItemAt(px:Number, py:Number, seamAligned:Boolean):int; // moved to seperate interface IDragLayout
+		/**
+		 * The update method can be used to arrange children in any pattern.
+		 */
+		function update(children:Array, unscaledWidth:Number, unscaledHeight:Number):void;
 		
 	}
 }

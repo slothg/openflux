@@ -18,8 +18,9 @@ package com.openflux.layouts
 	import org.generalrelativity.foam.math.Vector;
 	import org.generalrelativity.foam.util.ShapeUtil;
 
-	public class PhysicsLayout extends LayoutBase implements ILayout
+	public class PhysicsLayout //extends LayoutBase implements ILayout
 	{
+		/*
 		private var foam:Foam;
 		
 		private var leftWall:RigidBody;
@@ -144,5 +145,6 @@ package com.openflux.layouts
 			foam.removeElement(childBody[child]);
 			delete childBody[child];
 		}
+		*/
 	}
 }
