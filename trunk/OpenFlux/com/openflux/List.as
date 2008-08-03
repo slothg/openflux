@@ -1,16 +1,17 @@
 package com.openflux
 {
+	import com.openflux.controllers.ComplexController;
+	import com.openflux.controllers.DragListController;
+	import com.openflux.controllers.DropListController;
 	import com.openflux.controllers.ListController;
 	import com.openflux.core.FluxComponent;
 	import com.openflux.core.IEnabled;
 	import com.openflux.core.IFluxList;
-	import com.openflux.core.IFluxListItem;
 	import com.openflux.utils.CollectionUtil;
 	import com.openflux.views.ListView;
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.ICollectionView;
-	import mx.core.IFactory;
 	import mx.events.ListEvent;
 	
 	[Event(name="change", type="mx.events.ListEvent")]
@@ -77,7 +78,7 @@ package com.openflux
 		
 		override protected function createChildren():void {
 			if(!controller) {
-				controller = new ListController();
+				controller = new ComplexController([new ListController(), new DragListController(), new DropListController()]); //new ListController();
 			}
 			if(!view) {
 				view = new ListView();

@@ -70,5 +70,12 @@ package com.plexiglass.animators
 			}			
 		}
 		
+		public function addItem(item:DisplayObject):void {};
+		public function removeItem(item:DisplayObject, callback:Function):void {};
+		
+		public function adjustItem(item:DisplayObject, token:AnimationToken):void {
+			
+		}
+		
 	}
 }

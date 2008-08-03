@@ -4,11 +4,12 @@ package com.openflux.layouts
 	
 	import flash.display.DisplayObject;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	
 	import mx.core.IUIComponent;
 	import mx.core.UIComponent;
 	
-	public class HorizontalLayout extends LayoutBase implements ILayout//, IDragLayout
+	public class HorizontalLayout extends LayoutBase implements ILayout, IDragLayout
 	{
 		
 		public var gap:Number = 0;
@@ -22,38 +23,47 @@ package com.openflux.layouts
 			return point;
 		}
 		
-		public function update(children:Array, width:Number, height:Number):void {
+		public function update(children:Array, rectangle:Rectangle):void {
+			adjust(children, rectangle, []);
+		}
+		
+		public function adjust(children:Array, rectangle:Rectangle, indices:Array):void {
 			animator.begin();
-			var position:Number = 0;
+			var position:Number = rectangle.x;
 			var length:int = children.length;
+			var s:int = 0;
 			for (var i:int = 0; i < length; i++) {
+				if(indices[s] == i) {
+					position += 20 + gap;
+				}
 				var child:IUIComponent = children[i];
-				var token:AnimationToken = new AnimationToken(child.measuredWidth, height, position);
+				var token:AnimationToken = new AnimationToken(child.measuredWidth, rectangle.height, position);
 				animator.moveItem(child as DisplayObject, token);
-				position += child.measuredWidth + gap;
+				position += token.width + gap;
 			}
 			animator.end();
 		}
 		
-		override public function findItemAt(px:Number, py:Number, seamAligned:Boolean):int {
-			var xPos:Number = 0;
-			var child:UIComponent;
-			var len:int = container.children.length;
-			var offset:Number = seamAligned ? gap : 0;
-			var width:Number;
-			var height:Number;
+		public function findIndexAt(children:Array, x:Number, y:Number):int {
 			
-			for (var i:int = 0; i < len; i++) {
-				child = container.children[i] as UIComponent;
-				width = child.getExplicitOrMeasuredWidth();
-				height = child.getExplicitOrMeasuredHeight();
-				
-				if (py <= height && px >= xPos - offset && px <= xPos + width)
-					return i;
-				xPos += width + gap;
+			var closest:DisplayObject;
+			var closestDistance:Number = Number.MAX_VALUE;
+			
+			// find the closest child
+			var length:int = children.length;
+			for each(var child:DisplayObject in children) {
+				var distance:Number = x - (child.x+child.width/2);
+				if(Math.abs(distance) < closestDistance) {
+					closest = child;
+					closestDistance = distance;
+				}
 			}
 			
-			return -1;
+			// set the index based on the closest child
+			var index:int = children.indexOf(closest);
+			if(closestDistance > 0) { index += 1;}
+			return index;
+			
 		}
 		
 	}

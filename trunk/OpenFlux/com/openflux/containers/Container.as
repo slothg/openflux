@@ -16,6 +16,7 @@ package com.openflux.containers
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	
 	import mx.collections.ICollectionView;
 	import mx.core.IDataRenderer;
@@ -181,6 +182,12 @@ package com.openflux.containers
 		/** @private */
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
+			
+			graphics.clear(); // draw over dead space so drag/mouse operations register
+			graphics.beginFill(0, 0);
+			graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
+			graphics.endFill();
+			
 			if(layoutChanged) {
 				updateLayout();
 				layoutChanged = false;
@@ -207,7 +214,8 @@ package com.openflux.containers
 		
 		private function updateLayout():void {
 			if(layout && animator) {
-				layout.update(children, width, height);
+				var rectangle:Rectangle = new Rectangle(0, 0, width, height);
+				layout.update(children, rectangle);
 			}
 		}
 		
@@ -258,8 +266,22 @@ package com.openflux.containers
 				_renderers.push(instance);
 				addChild(instance);
 			}
+			
+			animator.addItem(instance);
+			layoutChanged = true;
+			invalidateProperties();
 		}
 		
+		protected function removeItem(item:Object, index:int = -1):void {
+			var child:DisplayObject = _renderers.splice(index, 1)[0];
+			animator.removeItem(child, cleanChild);
+		}
+		
+		private function cleanChild(child:DisplayObject):void {
+			removeChild(child);
+			layoutChanged = true;
+			invalidateProperties();
+		}
 		
 		//******************************************
 		// Event Listeners
@@ -281,12 +303,9 @@ package com.openflux.containers
 			switch(event.kind) {
 				case CollectionEventKind.ADD:
 					addItem(collection[event.location], event.location);
-					//this.invalidateLayout();
 					break;
 				case CollectionEventKind.REMOVE:
-					removeChildAt(event.location);
-					//children.splice(event.location, 1);					
-					//this.invalidateLayout();
+					removeItem(collection[event.location], event.location);
 					break;
 				case CollectionEventKind.RESET:
 					collectionReset();

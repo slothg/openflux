@@ -34,6 +34,8 @@
     <component id="HorizontalLayout" class="com.openflux.layouts.HorizontalLayout" />
     <component id="FlowLayout" class="com.openflux.layouts.FlowLayout" />
     <component id="CircleLayout" class="com.openflux.layouts.CircleLayout" />
+    <component id="CarouselLayout" class="com.openflux.layouts.CarouselLayout" />
+    <component id="SpiralLayout" class="com.openflux.layouts.SpiralLayout" />
     
     <!-- animators -->
     <component id="TweenAnimator" class="com.openflux.animators.TweenAnimator" />
@@ -54,11 +56,7 @@
     <component id="PlexiAnimator" class="com.plexiglass.animators.PlexiAnimator" />
     <component id="PlexiListView" class="com.plexiglass.views.PlexiListView" />
     <component id="CoverFlowLayout" class="com.plexiglass.layouts.CoverFlowLayout" />
-    <component id="CarouselLayout" class="com.plexiglass.layouts.CarouselLayout" />
-    <component id="SpiralLayout" class="com.plexiglass.layouts.SpiralLayout" />
     <component id="SimpleCamera" class="com.plexiglass.cameras.SimpleCamera" />
     <component id="HoverCamera" class="com.plexiglass.cameras.HoverCamera" />
-    <component id="CarouselLayout" class="com.plexiglass.layouts.CarouselLayout" />
-    <component id="SpiralLayout" class="com.plexiglass.layouts.SpiralLayout" />
     
 </componentPackage>    
