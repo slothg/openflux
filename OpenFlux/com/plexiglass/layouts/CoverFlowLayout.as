@@ -10,6 +10,7 @@ package com.plexiglass.layouts
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	
 	import mx.collections.ArrayCollection;
 	import mx.core.IUIComponent;
@@ -83,7 +84,7 @@ package com.plexiglass.layouts
 			return new Point(100, 100);
 		}
 		
-		public function update(children:Array, width:Number, height:Number):void
+		public function update(children:Array, rectangle:Rectangle):void
 		{
 			if (children.length > 0) {
 				//container.animator.moveItem(container["view"], {x:container.width / 2, y:container.height / 2});

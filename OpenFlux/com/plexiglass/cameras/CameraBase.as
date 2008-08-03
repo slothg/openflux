@@ -32,8 +32,8 @@ package com.plexiglass.cameras
 			var child:DisplayObject;
 			
 			if (!value && _zoom) {
-				container.animator.moveItem(lookAt, {x:0, y:0, z:0});
-				if (origCameraPos) container.animator.moveItem(cameraPos, {x:origCameraPos.x, y:origCameraPos.y, z:origCameraPos.z});
+				//container.animator.moveItem(lookAt, {x:0, y:0, z:0});
+				//if (origCameraPos) container.animator.moveItem(cameraPos, {x:origCameraPos.x, y:origCameraPos.y, z:origCameraPos.z});
 				origCameraPos = null;
 				
 				container.removeEventListener(ChildExistenceChangedEvent.CHILD_ADD, onChildAdd);
@@ -81,14 +81,14 @@ package com.plexiglass.cameras
 		{
 			var plane:Plane = container.getChildPlane(event.currentTarget as UIComponent);
 			if (plane == zoomedPlane) {
-				container.animator.moveItem(lookAt, {x:0, y:0, z:0});
-				container.animator.moveItem(cameraPos, {x:origCameraPos.x, y:origCameraPos.y, z:origCameraPos.z});
+				//container.animator.moveItem(lookAt, {x:0, y:0, z:0});
+				//container.animator.moveItem(cameraPos, {x:origCameraPos.x, y:origCameraPos.y, z:origCameraPos.z});
 				origCameraPos = null;
 				zoomedPlane = null;
 			} else {
 				if (!origCameraPos) origCameraPos = camera.position.clone();
-				container.animator.moveItem(cameraPos, {x:plane.x, y:plane.y, z:plane.z - 50});
-				container.animator.moveItem(lookAt, {x:plane.x, y:plane.y, z:plane.z});
+				//container.animator.moveItem(cameraPos, {x:plane.x, y:plane.y, z:plane.z - 50});
+				//container.animator.moveItem(lookAt, {x:plane.x, y:plane.y, z:plane.z});
 				zoomedPlane = plane;
 			}
 		}

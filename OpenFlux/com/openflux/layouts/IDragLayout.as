@@ -1,6 +1,6 @@
 package com.openflux.layouts
 {
-	import mx.core.DragSource;
+	import flash.geom.Rectangle;
 	
 	/**
 	 * Used by layout classes that support visual feedback of drag and drop operations.
@@ -9,9 +9,9 @@ package com.openflux.layouts
 	{
 		
 		/**
-		 * This method is used to determine what 
+		 * This method is used to determine the index that ...
 		 */
-		function findIndexAt(children:Array, width:Number, height:Number, x:Number, y:Number/*, seamAligned:Boolean*/):int; // do we need seam aligned?
+		function findIndexAt(children:Array, x:Number, y:Number/*, seamAligned:Boolean*/):int; // do we need seam aligned?
 		
 		/**
 		 * Adjusts the children's positions to indicate a response to the designated indices.
@@ -19,7 +19,7 @@ package com.openflux.layouts
 		 * Each integer represents an index in the original children array. For example, the array [0, 1, 1] would represent one item before 
 		 * index 0 and two items after index 0.
 		 */
-		function adjust(children:Array, indices:Array, width:Number, height:Number):void;
+		function adjust(children:Array, rectangle:Rectangle, indices:Array):void;
 		
 	}
 }

@@ -2,6 +2,8 @@ package com.openflux.core
 {
 	import com.openflux.utils.MetaStyler;
 	
+	import flash.display.BitmapData;
+	
 	import mx.containers.Canvas;
 	import mx.states.State;
 	import mx.styles.IStyleClient;
@@ -13,7 +15,6 @@ package com.openflux.core
 	 */
 	public class FluxView extends Canvas implements IFluxView
 	{
-		
 		
 		//***********************************************************
 		// IFluxView Implementation
@@ -68,6 +69,10 @@ package com.openflux.core
 		override public function styleChanged(styleProp:String):void {
 			super.styleChanged(styleProp);
 			MetaStyler.updateStyle(styleProp, this, this.component as IStyleClient);
+		}
+		
+		override public function set width(value:Number):void {
+			super.width = value;
 		}
 		
 	}

@@ -34,42 +34,41 @@ package com.openflux.animators
 		public function begin():void {} // unused
 		public function end():void {} // unused
 		
-		public function moveItem(item:DisplayObject, token:AnimationToken):void
-		{
-			var parameters:Object = createTweenerParameters(token);
+		public function moveItem(item:DisplayObject, token:AnimationToken):void {
+			var parameters:Object = createTweenerParameters(token, 1);
 			Tweener.addTween(item, parameters);
-			//count++;
-		}
-		/*
-		public function addItem(item:Object, token:Object):void
-		{
-			moveItem(item, token);
 		}
 		
-		public function removeItem(item:Object):void
+		public function adjustItem(item:DisplayObject, token:AnimationToken):void {
+			var parameters:Object = createTweenerParameters(token, 1/3);
+			Tweener.addTween(item, parameters);
+		}
+		
+		public function addItem(item:DisplayObject):void {
+			item.alpha = 0;
+			Tweener.addTween(item, {alpha:1, time:0.25});
+		}
+		
+		public function removeItem(item:DisplayObject, callback:Function):void
 		{
 			var token:Object = new Object();
-			token.x = item.width/2;
-			token.y = item.width/2;
-			token.width = 0;
-			token.height = 0;
-			moveItem(item, token);
-		}
-		*/
-		// review for interface
-		/*
-		public function isAnimating():Boolean {
-			return count > 0 ? true : false;
+			token.time = 1/4;
+			/*
+			token.x = item.x + item.width/2;
+			token.y = item.y + item.height/2;
+			token.width = 100;
+			token.height = 100;
+			*/
+			token.alpha = 0;
+			token.onComplete = callback;
+			token.onCompleteParams = [item];
+			Tweener.addTween(item, token);
 		}
 		
-		private function onComplete():void {
-			count--;
-		}
-		*/
 		
-		private function createTweenerParameters(token:AnimationToken):Object {
+		private function createTweenerParameters(token:AnimationToken, time:Number = 1):Object {
 			var parameters:Object = new Object();
-			parameters.time = 1;
+			parameters.time = time;
 			parameters.transition = transition;
 			
 			parameters.x = token.x;

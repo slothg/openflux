@@ -22,10 +22,11 @@ package com.openflux.animators
 		 */
 		function begin():void;
 		
-		//function addItem(item:Object):void;
+		// we might break these up into seperate interfaces later
+		function addItem(item:DisplayObject):void;
 		function moveItem(item:DisplayObject, token:AnimationToken):void;
-		//function adjustItem(item:DisplayObject, token:AnimationToken):void; // for scrolling, drag reactions etc.
-		//function removeItem(item:Object):void;
+		function adjustItem(item:DisplayObject, token:AnimationToken):void; // for scrolling, drag reactions etc.
+		function removeItem(item:DisplayObject, callback:Function):void;
 		
 		/**
 		 * Called after a series of addItem, moveItem, or removeItem calls.

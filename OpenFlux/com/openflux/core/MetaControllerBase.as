@@ -7,6 +7,8 @@ package com.openflux.core
 	import flash.system.ApplicationDomain;
 	import flash.utils.*;
 	
+	import mx.events.PropertyChangeEvent;
+	
 	// todo: move all this code into a utility class
 	public class MetaControllerBase
 	{
@@ -59,6 +61,15 @@ package com.openflux.core
 				directives.viewHandlers.push(handler);
 			}
 			
+			metadata = des.factory.metadata.(@name == "EventHandler");				
+			for (i = 0; i < metadata.length(); i++) {
+				var handlerX:HandleEventDirective = new HandleEventDirective();
+				handlerX.dispatcher = "component";
+				handlerX.event = metadata[i].arg.(@key == "event").@value;
+				handlerX.handler = metadata[i].arg.(@key == "handler").@value;
+				directives.handleEventDirectives.push(handlerX);
+			}
+			
 			metadata = des.factory.accessor.metadata.(@name == "EventHandler");
 			metadata += des.factory.variable.metadata.(@name == "EventHandler");
 			for (i = 0; i < metadata.length(); i++) {
@@ -87,15 +98,33 @@ package com.openflux.core
 		public function set component(value:IFluxComponent):void {
 			if(_component && _component.view is IEventDispatcher) {
 				detachHandlers();
+				(_component.view as IEventDispatcher).removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, propertyChangeHandler, false);
 			}
 			_component = value;
 			applyAliasDirectives();
 			applyContractDirectives();
 			if(_component && _component.view is IEventDispatcher) {
 				attachHandlers();
+				(_component.view as IEventDispatcher).addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, propertyChangeHandler, false, 0, true);
 			}
 			//MetaBinder.InitObject(this);
 			applyEventHandlers();
+		}
+		
+		// this should be updated to handle all binding (with custom events)
+		private function propertyChangeHandler(event:PropertyChangeEvent):void {
+			for each(var contract:ViewContractDirective in directives.viewContracts) {
+				if(event.property == contract.property) {
+					if((component.view as Object).hasOwnProperty(contract.property)) {
+						var ty:Class = ApplicationDomain.currentDomain.getDefinition(contract.type) as Class;
+						if(component.view[contract.property] is ty) {
+							this[contract.property] = component.view[contract.property];
+						} else {
+							this[contract.property] = null;
+						}
+					}
+				}
+			}
 		}
 		
 		private var tokenFunction:Function;
