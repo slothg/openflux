@@ -2,18 +2,15 @@ package com.openflux.core
 {
 	import com.openflux.utils.MetaStyler;
 	
-	import flash.display.BitmapData;
-	
-	import mx.containers.Canvas;
+	import mx.core.Container;
+	import mx.core.ScrollPolicy;
 	import mx.states.State;
 	import mx.styles.IStyleClient;
 	
-	// Everything's a Canvas!? That's no good. :-)
-	// I'll look at fixing this after beta release.
 	/**
 	 * View class you would usually extend when creating your own custom views
 	 */
-	public class FluxView extends Canvas implements IFluxView
+	public class FluxView extends Container implements IFluxView
 	{
 		
 		//***********************************************************
@@ -43,7 +40,6 @@ package com.openflux.core
 			}
 		}
 		
-		
 		//***********************************************************
 		// Constructor
 		//***********************************************************
@@ -53,16 +49,13 @@ package com.openflux.core
 		{
 			super();
 			clipContent = false;
+			verticalScrollPolicy = horizontalScrollPolicy = ScrollPolicy.OFF;
 			MetaStyler.initialize(this);
 		}
 		
 		/** @private */
 		override protected function createChildren():void {
 			super.createChildren();
-			measuredWidth = explicitWidth;
-			measuredHeight = explicitHeight;
-			measuredMinWidth = explicitMinWidth;
-			measuredMinHeight = explicitMinHeight;
 		}
 		
 		/** @private */
@@ -70,10 +63,5 @@ package com.openflux.core
 			super.styleChanged(styleProp);
 			MetaStyler.updateStyle(styleProp, this, this.component as IStyleClient);
 		}
-		
-		override public function set width(value:Number):void {
-			super.width = value;
-		}
-		
 	}
 }

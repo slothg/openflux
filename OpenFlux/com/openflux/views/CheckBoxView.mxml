@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<flux:FluxView
+<flux:Container
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:flux="http://www.openflux.org/2008"
 	xmlns:degrafa="http://www.degrafa.com/2008"
@@ -48,4 +48,4 @@
 	<!-- here's the label -->
 	<mx:Label id="lbl" text="{component.label}" left="17" verticalCenter="1" />
 	
-</flux:FluxView>
+</flux:Container>

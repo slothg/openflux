@@ -8,36 +8,30 @@ package com.openflux.containers
 	import com.openflux.core.IFluxFactory;
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxListItem;
+	import com.openflux.layouts.ContraintLayout;
 	import com.openflux.layouts.ILayout;
-	import com.openflux.layouts.VerticalLayout;
 	import com.openflux.utils.CollectionUtil;
 	import com.openflux.utils.MetaStyler;
 	
 	import flash.display.DisplayObject;
-	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
 	import mx.collections.ICollectionView;
 	import mx.core.IDataRenderer;
 	import mx.core.IFactory;
+	import mx.core.IUIComponent;
 	import mx.core.UIComponent;
+	import mx.core.mx_internal;
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 	import mx.styles.IStyleClient;
 	
+	use namespace mx_internal;
+	
 	[DefaultProperty("content")]
 	public class Container extends FluxView implements IDataView, IFluxContainer
-	{
-		
-		
-		private var collection:ICollectionView;
-		
-		private var _renderers:Array = [];
-		//private var _dragTargetIndex:int = -1;
-		
-		private var collectionChanged:Boolean;
-		
+	{	
 		//*********************************
 		// Constructor
 		//*********************************
@@ -47,43 +41,47 @@ package com.openflux.containers
 			super();
 		}
 		
-		
 		//************************************
 		// IDataView implementation
 		//************************************
-		
-		// backing vars
+
+		private var _renderers:Array = [];
+		private var _content:*;
 		private var _factory:Object;
-		
-		// ivalidation flags
-		private var childrenChanged:Boolean = false;
-		
-		
-		[Bindable] // holds data (like dataProvider) or UIComponents
-		public function get content():* { return collection; }
+
+		private var collection:ICollectionView;
+		private var contentChanged:Boolean = false;
+
+		/**
+		 * Holds data (like dataProvider) or UIComponents
+		 */
+		[Bindable]
+		public function get content():* { return _content; }
 		public function set content(value:*):void {
 			if(collection) {
-				collection.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+				collection.removeEventListener(CollectionEvent.COLLECTION_CHANGE, contentChangeHandler);
+				collection = null;
 			}
+			
+			_content = value;
 			collection = CollectionUtil.resolveCollection(value);
+			
 			if(collection) {
-				collection.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+				collection.addEventListener(CollectionEvent.COLLECTION_CHANGE, contentChangeHandler);
 			}
-			collectionChanged = true;
-			layoutChanged = true;
+			
+			contentChanged = true;
 			invalidateProperties();
-			//invalidateLayout();
-			invalidateDisplayList();
 		}
 		
+		/**
+		 * Item renderer
+		 */
 		public function get factory():Object { return _factory; }
 		public function set factory(value:Object):void {
 			_factory = value;
-			collectionChanged = true;
-			layoutChanged = true;
+			contentChanged = true;
 			invalidateProperties();
-			//invalidateLayout();
-			invalidateDisplayList();
 		}
 		
 		
@@ -93,8 +91,6 @@ package com.openflux.containers
 		
 		private var _animator:IAnimator;
 		private var _layout:ILayout;
-		
-		private var layoutChanged:Boolean = false;
 		
 		[StyleBinding] [Bindable]
 		public function get animator():IAnimator { return _animator; }
@@ -118,13 +114,19 @@ package com.openflux.containers
 			if(_animator) {
 				MetaStyler.initialize(_animator, this.data as IStyleClient);
 			}
-			layoutChanged = true;
-			//invalidateProperties();
-			//invalidateLayout();
 			invalidateDisplayList();
 		}
 		
-		public function get children():Array { return _renderers; }
+		public function get children():Array {
+			var arr:Array = [];
+			var count:int = numChildren;
+			for (var i:int = 0; i < count; i++) {
+				var child:IUIComponent = getChildAt(i) as IUIComponent;
+				if (child && child.includeInLayout)
+					arr.push(child);
+			}
+			return arr;
+		}
 		
 		/*
 		public function get dragTargetIndex():int { return _dragTargetIndex; }
@@ -146,37 +148,31 @@ package com.openflux.containers
 				animator = new TweenAnimator();
 			}
 			if (layout == null) {
-				layout = new VerticalLayout();
+				layout = new ContraintLayout();
 			}
 			if(factory == null) {
 				factory = new ListItem();
 			}
-			// childrenChanged = true;
 		}
 		
 		/** @private */
 		override protected function commitProperties():void {
 			super.commitProperties();
-			if(collectionChanged) {
-				collectionReset();
-				collectionChanged = false;
+			
+			if(contentChanged) {
+				contentReset();
+				contentChanged = false;
 			}
-			if(childrenChanged) {
-				updateChildren();
-				childrenChanged = false;
-			}/*
-			if(layoutChanged) {
-				updateLayout();
-				layoutChanged = false;
-			}*/
 		}
 		
 		/** @private */
 		override protected function measure():void {
 			super.measure();
-			var point:Point = layout.measure(children); // filter out !includeInLayout
-			measuredWidth = point.x;
-			measuredHeight = point.y;
+			if (layout) {
+				var point:Point = layout.measure(children); // filter out !includeInLayout
+				measuredWidth = point.x;
+				measuredHeight = point.y;
+			}
 		}
 		
 		/** @private */
@@ -188,10 +184,7 @@ package com.openflux.containers
 			graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
 			graphics.endFill();
 			
-			if(layoutChanged) {
-				updateLayout();
-				layoutChanged = false;
-			}
+			updateLayout();
 		}
 		
 		/** @private */
@@ -219,25 +212,15 @@ package com.openflux.containers
 			}
 		}
 		
-		private function updateChildren():void {
-			for each(var child:UIComponent in children) {
-				if(child.measuredWidth == 0 || child.measuredHeight == 0) {
-					child.measuredWidth = child.width;
-					child.measuredHeight = child.height;
-				}
-			}
-		}
-		
-		protected function collectionReset():void {
+		protected function contentReset():void {
 			for each(var o:DisplayObject in _renderers) {
 				removeChild(o);
 			}
 			_renderers = [];
-			for each(var item:Object in collection) {
+			for each(var item:Object in _content) {
 				addItem(item);
 			}
-			
-			//this.invalidateLayout();
+			invalidateDisplayList();
 		}
 		
 		protected function addItem(item:Object, index:int=-1):void {
@@ -247,14 +230,14 @@ package com.openflux.containers
 				instance = item as UIComponent;
 			} else if(factory is IFluxFactory) {
 				instance = factory.createComponent(item) as UIComponent;
-			} /*else {
-				instance = itemRenderer.newInstance() as UIComponent;
-			}*/
+				
+				if(instance is IDataRenderer) {
+					(instance as IDataRenderer).data = item;
+				}
+			}
 			
 			instance.styleName = this; // ???
-			if(instance is IDataRenderer) {
-				(instance as IDataRenderer).data = item;
-			}
+
 			if(instance is IFluxListItem) {
 				(instance as IFluxListItem).list = component as IFluxList;
 			}
@@ -268,38 +251,25 @@ package com.openflux.containers
 			}
 			
 			animator.addItem(instance);
-			layoutChanged = true;
-			invalidateProperties();
+			invalidateDisplayList();
 		}
 		
 		protected function removeItem(item:Object, index:int = -1):void {
 			var child:DisplayObject = _renderers.splice(index, 1)[0];
 			animator.removeItem(child, cleanChild);
+			invalidateDisplayList();
 		}
 		
 		private function cleanChild(child:DisplayObject):void {
 			removeChild(child);
-			layoutChanged = true;
-			invalidateProperties();
+			invalidateDisplayList();
 		}
 		
 		//******************************************
 		// Event Listeners
 		//******************************************
 		
-		private function renderHandler(event:Event):void {
-			layoutChanged = true;
-			invalidateProperties();
-		}
-		
-		private function resizeHandler(event:Event):void {
-			layoutChanged = true;
-			invalidateSize();
-			invalidateProperties();
-			invalidateDisplayList();
-		}
-		
-		private function collectionChangeHandler(event:CollectionEvent):void {
+		private function contentChangeHandler(event:CollectionEvent):void {
 			switch(event.kind) {
 				case CollectionEventKind.ADD:
 					addItem(collection[event.location], event.location);
@@ -308,7 +278,8 @@ package com.openflux.containers
 					removeItem(collection[event.location], event.location);
 					break;
 				case CollectionEventKind.RESET:
-					collectionReset();
+					contentChanged = true;
+					invalidateProperties();
 					break;
 			}
 		}

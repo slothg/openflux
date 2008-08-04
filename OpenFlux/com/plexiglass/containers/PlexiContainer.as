@@ -2,7 +2,6 @@ package com.plexiglass.containers
 {
 	import away3d.containers.View3D;
 	import away3d.materials.MovieMaterial;
-	import away3d.materials.PhongMovieMaterial;
 	import away3d.primitives.Plane;
 	
 	import com.openflux.containers.Container;
@@ -15,6 +14,7 @@ package com.plexiglass.containers
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 	
 	import mx.containers.Canvas;
@@ -22,16 +22,17 @@ package com.plexiglass.containers
 	import mx.events.ChildExistenceChangedEvent;
 	import mx.styles.IStyleClient;
 	
-	public class PlexiDataView extends Container implements IPlexiContainer
+	public class PlexiContainer extends Container implements IPlexiContainer
 	{
 		private var _view:View3D;
 		private var viewContainer:UIComponent;
 		private var container:UIComponent;
 		private var _renderers:Array = new Array();
 		private var _camera:ICamera;
+		private var _newCamera:ICamera;
 		private var planes:Dictionary = new Dictionary(true);
 		
-		public function PlexiDataView()
+		public function PlexiContainer()
 		{
 			super();
 			container = new Canvas();
@@ -51,7 +52,7 @@ package com.plexiglass.containers
 		
 		public function get view():View3D { return _view; }
 		
-		[StyleBinding]
+		[StyleBinding] [Bindable]
 		public function get camera():ICamera { return _camera; }
 		public function set camera(value:ICamera):void {
 			if(_camera) {
@@ -86,7 +87,7 @@ package com.plexiglass.containers
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
 			if (_camera)
-				_camera.update(unscaledWidth, unscaledHeight);
+				_camera.update(new Rectangle(container.x, container.y, unscaledWidth, unscaledHeight));
 		}
 		
 		override public function addChildAt(child:DisplayObject, index:int):DisplayObject
@@ -106,9 +107,9 @@ package com.plexiglass.containers
 			}
 			
 			if (child.width > 0 && child.height > 0) {
-				var m:MovieMaterial = new MovieMaterial(child as Sprite, {smooth:false, interactive:true});
+				var m:MovieMaterial = new MovieMaterial(child as Sprite, {smooth:true, interactive:true});
 				//var m:PhongMovieMaterial = new PhongMovieMaterial(child as Sprite, {smooth:true, interactive:true});
-				var p:Plane = new Plane({yUp:false, material:m, width:child.width, height:child.height, segmentsW:10, segmentsH:5, bothsides:true});
+				var p:Plane = new Plane({yUp:false, material:m, width:child.width, height:child.height, bothsides:false});
 				view.scene.addChild(p);
 				planes[child] = p;
 			}

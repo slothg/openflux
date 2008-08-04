@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<flux:FluxView xmlns:mx="http://www.adobe.com/2006/mxml" 
+<flux:Container xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:flux="http://www.openflux.org/2008" 
 	xmlns:degrafa="http://www.degrafa.com/2008" 
 	mouseChildren="false" >
@@ -36,4 +36,4 @@
 	<!-- here's the label -->
 	<mx:Label text="{component.label}" color="{stroke.color as uint}" horizontalCenter="0" verticalCenter="1" />
 	
-</flux:FluxView>
+</flux:Container>

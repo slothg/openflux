@@ -4,6 +4,7 @@ package com.openflux.layouts
 	import com.openflux.containers.IFluxContainer;
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxView;
+	import com.plexiglass.animators.PlexiAnimationToken;
 	
 	import flash.display.DisplayObject;
 	import flash.geom.Point;
@@ -34,8 +35,6 @@ package com.openflux.layouts
 			
 			if ((container as IFluxView).component is IFluxList)
 				(container as IFluxView).component.removeEventListener(ListEvent.ITEM_CLICK, onChange);
-				
-			//container.animator.moveItem(container["view"], {x:0, y:0});
 		}
 		
 		private function onChange(event:ListEvent):void
@@ -52,16 +51,19 @@ package com.openflux.layouts
 			var numOfItems:int = children.length;
 			if(numOfItems == 0) return;
 			
-			//container.animator.moveItem(container["view"], {x:container.width / 2, y:container.height / 2});
-			
 			var list:IFluxList = (container as IFluxView).component as IFluxList;
 			var selectedIndex:int = list && list.data && list.selectedItems && list.selectedItems.getItemAt(0) ? (list.data as ArrayCollection).getItemIndex(list.selectedItems.getItemAt(0)) : 0;
-			var radius:Number = rectangle.width;
+			var radius:Number = rectangle.width/2;
 			var anglePer:Number = (Math.PI * 2) / numOfItems;
 
+			var child:IUIComponent;
+			var layoutItem:LayoutItem;
+			var token:AnimationToken;
+
 			for(var i:uint=0; i<numOfItems; i++) {
-				var child:IUIComponent = children[i];
-				var token:AnimationToken = new AnimationToken(child.measuredWidth, child.measuredHeight)
+				child = children[i];
+				layoutItem = new LayoutItem(child);
+				token = new PlexiAnimationToken(layoutItem.preferredWidth, layoutItem.preferredHeight);
 				token.x = Math.sin((i-selectedIndex) * anglePer) * radius;
 				token.y = 0;
 				token.z = -(Math.cos((i-selectedIndex) * anglePer) * radius) + radius;

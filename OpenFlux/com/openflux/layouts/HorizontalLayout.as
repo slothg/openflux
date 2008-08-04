@@ -7,7 +7,6 @@ package com.openflux.layouts
 	import flash.geom.Rectangle;
 	
 	import mx.core.IUIComponent;
-	import mx.core.UIComponent;
 	
 	public class HorizontalLayout extends LayoutBase implements ILayout, IDragLayout
 	{
@@ -16,9 +15,10 @@ package com.openflux.layouts
 		
 		public function measure(children:Array):Point {
 			var point:Point = new Point(0, 0);
-			for each(var child:UIComponent in container.children) {
-				point.x += child.measuredWidth + gap;
-				point.y = Math.max(child.measuredHeight, point.y);
+			for each(var child:IUIComponent in container.children) {
+				var li:LayoutItem = new LayoutItem(child);
+				point.x += li.preferredWidth + gap;
+				point.y = Math.max(li.preferredHeight, point.y);
 			}
 			return point;
 		}
@@ -43,9 +43,9 @@ package com.openflux.layouts
 			}
 			animator.end();
 		}
-		
+
+
 		public function findIndexAt(children:Array, x:Number, y:Number):int {
-			
 			var closest:DisplayObject;
 			var closestDistance:Number = Number.MAX_VALUE;
 			
