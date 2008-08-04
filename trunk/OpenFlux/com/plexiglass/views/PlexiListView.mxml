@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<flux:PlexiDataView xmlns:flux="http://openflux.googlecode.com" content="{component.dataProvider}" />
+<flux:PlexiDataView xmlns:flux="http://www.openflux.org/2008" content="{component.dataProvider}" />

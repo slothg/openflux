@@ -9,6 +9,10 @@ package com.openflux.collections
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 	
+	/**
+	 * This is still mostly broken. don't let it fool you. :-)
+	 */
+	
 	[DefaultProperty("collections")]
 	public class ComplexCollection extends ArrayCollection
 	{
