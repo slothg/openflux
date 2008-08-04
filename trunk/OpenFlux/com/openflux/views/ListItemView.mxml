@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<flux:FluxView 
+<openflux:Container
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
-	xmlns:flux="com.openflux.core.*" 
-	xmlns:degrafa="http://www.degrafa.com/2008" minWidth="30" minHeight="30" >
+	xmlns:degrafa="http://www.degrafa.com/2008" minWidth="30" minHeight="30" xmlns:openflux="http://www.openflux.org/2008">
 	
 	<mx:Script>
 		<![CDATA[
@@ -10,7 +9,7 @@
 		]]>
 	</mx:Script>
 	
-	<flux:states>
+	<openflux:states>
 		<mx:State name="{ButtonStates.UP}" basedOn="" />
 		<mx:State name="{ButtonStates.OVER}">
 			<mx:SetProperty target="{fill}" name="color" value="#7FCEFF" />
@@ -22,7 +21,7 @@
 		<mx:State name="{ButtonStates.SELECTED_UP}">
 			<mx:SetProperty target="{fill}" name="color" value="#7FCEFF" />
 		</mx:State>
-	</flux:states>
+	</openflux:states>
 	
 	<degrafa:SolidFill id="fill" color="#FFFFFF" />
 	
@@ -34,4 +33,4 @@
 	
 	<mx:Label text="{component.data.label}" left="10" right="10" verticalCenter="0" />
 	
-</flux:FluxView>
+</openflux:Container>

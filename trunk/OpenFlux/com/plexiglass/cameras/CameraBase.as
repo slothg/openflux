@@ -9,6 +9,7 @@ package com.plexiglass.cameras
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.Rectangle;
 	
 	import mx.core.UIComponent;
 	import mx.events.ChildExistenceChangedEvent;
@@ -27,6 +28,7 @@ package com.plexiglass.cameras
 		}
 		
 		private var _zoom:Boolean = false;
+		[StyleBinding] [Bindable]
 		public function get zoom():Boolean { return _zoom; }
 		public function set zoom(value:Boolean):void {
 			var child:DisplayObject;
@@ -36,49 +38,50 @@ package com.plexiglass.cameras
 				//if (origCameraPos) container.animator.moveItem(cameraPos, {x:origCameraPos.x, y:origCameraPos.y, z:origCameraPos.z});
 				origCameraPos = null;
 				
-				container.removeEventListener(ChildExistenceChangedEvent.CHILD_ADD, onChildAdd);
-				container.removeEventListener(ChildExistenceChangedEvent.CHILD_REMOVE, onChildRemove);
-				for each (child in container.children)
-				{
-					child.removeEventListener(MouseEvent.CLICK, onClick);
-				}
-			} else if (value && !_zoom) {
-				container.addEventListener(ChildExistenceChangedEvent.CHILD_ADD, onChildAdd);
-				container.addEventListener(ChildExistenceChangedEvent.CHILD_REMOVE, onChildRemove);
-				for each (child in container.children)
-				{
-					child.addEventListener(MouseEvent.CLICK, onClick);
+				if (!value && _zoom) {
+					//container.animator.moveItem(lookAt, {x:0, y:0, z:0});
+					//if (origCameraPos) container.animator.moveItem(cameraPos, {x:origCameraPos.x, y:origCameraPos.y, z:origCameraPos.z});
+					origCameraPos = null;
+					
+					UIComponent(container).removeEventListener(ChildExistenceChangedEvent.CHILD_ADD, onChildAdd);
+					UIComponent(container).removeEventListener(ChildExistenceChangedEvent.CHILD_REMOVE, onChildRemove);
+					for each (child in container.children)
+					{
+						child.removeEventListener(MouseEvent.CLICK, onClick);
+					}
+				} else if (value && !_zoom) {
+					UIComponent(container).addEventListener(ChildExistenceChangedEvent.CHILD_ADD, onChildAdd);
+					UIComponent(container).addEventListener(ChildExistenceChangedEvent.CHILD_REMOVE, onChildRemove);
+					for each (child in container.children)
+					{
+						child.addEventListener(MouseEvent.CLICK, onClick);
+					}
 				}
 			}
 			
 			_zoom = value;
 		}
 		
-		public function attach(container:IPlexiContainer):void
-		{
+		public function attach(container:IPlexiContainer):void {
 			this.container = container;
-			this.container.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+			UIComponent(this.container).addEventListener(Event.ENTER_FRAME, onEnterFrame);
 			this.container.view.camera = camera;
 		}
 		
-		public function detach(container:IPlexiContainer):void
-		{
-			this.container.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
+		public function detach(container:IPlexiContainer):void {
+			UIComponent(this.container).removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 			this.container = null;
 		}
 		
-		private function onChildAdd(event:ChildExistenceChangedEvent):void
-		{
+		private function onChildAdd(event:ChildExistenceChangedEvent):void {
 			event.relatedObject.addEventListener(MouseEvent.CLICK, onClick);
 		}
 		
-		private function onChildRemove(event:ChildExistenceChangedEvent):void
-		{
+		private function onChildRemove(event:ChildExistenceChangedEvent):void {
 			event.relatedObject.removeEventListener(MouseEvent.CLICK, onClick);
 		}
 		
-		private function onClick(event:MouseEvent):void
-		{
+		private function onClick(event:MouseEvent):void {
 			var plane:Plane = container.getChildPlane(event.currentTarget as UIComponent);
 			if (plane == zoomedPlane) {
 				//container.animator.moveItem(lookAt, {x:0, y:0, z:0});
@@ -93,8 +96,12 @@ package com.plexiglass.cameras
 			}
 		}
 		
-		protected function onEnterFrame(event:Event):void
-		{
+		public function update(rectangle:Rectangle):void {
+			container.view.x = rectangle.width / 2;
+			container.view.y = rectangle.height / 2;
+		}
+		
+		protected function onEnterFrame(event:Event):void {
 			if (!cameraPos) cameraPos = camera.position;
 			camera.moveTo(cameraPos.clone());
 			camera.lookAt(lookAt.clone());

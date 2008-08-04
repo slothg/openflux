@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<flux:FluxView xmlns:mx="http://www.adobe.com/2006/mxml" 
+<flux:Container xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:flux="http://www.openflux.org/2008" 
 	xmlns:degrafa="http://www.degrafa.com/2008" 
 	minWidth="30" minHeight="30" height="50">
@@ -36,4 +36,4 @@
 	<!--
 	<flux:DataView content="{component.data}" itemRenderer="{component as IFactory}" left="10" right="10" top="40" />
 	-->
-</flux:FluxView>
+</flux:Container>

@@ -105,10 +105,10 @@ package com.openflux.core
 				view.component = this;
 				//(view as UIComponent).styleName = this;
 				addChild(view as UIComponent);
-				this.measuredWidth = view.measuredWidth;
+				/*this.measuredWidth = view.measuredWidth;
 				this.measuredHeight = view.measuredHeight;
 				this.measuredMinWidth = view.measuredMinWidth;
-				this.measuredMinHeight = view.measuredMinHeight;
+				this.measuredMinHeight = view.measuredMinHeight;*/
 				MetaStyler.initialize(view, this);
 				viewChanged = false;
 			}
@@ -122,20 +122,20 @@ package com.openflux.core
 		/** @private */
 		override protected function measure():void {
 			super.measure();
-			if(view) {
-				measuredMinWidth = view.minWidth;
-				measuredMinHeight = view.minHeight;
-				measuredWidth = view.measuredWidth;
-				measuredHeight = view.measuredHeight;
+			if(view) {				
+				measuredWidth = view.getExplicitOrMeasuredWidth();
+				measuredHeight = view.getExplicitOrMeasuredHeight();
+				measuredMinWidth = isNaN( view.explicitWidth ) ? view.minWidth : view.explicitWidth;
+				measuredMinHeight = isNaN( view.explicitHeight ) ? view.minHeight : view.explicitHeight;
 			}
 		}
 		
 		/** @private */
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
-			if(_view) {
-				_view.width = unscaledWidth;
-				_view.height =  unscaledHeight;
+			if(view) {
+				view.setActualSize(unscaledWidth, unscaledHeight);
+				UIComponent(view).invalidateDisplayList();
 			}
 		}
 		

@@ -60,8 +60,8 @@ package com.openflux.layouts
 		{
 			super.attach(container);
 			Container(container).rawChildren.addChild(foam);
-			container.addEventListener(ChildExistenceChangedEvent.CHILD_ADD, onChildAdd);
-			container.addEventListener(ChildExistenceChangedEvent.CHILD_REMOVE, onChildRemove);
+			Container(container).addEventListener(ChildExistenceChangedEvent.CHILD_ADD, onChildAdd);
+			Container(container).addEventListener(ChildExistenceChangedEvent.CHILD_REMOVE, onChildRemove);
 
 			var child:UIComponent;
 			for each (child in container.children)
@@ -76,8 +76,8 @@ package com.openflux.layouts
 		{
 			super.detach(container);
 			Container(container).rawChildren.removeChild(foam);
-			container.removeEventListener(ChildExistenceChangedEvent.CHILD_ADD, onChildAdd);
-			container.removeEventListener(ChildExistenceChangedEvent.CHILD_REMOVE, onChildRemove);
+			Container(container).removeEventListener(ChildExistenceChangedEvent.CHILD_ADD, onChildAdd);
+			Container(container).removeEventListener(ChildExistenceChangedEvent.CHILD_REMOVE, onChildRemove);
 
 			var child:UIComponent;
 			for each (child in container.children)

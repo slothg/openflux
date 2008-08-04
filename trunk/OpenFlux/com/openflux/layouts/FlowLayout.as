@@ -23,9 +23,11 @@ package com.openflux.layouts
 		
 		public function measure(children:Array):Point {
 			var point:Point = new Point();
+			var layoutItem:LayoutItem;
 			for each(var child:UIComponent in container.children) {
-				point.x = Math.max(child.width, point.x);
-				point.y += child.height + 10;
+				layoutItem = new LayoutItem(child);
+				point.x = Math.max(layoutItem.preferredWidth, point.x);
+				point.y += layoutItem.preferredHeight + 10;
 			}
 			return point;
 		}
@@ -46,10 +48,13 @@ package com.openflux.layouts
 			var length:int = children.length;
 			//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
 			var child:IUIComponent;
+			var layoutItem:LayoutItem;
+			var token:AnimationToken;
+			
 			for (var i:int = 0; i < length; i++) {
 				child = children[i];
-				var token:AnimationToken = new AnimationToken(child.measuredWidth, child.measuredHeight, xPos, yPos);
-				
+				layoutItem = new LayoutItem(child);
+				token = new AnimationToken(layoutItem.preferredWidth, layoutItem.preferredHeight, xPos, yPos);
 				if(indices && indices.indexOf(i, 0) >= 0) {
 					xPos += token.width + 10;
 					if(xPos > rectangle.width - token.width - space / 2) {
@@ -79,13 +84,15 @@ package com.openflux.layouts
 			var len:int = container.children.length;
 			//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
 			var child:UIComponent;
+			var layoutItem:LayoutItem;
 			var width:Number;
 			var height:Number;
 			
 			for (var i:int = 0; i < len; i++) {
 				child = container.children[i];
-				width = child.getExplicitOrMeasuredWidth();
-				height = child.getExplicitOrMeasuredHeight();
+				layoutItem = new LayoutItem(child);
+				width = layoutItem.preferredWidth;
+				height = layoutItem.preferredHeight;
 				
 				if (x >= xPos - 10 && x <= xPos + width && y >= yPos - 8 && y <= yPos + height)
 					return i;
@@ -103,9 +110,14 @@ package com.openflux.layouts
 		private function measureGrid():Point {
 			
 			var point:Point = new Point();
+			var layoutItem:LayoutItem;
+			var w:Number;
+			var h:Number;
+				
 			for each(var child:UIComponent in container.children) {
-				var w:Number = child.measuredWidth;
-				var h:Number = child.measuredHeight;
+				layoutItem = new LayoutItem(child);
+				w = layoutItem.preferredWidth;
+				h = layoutItem.preferredHeight;
 				if(w > point.x) {
 					point.x = w;
 				}

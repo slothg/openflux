@@ -57,11 +57,13 @@ package com.openflux.layouts
 			var height:Number = rectangle.height/2;
 			var offset:Number = 180*(Math.PI/180);
 			var rad:Number;
+			
 			for (var i:int = 0; i < length; i++) {
 				var child:IUIComponent = children[i];
-				var token:AnimationToken = new AnimationToken(child.measuredWidth, child.measuredHeight);
-				var w:Number = width-child.measuredWidth;
-				var h:Number = height-child.measuredHeight;
+				var layoutItem:LayoutItem = new LayoutItem(child);
+				var token:AnimationToken = new AnimationToken(layoutItem.preferredWidth, layoutItem.preferredHeight);
+				var w:Number = width-layoutItem.preferredWidth;
+				var h:Number = height-layoutItem.preferredHeight;
 				
 				if(indices && indices.indexOf(i, 0) >= 0) {
 					rad = ((Math.PI*i)/(length/2))+offset;
