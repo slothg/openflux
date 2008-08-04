@@ -38,43 +38,64 @@ package com.plexiglass.animators
 		public function begin():void {} // unused
 		public function end():void {} // unused
 		
-		public function moveItem(item:DisplayObject, token:AnimationToken):void
-		{
-			token.time = time;
-			token.transition = transition;
+		public function moveItem(item:DisplayObject, token:AnimationToken):void {
 			if(container is IPlexiContainer && item != container["view"] && item is DisplayObject) {
-				var token3d:Object = new Object();
-				token3d.x = token.x + item.width/2;
-				if(!isNaN(token.y)) {
-					token3d.y = (token.y + item.height/2) * -1;
-				}
-				token3d.z = token.z ? token.z : 0; //getDepth(item as DisplayObject)/100;
-				
-				token3d.rotationZ = token.rotation ? token.rotation : 0;
-				token3d.rotationX = token.rotationX ? token.rotationX : 0;
-				token3d.rotationY = token.rotationY ? token.rotationY : 0;
-				token3d.rotationZ = token.rotationZ ? token.rotationZ : 0;
-				
-				token3d.time = token.time;
-				token3d.transition = transition;
-				
+				var parameters3d:Object = createTweenParameters3d(item, token, 1);
 				var pv:IPlexiContainer = container as IPlexiContainer;
 				var plane:Plane = pv.getChildPlane(item as UIComponent);
 				if (plane) {
-						Tweener.addTween(plane, token3d);
+						Tweener.addTween(plane, parameters3d);
 				}
-			}
-			else
-			{
+			} else {
+				var parameters:Object = createTweenParameters(token, 1);
 				Tweener.addTween(item, token);
-			}			
+			}
 		}
 		
 		public function addItem(item:DisplayObject):void {};
-		public function removeItem(item:DisplayObject, callback:Function):void {};
+		public function removeItem(item:DisplayObject, callback:Function):void {
+			callback(item);
+		}
 		
 		public function adjustItem(item:DisplayObject, token:AnimationToken):void {
+			if(container is IPlexiContainer && item != container["view"] && item is DisplayObject) {
+				var parameters3d:Object = createTweenParameters3d(item, token, 1/3);
+				var pv:IPlexiContainer = container as IPlexiContainer;
+				var plane:Plane = pv.getChildPlane(item as UIComponent);
+				if (plane) {
+						Tweener.addTween(plane, parameters3d);
+				}
+			} else {
+				var parameters:Object = createTweenParameters(token, 1/3);
+				Tweener.addTween(item, token);
+			}
+		}
+		
+		private function createTweenParameters3d(item:DisplayObject, token:AnimationToken, time:Number):Object {
+			var parameters:Object = new Object();
 			
+			parameters.time = token.time;
+			parameters.transition = transition;
+			
+			parameters.x = token.x + item.width/2;
+			parameters.y = (token.y + item.height/2) * -1;
+			parameters.z = token.z ? token.z : 0; //getDepth(item as DisplayObject)/100;
+			
+			parameters.rotationX = token.rotationX ? token.rotationX : 0;
+			parameters.rotationY = token.rotationY ? token.rotationY : 0;
+			parameters.rotationZ = token.rotationZ ? token.rotationZ : 0;
+			return parameters;
+		}
+		
+		private function createTweenParameters(token:AnimationToken, time:Number = 1):Object {
+			var parameters:Object = new Object();
+			parameters.time = time;
+			parameters.transition = transition;
+			parameters.x = token.x;
+			parameters.y = token.y;
+			parameters.width = token.width;
+			parameters.height = token.height;
+			return parameters;
 		}
 		
 	}
