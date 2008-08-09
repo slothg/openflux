@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
-	xmlns:flux="http://openflux.googlecode.com" 
+	xmlns:flux="http://www.openflux.org/2008" 
 	layout="absolute"  viewSourceURL="srcview/index.html">
 	
 	<!-- layouts -->
@@ -18,7 +18,7 @@
 	</mx:ArrayCollection>
 	
 	<!-- list -->
-	<flux:List id="list" left="20" right="20" top="20" bottom="20" 
-		dataProvider="{data}" layout="{list.selectedItems.getItemAt(0).layout as ILayout}" />
+	<flux:List id="list" width="100%" height="100%"
+		data="{data}" layout="{list.selectedItems.getItemAt(0).layout as ILayout}" />
 	
 </mx:Application>

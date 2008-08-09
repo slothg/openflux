@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
-	xmlns:flux="http://openflux.googlecode.com" 
+	xmlns:flux="http://www.openflux.org/2008" 
 	layout="absolute" viewSourceURL="srcview/index.html">
+	<mx:Script>
+		<![CDATA[
+			import com.plexiglass.cameras.HoverCamera;
+		]]>
+	</mx:Script>
 	
 	<!-- layouts -->
 	<flux:VerticalLayout id="vertical" />
@@ -24,10 +29,11 @@
 	</mx:ArrayCollection>
 	
 	<!-- list -->
-	<flux:List id="list" left="20" right="20" top="20" bottom="20" 
-		dataProvider="{data}" layout="{list.selectedItems.getItemAt(0).layout as ILayout}">
+	<flux:List id="list" left="20" right="20" top="20" bottom="20"
+		data="{data}" layout="{list.selectedItems.getItemAt(0).layout as ILayout}">
 		<flux:view>
-			<flux:PlexiListView/>
+			<flux:PlexiListView id="view"/>
 		</flux:view>
 	</flux:List>
+	
 </mx:Application>
