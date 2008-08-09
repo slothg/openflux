@@ -30,7 +30,7 @@ package com.plexiglass.layouts
 		public function get gap():Number { return _gap; }
 		public function set gap(value:Number):void {
 			_gap = value;
-			container.invalidateDisplayList();
+			if (container) container.invalidateDisplayList();
 		}
 		
 		private var _distance:Number = 2;
@@ -38,7 +38,7 @@ package com.plexiglass.layouts
 		public function get distance():Number { return _distance; }
 		public function set distance(value:Number):void {
 			_distance = value;
-			container.invalidateDisplayList();
+			if (container) container.invalidateDisplayList();
 		}
 		
 		private var _rotationAngle:Number = 70;
@@ -46,7 +46,7 @@ package com.plexiglass.layouts
 		public function get rotationAngle():Number { return _rotationAngle; }
 		public function set rotationAngle(value:Number):void {
 			_rotationAngle = value;
-			container.invalidateDisplayList();
+			if (container) container.invalidateDisplayList();
 		}
 		
 		private var _direction:String = "horizontal";
@@ -54,7 +54,7 @@ package com.plexiglass.layouts
 		public function get direction():String { return _direction; }
 		public function set direction(value:String):void {
 			_direction = value;
-			container.invalidateDisplayList();
+			if (container) container.invalidateDisplayList();
 		}
 		
 		public function measure(children:Array):Point
