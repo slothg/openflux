@@ -109,7 +109,7 @@ package com.plexiglass.containers
 			if (child.width > 0 && child.height > 0) {
 				var m:MovieMaterial = new MovieMaterial(child as Sprite, {smooth:true, interactive:true});
 				//var m:PhongMovieMaterial = new PhongMovieMaterial(child as Sprite, {smooth:true, interactive:true});
-				var p:Plane = new Plane({yUp:false, material:m, width:child.width, height:child.height, bothsides:false});
+				var p:Plane = new Plane({yUp:false, material:m, width:child.width, height:child.height, bothsides:true});
 				view.scene.addChild(p);
 				planes[child] = p;
 			}

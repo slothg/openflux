@@ -3,7 +3,7 @@ package com.openflux.layouts
 	import mx.core.IConstraintClient;
 	import mx.core.IUIComponent;
 	
-	public class LayoutItem
+	public class LayoutItem implements ILayoutItem
 	{
 		private var ui:IUIComponent;
 		
@@ -12,11 +12,11 @@ package com.openflux.layouts
 			this.ui = ui;
 		}
 		
-		public function constraintsDetermineWidth():Boolean {
+		public function get constraintsDetermineWidth():Boolean {
 			return !isNaN(getConstraint("left")) && !isNaN(getConstraint("right"));
 		}
 		
-		public function constraintsDetermineHeight():Boolean {
+		public function get constraintsDetermineHeight():Boolean {
 			return !isNaN(getConstraint("top")) && !isNaN(getConstraint("bottom"));
 		}
 

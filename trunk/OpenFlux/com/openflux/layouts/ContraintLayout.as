@@ -20,7 +20,7 @@ package com.openflux.layouts
 			var minHeight:Number = 0;
 			
 			for each (var child:UIComponent in children) {
-				var li:LayoutItem = new LayoutItem(child);
+				var li:ILayoutItem = new LayoutItem(child);
 				
 				var left:Number   = li.getConstraint("left");
 				var right:Number  = li.getConstraint("right");
@@ -47,8 +47,8 @@ package com.openflux.layouts
 				width = Math.max(width, extX + li.preferredWidth);
 				height = Math.max(height, extY + li.preferredHeight);
 				
-				var itemMinWidth:Number = li.constraintsDetermineWidth() ? li.minWidth : li.preferredWidth;
-				var itemMinHeight:Number = li.constraintsDetermineHeight() ? li.maxHeight : li.preferredHeight;
+				var itemMinWidth:Number = li.constraintsDetermineWidth? li.minWidth : li.preferredWidth;
+				var itemMinHeight:Number = li.constraintsDetermineHeight ? li.maxHeight : li.preferredHeight;
 				
 				minWidth = Math.max(minWidth, extX + itemMinWidth);
 				minHeight = Math.max(minHeight, extY + itemMinHeight);
@@ -60,7 +60,7 @@ package com.openflux.layouts
 		
 		public function update(children:Array, rectangle:Rectangle):void {	
 	        for each (var child:UIComponent in children) {
-	            var li:LayoutItem = new LayoutItem(child);
+	            var li:ILayoutItem = new LayoutItem(child);
 	            
 	            var hCenter:Number = li.getConstraint("horizontalCenter");
 	            var vCenter:Number = li.getConstraint("verticalCenter");

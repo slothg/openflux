@@ -36,6 +36,8 @@
     <component id="CircleLayout" class="com.openflux.layouts.CircleLayout" />
     <component id="CarouselLayout" class="com.openflux.layouts.CarouselLayout" />
     <component id="SpiralLayout" class="com.openflux.layouts.SpiralLayout" />
+    <component id="TimeMachineLayout" class="com.openflux.layouts.TimeMachineLayout" />
+    <component id="TopLeftLayout" class="com.openflux.layouts.TopLeftLayout" />
     
     <!-- animators -->
     <component id="TweenAnimator" class="com.openflux.animators.TweenAnimator" />
@@ -52,7 +54,7 @@
     <!-- utils -->
     
     <!-- plexiglass -->
-    <component id="PlexiDataView" class="com.plexiglass.containers.PlexiDataView" />
+    <component id="PlexiContainer" class="com.plexiglass.containers.PlexiContainer" />
     <component id="PlexiAnimator" class="com.plexiglass.animators.PlexiAnimator" />
     <component id="PlexiListView" class="com.plexiglass.views.PlexiListView" />
     <component id="CoverFlowLayout" class="com.plexiglass.layouts.CoverFlowLayout" />

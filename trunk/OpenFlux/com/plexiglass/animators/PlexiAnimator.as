@@ -13,7 +13,6 @@ package com.plexiglass.animators
 	import flash.display.DisplayObject;
 	
 	import mx.core.UIComponent;
-	import mx.utils.ObjectUtil;
 
 	public class PlexiAnimator implements IAnimator
 	{
@@ -26,7 +25,8 @@ package com.plexiglass.animators
 		/**
 		 * The duration of time used to animate a component.
 		 */
-		[StyleBinding] public var time:Number = 1;
+		//[StyleBinding]
+		public var time:Number = 1;
 		
 		/**
 		 * The transition path on which to animate a component.
@@ -72,7 +72,7 @@ package com.plexiglass.animators
 		}
 		
 		public function adjustItem(item:DisplayObject, token:AnimationToken):void {
-			if(container is IPlexiContainer && item != container["view"] && item is DisplayObject) {
+			if(container is IPlexiContainer) {
 				var parameters3d:Object = createTweenParameters3d(token, 1/3);
 				var pv:IPlexiContainer = container as IPlexiContainer;
 				var plane:Plane = pv.getChildPlane(item as UIComponent);
@@ -85,12 +85,8 @@ package com.plexiglass.animators
 			}
 		}
 		
-		private function createTweenParameters3d(token:AnimationToken, time:Number):Object {
-			var parameters:Object = new Object();
-			//parameters.time = token.time;
-			parameters.transition = transition;
-			parameters.x = token.x;
-			parameters.y = token.y;
+		private function createTweenParameters3d(token:AnimationToken, time:Number = 1):Object {
+			var parameters:Object = createTweenParameters(token, time);
 			parameters.z = token.z;
 			parameters.rotationX = token.rotationX;
 			parameters.rotationY = token.rotationY;
@@ -104,12 +100,8 @@ package com.plexiglass.animators
 			parameters.transition = transition;
 			parameters.x = token.x;
 			parameters.y = token.y;
-			parameters.z = token.z;
-			parameters.rotationX = token.rotationX;
-			parameters.rotationY = token.rotationY;
-			parameters.rotationZ = token.rotationZ ? token.rotationZ : 0;
-			parameters.width = token.width;
-			parameters.height = token.height;
+			/*parameters.width = token.width;
+			parameters.height = token.height;*/
 			return parameters;
 		}
 		

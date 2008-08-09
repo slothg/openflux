@@ -40,8 +40,8 @@ package com.openflux
 		public function set selectedItems(value:ArrayCollection):void {
 			_selectedItems = value;
 			// move to controller
-			//_selectedItems.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
-			//dispatchEvent(new ListEvent(ListEvent.CHANGE, false, false));
+			//_selectedItems.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);			
+			dispatchEvent(new ListEvent(ListEvent.CHANGE));
 		}
 		
 		

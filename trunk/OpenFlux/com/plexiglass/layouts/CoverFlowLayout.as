@@ -7,13 +7,13 @@ package com.plexiglass.layouts
 	import com.openflux.layouts.ILayout;
 	import com.openflux.layouts.LayoutBase;
 	import com.openflux.layouts.LayoutItem;
+	import com.openflux.utils.ListUtil;
 	import com.plexiglass.animators.PlexiAnimationToken;
 	
 	import flash.display.DisplayObject;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
-	import mx.collections.ArrayCollection;
 	import mx.core.IUIComponent;
 	import mx.events.ListEvent;
 
@@ -22,6 +22,7 @@ package com.plexiglass.layouts
 		public function CoverFlowLayout()
 		{
 			super();
+			updateOnChange = true;
 		}
 		
 		private var _gap:Number = 2;
@@ -54,27 +55,6 @@ package com.plexiglass.layouts
 		public function set direction(value:String):void {
 			_direction = value;
 			container.invalidateDisplayList();
-		} 
-		
-		override public function attach(container:IFluxContainer):void
-		{
-			super.attach(container);
-			
-			if ((container as IFluxView).component is IFluxList)
-				(container as IFluxView).component.addEventListener(ListEvent.ITEM_CLICK, onChange);
-		}
-		
-		override public function detach(container:IFluxContainer):void
-		{
-			super.detach(container);
-			
-			if ((container as IFluxView).component is IFluxList)
-				(container as IFluxView).component.removeEventListener(ListEvent.ITEM_CLICK, onChange);
-		}
-		
-		private function onChange(event:ListEvent):void
-		{
-			container.invalidateDisplayList();
 		}
 		
 		public function measure(children:Array):Point
@@ -83,10 +63,11 @@ package com.plexiglass.layouts
 		}
 		
 		public function update(children:Array, rectangle:Rectangle):void
-		{				
+		{
 			var list:IFluxList = (container as IFluxView).component as IFluxList;
-			var selectedIndex:int = (list && list.selectedItems) ? (list.data as ArrayCollection).getItemIndex(list.selectedItems.getItemAt(0)) : 0;			
-			var selectedChild:IUIComponent = container.children[selectedIndex];
+			var selectedIndex:int = list ? Math.max(0, ListUtil.selectedIndex(list)) : 0;
+			var selectedChild:IUIComponent = children[selectedIndex];
+			
 			var selectedLayoutItem:LayoutItem = new LayoutItem(selectedChild);
 			var maxChildHeight:Number = selectedLayoutItem.preferredHeight;
 			var maxChildWidth:Number = selectedLayoutItem.preferredWidth;	
@@ -96,8 +77,8 @@ package com.plexiglass.layouts
 				
 			container.animator.begin();
 				
-			for (var i:int = 0; i < container.children.length; i++) {
-				var child:IUIComponent = container.children[i];
+			for (var i:int = 0; i < children.length; i++) {
+				var child:IUIComponent = children[i];
 				var li:LayoutItem = new LayoutItem(child);
 				var token:AnimationToken = new PlexiAnimationToken(li.preferredWidth, li.preferredHeight);
 				
