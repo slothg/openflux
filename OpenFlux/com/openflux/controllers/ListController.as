@@ -57,6 +57,8 @@ package com.openflux.controllers
 			
 			var e:ListEvent = new ListEvent(ListEvent.ITEM_CLICK, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
 			(component as IEventDispatcher).dispatchEvent(e);
+			e = new ListEvent(ListEvent.CHANGE, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
+			(component as IEventDispatcher).dispatchEvent(e);
 		}
 		
 		

@@ -2,14 +2,18 @@ package com.openflux.layouts
 {
 	import com.openflux.animators.IAnimator;
 	import com.openflux.containers.IFluxContainer;
+	import com.openflux.core.IFluxList;
+	import com.openflux.core.IFluxView;
 	
-	import flash.display.DisplayObject;
 	import flash.events.EventDispatcher;
+	
+	import mx.events.ListEvent;
 	
 	public class LayoutBase extends EventDispatcher
 	{
 		
 		protected var container:IFluxContainer;
+		protected var updateOnChange:Boolean = false;
 		
 		protected function get animator():IAnimator {
 			if(container) return container.animator;
@@ -18,10 +22,19 @@ package com.openflux.layouts
 		
 		public function attach(container:IFluxContainer):void {
 			this.container = container;
+			if (updateOnChange && (container as IFluxView).component is IFluxList)
+				(container as IFluxView).component.addEventListener(ListEvent.CHANGE, onChange);
 		}
 		
 		public function detach(container:IFluxContainer):void {
 			this.container = null;
+			if (updateOnChange && (container as IFluxView).component is IFluxList)
+				(container as IFluxView).component.removeEventListener(ListEvent.CHANGE, onChange);
+		}
+		
+		protected function onChange(event:ListEvent):void
+		{
+			container.invalidateDisplayList();
 		}
 		
 		/*
