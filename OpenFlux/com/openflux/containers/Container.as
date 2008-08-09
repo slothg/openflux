@@ -91,6 +91,7 @@ package com.openflux.containers
 		
 		private var _animator:IAnimator;
 		private var _layout:ILayout;
+		private var layoutChanged:Boolean = false;
 		
 		[StyleBinding] [Bindable]
 		public function get animator():IAnimator { return _animator; }
@@ -107,14 +108,8 @@ package com.openflux.containers
 				_layout.detach(this);
 			}
 			_layout = value;
-			if(_layout) {
-				_layout.attach(this);
-				MetaStyler.initialize(_layout, this.data as IStyleClient);
-			}
-			if(_animator) {
-				MetaStyler.initialize(_animator, this.data as IStyleClient);
-			}
-			invalidateDisplayList();
+			layoutChanged = true;
+			invalidateProperties();
 		}
 		
 		public function get children():Array {
@@ -162,6 +157,18 @@ package com.openflux.containers
 			if(contentChanged) {
 				contentReset();
 				contentChanged = false;
+			}
+			
+			if (layoutChanged) {
+				layoutChanged = false;
+				if(_layout) {
+					_layout.attach(this);
+					MetaStyler.initialize(_layout, this.data as IStyleClient);
+				}
+				if(_animator) {
+					MetaStyler.initialize(_animator, this.data as IStyleClient);
+				}
+				invalidateDisplayList();
 			}
 		}
 		
