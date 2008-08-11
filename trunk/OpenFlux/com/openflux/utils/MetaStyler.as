@@ -1,15 +1,11 @@
 package com.openflux.utils
 {
-	import com.degrafa.core.utils.StyleUtil;
+	import com.openflux.metadata.ClassDirectives;
+	import com.openflux.metadata.StyleBindingDirective;
 	
-	import flash.system.ApplicationDomain;
-	import flash.utils.describeType;
-	import flash.utils.getQualifiedClassName;
-	import flash.utils.getQualifiedSuperclassName;
-	
-	import mx.graphics.IFill;
 	import mx.styles.IStyleClient;
 	
+	import flash.utils.getDefinitionByName;
 	/**
 	 * The MetaStyler Utility is used to marshal style information into properties automatically through Metadata.
 	 * 
@@ -24,10 +20,8 @@ package com.openflux.utils
 	public class MetaStyler
 	{
 		
-		private static var directivesByClassName:Object = {};
-		
 		static public function initialize(target:Object, source:IStyleClient = null):void {
-			var directives:ClassDirective = getDirectivesForObject(target);
+			var directives:ClassDirectives = MetaUtil.resolveDirectives(target);
 			for each(var directive:StyleBindingDirective in directives.styles) {
 				updateStyle(directive.property, target, source);
 			}
@@ -36,7 +30,7 @@ package com.openflux.utils
 		static public function updateStyle(style:String, target:Object, source:IStyleClient = null):void {
 			if(!source) { source = target as IStyleClient; }
 			var directive:StyleBindingDirective;
-			var directives:ClassDirective = getDirectivesForObject(target);
+			var directives:ClassDirectives = MetaUtil.resolveDirectives(target);
 			for each(directive in directives.styles) {
 				if(directive.property == style) {
 					target[directive.property] = updateStyleBinding(directive, target, source);
@@ -102,60 +96,5 @@ package com.openflux.utils
 			return none;
 		}
 		
-		//*****************************
-		
-		private static function getDirectivesForObject(target:Object):ClassDirective {
-			var cname:String = getQualifiedClassName(target);
-			return getClassDirective(cname);
-		}
-		
-		private static function getClassDirective(className:String):ClassDirective {
-			var directives:ClassDirective = directivesByClassName[className];
-			if(directives != null) { return directives; }
-			
-			directives = new ClassDirective();
-			var type:Class = ApplicationDomain.currentDomain.getDefinition(className) as Class;
-			var baseClassName:String = getQualifiedSuperclassName(type);
-			if(baseClassName != null) {
-				var baseClassDirectives:ClassDirective = getClassDirective(baseClassName);
-				directives.styles = baseClassDirectives.styles.concat();
-				// methods are inherited down in describeTypeData.
-			}
-			var description:XML = flash.utils.describeType(type);
-			directives.styles = getStyleBindingDirectives(description);
-			directivesByClassName[className] = directives;
-			return directives;
-		}
-		
-		private static function getStyleBindingDirectives(description:XML):Array {
-			var directives:Array = new Array();
-			var directive:StyleBindingDirective;
-			var metadata:XMLList = description.factory.variable.metadata.(@name == "StyleBinding");				
-			metadata += description.factory.accessor.metadata.(@name == "StyleBinding");
-			for (var i:int = 0; i < metadata.length(); i++) {
-				directive = new StyleBindingDirective();
-				directive.property = metadata[i].parent().@name;
-				directive.type = metadata[i].parent().@type;
-				directives.push(directive);
-			}
-			return directives;
-		}
-		
 	}
-}
-
-class ClassDirective
-{
-	public var styles:Array;
-}
-
-class StyleDirective
-{
-	
-}
-
-class StyleBindingDirective
-{
-	public var property:String;
-	public var type:String;
 }

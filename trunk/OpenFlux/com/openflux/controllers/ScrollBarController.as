@@ -1,8 +1,7 @@
 package com.openflux.controllers
 {
-	import com.openflux.core.IFluxController;
+	import com.openflux.core.FluxController;
 	import com.openflux.core.IFluxScrollBar;
-	import com.openflux.core.MetaControllerBase;
 	
 	import flash.display.DisplayObject;
 	import flash.events.Event;
@@ -14,7 +13,7 @@ package com.openflux.controllers
 	
 	import mx.core.UIComponent;
 	
-	public class ScrollBarController extends MetaControllerBase implements IFluxController
+	public class ScrollBarController extends FluxController
 	{
 		
 		private static const LINE_SCROLL_SIZE:Number = 1;
@@ -45,21 +44,17 @@ package com.openflux.controllers
 		[EventHandler(event="mouseDown", handler="track_mouseDownHandler")]
 		[ViewContract] public var track:DisplayObject;
 		
-		public function ScrollBarController() {
-			super(function(t:*):*{return this[t]});
-		}
-		
 		
 		//*************************************************************
 		// Arrow Event Handlers
 		//*************************************************************
 		
-		private function upButton_mouseDownHandler(event:MouseEvent):void {
+		metadata function upButton_mouseDownHandler(event:MouseEvent):void {
 			direction = -1;
 			arrow_mouseDownHandler(event);
 		}
 		
-		private function downButton_mouseDownHandler(event:MouseEvent):void {
+		metadata function downButton_mouseDownHandler(event:MouseEvent):void {
 			direction = 1;
 			arrow_mouseDownHandler(event);
 		}
@@ -104,7 +99,7 @@ package com.openflux.controllers
 		// Track Event Handlers
 		//*************************************************************
 		
-		private function track_mouseDownHandler(event:MouseEvent):void {
+		metadata function track_mouseDownHandler(event:MouseEvent):void {
 
 			if (track.width < track.height) {
 				trackScrollPosition = event.localY / track.height * (sdata.max - sdata.min);
@@ -183,7 +178,7 @@ package com.openflux.controllers
 		 * Thumb Event Handlers
 		 ******************************/
 		
-		private function thumb_mouseDownHandler(event:MouseEvent):void {
+		metadata function thumb_mouseDownHandler(event:MouseEvent):void {
 			view.systemManager.addEventListener(MouseEvent.MOUSE_MOVE, thumbMouseMoveHandler, true);
 			view.systemManager.addEventListener(MouseEvent.MOUSE_UP, thumbMouseUpHandler, true);
 			view.systemManager.stage.addEventListener(MouseEvent.MOUSE_MOVE, thumbStageMouseMoveHandler);

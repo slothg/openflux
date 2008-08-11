@@ -1,13 +1,13 @@
 package com.openflux.controllers
 {
-	import com.openflux.core.FluxController;
 	import com.openflux.core.IFluxComponent;
 	import com.openflux.core.IFluxController;
 
-	public class ComplexController extends FluxController
+	public class ComplexController implements IFluxController
 	{
 		
 		private var controllers:Array;
+		private var _component:IFluxComponent;
 		
 		public function ComplexController(controllers:Array)
 		{
@@ -15,9 +15,9 @@ package com.openflux.controllers
 			this.controllers = controllers;
 		}
 
-		
-		override public function set component(value:IFluxComponent):void {
-			super.component = value;
+		public function get component():IFluxComponent { return _component; }
+		public function set component(value:IFluxComponent):void {
+			_component = value;
 			for each(var c:IFluxController in controllers) {
 				c.component = value;
 			}
