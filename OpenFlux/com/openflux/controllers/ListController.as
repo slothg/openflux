@@ -25,26 +25,22 @@ package com.openflux.controllers
 	
 	[ViewHandler(event="childAdd", handler="childAddHandler")]
 	[ViewHandler(event="childRemove", handler="childRemoveHandler")]
-	public class ListController extends MetaControllerBase implements IFluxController
+	public class ListController extends FluxController
 	{
 		
 		[ModelAlias] [Bindable] public var list:IFluxList;
 		
-		public function ListController() {
-			super(function(t:*):*{return this[t]});
-		}
-		
 		
 		//***************************************************************
-		// Event Listeners
+		// Event Handlers
 		//***************************************************************
 		
-		private function childAddHandler(event:ChildExistenceChangedEvent):void {
+		metadata function childAddHandler(event:ChildExistenceChangedEvent):void {
 			var child:DisplayObject = event.relatedObject;
 			child.addEventListener(MouseEvent.CLICK, child_clickHandler, false, 0, true);
 		}
 		
-		private function childRemoveHandler(event:ChildExistenceChangedEvent):void {
+		metadata function childRemoveHandler(event:ChildExistenceChangedEvent):void {
 			var child:DisplayObject = event.relatedObject;
 			child.removeEventListener(MouseEvent.CLICK, child_clickHandler, false);
 		}

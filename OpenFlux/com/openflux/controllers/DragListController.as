@@ -1,8 +1,7 @@
 package com.openflux.controllers
 {
-	import com.openflux.core.IFluxController;
+	import com.openflux.core.FluxController;
 	import com.openflux.core.IFluxList;
-	import com.openflux.core.MetaControllerBase;
 	
 	import flash.display.DisplayObject;
 	import flash.events.IEventDispatcher;
@@ -16,16 +15,12 @@ package com.openflux.controllers
 	import mx.events.DragEvent;
 	import mx.managers.DragManager;
 	
-	/*
-	[Event("dragStart")]
-	[Event("dragComplete")]
-	*/
 	
 	[ViewHandler(event="childAdd", handler="childAddHandler")]
 	[ViewHandler(event="childRemove", handler="childRemoveHandler")]
+	[EventHandler(event="dragStart", handler="dragStartHandler")]
 	[EventHandler(event="dragComplete", handler="dragCompleteHandler")]
-	
-	public class DragListController extends MetaControllerBase implements IFluxController
+	public class DragListController extends FluxController
 	{
 		
 		public var dragEnabled:Boolean = true;
@@ -33,22 +28,17 @@ package com.openflux.controllers
 		[ModelAlias] public var list:IFluxList;
 		[ModelAlias] public var dispatcher:IEventDispatcher;
 		
-		public function DragListController()
-		{
-			super(function(t:*):*{return this[t]});
-		}
-		
 		
 		//***************************************************************
 		// Event Listeners
 		//***************************************************************
 		
-		private function childAddHandler(event:ChildExistenceChangedEvent):void {
+		metadata function childAddHandler(event:ChildExistenceChangedEvent):void {
 			var child:DisplayObject = event.relatedObject;
 			child.addEventListener(MouseEvent.MOUSE_DOWN, child_mouseDownHandler, false, 0, true);
 		}
 		
-		private function childRemoveHandler(event:ChildExistenceChangedEvent):void {
+		metadata function childRemoveHandler(event:ChildExistenceChangedEvent):void {
 			var child:DisplayObject = event.relatedObject;
 			child.removeEventListener(MouseEvent.MOUSE_DOWN, child_mouseDownHandler, false);
 		}
@@ -83,8 +73,11 @@ package com.openflux.controllers
 			dispatcher.dispatchEvent(dragEvent);
 		}
 		
-		private function dragCompleteHandler(event:DragEvent):void {
-			// trace(event);
+		metadata function dragStartHandler(event:DragEvent):void {
+			
+		}
+		
+		metadata function dragCompleteHandler(event:DragEvent):void {
 			var data:Object = event.dragSource.dataForFormat("data");
 			var collection:IList = list.data as IList;
 			var index:int = collection.getItemIndex(data);
