@@ -18,11 +18,7 @@ package com.openflux.layouts
 			var hCenter:Number = container.width / 2;
 			var vCenter:Number = container.height / 2;
 			var angle:Number = Math.atan2(y-vCenter, x-hCenter) + Math.PI;
-			var index:Number = angle * children.length / (2 * Math.PI);
-
-			trace("hCenter: " + hCenter + " vCenter " + vCenter);			
-			trace("angle: " + angle + " index: " + index);
-			trace("degrees " + Math.round(angle * 180 / Math.PI));
+			var index:Number = angle * children.length / (2 * Math.PI) + 1;
 			
 			return index;
 		}
@@ -52,7 +48,7 @@ package com.openflux.layouts
 				var w:Number = width-child.measuredWidth;
 				var h:Number = height-child.measuredHeight;
 				
-				if(indices && indices.indexOf(i, 0) >= 0) {
+				if(indices && indices.indexOf(i+1, 0) >= 0) {
 					rad = ((Math.PI*i)/(length/2))+offset;
 				} else {
 					rad = ((Math.PI*i+1)/(length/2))+offset;
