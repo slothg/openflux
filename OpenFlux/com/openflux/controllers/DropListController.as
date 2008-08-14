@@ -1,5 +1,6 @@
 package com.openflux.controllers
 {
+	import com.openflux.ListItem;
 	import com.openflux.containers.IFluxContainer;
 	import com.openflux.core.FluxController;
 	import com.openflux.core.IFluxComponent;
@@ -56,9 +57,15 @@ package com.openflux.controllers
 		metadata function dragDropHandler(event:DragEvent):void {
 			var data:Object = event.dragSource.dataForFormat("data");
 			var collection:IList = list.data as IList;
+			
+			if (event.currentTarget == (event.dragInitiator as ListItem).list) {
+				var oldIndex:int = collection.getItemIndex(data);
+				collection.removeItemAt(oldIndex);
+			}
+
 			var index:int = layout ? layout.findIndexAt(view.children, view.mouseX, view.mouseY) : collection.length;
 			if(index == -1) { index = collection.length; }
-			collection.addItemAt(data, index);
+			collection.addItemAt(data, Math.min(collection.length, index));
 			
 			var dispatcher:IEventDispatcher = event.currentTarget as IEventDispatcher;
 			var dragEvent:DragEvent = new DragEvent(DragEvent.DRAG_COMPLETE, false, true, event.dragInitiator, event.dragSource, event.action);
