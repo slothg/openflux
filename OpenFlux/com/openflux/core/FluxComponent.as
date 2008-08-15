@@ -123,10 +123,10 @@ package com.openflux.core
 		override protected function measure():void {
 			super.measure();
 			if(view) {				
-				measuredWidth = view.getExplicitOrMeasuredWidth();
-				measuredHeight = view.getExplicitOrMeasuredHeight();
-				measuredMinWidth = isNaN( view.explicitWidth ) ? view.minWidth : view.explicitWidth;
-				measuredMinHeight = isNaN( view.explicitHeight ) ? view.minHeight : view.explicitHeight;
+				measuredWidth = view.measuredWidth;
+				measuredHeight = view.measuredHeight;
+				measuredMinWidth = view.measuredMinWidth; // isNaN( view.explicitWidth ) ? view.minWidth : view.explicitWidth;
+				measuredMinHeight = view.measuredMinHeight; // isNaN( view.explicitHeight ) ? view.minHeight : view.explicitHeight;
 			}
 		}
 		
@@ -136,6 +136,13 @@ package com.openflux.core
 			if(view) {
 				view.setActualSize(unscaledWidth, unscaledHeight);
 				UIComponent(view).invalidateDisplayList();
+			}
+		}
+		
+		override public function setActualSize(w:Number, h:Number):void {
+			super.setActualSize(w, h);
+			if(view) {
+				view.setActualSize(w, h);
 			}
 		}
 		

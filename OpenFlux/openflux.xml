@@ -55,6 +55,7 @@
     
     <!-- plexiglass -->
     <component id="PlexiContainer" class="com.plexiglass.containers.PlexiContainer" />
+    <component id="PlexiView" class="com.plexiglass.core.PlexiView" />
     <component id="PlexiAnimator" class="com.plexiglass.animators.PlexiAnimator" />
     <component id="PlexiListView" class="com.plexiglass.views.PlexiListView" />
     <component id="CoverFlowLayout" class="com.plexiglass.layouts.CoverFlowLayout" />

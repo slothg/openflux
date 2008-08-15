@@ -19,8 +19,8 @@ package com.openflux.layouts
 			var point:Point = new Point(0, 0);
 			for each(var child:IUIComponent in children) {
 				var li:LayoutItem = new LayoutItem(child);
-				point.x = Math.max(li.preferredWidth, point.x);
-				point.y += li.preferredHeight + gap;
+				point.x = Math.max(child.getExplicitOrMeasuredWidth(), point.x);
+				point.y += child.getExplicitOrMeasuredHeight() + gap;
 			}
 			return point;
 		}
@@ -41,7 +41,7 @@ package com.openflux.layouts
 					position += 20 + gap;
 				}
 				var child:IUIComponent = children[i];
-				var token:AnimationToken = new AnimationToken(rectangle.width, child.measuredHeight, 0, position);
+				var token:AnimationToken = new AnimationToken(rectangle.width, child.getExplicitOrMeasuredHeight(), 0, position);
 				animator.moveItem(child as DisplayObject, token);
 				position += token.height + gap;
 			}
@@ -57,7 +57,7 @@ package com.openflux.layouts
 			var length:int = children.length;
 			for each(var child:DisplayObject in children) {
 				var distance:Number = y - (child.y+child.height/2);
-				if(Math.abs(distance) < closestDistance) {
+				if(Math.abs(distance) < Math.abs(closestDistance)) {
 					closest = child;
 					closestDistance = distance;
 				}

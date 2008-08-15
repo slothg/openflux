@@ -6,6 +6,9 @@ package com.openflux.animators
 	
 	import flash.display.DisplayObject;
 	
+	import mx.core.IUIComponent;
+	import mx.core.UIComponent;
+	
 	/**
 	 * An animator class which uses the Tweener library. This is the default animator provided by OpenFlux. 
 	 */
@@ -26,7 +29,12 @@ package com.openflux.animators
 		/**
 		 * The transition path on which to animate a component.
 		 */
-		[StyleBinding] public var transition:String = EASE_OUT_EXPO;
+		[StyleBinding] public var transition:String = EASE_OUT_BOUNCE;
+		
+		public function TweenAnimator() {
+			Tweener.registerSpecialProperty("actualWidth", getActualWidth, setActualWidth);
+			Tweener.registerSpecialProperty("actualHeight", getActualHeight, setActualHeight);
+		}
 		
 		public function attach(container:IFluxContainer):void {}
 		public function detach(container:IFluxContainer):void {}
@@ -41,12 +49,12 @@ package com.openflux.animators
 		
 		public function adjustItem(item:DisplayObject, token:AnimationToken):void {
 			var parameters:Object = createTweenerParameters(token, 1/3);
-			Tweener.addTween(item, parameters);
+			//Tweener.addTween(item, parameters);
 		}
 		
 		public function addItem(item:DisplayObject):void {
-			item.alpha = 0;
-			Tweener.addTween(item, {alpha:1, time:0.25});
+			//item.alpha = 0;
+			//Tweener.addTween(item, {alpha:1, time:0.25});
 		}
 		
 		public function removeItem(item:DisplayObject, callback:Function):void
@@ -62,9 +70,18 @@ package com.openflux.animators
 			token.alpha = 0;
 			token.onComplete = callback;
 			token.onCompleteParams = [item];
-			Tweener.addTween(item, token);
+			//Tweener.addTween(item, token);
 		}
 		
+		private function getActualWidth(item:IUIComponent, parameters:Array, ...args):Number { return item.width; }
+		private function setActualWidth(item:UIComponent, value:Number, parameters:Array, ...args):void {
+			item.setActualSize(value, item.height);
+		}
+		
+		private function getActualHeight(item:IUIComponent, parameters:Array, ...args):Number { return item.height; }
+		private function setActualHeight(item:IUIComponent, value:Number, parameters:Array, ...args):void {
+			item.setActualSize(item.width, value);
+		}
 		
 		private function createTweenerParameters(token:AnimationToken, time:Number = 1):Object {
 			var parameters:Object = new Object();
@@ -73,10 +90,11 @@ package com.openflux.animators
 			
 			parameters.x = token.x;
 			parameters.y = token.y;
-			parameters.width = token.width;
-			parameters.height = token.height;
+			parameters.actualWidth = token.width;
+			parameters.actualHeight = token.height;
 			parameters.rotation = token.rotationY;
 			//object.onComplete = onComplete;
+			
 			return parameters;
 		}
 		

@@ -17,8 +17,8 @@ package com.openflux.layouts
 			var point:Point = new Point(0, 0);
 			for each(var child:IUIComponent in container.children) {
 				var li:LayoutItem = new LayoutItem(child);
-				point.x += li.preferredWidth + gap;
-				point.y = Math.max(li.preferredHeight, point.y);
+				point.x += child.getExplicitOrMeasuredWidth() + gap;
+				point.y = Math.max(child.getExplicitOrMeasuredHeight(), point.y);
 			}
 			return point;
 		}
@@ -37,7 +37,8 @@ package com.openflux.layouts
 					position += 20 + gap;
 				}
 				var child:IUIComponent = children[i];
-				var token:AnimationToken = new AnimationToken(child.measuredWidth, rectangle.height, position);
+				//var w:Number = child.getExplicitOrMeasuredWidth();
+				var token:AnimationToken = new AnimationToken(child.getExplicitOrMeasuredWidth(), rectangle.height, position);
 				animator.moveItem(child as DisplayObject, token);
 				position += token.width + gap;
 			}

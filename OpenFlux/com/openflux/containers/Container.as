@@ -4,10 +4,10 @@ package com.openflux.containers
 	import com.openflux.animators.IAnimator;
 	import com.openflux.animators.TweenAnimator;
 	import com.openflux.core.FluxFactory;
-	import com.openflux.core.FluxView;
 	import com.openflux.core.IFluxFactory;
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxListItem;
+	import com.openflux.core.IFluxView;
 	import com.openflux.layouts.ContraintLayout;
 	import com.openflux.layouts.ILayout;
 	import com.openflux.utils.CollectionUtil;
@@ -23,6 +23,7 @@ package com.openflux.containers
 	import mx.core.IUIComponent;
 	import mx.core.UIComponent;
 	import mx.core.mx_internal;
+	import mx.events.ChildExistenceChangedEvent;
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 	import mx.styles.IStyleClient;
@@ -30,7 +31,7 @@ package com.openflux.containers
 	use namespace mx_internal;
 	
 	[DefaultProperty("content")]
-	public class Container extends FluxView implements IDataView, IFluxContainer
+	public class Container extends UIComponent implements IDataView, IFluxContainer, IDataRenderer
 	{	
 		//*********************************
 		// Constructor
@@ -39,6 +40,12 @@ package com.openflux.containers
 		public function Container()
 		{
 			super();
+		}
+		
+		private var _data:Object;
+		public function get data():Object { return _data; }
+		public function set data(value:Object):void {
+			_data = value;
 		}
 		
 		//************************************
@@ -92,6 +99,7 @@ package com.openflux.containers
 		private var _animator:IAnimator;
 		private var _layout:ILayout;
 		private var layoutChanged:Boolean = false;
+		private var invalidateLayoutFlag = true;
 		
 		[StyleBinding] [Bindable]
 		public function get animator():IAnimator { return _animator; }
@@ -123,14 +131,6 @@ package com.openflux.containers
 			return arr;
 		}
 		
-		/*
-		public function get dragTargetIndex():int { return _dragTargetIndex; }
-		public function set dragTargetIndex(value:int):void {
-			if (_dragTargetIndex != value) {
-				_dragTargetIndex = value;
-				invalidateLayout();
-			}
-		}*/
 		
 		//***********************************************
 		// Framework Overrides
@@ -168,7 +168,11 @@ package com.openflux.containers
 				if(_animator) {
 					MetaStyler.initialize(_animator, this.data as IStyleClient);
 				}
-				invalidateDisplayList();
+				invalidateLayoutFlag = true;
+			}
+			if(invalidateLayoutFlag) {
+				updateLayout();
+				invalidateLayoutFlag = false;
 			}
 		}
 		
@@ -176,22 +180,23 @@ package com.openflux.containers
 		override protected function measure():void {
 			super.measure();
 			if (layout) {
-				var point:Point = layout.measure(children); // filter out !includeInLayout
+				var point:Point = layout.measure(children); // filter out !includeInLayout later
 				measuredWidth = point.x;
 				measuredHeight = point.y;
+				//measuredWidth = 100;
+				//measuredHeight = 100;
 			}
 		}
 		
 		/** @private */
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
-			
 			graphics.clear(); // draw over dead space so drag/mouse operations register
 			graphics.beginFill(0, 0);
 			graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
 			graphics.endFill();
-			
-			updateLayout();
+			invalidateLayoutFlag = true;
+			invalidateProperties();
 		}
 		
 		/** @private */
@@ -211,6 +216,12 @@ package com.openflux.containers
 		//*****************************************
 		// Private Functions
 		//*****************************************
+		
+		// for convenience, trying to keep private
+		private function invalidateLayout():void {
+			invalidateLayoutFlag = true;
+			invalidateProperties();
+		}
 		
 		private function updateLayout():void {
 			if(layout && animator && children.length > 0) {
@@ -245,8 +256,9 @@ package com.openflux.containers
 			
 			instance.styleName = this; // ???
 
-			if(instance is IFluxListItem) {
-				(instance as IFluxListItem).list = component as IFluxList;
+			if(this is IFluxView && instance is IFluxListItem) {
+				// this is a little weird, but okay?... maybe?
+				(instance as IFluxListItem).list = (this as IFluxView).component as IFluxList;
 			}
 			
 			if (index != -1) {
@@ -259,17 +271,22 @@ package com.openflux.containers
 			
 			animator.addItem(instance);
 			invalidateDisplayList();
+			var event:ChildExistenceChangedEvent = new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD, false, false, instance);
+			dispatchEvent(event);
 		}
 		
 		protected function removeItem(item:Object, index:int = -1):void {
 			var child:DisplayObject = _renderers.splice(index, 1)[0];
 			animator.removeItem(child, cleanChild);
 			invalidateDisplayList();
+			var event:ChildExistenceChangedEvent = new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_REMOVE, false, false, child);
+			dispatchEvent(event);
 		}
 		
 		private function cleanChild(child:DisplayObject):void {
 			removeChild(child);
-			invalidateDisplayList();
+			invalidateLayout();
+			//invalidateDisplayList();
 		}
 		
 		//******************************************
