@@ -32,7 +32,7 @@
 	<flux:List id="list" left="20" right="20" top="20" bottom="20"
 		data="{data}" layout="{list.selectedItems.getItemAt(0).layout as ILayout}">
 		<flux:view>
-			<flux:PlexiListView id="view"/>
+			<flux:PlexiListView />
 		</flux:view>
 	</flux:List>
 	
