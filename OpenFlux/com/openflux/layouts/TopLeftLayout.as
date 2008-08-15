@@ -1,9 +1,9 @@
 package com.openflux.layouts
 {
+	import com.openflux.animators.AnimationToken;
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxView;
 	import com.openflux.utils.ListUtil;
-	import com.plexiglass.animators.PlexiAnimationToken;
 	
 	import flash.display.DisplayObject;
 	import flash.geom.Point;
@@ -34,14 +34,12 @@ package com.openflux.layouts
 			
 			container.animator.begin();
 			
-			var child:DisplayObject;
-			var layoutItem:ILayoutItem;
-			var token:PlexiAnimationToken;
+			var child:IUIComponent;
+			var token:AnimationToken;
 			
 			for (var i:int = 0; i < numItems; i++) {
 				child = children[i];
-				layoutItem = new LayoutItem(child as IUIComponent);
-				token = new PlexiAnimationToken(layoutItem.preferredWidth, layoutItem.preferredHeight);
+				token = new AnimationToken(child.getExplicitOrMeasuredWidth(), child.getExplicitOrMeasuredHeight());
 				if (i == selectedIndex) {
 					token.y = rectangle.height / 2 - 100;
 					token.x = -1 * rectangle.width / 2 + 100;
@@ -53,9 +51,11 @@ package com.openflux.layouts
 				}
 				
 				if (i < selectedIndex)
-					token.x += layoutItem.preferredWidth;
+					token.x += token.width;
 				
-				container.animator.moveItem(child, token);
+				token.x = token.x + rectangle.width/2 - token.width/2;
+				token.y = (token.y*-1) + rectangle.height/2 + token.height/2;
+				container.animator.moveItem(child as DisplayObject, token);
 			}
 			
 			container.animator.end();
