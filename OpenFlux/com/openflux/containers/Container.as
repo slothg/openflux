@@ -99,7 +99,7 @@ package com.openflux.containers
 		private var _animator:IAnimator;
 		private var _layout:ILayout;
 		private var layoutChanged:Boolean = false;
-		private var invalidateLayoutFlag = true;
+		private var invalidateLayoutFlag:Boolean = true;
 		
 		[StyleBinding] [Bindable]
 		public function get animator():IAnimator { return _animator; }
@@ -235,7 +235,7 @@ package com.openflux.containers
 				removeChild(o);
 			}
 			_renderers = [];
-			for each(var item:Object in _content) {
+			for each(var item:Object in collection) {
 				addItem(item);
 			}
 			invalidateDisplayList();
