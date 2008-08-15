@@ -38,7 +38,7 @@ package com.openflux.controllers
 		metadata function dragEnterHandler(event:DragEvent):void {
 			// we need better evaluation here.
 			// perhaps integrate with IFluxFactory
-			if(event.dragSource.hasFormat("data")) {
+			if(event.dragSource.hasFormat("items")) {
 				var dropTarget:IUIComponent = event.currentTarget as IUIComponent;
 				DragManager.acceptDragDrop(dropTarget);
 			}
@@ -55,7 +55,7 @@ package com.openflux.controllers
 		}
 		
 		metadata function dragDropHandler(event:DragEvent):void {
-			var data:Object = event.dragSource.dataForFormat("data");
+			var data:Object = event.dragSource.dataForFormat("items")[0];
 			var collection:IList = list.data as IList;
 			
 			if (event.currentTarget == (event.dragInitiator as ListItem).list) {

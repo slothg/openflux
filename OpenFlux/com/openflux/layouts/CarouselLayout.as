@@ -41,7 +41,7 @@ package com.openflux.layouts
 				token.rotationY = (-(i-selectedIndex) * anglePer) * (180 / Math.PI);
 				
 				token.x = token.x + rectangle.width/2 - token.width/2;
-				token.y = (token.y*-1) + rectangle.height/2 + token.height/2;
+				token.y = (token.y*-1) + rectangle.height/2 - token.height/2;
 				animator.moveItem(child as DisplayObject, token);
 			}
 		}

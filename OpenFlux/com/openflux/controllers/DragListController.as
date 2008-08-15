@@ -64,7 +64,7 @@ package com.openflux.controllers
 			// add some data
 			var source:DragSource = new DragSource();
 			if(instance is IDataRenderer) { // need to cover multiple items
-				source.addData((instance as IDataRenderer).data, "data");
+				source.addData([(instance as IDataRenderer).data], "items");
 			}
 			
 			// create image
