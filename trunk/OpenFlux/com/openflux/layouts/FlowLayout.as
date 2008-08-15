@@ -54,7 +54,7 @@ package com.openflux.layouts
 			for (var i:int = 0; i < length; i++) {
 				child = children[i];
 				layoutItem = new LayoutItem(child);
-				token = new AnimationToken(layoutItem.preferredWidth, layoutItem.preferredHeight, xPos, yPos);
+				token = new AnimationToken(child.measuredWidth, child.measuredHeight, xPos, yPos);
 				if(indices && indices.indexOf(i, 0) >= 0) {
 					xPos += token.width + 10;
 					if(xPos > rectangle.width - token.width - space / 2) {
@@ -90,9 +90,8 @@ package com.openflux.layouts
 			
 			for (var i:int = 0; i < len; i++) {
 				child = container.children[i];
-				layoutItem = new LayoutItem(child);
-				width = layoutItem.preferredWidth;
-				height = layoutItem.preferredHeight;
+				width = child.measuredWidth;
+				height = child.measuredHeight;
 				
 				if (x >= xPos - 10 && x <= xPos + width && y >= yPos - 8 && y <= yPos + height)
 					return i;

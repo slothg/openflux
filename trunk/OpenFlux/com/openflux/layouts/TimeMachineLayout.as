@@ -1,9 +1,9 @@
 package com.openflux.layouts
 {
+	import com.openflux.animators.AnimationToken;
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxView;
 	import com.openflux.utils.ListUtil;
-	import com.plexiglass.animators.PlexiAnimationToken;
 	
 	import flash.display.DisplayObject;
 	import flash.geom.Point;
@@ -40,26 +40,26 @@ package com.openflux.layouts
 			
 			container.animator.begin();
 			
-			var child:DisplayObject;
-			var layoutItem:ILayoutItem;
-			var token:PlexiAnimationToken;
+			var child:IUIComponent;
+			var token:AnimationToken;
 			
 			for (var i:int = 0; i < children.length; i++) {
-				child = children[i] as DisplayObject;
-				layoutItem = new LayoutItem(child as IUIComponent);
-				token = new PlexiAnimationToken(layoutItem.preferredWidth, layoutItem.preferredHeight);
+				child = children[i];
+				token = new AnimationToken(child.getExplicitOrMeasuredWidth(), child.getExplicitOrMeasuredHeight());
 				if (i > selectedIndex) {
 					token.x = -(gap * (selectedIndex - i));
 					token.z = -(gap * (selectedIndex - i));
 				} else if (i == selectedIndex) {
 					token.rotationZ = -40;
-					token.x = layoutItem.preferredWidth + gap;
+					token.x = token.width + gap;
 				} else if (i < selectedIndex) {
 					token.x = gap * (i - selectedIndex);
 					token.z = gap * (i - selectedIndex);
 				}
 				
-				container.animator.moveItem(child, token);
+				token.x = token.x + rectangle.width/2 - token.width/2;
+				token.y = (token.y*-1) + rectangle.height/2 + token.height/2;
+				container.animator.moveItem(child as DisplayObject, token);
 			}
 			
 			container.animator.end();
