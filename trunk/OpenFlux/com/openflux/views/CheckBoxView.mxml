@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<flux:Container
-	xmlns:mx="http://www.adobe.com/2006/mxml" 
+<flux:FluxView xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:flux="http://www.openflux.org/2008"
-	xmlns:degrafa="http://www.degrafa.com/2008"
-	width="{17 + lbl.width}" height="14">
-	
-	<mx:Script>
-		<![CDATA[
-			import com.openflux.constants.ButtonStates;
-		]]>
-	</mx:Script>
+	xmlns:degrafa="http://www.degrafa.com/2008">
 	
 	<flux:states>
-		<mx:State name="{ButtonStates.UP}" />
-		<mx:State name="{ButtonStates.OVER}">
+		<mx:State name="up" />
+		<mx:State name="over">
 			<mx:SetProperty target="{fill}" name="color" value="#E5E5E5"/>
 		</mx:State>
-		<mx:State name="{ButtonStates.DOWN}">
+		<mx:State name="down">
 			<mx:SetProperty target="{fill}" name="color" value="#666666"/>
 			<mx:SetProperty target="{stroke}" name="color" value="#FFFFFF"/>
 		</mx:State>
-		<mx:State name="{ButtonStates.SELECTED_OVER}" basedOn="{ButtonStates.OVER}">
+		<mx:State name="selectedOver" basedOn="over">
 			<mx:SetProperty target="{line}" name="alpha" value="1"/>
 		</mx:State>
-		<mx:State name="{ButtonStates.SELECTED_DOWN}" basedOn="{ButtonStates.DOWN}">
+		<mx:State name="selectedDown" basedOn="down">
 			<mx:SetProperty target="{line}" name="alpha" value="1"/>
 		</mx:State>
-		<mx:State name="{ButtonStates.SELECTED_UP}" basedOn="{ButtonStates.UP}">
+		<mx:State name="selectedUp" basedOn="up">
 			<mx:SetProperty target="{line}" name="alpha" value="1"/>
 		</mx:State>
 	</flux:states>
@@ -36,16 +28,19 @@
 	<degrafa:SolidStroke id="stroke" color="#000000" weight="1" caps="round" joints="round" pixelHinting="true" />
 	<degrafa:SolidStroke id="line" color="{stroke.color}" alpha="0" weight="2" caps="round" joints="round" pixelHinting="true" />
 	
-	<!-- drawing the checkbox -->
-	<degrafa:Surface width="14" height="14" verticalCenter="-1">
-		<degrafa:GeometryGroup>
-			<degrafa:RegularRectangle fill="{fill}" stroke="{stroke}" x="0" y="0" width="14" height="14"/>
-			<degrafa:Line x="3" y="3" x1="12" y1="12" stroke="{line}" />
-			<degrafa:Line x="3" y="12" x1="12" y1="3" stroke="{line}" />
-		</degrafa:GeometryGroup>
-	</degrafa:Surface>
+	<flux:content>
+		
+		<!-- drawing the checkbox -->
+		<degrafa:Surface width="14" height="14" verticalCenter="-1">
+			<degrafa:GeometryGroup>
+				<degrafa:RegularRectangle fill="{fill}" stroke="{stroke}" x="0" y="0" width="14" height="14"/>
+				<degrafa:Line x="3" y="3" x1="12" y1="12" stroke="{line}" />
+				<degrafa:Line x="3" y="12" x1="12" y1="3" stroke="{line}" />
+			</degrafa:GeometryGroup>
+		</degrafa:Surface>
+		
+		<!-- here's the label -->
+		<mx:Label id="lbl" text="{component.label}" left="17" verticalCenter="1" />
+	</flux:content>
 	
-	<!-- here's the label -->
-	<mx:Label id="lbl" text="{component.label}" left="17" verticalCenter="1" />
-	
-</flux:Container>
+</flux:FluxView>

@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<flux:Container xmlns:mx="http://www.adobe.com/2006/mxml" 
+<flux:FluxView xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:flux="http://www.openflux.org/2008" 
 	xmlns:degrafa="http://www.degrafa.com/2008" 
 	mouseChildren="false" >
 	
-	<mx:Script>
-		<![CDATA[
-			import com.openflux.constants.ButtonStates;
-			
-			//[Bindable] [StyleBinding] public var color:uint = 0xCCCCCC;
-			
-		]]>
-	</mx:Script>
-	
 	<flux:states>
-		<mx:State name="{ButtonStates.UP}" />
-		<mx:State name="{ButtonStates.OVER}">
+		<mx:State name="up" />
+		<mx:State name="over">
 			<mx:SetProperty target="{fill}" name="color" value="#E5E5E5" />
 		</mx:State>
-		<mx:State name="{ButtonStates.DOWN}">
+		<mx:State name="down">
 			<mx:SetProperty target="{fill}" name="color" value="#666666" />
 			<mx:SetProperty target="{stroke}" name="color" value="#FFFFFF" />
 		</mx:State>
@@ -29,11 +20,20 @@
 	<degrafa:SolidStroke id="stroke" color="#000000" weight="1" caps="round" joints="round" pixelHinting="true" />
 	
 	<!-- drawing the background -->
+	<!--
 	<degrafa:GeometryComposition graphicsTarget="{[this]}">
 		<degrafa:RegularRectangle x="0" y="0" width="{width}" height="{height}" fill="{fill}" stroke="{stroke}" />
 	</degrafa:GeometryComposition>
+	-->
 	
-	<!-- here's the label -->
-	<mx:Label text="{component.label}" color="{stroke.color as uint}" horizontalCenter="0" verticalCenter="1" />
+	<flux:content>
+		<degrafa:Surface id="surface" >
+			<degrafa:GeometryGroup>
+				<degrafa:RoundedRectangle width="{width}" height="{height}" fill="{fill}" stroke="{stroke}" />
+			</degrafa:GeometryGroup>
+		</degrafa:Surface>
+		<!-- here's the label -->
+		<mx:Label text="{'super test'}" color="{stroke.color as uint}" left="10" right="10" verticalCenter="1" />
+	</flux:content>
 	
-</flux:Container>
+</flux:FluxView>

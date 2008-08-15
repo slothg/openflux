@@ -75,8 +75,9 @@ package com.plexiglass.containers
 			}
 			super.createChildren();
 			viewContainer = new UIComponent();
-			rawChildren.addChild(viewContainer);
-			rawChildren.addChild(container);
+			// no more rawChildren, but might of broke something here :-)
+			addChild(viewContainer); //rawChildren.addChild(viewContainer);
+			addChild(container); //rawChildren.addChild(container);
 			viewContainer.addChild(view);
 			addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 			if (!camera) {
