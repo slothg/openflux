@@ -54,10 +54,10 @@ package com.plexiglass.cameras
 		
 		override protected function onEnterFrame(event:Event):void
 		{
-			if (container.width > 0) {
+			if (container.width > 0)
 				hcamera.targetpanangle = Math.min(80,Math.max(-80,(container.width/2 - container.mouseX)/(container.width/2)*_maxAngle));
-				hcamera.hover();
-			}
+				
+			hcamera.hover();
 		}
 		
 	}
