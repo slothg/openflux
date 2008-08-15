@@ -18,7 +18,7 @@
 	</mx:ArrayCollection>
 	
 	<!-- list -->
-	<flux:List id="list" width="100%" height="100%"
+	<flux:List id="list" left="20" right="20" top="20" bottom="20" 
 		data="{data}" layout="{list.selectedItems.getItemAt(0).layout as ILayout}" />
 	
 </mx:Application>
