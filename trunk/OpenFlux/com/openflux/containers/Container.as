@@ -121,14 +121,15 @@ package com.openflux.containers
 		}
 		
 		public function get children():Array {
-			var arr:Array = [];
+			/*var arr:Array = [];
 			var count:int = numChildren;
 			for (var i:int = 0; i < count; i++) {
 				var child:IUIComponent = getChildAt(i) as IUIComponent;
 				if (child && child.includeInLayout)
 					arr.push(child);
 			}
-			return arr;
+			return arr;*/
+			return _renderers;
 		}
 		
 		

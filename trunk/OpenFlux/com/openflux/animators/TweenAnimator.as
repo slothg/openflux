@@ -70,7 +70,7 @@ package com.openflux.animators
 			token.alpha = 0;
 			token.onComplete = callback;
 			token.onCompleteParams = [item];
-			//Tweener.addTween(item, token);
+			Tweener.addTween(item, token);
 		}
 		
 		private function getActualWidth(item:IUIComponent, parameters:Array, ...args):Number { return item.width; }

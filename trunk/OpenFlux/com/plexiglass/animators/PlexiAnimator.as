@@ -53,8 +53,8 @@ package com.plexiglass.animators
 			if(container is IPlexiContainer) {
 				var pv:IPlexiContainer = container as IPlexiContainer;
 				var plane:Plane = pv.getChildPlane(item as UIComponent);
-				token.x = token.x - container.width / 2 + item.width / 2;
-				token.y = (token.y - container.height / 2 + item.height / 2) * -1;
+				token.x = token.x - container.width / 2 + token.width / 2;
+				token.y = (token.y - container.height / 2 + token.height / 2) * -1;
 				Tweener.addTween(plane, createTweenParameters3d(token, time));
 			} else { 
 				var parameters:Object = createTweenParameters(token, 1);
