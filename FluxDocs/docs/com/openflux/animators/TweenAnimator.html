@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="TweenAnimator,com.openflux.animators.TweenAnimator,EASE_OUT_BOUNCE,EASE_OUT_EXPO,TRANSITION_LINEAR,time,transition,addItem,attach,begin,detach,end,isAnimating,moveItem,removeItem" name="keywords">
+<meta content="TweenAnimator,com.openflux.animators.TweenAnimator,EASE_OUT_BOUNCE,EASE_OUT_EXPO,TRANSITION_LINEAR,time,transition,addItem,adjustItem,attach,begin,detach,end,moveItem,removeItem" name="keywords">
 <title>com.openflux.animators.TweenAnimator</title>
 </head>
 <body>
@@ -60,7 +60,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol">TweenAnimator</td>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#transition">transition</a> : String = "easeOutExpo"<div class="summaryTableDescription">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#transition">transition</a> : String = "easeOutBounce"<div class="summaryTableDescription">
    The transition path on which to animate a component.</div>
 </td><td class="summaryTableOwnerCol">TweenAnimator</td>
 </tr>
@@ -76,7 +76,21 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#addItem()">addItem</a>(item:Object, token:Object):void</div>
+<a class="signatureLink" href="#TweenAnimator()">TweenAnimator</a>()</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">TweenAnimator</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#addItem()">addItem</a>(item:DisplayObject):void</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol">TweenAnimator</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#adjustItem()">adjustItem</a>(item:DisplayObject, token:<a href="AnimationToken.html">AnimationToken</a>):void</div>
 <div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">TweenAnimator</td>
 </tr>
@@ -111,21 +125,14 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#isAnimating()">isAnimating</a>():Boolean</div>
+<a class="signatureLink" href="#moveItem()">moveItem</a>(item:DisplayObject, token:<a href="AnimationToken.html">AnimationToken</a>):void</div>
 <div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">TweenAnimator</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#moveItem()">moveItem</a>(item:Object, token:Object):void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">TweenAnimator</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="#removeItem()">removeItem</a>(item:Object):void</div>
+<a class="signatureLink" href="#removeItem()">removeItem</a>(item:DisplayObject, callback:Function):void</div>
 <div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">TweenAnimator</td>
 </tr>
@@ -176,9 +183,20 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public var transition:String = "easeOutExpo"</code><p>
+<code>public var transition:String = "easeOutBounce"</code><p>
    The transition path on which to animate a component.
    </p></div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="TweenAnimator()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">TweenAnimator</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function TweenAnimator()</code>
+</div>
 <a name="methodDetail"></a>
 <div class="detailSectionHeader">Method detail</div>
 <a name="addItem()"></a>
@@ -188,16 +206,30 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function addItem(item:Object, token:Object):void</code><span class="label">Parameters</span>
+<code>public function addItem(item:DisplayObject):void</code><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">item</span>:Object</code></td>
+<td width="20px"></td><td><code><span class="label">item</span>:DisplayObject</code></td>
+</tr>
+</table>
+</div>
+<a name="adjustItem()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">adjustItem</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function adjustItem(item:DisplayObject, token:<a href="AnimationToken.html">AnimationToken</a>):void</code><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">item</span>:DisplayObject</code></td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">token</span>:Object</code></td>
+<td width="20px"></td><td><code><span class="label">token</span>:<a href="AnimationToken.html">AnimationToken</a></code></td>
 </tr>
 </table>
 </div>
@@ -247,22 +279,6 @@ showHideInherited();
 <div class="detailBody">
 <code>public function end():void</code>
 </div>
-<a name="isAnimating()"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">isAnimating</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>public function isAnimating():Boolean</code>
-<p></p>
-<span class="label">Returns</span>
-<table border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td width="20"></td><td><code>Boolean</code></td>
-</tr>
-</table>
-</div>
 <a name="moveItem()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -270,16 +286,16 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function moveItem(item:Object, token:Object):void</code><span class="label">Parameters</span>
+<code>public function moveItem(item:DisplayObject, token:<a href="AnimationToken.html">AnimationToken</a>):void</code><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">item</span>:Object</code></td>
+<td width="20px"></td><td><code><span class="label">item</span>:DisplayObject</code></td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">token</span>:Object</code></td>
+<td width="20px"></td><td><code><span class="label">token</span>:<a href="AnimationToken.html">AnimationToken</a></code></td>
 </tr>
 </table>
 </div>
@@ -290,10 +306,16 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function removeItem(item:Object):void</code><span class="label">Parameters</span>
+<code>public function removeItem(item:DisplayObject, callback:Function):void</code><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">item</span>:Object</code></td>
+<td width="20px"></td><td><code><span class="label">item</span>:DisplayObject</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">callback</span>:Function</code></td>
 </tr>
 </table>
 </div>

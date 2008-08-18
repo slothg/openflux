@@ -52,8 +52,8 @@
 			<arg line="-package com.openflux.views 'Views are responsible for the graphical representation of a component.'" />
 				
 			<!-- run documentation on the manifest file -->
-			<arg line="-namespace http://openflux.googlecode.com ${core.src.dir}/openflux.xml " />
-			<arg line="-doc-namespaces http://openflux.googlecode.com " />
+			<arg line="-namespace http://www.openflux.org/2008 ${core.src.dir}/openflux.xml " />
+			<arg line="-doc-namespaces http://www.openflux.org/2008" />
 			
 		</exec>
 	</target>

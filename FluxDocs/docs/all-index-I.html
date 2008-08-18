@@ -42,7 +42,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
   Defines the interface used by animators.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/openflux/views/class-list.html');" href="com/openflux/views/IDataView.html"><i>IDataView</i></a> &mdash; Interface in package <a onclick="javascript:loadClassListFrame('com/openflux/views/class-list.html');" href="com/openflux/views/package-detail.html">com.openflux.views</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/plexiglass/cameras/class-list.html');" href="com/plexiglass/cameras/ICamera.html"><i>ICamera</i></a> &mdash; Interface in package <a onclick="javascript:loadClassListFrame('com/plexiglass/cameras/class-list.html');" href="com/plexiglass/cameras/package-detail.html">com.plexiglass.cameras</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/openflux/containers/class-list.html');" href="com/openflux/containers/IDataView.html"><i>IDataView</i></a> &mdash; Interface in package <a onclick="javascript:loadClassListFrame('com/openflux/containers/class-list.html');" href="com/openflux/containers/package-detail.html">com.openflux.containers</a></td>
 </tr>
 <tr>
 <td width="20"></td><td></td>
@@ -51,7 +57,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/openflux/layouts/class-list.html');" href="com/openflux/layouts/IDragLayout.html"><i>IDragLayout</i></a> &mdash; Interface in package <a onclick="javascript:loadClassListFrame('com/openflux/layouts/class-list.html');" href="com/openflux/layouts/package-detail.html">com.openflux.layouts</a></td>
 </tr>
 <tr>
-<td width="20"></td><td></td>
+<td width="20"></td><td>
+  Used by layout classes that support visual feedback of drag and drop operations.</td>
 </tr>
 <tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/openflux/core/class-list.html');" href="com/openflux/core/IEnabled.html"><i>IEnabled</i></a> &mdash; Interface in package <a onclick="javascript:loadClassListFrame('com/openflux/core/class-list.html');" href="com/openflux/core/package-detail.html">com.openflux.core</a></td>
@@ -86,6 +93,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
   Defines the interface which all Flux controllers extending from this library must implement.</td>
 </tr>
 <tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/openflux/core/class-list.html');" href="com/openflux/core/IFluxFactory.html"><i>IFluxFactory</i></a> &mdash; Interface in package <a onclick="javascript:loadClassListFrame('com/openflux/core/class-list.html');" href="com/openflux/core/package-detail.html">com.openflux.core</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
+</tr>
+<tr>
 <td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/openflux/core/class-list.html');" href="com/openflux/core/IFluxList.html"><i>IFluxList</i></a> &mdash; Interface in package <a onclick="javascript:loadClassListFrame('com/openflux/core/class-list.html');" href="com/openflux/core/package-detail.html">com.openflux.core</a></td>
 </tr>
 <tr>
@@ -115,10 +128,10 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
 </tr>
 <tr>
 <td width="20"></td><td>
-  Used to layout items in containers, lists, etc.</td>
+  Used to organize the layout of children in containers, lists, and related components.</td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/openflux/utils/class-list.html');" href="com/openflux/utils/MetaBinder.html#initialize()">initialize</a>(target) &mdash; Static method in class com.openflux.utils.<a onclick="javascript:loadClassListFrame('com/openflux/utils/class-list.html');" href="com/openflux/utils/MetaBinder.html">MetaBinder</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/openflux/layouts/class-list.html');" href="com/openflux/layouts/ILayoutItem.html"><i>ILayoutItem</i></a> &mdash; Interface in package <a onclick="javascript:loadClassListFrame('com/openflux/layouts/class-list.html');" href="com/openflux/layouts/package-detail.html">com.openflux.layouts</a></td>
 </tr>
 <tr>
 <td width="20"></td><td></td>
@@ -130,19 +143,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
 <td width="20"></td><td></td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/openflux/containers/class-list.html');" href="com/openflux/containers/Container.html#invalidateLayout()">invalidateLayout</a>() &mdash; Method in class com.openflux.containers.<a onclick="javascript:loadClassListFrame('com/openflux/containers/class-list.html');" href="com/openflux/containers/Container.html">Container</a></td>
-</tr>
-<tr>
-<td width="20"></td><td></td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/openflux/containers/class-list.html');" href="com/openflux/containers/IFluxContainer.html#invalidateLayout()">invalidateLayout</a>() &mdash; Method in interface com.openflux.containers.<a onclick="javascript:loadClassListFrame('com/openflux/containers/class-list.html');" href="com/openflux/containers/IFluxContainer.html">IFluxContainer</a></td>
-</tr>
-<tr>
-<td width="20"></td><td></td>
-</tr>
-<tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/openflux/animators/class-list.html');" href="com/openflux/animators/TweenAnimator.html#isAnimating()">isAnimating</a>() &mdash; Method in class com.openflux.animators.<a onclick="javascript:loadClassListFrame('com/openflux/animators/class-list.html');" href="com/openflux/animators/TweenAnimator.html">TweenAnimator</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/plexiglass/containers/class-list.html');" href="com/plexiglass/containers/IPlexiContainer.html"><i>IPlexiContainer</i></a> &mdash; Interface in package <a onclick="javascript:loadClassListFrame('com/plexiglass/containers/class-list.html');" href="com/plexiglass/containers/package-detail.html">com.plexiglass.containers</a></td>
 </tr>
 <tr>
 <td width="20"></td><td></td>
@@ -154,7 +155,25 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("IÂ
 <td width="20"></td><td></td>
 </tr>
 <tr>
-<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/openflux/class-list.html');" href="com/openflux/List.html#style:itemRenderer">itemRenderer</a> &mdash; Style in class com.openflux.<a onclick="javascript:loadClassListFrame('com/openflux/class-list.html');" href="com/openflux/List.html">List</a></td>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/openflux/class-list.html');" href="com/openflux/List.html#event:itemClick">itemClick</a> &mdash; Event in class com.openflux.<a onclick="javascript:loadClassListFrame('com/openflux/class-list.html');" href="com/openflux/List.html">List</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/openflux/class-list.html');" href="com/openflux/List.html#event:itemDoubleClick">itemDoubleClick</a> &mdash; Event in class com.openflux.<a onclick="javascript:loadClassListFrame('com/openflux/class-list.html');" href="com/openflux/List.html">List</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/openflux/class-list.html');" href="com/openflux/List.html#event:itemRollOut">itemRollOut</a> &mdash; Event in class com.openflux.<a onclick="javascript:loadClassListFrame('com/openflux/class-list.html');" href="com/openflux/List.html">List</a></td>
+</tr>
+<tr>
+<td width="20"></td><td></td>
+</tr>
+<tr>
+<td colspan="2" class="idxrow"><a onclick="javascript:loadClassListFrame('com/openflux/class-list.html');" href="com/openflux/List.html#event:itemRollOver">itemRollOver</a> &mdash; Event in class com.openflux.<a onclick="javascript:loadClassListFrame('com/openflux/class-list.html');" href="com/openflux/List.html">List</a></td>
 </tr>
 <tr>
 <td width="20"></td><td></td>
