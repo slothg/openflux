@@ -2,9 +2,11 @@
 <flux:FluxView
 	xmlns:flux="http://www.openflux.org/2008"
 	xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:degrafa="http://www.degrafa.com/2007">
-	<mx:Button id="upButton" label="up" left="0" right="0" top="0" />
-	<mx:Button id="downButton" label="dn" left="0" right="0" bottom="0" />
-	<mx:Button id="track" left="0" right="0" top="50" bottom="50" />
-	<mx:Button id="thumb" left="5" right="5" top="{track.y+(track.height-thumb.height)*(component.position/(component.max-component.min))}" />
+	xmlns:degrafa="http://www.degrafa.com/2008">
+	<flux:content>
+		<mx:Button id="upButton" label="up" left="0" right="0" top="0" />
+		<mx:Button id="downButton" label="dn" left="0" right="0" bottom="0" />
+		<mx:Button id="track" left="0" right="0" top="50" bottom="50" />
+		<mx:Button id="thumb" left="5" right="5" top="{track.y+(track.height-thumb.height)*(component.position/(component.max-component.min))}" />
+	</flux:content>
 </flux:FluxView>

@@ -33,7 +33,7 @@
 			</degrafa:GeometryGroup>
 		</degrafa:Surface>
 		<!-- here's the label -->
-		<mx:Label text="{'super test'}" color="{stroke.color as uint}" left="10" right="10" verticalCenter="1" />
+		<mx:Label text="{component.label}" color="{stroke.color as uint}" left="10" right="10" verticalCenter="1" />
 	</flux:content>
 	
 </flux:FluxView>
