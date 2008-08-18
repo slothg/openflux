@@ -1,6 +1,0 @@
-/* CSS file */
-
-.checkbox {
-	selectable: true;
-	view: ClassReference("com.openflux.views.CheckBoxView");
-}
