@@ -7,7 +7,6 @@ package com.openflux.layouts
 	import flash.geom.Rectangle;
 	
 	import mx.core.IUIComponent;
-	import mx.core.UIComponent;
 
 	public class FlowLayout extends LayoutBase implements ILayout, IDragLayout
 	{
@@ -23,11 +22,9 @@ package com.openflux.layouts
 		
 		public function measure(children:Array):Point {
 			var point:Point = new Point();
-			var layoutItem:LayoutItem;
-			for each(var child:UIComponent in container.children) {
-				layoutItem = new LayoutItem(child);
-				point.x = Math.max(layoutItem.preferredWidth, point.x);
-				point.y += layoutItem.preferredHeight + 10;
+			for each(var child:IUIComponent in container.children) {
+				point.x = Math.max(child.getExplicitOrMeasuredWidth(), point.x);
+				point.y += child.getExplicitOrMeasuredHeight() + 10;
 			}
 			return point;
 		}
@@ -48,13 +45,11 @@ package com.openflux.layouts
 			var length:int = children.length;
 			//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
 			var child:IUIComponent;
-			var layoutItem:LayoutItem;
 			var token:AnimationToken;
 			
 			for (var i:int = 0; i < length; i++) {
 				child = children[i];
-				layoutItem = new LayoutItem(child);
-				token = new AnimationToken(child.measuredWidth, child.measuredHeight, xPos, yPos);
+				token = new AnimationToken(child.getExplicitOrMeasuredWidth(), child.getExplicitOrMeasuredHeight(), xPos, yPos);
 				if(indices && indices.indexOf(i, 0) >= 0) {
 					xPos += token.width + 10;
 					if(xPos > rectangle.width - token.width - space / 2) {
@@ -83,15 +78,15 @@ package com.openflux.layouts
 			var yPos:Number = space / 2;
 			var len:int = container.children.length;
 			//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
-			var child:UIComponent;
+			var child:IUIComponent;
 			var layoutItem:LayoutItem;
 			var width:Number;
 			var height:Number;
 			
 			for (var i:int = 0; i < len; i++) {
 				child = container.children[i];
-				width = child.measuredWidth;
-				height = child.measuredHeight;
+				width = child.getExplicitOrMeasuredWidth();
+				height = child.getExplicitOrMeasuredHeight();
 				
 				if (x >= xPos - 10 && x <= xPos + width && y >= yPos - 8 && y <= yPos + height)
 					return i;
@@ -109,14 +104,12 @@ package com.openflux.layouts
 		private function measureGrid():Point {
 			
 			var point:Point = new Point();
-			var layoutItem:LayoutItem;
 			var w:Number;
 			var h:Number;
 				
-			for each(var child:UIComponent in container.children) {
-				layoutItem = new LayoutItem(child);
-				w = layoutItem.preferredWidth;
-				h = layoutItem.preferredHeight;
+			for each(var child:IUIComponent in container.children) {
+				w = child.getExplicitOrMeasuredWidth();
+				h = child.getExplicitOrMeasuredHeight();
 				if(w > point.x) {
 					point.x = w;
 				}

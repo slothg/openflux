@@ -56,7 +56,7 @@ package com.openflux.layouts
                 token.y = Math.sin((i+m) * angle) * radius;
                 token.z = zPos += _gap;
                 
-				if (indices.indexOf(i)) {
+				if (indices.indexOf(i) != -1) {
 					token.z = zPos += _gap;
 					m++;
 				}

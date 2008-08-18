@@ -61,5 +61,6 @@
     <component id="PlexiListView" class="com.plexiglass.views.PlexiListView" />
     <component id="SimpleCamera" class="com.plexiglass.cameras.SimpleCamera" />
     <component id="HoverCamera" class="com.plexiglass.cameras.HoverCamera" />
+    <component id="ZoomCamera" class="com.plexiglass.cameras.ZoomCamera" />
     
 </componentPackage>    

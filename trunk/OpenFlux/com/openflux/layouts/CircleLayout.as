@@ -7,7 +7,6 @@ package com.openflux.layouts
 	import flash.geom.Rectangle;
 	
 	import mx.core.IUIComponent;
-	import mx.utils.ObjectUtil;
 
 	public class CircleLayout extends LayoutBase implements ILayout, IDragLayout
 	{

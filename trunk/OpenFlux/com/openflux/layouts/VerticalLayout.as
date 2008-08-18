@@ -18,7 +18,6 @@ package com.openflux.layouts
 		public function measure(children:Array):Point {
 			var point:Point = new Point(0, 0);
 			for each(var child:IUIComponent in children) {
-				var li:LayoutItem = new LayoutItem(child);
 				point.x = Math.max(child.getExplicitOrMeasuredWidth(), point.x);
 				point.y += child.getExplicitOrMeasuredHeight() + gap;
 			}
@@ -50,13 +49,13 @@ package com.openflux.layouts
 		
 		public function findIndexAt(children:Array, x:Number, y:Number):int {
 			
-			var closest:DisplayObject;
+			var closest:IUIComponent;
 			var closestDistance:Number = Number.MAX_VALUE;
 			
 			// find the closest child
 			var length:int = children.length;
-			for each(var child:DisplayObject in children) {
-				var distance:Number = y - (child.y+child.height/2);
+			for each(var child:IUIComponent in children) {
+				var distance:Number = y - (child.y+child.getExplicitOrMeasuredHeight()/2);
 				if(Math.abs(distance) < Math.abs(closestDistance)) {
 					closest = child;
 					closestDistance = distance;

@@ -3,7 +3,7 @@ package com.openflux.layouts
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
-	import mx.core.UIComponent;
+	import mx.core.IUIComponent;
 
 	public class ContraintLayout extends LayoutBase implements ILayout
 	{
@@ -19,7 +19,7 @@ package com.openflux.layouts
 			var minWidth:Number = 0;
 			var minHeight:Number = 0;
 			
-			for each (var child:UIComponent in children) {
+			for each (var child:IUIComponent in children) {
 				var li:ILayoutItem = new LayoutItem(child);
 				
 				var left:Number   = li.getConstraint("left");
@@ -59,7 +59,7 @@ package com.openflux.layouts
 		}
 		
 		public function update(children:Array, rectangle:Rectangle):void {	
-	        for each (var child:UIComponent in children) {
+	        for each (var child:IUIComponent in children) {
 	            var li:ILayoutItem = new LayoutItem(child);
 	            
 	            var hCenter:Number = li.getConstraint("horizontalCenter");

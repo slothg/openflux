@@ -5,11 +5,11 @@ package com.plexiglass.containers
 	
 	import com.openflux.containers.IFluxContainer;
 	
-	import mx.core.UIComponent;
+	import mx.core.IUIComponent;
 	
 	public interface IPlexiContainer extends IFluxContainer
 	{
 		function get view():View3D;
-		function getChildPlane(child:UIComponent):Plane;
+		function getChildPlane(child:IUIComponent):Plane;
 	}
 }

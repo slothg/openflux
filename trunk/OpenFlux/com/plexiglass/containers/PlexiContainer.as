@@ -18,6 +18,7 @@ package com.plexiglass.containers
 	import flash.utils.Dictionary;
 	
 	import mx.containers.Canvas;
+	import mx.core.IUIComponent;
 	import mx.core.UIComponent;
 	import mx.events.ChildExistenceChangedEvent;
 	import mx.styles.IStyleClient;
@@ -46,7 +47,7 @@ package com.plexiglass.containers
 		
 		override public function get children():Array { return _renderers; }
 		
-		public function getChildPlane(child:UIComponent):Plane {
+		public function getChildPlane(child:IUIComponent):Plane {
 			return planes[child];
 		}
 		
