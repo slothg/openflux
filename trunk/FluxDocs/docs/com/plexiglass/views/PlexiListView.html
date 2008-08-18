@@ -38,7 +38,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="classHeaderTableLabel">Class</td><td class="classSignature">public class PlexiListView</td>
 </tr>
 <tr>
-<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">PlexiListView <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> <a href="PlexiDataView.html">PlexiDataView</a> <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> <a href="../../openflux/views/DataView.html">DataView</a> <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> <a href="../../openflux/containers/Container.html">Container</a> <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> <a href="../../openflux/core/FluxView.html">FluxView</a> <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> mx.containers.Canvas</td>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">PlexiListView <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> <a href="../core/PlexiView.html">PlexiView</a> <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> <a href="../containers/PlexiContainer.html">PlexiContainer</a> <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> <a href="../../openflux/containers/Container.html">Container</a> <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> mx.core.UIComponent</td>
 </tr>
 <tr>
 <td class="classHeaderTableLabel">Implements</td><td>mx.binding.IBindingClient</td>
@@ -70,26 +70,35 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol"><a href="../../openflux/containers/Container.html">Container</a></td>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="PlexiDataView.html#camera">camera</a> : Camera3D<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="PlexiDataView.html">PlexiDataView</a></td>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../containers/PlexiContainer.html#camera">camera</a> : <a href="../cameras/ICamera.html">ICamera</a>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../containers/PlexiContainer.html">PlexiContainer</a></td>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../openflux/views/DataView.html#children">children</a> : Array<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="../../openflux/views/DataView.html">DataView</a></td>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../containers/PlexiContainer.html#children">children</a> : Array<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../containers/PlexiContainer.html">PlexiContainer</a></td>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../openflux/views/DataView.html#collection">collection</a> : Object<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="../../openflux/views/DataView.html">DataView</a></td>
-</tr>
-<tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../openflux/core/FluxView.html#component">component</a> : Object<div class="summaryTableDescription">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/PlexiView.html#component">component</a> : Object<div class="summaryTableDescription">
    Stores the component model instance
    </div>
-</td><td class="summaryTableOwnerCol"><a href="../../openflux/core/FluxView.html">FluxView</a></td>
+</td><td class="summaryTableOwnerCol"><a href="../core/PlexiView.html">PlexiView</a></td>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../openflux/views/DataView.html#dragTargetIndex">dragTargetIndex</a> : int<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="../../openflux/views/DataView.html">DataView</a></td>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../openflux/containers/Container.html#content">content</a> : *<div class="summaryTableDescription">
+   Holds data (like dataProvider) or UIComponents
+   </div>
+</td><td class="summaryTableOwnerCol"><a href="../../openflux/containers/Container.html">Container</a></td>
+</tr>
+<tr class="hideInheritedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../openflux/containers/Container.html#data">data</a> : Object<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../../openflux/containers/Container.html">Container</a></td>
+</tr>
+<tr class="hideInheritedProperty">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../openflux/containers/Container.html#factory">factory</a> : Object<div class="summaryTableDescription">
+   Item renderer
+   </div>
+</td><td class="summaryTableOwnerCol"><a href="../../openflux/containers/Container.html">Container</a></td>
 </tr>
 <tr class="hideInheritedProperty">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../openflux/containers/Container.html#layout">layout</a> : <a href="../../openflux/layouts/ILayout.html">ILayout</a>
@@ -97,20 +106,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol"><a href="../../openflux/containers/Container.html">Container</a></td>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../openflux/views/DataView.html#renderer">renderer</a> : IFactory<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="../../openflux/views/DataView.html">DataView</a></td>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/PlexiView.html#state">state</a> : String<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../core/PlexiView.html">PlexiView</a></td>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="PlexiDataView.html#selectedIndex">selectedIndex</a> : Number<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="PlexiDataView.html">PlexiDataView</a></td>
-</tr>
-<tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../openflux/core/FluxView.html#state">state</a> : String<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="../../openflux/core/FluxView.html">FluxView</a></td>
-</tr>
-<tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../../openflux/containers/Container.html#tokens">tokens</a> : Dictionary<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="../../openflux/containers/Container.html">Container</a></td>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../containers/PlexiContainer.html#view">view</a> : View3D<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../containers/PlexiContainer.html">PlexiContainer</a></td>
 </tr>
 </table>
 </div>
@@ -132,23 +133,44 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="../../openflux/containers/Container.html#invalidateLayout()">invalidateLayout</a>():void</div>
+<a class="signatureLink" href="../containers/PlexiContainer.html#addChild()">addChild</a>(child:DisplayObject):DisplayObject</div>
 <div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="../../openflux/containers/Container.html">Container</a></td>
+</td><td class="summaryTableOwnerCol"><a href="../containers/PlexiContainer.html">PlexiContainer</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="../../openflux/containers/Container.html#styleChanged()">styleChanged</a>(styleProp:String):void</div>
+<a class="signatureLink" href="../containers/PlexiContainer.html#addChildAt()">addChildAt</a>(child:DisplayObject, index:int):DisplayObject</div>
 <div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="../../openflux/containers/Container.html">Container</a></td>
+</td><td class="summaryTableOwnerCol"><a href="../containers/PlexiContainer.html">PlexiContainer</a></td>
 </tr>
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="../../openflux/containers/Container.html#stylesInitialized()">stylesInitialized</a>():void</div>
+<a class="signatureLink" href="../containers/PlexiContainer.html#getChildAt()">getChildAt</a>(index:int):DisplayObject</div>
 <div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="../../openflux/containers/Container.html">Container</a></td>
+</td><td class="summaryTableOwnerCol"><a href="../containers/PlexiContainer.html">PlexiContainer</a></td>
+</tr>
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../containers/PlexiContainer.html#getChildPlane()">getChildPlane</a>(child:UIComponent):Plane</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../containers/PlexiContainer.html">PlexiContainer</a></td>
+</tr>
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../containers/PlexiContainer.html#removeChild()">removeChild</a>(child:DisplayObject):DisplayObject</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../containers/PlexiContainer.html">PlexiContainer</a></td>
+</tr>
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../containers/PlexiContainer.html#removeChildAt()">removeChildAt</a>(index:int):DisplayObject</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../containers/PlexiContainer.html">PlexiContainer</a></td>
 </tr>
 </table>
 </div>
@@ -170,44 +192,37 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="hideInheritedProtectedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="PlexiDataView.html#addItem()">addItem</a>(item:Object, index:int = 0):void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="PlexiDataView.html">PlexiDataView</a></td>
-</tr>
-<tr class="hideInheritedProtectedMethod">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="../../openflux/views/DataView.html#collectionReset()">collectionReset</a>():void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="../../openflux/views/DataView.html">DataView</a></td>
-</tr>
-<tr class="hideInheritedProtectedMethod">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="../../openflux/views/DataView.html#commitProperties()">commitProperties</a>():void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="../../openflux/views/DataView.html">DataView</a></td>
-</tr>
-<tr class="hideInheritedProtectedMethod">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="PlexiDataView.html#createChildren()">createChildren</a>():void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="PlexiDataView.html">PlexiDataView</a></td>
-</tr>
-<tr class="hideInheritedProtectedMethod">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="../../openflux/containers/Container.html#measure()">measure</a>():void</div>
+<a class="signatureLink" href="../../openflux/containers/Container.html#addItem()">addItem</a>(item:Object, index:int = -1):void</div>
 <div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol"><a href="../../openflux/containers/Container.html">Container</a></td>
 </tr>
 <tr class="hideInheritedProtectedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="PlexiDataView.html#updateDisplayList()">updateDisplayList</a>(unscaledWidth:Number, unscaledHeight:Number):void</div>
+<a class="signatureLink" href="../../openflux/containers/Container.html#contentReset()">contentReset</a>():void</div>
 <div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="PlexiDataView.html">PlexiDataView</a></td>
+</td><td class="summaryTableOwnerCol"><a href="../../openflux/containers/Container.html">Container</a></td>
+</tr>
+<tr class="hideInheritedProtectedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../containers/PlexiContainer.html#createChildren()">createChildren</a>():void</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../containers/PlexiContainer.html">PlexiContainer</a></td>
+</tr>
+<tr class="hideInheritedProtectedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../../openflux/containers/Container.html#removeItem()">removeItem</a>(item:Object, index:int = -1):void</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../../openflux/containers/Container.html">Container</a></td>
+</tr>
+<tr class="hideInheritedProtectedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../containers/PlexiContainer.html#updateDisplayList()">updateDisplayList</a>(unscaledWidth:Number, unscaledHeight:Number):void</div>
+<div class="summaryTableDescription"></div>
+</td><td class="summaryTableOwnerCol"><a href="../containers/PlexiContainer.html">PlexiContainer</a></td>
 </tr>
 </table>
 </div>

@@ -38,11 +38,11 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("In
 <td class="classHeaderTableLabel">Interface</td><td class="classSignature">public interface ILayout</td>
 </tr>
 <tr>
-<td class="classHeaderTableLabel">Implementors</td><td><a href="../layouts/CircleLayout.html">CircleLayout</a>, <a href="../../plexiglass/layouts/CoverFlowLayout.html">CoverFlowLayout</a>, <a href="../layouts/FlowLayout.html">FlowLayout</a>, <a href="../layouts/HorizontalLayout.html">HorizontalLayout</a>, <a href="../layouts/VerticalLayout.html">VerticalLayout</a></td>
+<td class="classHeaderTableLabel">Implementors</td><td><a href="../layouts/CarouselLayout.html">CarouselLayout</a>, <a href="../layouts/CircleLayout.html">CircleLayout</a>, <a href="../layouts/ContraintLayout.html">ContraintLayout</a>, <a href="../layouts/CoverFlowLayout.html">CoverFlowLayout</a>, <a href="../layouts/FlowLayout.html">FlowLayout</a>, <a href="../layouts/HorizontalLayout.html">HorizontalLayout</a>, <a href="../layouts/LayoutItem.html">LayoutItem</a>, <a href="../layouts/SpiralLayout.html">SpiralLayout</a>, <a href="../layouts/TimeMachineLayout.html">TimeMachineLayout</a>, <a href="../layouts/TopLeftLayout.html">TopLeftLayout</a>, <a href="../layouts/VerticalLayout.html">VerticalLayout</a></td>
 </tr>
 </table>
 <p></p>
-  Used to layout items in containers, lists, etc.
+  Used to organize the layout of children in containers, lists, and related components.
   <p></p>
 <br>
 <hr>
@@ -71,15 +71,18 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("In
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#measure()">measure</a>():Point</div>
-<div class="summaryTableDescription"></div>
+<a class="signatureLink" href="#measure()">measure</a>(children:Array):Point</div>
+<div class="summaryTableDescription">
+   The measure function is used to determine the measured width and height 
+   of a container given the current contents and layout.</div>
 </td><td class="summaryTableOwnerCol">ILayout</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#update()">update</a>(indices:Array = null):void</div>
-<div class="summaryTableDescription"></div>
+<a class="signatureLink" href="#update()">update</a>(children:Array, rectangle:Rectangle):void</div>
+<div class="summaryTableDescription">
+   The update method can be used to arrange children in any pattern.</div>
 </td><td class="summaryTableOwnerCol">ILayout</td>
 </tr>
 </table>
@@ -126,7 +129,15 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function measure():Point</code>
+<code>public function measure(children:Array):Point</code><p>
+   The measure function is used to determine the measured width and height 
+   of a container given the current contents and layout.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">children</span>:Array</code></td>
+</tr>
+</table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -142,10 +153,18 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function update(indices:Array = null):void</code><span class="label">Parameters</span>
+<code>public function update(children:Array, rectangle:Rectangle):void</code><p>
+   The update method can be used to arrange children in any pattern.
+   </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">indices</span>:Array</code> (default = <code>null</code>)<code></code></td>
+<td width="20px"></td><td><code><span class="label">children</span>:Array</code></td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">rectangle</span>:Rectangle</code></td>
 </tr>
 </table>
 </div>

@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="ScrollBarController,com.openflux.controllers.ScrollBarController,downButton,edata,sdata,thumb,track,upButton,view" name="keywords">
+<meta content="ScrollBarController,com.openflux.controllers.ScrollBarController,downButton,edata,sdata,thumb,track,upButton,view,downButton_mouseDownHandler,thumb_mouseDownHandler,track_mouseDownHandler,upButton_mouseDownHandler" name="keywords">
 <title>com.openflux.controllers.ScrollBarController</title>
 </head>
 <body>
@@ -38,10 +38,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="classHeaderTableLabel">Class</td><td class="classSignature">public class ScrollBarController</td>
 </tr>
 <tr>
-<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">ScrollBarController <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> <a href="../core/MetaControllerBase.html">MetaControllerBase</a></td>
-</tr>
-<tr>
-<td class="classHeaderTableLabel">Implements</td><td><a href="../core/IFluxController.html">IFluxController</a></td>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">ScrollBarController <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> <a href="../core/FluxController.html">FluxController</a></td>
 </tr>
 </table>
 <p></p>
@@ -65,9 +62,9 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
 <tr class="hideInheritedProperty">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/MetaControllerBase.html#component">component</a> : <a href="../core/IFluxComponent.html">IFluxComponent</a>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol"><a class="signatureLink" href="../core/FluxController.html#component">component</a> : <a href="../core/IFluxComponent.html">IFluxComponent</a>
 <div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="../core/MetaControllerBase.html">MetaControllerBase</a></td>
+</td><td class="summaryTableOwnerCol"><a href="../core/FluxController.html">FluxController</a></td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#downButton">downButton</a> : DisplayObject<div class="summaryTableDescription"></div>
@@ -97,53 +94,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#view">view</a> : UIComponent<div class="summaryTableDescription"></div>
 </td><td class="summaryTableOwnerCol">ScrollBarController</td>
-</tr>
-</table>
-</div>
-<a name="methodSummary"></a>
-<div class="summarySection">
-<div class="summaryTableTitle">Public Methods</div>
-<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
-<tr>
-<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="#ScrollBarController()">ScrollBarController</a>()</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">ScrollBarController</td>
-</tr>
-</table>
-</div>
-<a name="methodSummary"></a><a name="protectedMethodSummary"></a>
-<div class="summarySection">
-<div class="summaryTableTitle">Protected Methods</div>
-<div class="showHideLinks">
-<div class="hideInheritedProtectedMethod" id="hideInheritedProtectedMethod">
-<a onclick="javascript:setInheritedVisible(false,'ProtectedMethod');" href="#protectedMethodSummary" class="showHideLink"><img src="../../../images/expanded.gif" class="showHideLinkImage"> Hide Inherited Protected Methods</a>
-</div>
-<div class="showInheritedProtectedMethod" id="showInheritedProtectedMethod">
-<a onclick="javascript:setInheritedVisible(true,'ProtectedMethod');" href="#protectedMethodSummary" class="showHideLink"><img src="../../../images/collapsed.gif" class="showHideLinkImage"> Show Inherited Protected Methods</a>
-</div>
-</div>
-<table id="summaryTableProtectedMethod" class="summaryTable hideInheritedProtectedMethod" cellpadding="3" cellspacing="0">
-<tr>
-<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
-</tr>
-<tr class="hideInheritedProtectedMethod">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="../core/MetaControllerBase.html#attachHandlers()">attachHandlers</a>():void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="../core/MetaControllerBase.html">MetaControllerBase</a></td>
-</tr>
-<tr class="hideInheritedProtectedMethod">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
-<div class="summarySignature">
-<a class="signatureLink" href="../core/MetaControllerBase.html#detachHandlers()">detachHandlers</a>():void</div>
-<div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol"><a href="../core/MetaControllerBase.html">MetaControllerBase</a></td>
 </tr>
 </table>
 </div>
@@ -217,16 +167,64 @@ showHideInherited();
 <div class="detailBody">
 <code>public var view:UIComponent</code>
 </div>
-<a name="constructorDetail"></a>
-<div class="detailSectionHeader">Constructor detail</div>
-<a name="ScrollBarController()"></a>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="downButton_mouseDownHandler()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">ScrollBarController</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+<td class="detailHeaderName">downButton_mouseDownHandler</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
 </tr>
 </table>
 <div class="detailBody">
-<code>public function ScrollBarController()</code>
+<code>metadata function downButton_mouseDownHandler(event:MouseEvent):void</code><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">event</span>:MouseEvent</code></td>
+</tr>
+</table>
+</div>
+<a name="thumb_mouseDownHandler()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">thumb_mouseDownHandler</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>metadata function thumb_mouseDownHandler(event:MouseEvent):void</code><p>   Thumb Event Handlers
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">event</span>:MouseEvent</code></td>
+</tr>
+</table>
+</div>
+<a name="track_mouseDownHandler()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">track_mouseDownHandler</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>metadata function track_mouseDownHandler(event:MouseEvent):void</code><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">event</span>:MouseEvent</code></td>
+</tr>
+</table>
+</div>
+<a name="upButton_mouseDownHandler()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">upButton_mouseDownHandler</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>metadata function upButton_mouseDownHandler(event:MouseEvent):void</code><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">event</span>:MouseEvent</code></td>
+</tr>
+</table>
 </div>
 <br>
 <br>
