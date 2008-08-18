@@ -16,7 +16,6 @@ package com.openflux.layouts
 		public function measure(children:Array):Point {
 			var point:Point = new Point(0, 0);
 			for each(var child:IUIComponent in container.children) {
-				var li:LayoutItem = new LayoutItem(child);
 				point.x += child.getExplicitOrMeasuredWidth() + gap;
 				point.y = Math.max(child.getExplicitOrMeasuredHeight(), point.y);
 			}
