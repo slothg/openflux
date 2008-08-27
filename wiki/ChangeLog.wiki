@@ -1,0 +1,9 @@
+#summary A record of the major changes taking place in OpenFlux releases
+
+Beta 1:
+  * Custom Container and Layout Code Updated
+  * Measurement (and Layout) got an Overhaul
+  * Drag and Drop Support for Lists
+
+Beta 1.1:
+  * ???
