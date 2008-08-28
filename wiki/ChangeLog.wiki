@@ -1,9 +1,14 @@
 #summary A record of the major changes taking place in OpenFlux releases
 
-Beta 1:
-  * Custom Container and Layout Code Updated
-  * Measurement (and Layout) got an Overhaul
+
+=== Beta 1: ===
+  * Removed Flex Canvas Dependancy
+  * Measurement (and Layout) Overhaul
   * Drag and Drop Support for Lists
 
-Beta 1.1:
-  * ???
+=== Alpha: ===
+  * MVC Core Framework
+  * Core Styling Framework
+  * Core Metadata Framework
+  * Core Layout Framework
+  * Core Animation Framework
