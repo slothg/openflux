@@ -297,10 +297,10 @@ package com.openflux.containers
 		private function contentChangeHandler(event:CollectionEvent):void {
 			switch(event.kind) {
 				case CollectionEventKind.ADD:
-					addItem(collection[event.location], event.location);
+					addItem(event.items[0], event.location);
 					break;
 				case CollectionEventKind.REMOVE:
-					removeItem(collection[event.location], event.location);
+					removeItem(event.items[0], event.location);
 					break;
 				case CollectionEventKind.RESET:
 					contentChanged = true;
