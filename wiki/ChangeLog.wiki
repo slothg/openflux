@@ -1,4 +1,4 @@
-#summary A record of the major changes taking place in OpenFlux releases
+#summary A Log of the Major Changes for Each Release
 
 
 === Beta 1: ===
