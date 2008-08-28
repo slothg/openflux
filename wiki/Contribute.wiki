@@ -2,7 +2,7 @@
 
 = Help Us Help You =
 
-OpenFlux is supported solely by Flex and Flash developers such as yourself, and we want to make it as easy as possible for you to contribute. One of the best ways you can help is to try OpenFlux for yourself and provide feedback in the form of bug reports or code reviews. A few blog posts with awesome OpenFlux demos wouldn't hurt either :-). When you're ready, there are also a few more formal options that you can consider.
+OpenFlux is supported solely by Flex and Flash developers such as yourself, and we want to make it as easy as possible for you to contribute. One of the best ways you can help is to try OpenFlux and provide feedback in the form of bug reports or code reviews. A few blog posts with awesome OpenFlux demos wouldn't hurt either :-). When you're ready, there are a few more formal options that you can consider.
 
 
 == Community Contributors ==
