@@ -184,8 +184,6 @@ package com.openflux.containers
 				var point:Point = layout.measure(children); // filter out !includeInLayout later
 				measuredWidth = point.x;
 				measuredHeight = point.y;
-				//measuredWidth = 100;
-				//measuredHeight = 100;
 			}
 		}
 		
