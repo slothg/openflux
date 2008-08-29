@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" 
-	xmlns:flux="http://openflux.googlecode.com" layout="absolute"
+	xmlns:flux="http://www.openflux.org/2008" layout="absolute"
 	creationComplete="init()">
 	<mx:Script>
 		<![CDATA[
@@ -105,7 +105,6 @@
 	<flux:ComplexCollection id="stuff" collections="{[tweets, photos]}" />
 	
 	<mx:Canvas left="0" right="0" top="0" bottom="168" styleName="content">
-		<!--<flux:List id="list" left="10" right="10" top="10" bottom="5" dataProvider="{tweets}" />-->
 		<flux:List id="list" left="10" right="10" top="10" bottom="5" data="{stuff}" />
 	</mx:Canvas>
 	
