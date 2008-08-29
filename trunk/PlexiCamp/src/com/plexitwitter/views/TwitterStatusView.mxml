@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <flux:FluxView xmlns:mx="http://www.adobe.com/2006/mxml" 
-	xmlns:flux="http://openflux.googlecode.com" 
+	xmlns:flux="http://www.openflux.org/2008" 
 	xmlns:degrafa="http://www.degrafa.com/2008" 
 	width="250" height="170">
 	
@@ -17,10 +17,12 @@
 	
 	<mx:Binding destination="tweet" source="component.data" />
 	
-	<mx:SWFLoader source="{FlashAssets.bubble}" width="230" height="110"  x="10" y="10" filters="{[new DropShadowFilter( 4, 45, 0x333333, 0.4 )]}"/>
-	<mx:Image source="{tweet.user.profileImageUrl}" width="36" height="36" bottom="9" left="29" />
-	<mx:Text fontSize="12" fontWeight="bold" text="{tweet.text}" x="17" y="16" width="216" height="86" selectable="false" />
-	<mx:Label x="72" y="126" text="{tweet.user.name}" color="#FFFFFF" width="167" fontSize="14"/>
-    <mx:Label id="relativeTime" x="72" y="142" color="#FFFFFF" width="167" fontSize="12"/>
+	<flux:content>
+		<mx:SWFLoader source="{FlashAssets.bubble}" width="230" height="110"  x="10" y="10" filters="{[new DropShadowFilter( 4, 45, 0x333333, 0.4 )]}"/>
+		<mx:Image source="{tweet.user.profileImageUrl}" width="36" height="36" bottom="9" left="29" />
+		<mx:Text fontSize="12" fontWeight="bold" text="{tweet.text}" x="17" y="16" width="216" height="86" selectable="false" />
+		<mx:Label x="72" y="126" text="{tweet.user.name}" color="#FFFFFF" width="167" fontSize="14"/>
+    	<mx:Label id="relativeTime" x="72" y="142" color="#FFFFFF" width="167" fontSize="12"/>
+	</flux:content>
 	
 </flux:FluxView>
