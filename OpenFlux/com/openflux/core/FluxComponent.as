@@ -62,23 +62,19 @@ package com.openflux.core
 			invalidateProperties();
 		}
 		
-		private var _z:Number = 0;
-		[Bindable]
+		private var _z:Number = 0; [Bindable]
 		public function get z():Number { return _z; }
 		public function set z(value:Number):void { _z = value; }
 		
-		private var _rotationX:Number = 0;
-		[Bindable]
+		private var _rotationX:Number = 0; [Bindable]
 		public function get rotationX():Number { return _rotationX; } 
 		public function set rotationX(value:Number):void { _rotationX = value; }
 		
-		private var _rotationY:Number = 0;
-		[Bindable]
+		private var _rotationY:Number = 0; [Bindable]
 		public function get rotationY():Number { return _rotationY; }
 		public function set rotationY(value:Number):void { _rotationY = value; }
 		
-		private var _rotationZ:Number = 0;
-		[Bindable]
+		private var _rotationZ:Number = 0; [Bindable]
 		public function get rotationZ():Number { return _rotationZ; }
 		public function set rotationZ(value:Number):void { _rotationZ = value; }
 		
@@ -89,8 +85,6 @@ package com.openflux.core
 		/** @private */
 		public function FluxComponent():void {
 			super();
-			x = 0;
-			y = 0;
 		}
 		
 		
@@ -122,11 +116,13 @@ package com.openflux.core
 		/** @private */
 		override protected function measure():void {
 			super.measure();
-			if(view) {				
-				measuredWidth = view.measuredWidth;
-				measuredHeight = view.measuredHeight;
-				measuredMinWidth = view.measuredMinWidth; // isNaN( view.explicitWidth ) ? view.minWidth : view.explicitWidth;
-				measuredMinHeight = view.measuredMinHeight; // isNaN( view.explicitHeight ) ? view.minHeight : view.explicitHeight;
+			if(view) {
+				// an explicit width/height in the view becomes measured width/height for the component
+				// ie. component declared width/height trumps view preferences
+				measuredWidth = isNaN( view.explicitWidth ) ? view.measuredWidth : view.explicitWidth;
+				measuredHeight = isNaN( view.explicitHeight ) ? view.measuredHeight : view.explicitHeight;
+				measuredMinWidth = isNaN( view.explicitMinWidth ) ? view.measuredMinWidth : view.explicitMinWidth;
+				measuredMinHeight = isNaN( view.explicitMinHeight ) ? view.measuredMinHeight : view.explicitMinHeight;
 			}
 		}
 		
