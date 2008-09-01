@@ -8,6 +8,9 @@
 	<flux:HorizontalLayout id="horizontal" />
 	<flux:FlowLayout id="flow" />
 	<flux:CircleLayout id="circle" />
+	<flux:CarouselLayout id="carousel" />
+	<flux:TimeMachineLayout id="timemachine" />
+	<flux:TopLeftLayout id="topleft" />
 	
 	<!-- data -->
 	<mx:ArrayCollection id="data">
@@ -15,10 +18,13 @@
 		<mx:Object label="Horizontal Layout" layout="{horizontal}" />
 		<mx:Object label="Flow Layout" layout="{flow}" />
 		<mx:Object label="Circle Layout" layout="{circle}" />
+		<mx:Object label="Carousel layout" layout="{carousel}" />
+		<mx:Object label="Timemachine layout" layout="{timemachine}" />
+		<mx:Object label="Top left layout" layout="{topleft}" />
 	</mx:ArrayCollection>
 	
 	<!-- list -->
-	<flux:List id="list" left="20" right="20" top="20" bottom="20" 
+	<flux:List id="list" left="20" right="20" top="20" bottom="20" width="100%" height="100%" 
 		data="{data}" layout="{list.selectedItems.getItemAt(0).layout as ILayout}" />
 	
 </mx:Application>
