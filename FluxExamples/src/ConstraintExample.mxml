@@ -9,7 +9,7 @@
 			import com.plexiglass.cameras.SimpleCamera;
 			import com.plexiglass.layouts.ConstraintLayout;
 			import com.openflux.layouts.ILayout;
-			import com.plexiglass.layouts.CoverFlowLayout;
+			//import com.plexiglass.layouts.CoverFlowLayout;
 			import com.openflux.layouts.VerticalLayout;
 			import com.openflux.layouts.HorizontalLayout;
 			import com.openflux.layouts.CircleLayout;
@@ -21,7 +21,7 @@
 				{label:"Circle", layout:new CircleLayout()},
 				{label:"Horizontal", layout:new HorizontalLayout()},
 				{label:"Vertical", layout:new VerticalLayout()},
-				{label:"CoverFlow", layout:new CoverFlowLayout()},
+				//{label:"CoverFlow", layout:new CoverFlowLayout()},
 				{label:"Physics", layout:new PhysicsLayout()}];
 			
 			[Bindable] public var cameras:Array = [
@@ -43,7 +43,7 @@
 	
 	
 	
-<!--	<openflux:Container width="600" height="600" x="240" y="100"
+	<openflux:Container width="600" height="600" x="240" y="100"
 		layout="{layoutCombo.selectedItem.layout as ILayout}">
 		<openflux:Button width="100" height="100" label="Test" x="0" y="0" rotationZ="10"/>
 		<openflux:Button width="100" height="100" label="Test" x="110" y="0"/>
@@ -69,5 +69,5 @@
 		<openflux:Button width="100" height="100" label="Test" x="110" y="0"/>
 		<openflux:Button width="100" height="100" label="Test" x="220" y="0" rotationZ="-20"/>
 		<openflux:Button width="100" height="100" label="Test" x="330" y="0" rotationY="30"/>
-	</openflux:Container>-->
+	</openflux:Container>
 </mx:Application>
