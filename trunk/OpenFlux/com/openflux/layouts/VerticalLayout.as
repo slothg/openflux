@@ -11,7 +11,7 @@ package com.openflux.layouts
 	public class VerticalLayout extends LayoutBase implements ILayout, IDragLayout
 	{
 		
-		[Bindable] [StyleBinding] public var gap:Number; // container listens for propertyChange
+		[Bindable] [StyleBinding] public var gap:Number = 0; // container listens for propertyChange
 		
 		// ILayout Implementation
 		
