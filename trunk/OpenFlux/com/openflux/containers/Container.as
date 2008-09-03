@@ -20,7 +20,6 @@ package com.openflux.containers
 	import mx.collections.ICollectionView;
 	import mx.core.IDataRenderer;
 	import mx.core.IFactory;
-	import mx.core.IUIComponent;
 	import mx.core.UIComponent;
 	import mx.core.mx_internal;
 	import mx.events.ChildExistenceChangedEvent;
@@ -54,7 +53,7 @@ package com.openflux.containers
 
 		private var _renderers:Array = [];
 		private var _content:*;
-		private var _factory:Object;
+		private var _factory:IFactory;
 
 		private var collection:ICollectionView;
 		private var contentChanged:Boolean = false;
@@ -84,8 +83,8 @@ package com.openflux.containers
 		/**
 		 * Item renderer
 		 */
-		public function get factory():Object { return _factory; }
-		public function set factory(value:Object):void {
+		public function get factory():IFactory { return _factory; }
+		public function set factory(value:IFactory):void {
 			_factory = value;
 			contentChanged = true;
 			invalidateProperties();
