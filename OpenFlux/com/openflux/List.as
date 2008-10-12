@@ -20,7 +20,7 @@ package com.openflux
 	[Event(name="itemRollOver", type="mx.events.ListEvent")]
 	[Event(name="itemRollOut", type="mx.events.ListEvent")]
 	
-	/*[Style(name="itemRenderer", type="mx.core.IFactory")]*/ // ???
+	[Style(name="factory", type="mx.core.IFactory")]
 	[Style(name="layout", type="com.openflux.layouts.ILayout")]
 	public class List extends FluxComponent implements IFluxList, IEnabled
 	{

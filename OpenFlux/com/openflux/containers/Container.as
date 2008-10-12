@@ -83,6 +83,7 @@ package com.openflux.containers
 		/**
 		 * Item renderer
 		 */
+		[StyleBinding]
 		public function get factory():IFactory { return _factory; }
 		public function set factory(value:IFactory):void {
 			_factory = value;
@@ -239,11 +240,18 @@ package com.openflux.containers
 			invalidateDisplayList();
 		}
 		
+		private var freeChildren:Array = [];
+		
 		protected function addItem(item:Object, index:int=-1):void {
 			var instance:UIComponent;
 			var factory:IFluxFactory = new FluxFactory(this.factory as IFactory); // testing CSS Data declarations
 			if(item is UIComponent) {
 				instance = item as UIComponent;
+			/*} else if (freeChildren.length > 0) {
+				instance = freeChildren.shift() as UIComponent;
+				if(instance is IDataRenderer) {
+					(instance as IDataRenderer).data = item;
+				}*/
 			} else if(factory is IFluxFactory) {
 				instance = factory.createComponent(item) as UIComponent;
 				
@@ -284,6 +292,7 @@ package com.openflux.containers
 		private function cleanChild(child:DisplayObject):void {
 			removeChild(child);
 			invalidateLayout();
+			//freeChildren.push(child);
 			//invalidateDisplayList();
 		}
 		
@@ -292,12 +301,19 @@ package com.openflux.containers
 		//******************************************
 		
 		private function contentChangeHandler(event:CollectionEvent):void {
+			var i:int;
 			switch(event.kind) {
 				case CollectionEventKind.ADD:
-					addItem(event.items[0], event.location);
+					for (i = 0; i < event.items.length; i++) {
+						addItem(event.items[i] , event.location+i);
+					}
+					//addItem(event.items[0], event.location);
 					break;
 				case CollectionEventKind.REMOVE:
-					removeItem(event.items[0], event.location);
+					for (i = 0; i < event.items.length; i++) {
+						removeItem(event.items[i] , event.location+i);
+					}
+					//removeItem(event.items[0], event.location);
 					break;
 				case CollectionEventKind.RESET:
 					contentChanged = true;

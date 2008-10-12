@@ -25,9 +25,9 @@ package com.openflux.core
 		public function set component(value:IFluxComponent):void {
 			detach(_component);
 			_component = value;
-			attach(_component);
 			applyAliasDirectives();
 			applyContractDirectives();
+			attach(_component);
 		}
 		
 		public function FluxController() {
@@ -67,17 +67,19 @@ package com.openflux.core
 			}
 		}
 		
-		private function attachModelHandlers(dispatcher:IEventDispatcher):void {
+		private function attachModelHandlers(instance:IEventDispatcher):void {
 			for each(var directive:EventHandlerDirective in directives.modelHandlers) {
 				var f:Function = this.metadata::[directive.handler] as Function;
-				dispatcher.addEventListener(directive.event, f, false, 0, true);
+				var d:IEventDispatcher = this[directive.dispatcher] as IEventDispatcher;
+				//dispatcher.addEventListener(directive.event, f, false, 0, true);
+				if(d) {d.addEventListener(directive.event, f, false, 0, true); }
 			}
 		}
 		
 		private function detachViewHandlers(dispatcher:IEventDispatcher):void {
 			for each(var directive:ViewHandlerDirective in directives.viewHandlers) {
 				var f:Function = this.metadata::[directive.handler] as Function;
-				dispatcher.removeEventListener(directive.event, f, false);
+				this[directive.dispatcher].removeEventListener(directive.event, f, false);
 			}
 		}
 		
