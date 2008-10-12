@@ -27,7 +27,7 @@
 	-->
 	
 	<flux:content>
-		<degrafa:Surface id="surface" >
+		<degrafa:Surface id="surface">
 			<degrafa:GeometryGroup>
 				<degrafa:RoundedRectangle width="{width}" height="{height}" fill="{fill}" stroke="{stroke}" />
 			</degrafa:GeometryGroup>

@@ -26,8 +26,8 @@ package com.plexiglass.containers
 	public class PlexiContainer extends Container implements IPlexiContainer
 	{
 		private var _view:View3D;
-		private var viewContainer:UIComponent;
-		private var container:UIComponent;
+		private var viewContainer:Canvas;
+		private var container:Canvas;
 		private var _renderers:Array = new Array();
 		private var _camera:ICamera;
 		private var _newCamera:ICamera;
@@ -75,7 +75,7 @@ package com.plexiglass.containers
 				animator = new PlexiAnimator();
 			}
 			super.createChildren();
-			viewContainer = new UIComponent();
+			viewContainer = new Canvas();
 			// no more rawChildren, but might of broke something here :-)
 			super.addChild(viewContainer); //rawChildren.addChild(viewContainer);
 			super.addChild(container); //rawChildren.addChild(container);
