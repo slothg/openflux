@@ -1,0 +1,35 @@
+<project name="OpenFluxBuild" basedir="." default="openflux">
+	<property file="build.properties" />
+	
+	<target name="all">
+	</target>
+	
+	<target name="openflux">
+		<exec executable="${compc.exe}" dir="${basedir}">
+			<!-- specify the output file -->
+			<arg line="-o 'bin/openflux.swc'" />
+			<arg line="-sp '${basedir}'" />
+			
+			<!-- specify the openflux manifest and namespace -->
+			<arg line="-namespace http://www.openflux.org/2008 openflux.xml" />
+			<arg line="-include-namespaces http://www.openflux.org/2008" />
+			
+			<!-- exclude flex, tweener, degrafa, and away3d -->
+			<arg line="-el 'libs/Degrafa.swc'" />
+			<arg line="-el 'libs/Tweener.swc'" />
+			<arg line="-el 'libs/Away3D.swc'" />
+			<arg line="-el '${flexsdk.lib.dir}'" />
+			<arg line="-el '${flexsdk.lib.dir}/player'" />
+			<!--
+			<arg line="-debug 'false'" />
+			<arg line="-verbose-stacktraces 'false'" />
+			<arg line="-optimize 'true'" />
+			-->
+			<!-- link report -->
+			<arg line="-link-report 'reports/linkreport.xml'" />
+		</exec>
+		
+		<xslt in="reports/linkreport.xml" out="reports/linkreport.html" style="reports/link-report.xsl" />
+	</target>
+	
+</project>
