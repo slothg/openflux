@@ -1,0 +1,2436 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>Project dependency analysis</title>
+<style>
+		
+		body {
+			font-family: sans-serif;
+		}
+		
+		#link-report {
+			width: 100%;
+		}
+		
+		td {
+			vertical-align: top;
+		}
+		
+		th {
+			text-align: left;
+		}
+		
+		tfoot {
+			border-top: 1px solid black;
+		}
+		
+		.prequisites, .dependencies {
+			display: none;
+			
+			margin-top: 0.5em;
+			padding-top: 0.5em;
+			border-top: 1px solid black;
+		}
+		
+		.hierarchy:hover .prequisites,
+		.hierarchy:hover .dependencies {
+			display: block;
+		}
+		
+		.class-name {
+			width: 20em;
+			overflow: hidden;
+		}
+		
+		.hierarchy {
+			width: 20em;
+			overflow: hidden;
+		}
+		
+		.size {
+			width: 10em;
+			text-align: right;
+		}
+		
+		.external {
+			color: #999999;
+		}
+		
+		</style>
+</head>
+<body>
+<table id="link-report">
+<thead>
+<tr>
+<th>Class name</th>
+<th>Qualified name</th>
+<th>References</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<div class="class-name" title="_com_openflux_views_ButtonViewWatcherSetupUtil">
+<a href="file://localhost_com_openflux_views_ButtonViewWatcherSetupUtil.as">_com_openflux_views_ButtonViewWatcherSetupUtil</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="_com_openflux_views_ButtonViewWatcherSetupUtil">_com_openflux_views_ButtonViewWatcherSetupUtil</div>
+<ul class="prequisites">
+<li class="prequisite external">flash.display:Sprite</li>
+<li class="prequisite external">mx.binding:IWatcherSetupUtil</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.core:IFlexModuleFactory</li>
+<li class="dependency ">com.openflux.views:ButtonView</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.binding:PropertyWatcher</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">1.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="_com_openflux_views_CheckBoxViewWatcherSetupUtil">
+<a href="file://localhost_com_openflux_views_CheckBoxViewWatcherSetupUtil.as">_com_openflux_views_CheckBoxViewWatcherSetupUtil</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="_com_openflux_views_CheckBoxViewWatcherSetupUtil">_com_openflux_views_CheckBoxViewWatcherSetupUtil</div>
+<ul class="prequisites">
+<li class="prequisite external">flash.display:Sprite</li>
+<li class="prequisite external">mx.binding:IWatcherSetupUtil</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.views:CheckBoxView</li>
+<li class="dependency external">mx.core:IFlexModuleFactory</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.binding:PropertyWatcher</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">1.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="_com_openflux_views_HierarchicalItemViewWatcherSetupUtil">
+<a href="file://localhost_com_openflux_views_HierarchicalItemViewWatcherSetupUtil.as">_com_openflux_views_HierarchicalItemViewWatcherSetupUtil</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="_com_openflux_views_HierarchicalItemViewWatcherSetupUtil">_com_openflux_views_HierarchicalItemViewWatcherSetupUtil</div>
+<ul class="prequisites">
+<li class="prequisite external">flash.display:Sprite</li>
+<li class="prequisite external">mx.binding:IWatcherSetupUtil</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.core:IFlexModuleFactory</li>
+<li class="dependency ">com.openflux.views:HierarchicalItemView</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.binding:PropertyWatcher</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">1.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="_com_openflux_views_HorizontalScrollBarViewWatcherSetupUtil">
+<a href="file://localhost_com_openflux_views_HorizontalScrollBarViewWatcherSetupUtil.as">_com_openflux_views_HorizontalScrollBarViewWatcherSetupUtil</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="_com_openflux_views_HorizontalScrollBarViewWatcherSetupUtil">_com_openflux_views_HorizontalScrollBarViewWatcherSetupUtil</div>
+<ul class="prequisites">
+<li class="prequisite external">flash.display:Sprite</li>
+<li class="prequisite external">mx.binding:IWatcherSetupUtil</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.core:IFlexModuleFactory</li>
+<li class="dependency ">com.openflux.views:HorizontalScrollBarView</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.binding:PropertyWatcher</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">1.3 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="_com_openflux_views_ListItemViewWatcherSetupUtil">
+<a href="file://localhost_com_openflux_views_ListItemViewWatcherSetupUtil.as">_com_openflux_views_ListItemViewWatcherSetupUtil</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="_com_openflux_views_ListItemViewWatcherSetupUtil">_com_openflux_views_ListItemViewWatcherSetupUtil</div>
+<ul class="prequisites">
+<li class="prequisite external">flash.display:Sprite</li>
+<li class="prequisite external">mx.binding:IWatcherSetupUtil</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.core:IFlexModuleFactory</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.binding:PropertyWatcher</li>
+<li class="dependency ">com.openflux.views:ListItemView</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">1.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="_com_openflux_views_ListViewWatcherSetupUtil">
+<a href="file://localhost_com_openflux_views_ListViewWatcherSetupUtil.as">_com_openflux_views_ListViewWatcherSetupUtil</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="_com_openflux_views_ListViewWatcherSetupUtil">_com_openflux_views_ListViewWatcherSetupUtil</div>
+<ul class="prequisites">
+<li class="prequisite external">flash.display:Sprite</li>
+<li class="prequisite external">mx.binding:IWatcherSetupUtil</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.core:IFlexModuleFactory</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.binding:PropertyWatcher</li>
+<li class="dependency ">com.openflux.views:ListView</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">1 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="_com_openflux_views_VerticalScrollBarViewWatcherSetupUtil">
+<a href="file://localhost_com_openflux_views_VerticalScrollBarViewWatcherSetupUtil.as">_com_openflux_views_VerticalScrollBarViewWatcherSetupUtil</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="_com_openflux_views_VerticalScrollBarViewWatcherSetupUtil">_com_openflux_views_VerticalScrollBarViewWatcherSetupUtil</div>
+<ul class="prequisites">
+<li class="prequisite external">flash.display:Sprite</li>
+<li class="prequisite external">mx.binding:IWatcherSetupUtil</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.core:IFlexModuleFactory</li>
+<li class="dependency ">com.openflux.views:VerticalScrollBarView</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.binding:PropertyWatcher</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">1.3 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="_com_plexiglass_views_PlexiListViewWatcherSetupUtil">
+<a href="file://localhost_com_plexiglass_views_PlexiListViewWatcherSetupUtil.as">_com_plexiglass_views_PlexiListViewWatcherSetupUtil</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="_com_plexiglass_views_PlexiListViewWatcherSetupUtil">_com_plexiglass_views_PlexiListViewWatcherSetupUtil</div>
+<ul class="prequisites">
+<li class="prequisite external">flash.display:Sprite</li>
+<li class="prequisite external">mx.binding:IWatcherSetupUtil</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.core:IFlexModuleFactory</li>
+<li class="dependency ">com.plexiglass.views:PlexiListView</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.binding:PropertyWatcher</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">1 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="AnimationToken">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/animators/AnimationToken.as">AnimationToken</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.animators:AnimationToken">com.openflux.animators:AnimationToken</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>12</td>
+<td class="number">
+<div class="size">0.4 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="IAnimator">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/animators/IAnimator.as">IAnimator</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.animators:IAnimator">com.openflux.animators:IAnimator</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency ">com.openflux.animators:AnimationToken</li>
+<li class="dependency ">com.openflux.containers:IFluxContainer</li>
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>5</td>
+<td class="number">
+<div class="size">0.4 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="TweenAnimator">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/animators/TweenAnimator.as">TweenAnimator</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.animators:TweenAnimator">com.openflux.animators:TweenAnimator</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+<li class="prequisite ">com.openflux.animators:IAnimator</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency ">com.openflux.animators:AnimationToken</li>
+<li class="dependency external">caurina.transitions:Tweener</li>
+<li class="dependency external">mx.core:UIComponent</li>
+<li class="dependency ">com.openflux.containers:IFluxContainer</li>
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">1.5 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="Button">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/Button.as">Button</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux:Button">com.openflux:Button</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:IFluxButton</li>
+<li class="prequisite ">com.openflux.core:FluxComponent</li>
+<li class="prequisite ">com.openflux.core:ISelectable</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+<li class="prequisite ">com.openflux.core:IEnabled</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.controllers:ButtonController</li>
+<li class="dependency external">Boolean</li>
+<li class="dependency ">com.openflux.views:ButtonView</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+</ul>
+</div>
+</td>
+<td>0</td>
+<td class="number">
+<div class="size">1 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ComplexCollection">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/collections/ComplexCollection.as">ComplexCollection</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.collections:ComplexCollection">com.openflux.collections:ComplexCollection</div>
+<ul class="prequisites">
+<li class="prequisite external">mx.collections:ArrayCollection</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.utils:Dictionary</li>
+<li class="dependency external">mx.collections:ICollectionView</li>
+<li class="dependency ">com.openflux.utils:CollectionUtil</li>
+<li class="dependency external">mx.events:CollectionEventKind</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+<li class="dependency external">mx.events:CollectionEvent</li>
+</ul>
+</div>
+</td>
+<td>0</td>
+<td class="number">
+<div class="size">1.7 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ButtonStates">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/constants/ButtonStates.as">ButtonStates</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.constants:ButtonStates">com.openflux.constants:ButtonStates</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">0.4 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="Container">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/containers/Container.as">Container</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.containers:Container">com.openflux.containers:Container</div>
+<ul class="prequisites">
+<li class="prequisite external">mx.core:UIComponent</li>
+<li class="prequisite ">com.openflux.containers:IDataView</li>
+<li class="prequisite external">mx.core:IDataRenderer</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+<li class="prequisite ">com.openflux.containers:IFluxContainer</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxView</li>
+<li class="dependency ">com.openflux.utils:CollectionUtil</li>
+<li class="dependency external">mx.styles:IStyleClient</li>
+<li class="dependency ">com.openflux:ListItem</li>
+<li class="dependency external">mx.core:mx_internal</li>
+<li class="dependency ">com.openflux.animators:TweenAnimator</li>
+<li class="dependency ">com.openflux.core:IFluxListItem</li>
+<li class="dependency external">mx.events:CollectionEventKind</li>
+<li class="dependency external">mx.events:ChildExistenceChangedEvent</li>
+<li class="dependency external">flash.geom:Point</li>
+<li class="dependency external">mx.core:IFactory</li>
+<li class="dependency external">AS3</li>
+<li class="dependency ">com.openflux.animators:IAnimator</li>
+<li class="dependency external">mx.events:CollectionEvent</li>
+<li class="dependency external">mx.collections:ICollectionView</li>
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency ">com.openflux.core:IFluxList</li>
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency ">com.openflux.core:FluxFactory</li>
+<li class="dependency ">com.openflux.layouts:ContraintLayout</li>
+<li class="dependency ">com.openflux.utils:MetaStyler</li>
+<li class="dependency ">com.openflux.layouts:ILayout</li>
+<li class="dependency ">com.openflux.core:IFluxFactory</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">4.8 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="IDataView">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/containers/IDataView.as">IDataView</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.containers:IDataView">com.openflux.containers:IDataView</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">0.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="IFluxContainer">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/containers/IFluxContainer.as">IFluxContainer</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.containers:IFluxContainer">com.openflux.containers:IFluxContainer</div>
+<ul class="prequisites">
+<li class="prequisite external">mx.core:IUIComponent</li>
+<li class="prequisite external">mx.core:IInvalidating</li>
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">AS3</li>
+<li class="dependency ">com.openflux.layouts:ILayout</li>
+<li class="dependency ">com.openflux.animators:IAnimator</li>
+</ul>
+</div>
+</td>
+<td>8</td>
+<td class="number">
+<div class="size">0.4 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ButtonController">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/controllers/ButtonController.as">ButtonController</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.controllers:ButtonController">com.openflux.controllers:ButtonController</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:IFluxController</li>
+<li class="prequisite ">com.openflux.core:FluxController</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.constants:ButtonStates</li>
+<li class="dependency external">flash.events:MouseEvent</li>
+<li class="dependency ">com.openflux.core:ISelectable</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+<li class="dependency ">com.openflux.core:IEnabled</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">1.3 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ComplexController">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/controllers/ComplexController.as">ComplexController</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.controllers:ComplexController">com.openflux.controllers:ComplexController</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:IFluxController</li>
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxComponent</li>
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">0.5 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="DragListController">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/controllers/DragListController.as">DragListController</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.controllers:DragListController">com.openflux.controllers:DragListController</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:FluxController</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.events:MouseEvent</li>
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency ">com.openflux:ListItem</li>
+<li class="dependency external">mx.events:ChildExistenceChangedEvent</li>
+<li class="dependency external">mx.collections:IList</li>
+<li class="dependency external">flash.events:IEventDispatcher</li>
+<li class="dependency external">AS3</li>
+<li class="dependency ">com.openflux.core:IFluxList</li>
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency external">mx.events:DragEvent</li>
+<li class="dependency external">mx.core:DragSource</li>
+<li class="dependency external">mx.core:IDataRenderer</li>
+<li class="dependency external">mx.managers:DragManager</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">1.6 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="DropListController">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/controllers/DropListController.as">DropListController</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.controllers:DropListController">com.openflux.controllers:DropListController</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:FluxController</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxComponent</li>
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency ">com.openflux:ListItem</li>
+<li class="dependency external">mx.collections:IList</li>
+<li class="dependency external">flash.events:IEventDispatcher</li>
+<li class="dependency external">Math</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency ">com.openflux.core:IFluxList</li>
+<li class="dependency external">mx.events:DragEvent</li>
+<li class="dependency ">com.openflux.layouts:IDragLayout</li>
+<li class="dependency ">com.openflux.containers:IFluxContainer</li>
+<li class="dependency external">mx.managers:DragManager</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">1.8 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ListController">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/controllers/ListController.as">ListController</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.controllers:ListController">com.openflux.controllers:ListController</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:FluxController</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.events:ListEvent</li>
+<li class="dependency ">com.openflux.core:IFluxList</li>
+<li class="dependency external">flash.events:MouseEvent</li>
+<li class="dependency external">mx.events:ListEventReason</li>
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency external">mx.collections:ArrayCollection</li>
+<li class="dependency external">mx.events:ChildExistenceChangedEvent</li>
+<li class="dependency external">mx.core:IDataRenderer</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+<li class="dependency external">mx.controls.listClasses:IListItemRenderer</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">1.7 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ListItemController">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/controllers/ListItemController.as">ListItemController</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.controllers:ListItemController">com.openflux.controllers:ListItemController</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.controllers:ButtonController</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxComponent</li>
+<li class="dependency external">mx.binding.utils:BindingUtils</li>
+<li class="dependency external">mx.collections:ArrayCollection</li>
+<li class="dependency ">com.openflux.core:IFluxListItem</li>
+<li class="dependency ">com.openflux.core:ISelectable</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.events:CollectionEvent</li>
+<li class="dependency external">mx.binding.utils:ChangeWatcher</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">1.1 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ScrollBarController">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/controllers/ScrollBarController.as">ScrollBarController</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.controllers:ScrollBarController">com.openflux.controllers:ScrollBarController</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:FluxController</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.events:MouseEvent</li>
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency external">flash.events:TimerEvent</li>
+<li class="dependency ">com.openflux.core:IFluxScrollBar</li>
+<li class="dependency external">flash.geom:Point</li>
+<li class="dependency external">mx.core:UIComponent</li>
+<li class="dependency external">flash.utils:Timer</li>
+<li class="dependency external">flash.events:IEventDispatcher</li>
+<li class="dependency external">flash.events:Event</li>
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">3.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="FluxComponent">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/core/FluxComponent.as">FluxComponent</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.core:FluxComponent">com.openflux.core:FluxComponent</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:IFluxComponent</li>
+<li class="prequisite external">mx.core:UIComponent</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxView</li>
+<li class="dependency ">com.openflux.core:IFluxController</li>
+<li class="dependency external">mx.core:mx_internal</li>
+<li class="dependency external">mx.styles:StyleManager</li>
+<li class="dependency ">com.openflux.utils:MetaStyler</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+<li class="dependency external">mx.styles:CSSStyleDeclaration</li>
+</ul>
+</div>
+</td>
+<td>4</td>
+<td class="number">
+<div class="size">3.8 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="FluxController">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/core/FluxController.as">FluxController</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.core:FluxController">com.openflux.core:FluxController</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:IFluxController</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxComponent</li>
+<li class="dependency ">com.openflux.metadata:EventHandlerDirective</li>
+<li class="dependency ">com.openflux.metadata:ViewHandlerDirective</li>
+<li class="dependency ">com.openflux.metadata:ClassDirectives</li>
+<li class="dependency ">com.openflux.metadata:ModelAliasDirective</li>
+<li class="dependency external">flash.system:ApplicationDomain</li>
+<li class="dependency external">flash.events:Event</li>
+<li class="dependency ">com.openflux.utils:MetaUtil</li>
+<li class="dependency external">flash.events:EventDispatcher</li>
+<li class="dependency external">AS3</li>
+<li class="dependency ">com.openflux.metadata:ViewContractDirective</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+</ul>
+</div>
+</td>
+<td>5</td>
+<td class="number">
+<div class="size">2.5 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="FluxFactory">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/core/FluxFactory.as">FluxFactory</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.core:FluxFactory">com.openflux.core:FluxFactory</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+<li class="prequisite ">com.openflux.core:IFluxFactory</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxView</li>
+<li class="dependency ">com.openflux.core:IFluxComponent</li>
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency ">com.openflux:ListItem</li>
+<li class="dependency external">mx.core:IFactory</li>
+<li class="dependency external">mx.styles:StyleManager</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">flash.utils:getQualifiedClassName</li>
+<li class="dependency external">mx.styles:CSSStyleDeclaration</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">1 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="FluxView">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/core/FluxView.as">FluxView</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.core:FluxView">com.openflux.core:FluxView</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:IFluxView</li>
+<li class="prequisite ">com.openflux.containers:Container</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.styles:IStyleClient</li>
+<li class="dependency ">com.openflux.utils:MetaStyler</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+<li class="dependency external">mx.states:State</li>
+</ul>
+</div>
+</td>
+<td>7</td>
+<td class="number">
+<div class="size">1 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="IEnabled">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/core/IEnabled.as">IEnabled</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.core:IEnabled">com.openflux.core:IEnabled</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>3</td>
+<td class="number">
+<div class="size">0.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="IFluxButton">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/core/IFluxButton.as">IFluxButton</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.core:IFluxButton">com.openflux.core:IFluxButton</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">0.1 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="IFluxComponent">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/core/IFluxComponent.as">IFluxComponent</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.core:IFluxComponent">com.openflux.core:IFluxComponent</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxView</li>
+<li class="dependency ">com.openflux.core:IFluxController</li>
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>7</td>
+<td class="number">
+<div class="size">0.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="IFluxController">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/core/IFluxController.as">IFluxController</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.core:IFluxController">com.openflux.core:IFluxController</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxComponent</li>
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>5</td>
+<td class="number">
+<div class="size">0.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="IFluxFactory">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/core/IFluxFactory.as">IFluxFactory</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.core:IFluxFactory">com.openflux.core:IFluxFactory</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">0.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="IFluxList">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/core/IFluxList.as">IFluxList</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.core:IFluxList">com.openflux.core:IFluxList</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.collections:ArrayCollection</li>
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>13</td>
+<td class="number">
+<div class="size">0.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="IFluxListItem">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/core/IFluxListItem.as">IFluxListItem</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.core:IFluxListItem">com.openflux.core:IFluxListItem</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+<li class="prequisite external">mx.controls.listClasses:IListItemRenderer</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxList</li>
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>3</td>
+<td class="number">
+<div class="size">0.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="IFluxScrollBar">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/core/IFluxScrollBar.as">IFluxScrollBar</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.core:IFluxScrollBar">com.openflux.core:IFluxScrollBar</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">0.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="IFluxView">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/core/IFluxView.as">IFluxView</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.core:IFluxView">com.openflux.core:IFluxView</div>
+<ul class="prequisites">
+<li class="prequisite external">mx.core:IUIComponent</li>
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>11</td>
+<td class="number">
+<div class="size">0.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ISelectable">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/core/ISelectable.as">ISelectable</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.core:ISelectable">com.openflux.core:ISelectable</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>4</td>
+<td class="number">
+<div class="size">0.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="CarouselLayout">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/layouts/CarouselLayout.as">CarouselLayout</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.layouts:CarouselLayout">com.openflux.layouts:CarouselLayout</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.layouts:LayoutBase</li>
+<li class="prequisite ">com.openflux.layouts:ILayout</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxView</li>
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency ">com.openflux.core:IFluxList</li>
+<li class="dependency ">com.openflux.utils:ListUtil</li>
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency ">com.openflux.animators:AnimationToken</li>
+<li class="dependency external">flash.geom:Point</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">Math</li>
+</ul>
+</div>
+</td>
+<td>0</td>
+<td class="number">
+<div class="size">1.3 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="CircleLayout">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/layouts/CircleLayout.as">CircleLayout</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.layouts:CircleLayout">com.openflux.layouts:CircleLayout</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.layouts:LayoutBase</li>
+<li class="prequisite ">com.openflux.layouts:IDragLayout</li>
+<li class="prequisite ">com.openflux.layouts:ILayout</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency ">com.openflux.animators:AnimationToken</li>
+<li class="dependency ">com.openflux.layouts:LayoutItem</li>
+<li class="dependency external">flash.geom:Point</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">Math</li>
+</ul>
+</div>
+</td>
+<td>0</td>
+<td class="number">
+<div class="size">1.5 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ContraintLayout">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/layouts/ContraintLayout.as">ContraintLayout</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.layouts:ContraintLayout">com.openflux.layouts:ContraintLayout</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.layouts:LayoutBase</li>
+<li class="prequisite ">com.openflux.layouts:ILayout</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency ">com.openflux.layouts:LayoutItem</li>
+<li class="dependency external">flash.geom:Point</li>
+<li class="dependency ">com.openflux.layouts:ILayoutItem</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">Math</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="CoverFlowLayout">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/layouts/CoverFlowLayout.as">CoverFlowLayout</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.layouts:CoverFlowLayout">com.openflux.layouts:CoverFlowLayout</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.layouts:LayoutBase</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+<li class="prequisite ">com.openflux.layouts:ILayout</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxView</li>
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency ">com.openflux.core:IFluxList</li>
+<li class="dependency ">com.openflux.utils:ListUtil</li>
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency ">com.openflux.animators:AnimationToken</li>
+<li class="dependency external">flash.geom:Point</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">Math</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+</ul>
+</div>
+</td>
+<td>0</td>
+<td class="number">
+<div class="size">2.6 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="FlowLayout">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/layouts/FlowLayout.as">FlowLayout</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.layouts:FlowLayout">com.openflux.layouts:FlowLayout</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.layouts:LayoutBase</li>
+<li class="prequisite ">com.openflux.layouts:IDragLayout</li>
+<li class="prequisite ">com.openflux.layouts:ILayout</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency ">com.openflux.animators:AnimationToken</li>
+<li class="dependency ">com.openflux.layouts:LayoutItem</li>
+<li class="dependency external">flash.geom:Point</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">Math</li>
+</ul>
+</div>
+</td>
+<td>0</td>
+<td class="number">
+<div class="size">1.9 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="HorizontalLayout">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/layouts/HorizontalLayout.as">HorizontalLayout</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.layouts:HorizontalLayout">com.openflux.layouts:HorizontalLayout</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.layouts:LayoutBase</li>
+<li class="prequisite ">com.openflux.layouts:IDragLayout</li>
+<li class="prequisite ">com.openflux.layouts:ILayout</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency ">com.openflux.animators:AnimationToken</li>
+<li class="dependency external">flash.geom:Point</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">Math</li>
+</ul>
+</div>
+</td>
+<td>0</td>
+<td class="number">
+<div class="size">1.4 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="IDragLayout">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/layouts/IDragLayout.as">IDragLayout</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.layouts:IDragLayout">com.openflux.layouts:IDragLayout</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>5</td>
+<td class="number">
+<div class="size">0.3 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ILayout">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/layouts/ILayout.as">ILayout</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.layouts:ILayout">com.openflux.layouts:ILayout</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency external">flash.geom:Point</li>
+<li class="dependency ">com.openflux.containers:IFluxContainer</li>
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>13</td>
+<td class="number">
+<div class="size">0.3 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ILayoutItem">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/layouts/ILayoutItem.as">ILayoutItem</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.layouts:ILayoutItem">com.openflux.layouts:ILayoutItem</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">0.4 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="LayoutBase">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/layouts/LayoutBase.as">LayoutBase</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.layouts:LayoutBase">com.openflux.layouts:LayoutBase</div>
+<ul class="prequisites">
+<li class="prequisite external">flash.events:EventDispatcher</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxView</li>
+<li class="dependency external">mx.events:ListEvent</li>
+<li class="dependency ">com.openflux.core:IFluxList</li>
+<li class="dependency ">com.openflux.containers:IFluxContainer</li>
+<li class="dependency external">AS3</li>
+<li class="dependency ">com.openflux.animators:IAnimator</li>
+</ul>
+</div>
+</td>
+<td>10</td>
+<td class="number">
+<div class="size">0.9 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="LayoutItem">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/layouts/LayoutItem.as">LayoutItem</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.layouts:LayoutItem">com.openflux.layouts:LayoutItem</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.layouts:ILayoutItem</li>
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency external">mx.core:IConstraintClient</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">Math</li>
+</ul>
+</div>
+</td>
+<td>3</td>
+<td class="number">
+<div class="size">1.8 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="SpiralLayout">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/layouts/SpiralLayout.as">SpiralLayout</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.layouts:SpiralLayout">com.openflux.layouts:SpiralLayout</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.layouts:LayoutBase</li>
+<li class="prequisite ">com.openflux.layouts:ILayout</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency ">com.openflux.animators:AnimationToken</li>
+<li class="dependency external">flash.geom:Point</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">Math</li>
+</ul>
+</div>
+</td>
+<td>0</td>
+<td class="number">
+<div class="size">1.5 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="TimeMachineLayout">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/layouts/TimeMachineLayout.as">TimeMachineLayout</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.layouts:TimeMachineLayout">com.openflux.layouts:TimeMachineLayout</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.layouts:LayoutBase</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+<li class="prequisite ">com.openflux.layouts:ILayout</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxView</li>
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency ">com.openflux.core:IFluxList</li>
+<li class="dependency ">com.openflux.utils:ListUtil</li>
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency ">com.openflux.animators:AnimationToken</li>
+<li class="dependency external">flash.geom:Point</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">Math</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+</ul>
+</div>
+</td>
+<td>0</td>
+<td class="number">
+<div class="size">1.6 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="TopLeftLayout">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/layouts/TopLeftLayout.as">TopLeftLayout</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.layouts:TopLeftLayout">com.openflux.layouts:TopLeftLayout</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.layouts:LayoutBase</li>
+<li class="prequisite ">com.openflux.layouts:ILayout</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxView</li>
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency ">com.openflux.core:IFluxList</li>
+<li class="dependency ">com.openflux.utils:ListUtil</li>
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency ">com.openflux.animators:AnimationToken</li>
+<li class="dependency external">flash.geom:Point</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">Math</li>
+</ul>
+</div>
+</td>
+<td>0</td>
+<td class="number">
+<div class="size">1.4 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="VerticalLayout">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/layouts/VerticalLayout.as">VerticalLayout</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.layouts:VerticalLayout">com.openflux.layouts:VerticalLayout</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.layouts:LayoutBase</li>
+<li class="prequisite ">com.openflux.layouts:IDragLayout</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+<li class="prequisite ">com.openflux.layouts:ILayout</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency ">com.openflux.animators:AnimationToken</li>
+<li class="dependency external">flash.geom:Point</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">Math</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">1.6 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="List">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/List.as">List</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux:List">com.openflux:List</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:IFluxList</li>
+<li class="prequisite ">com.openflux.core:FluxComponent</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+<li class="prequisite ">com.openflux.core:IEnabled</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.events:ListEvent</li>
+<li class="dependency external">mx.collections:ICollectionView</li>
+<li class="dependency ">com.openflux.controllers:DragListController</li>
+<li class="dependency ">com.openflux.utils:CollectionUtil</li>
+<li class="dependency ">com.openflux.controllers:DropListController</li>
+<li class="dependency external">mx.collections:ArrayCollection</li>
+<li class="dependency ">com.openflux.controllers:ComplexController</li>
+<li class="dependency ">com.openflux.controllers:ListController</li>
+<li class="dependency external">AS3</li>
+<li class="dependency ">com.openflux.layouts:ILayout</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+<li class="dependency ">com.openflux.views:ListView</li>
+</ul>
+</div>
+</td>
+<td>0</td>
+<td class="number">
+<div class="size">1.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ListItem">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/ListItem.as">ListItem</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux:ListItem">com.openflux:ListItem</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:IFluxButton</li>
+<li class="prequisite ">com.openflux.core:FluxComponent</li>
+<li class="prequisite ">com.openflux.core:IFluxListItem</li>
+<li class="prequisite ">com.openflux.core:ISelectable</li>
+<li class="prequisite external">mx.core:IFactory</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxList</li>
+<li class="dependency ">com.openflux.controllers:ListItemController</li>
+<li class="dependency external">AS3</li>
+<li class="dependency ">com.openflux.views:ListItemView</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+</ul>
+</div>
+</td>
+<td>4</td>
+<td class="number">
+<div class="size">1.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ClassDirectives">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/metadata/ClassDirectives.as">ClassDirectives</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.metadata:ClassDirectives">com.openflux.metadata:ClassDirectives</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>3</td>
+<td class="number">
+<div class="size">0.3 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="EventHandlerDirective">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/metadata/EventHandlerDirective.as">EventHandlerDirective</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.metadata:EventHandlerDirective">com.openflux.metadata:EventHandlerDirective</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">0.3 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ModelAliasDirective">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/metadata/ModelAliasDirective.as">ModelAliasDirective</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.metadata:ModelAliasDirective">com.openflux.metadata:ModelAliasDirective</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">0.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="StyleBindingDirective">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/metadata/StyleBindingDirective.as">StyleBindingDirective</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.metadata:StyleBindingDirective">com.openflux.metadata:StyleBindingDirective</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">0.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ViewContractDirective">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/metadata/ViewContractDirective.as">ViewContractDirective</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.metadata:ViewContractDirective">com.openflux.metadata:ViewContractDirective</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">0.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ViewHandlerDirective">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/metadata/ViewHandlerDirective.as">ViewHandlerDirective</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.metadata:ViewHandlerDirective">com.openflux.metadata:ViewHandlerDirective</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">0.3 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ScrollBar">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/ScrollBar.as">ScrollBar</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux:ScrollBar">com.openflux:ScrollBar</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:FluxComponent</li>
+<li class="prequisite ">com.openflux.core:IFluxScrollBar</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.controllers:ScrollBarController</li>
+<li class="dependency ">com.openflux.views:VerticalScrollBarView</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">Math</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+</ul>
+</div>
+</td>
+<td>0</td>
+<td class="number">
+<div class="size">1.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="CollectionUtil">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/utils/CollectionUtil.as">CollectionUtil</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.utils:CollectionUtil">com.openflux.utils:CollectionUtil</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.collections:ICollectionView</li>
+<li class="dependency external">mx.collections:ListCollectionView</li>
+<li class="dependency external">mx.collections:XMLListCollection</li>
+<li class="dependency external">mx.collections:ArrayCollection</li>
+<li class="dependency external">mx.collections:IList</li>
+<li class="dependency external">XMLList</li>
+<li class="dependency external">XML</li>
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>3</td>
+<td class="number">
+<div class="size">0.6 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ListUtil">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/utils/ListUtil.as">ListUtil</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.utils:ListUtil">com.openflux.utils:ListUtil</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.core:IFluxList</li>
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>4</td>
+<td class="number">
+<div class="size">0.7 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="MetaStyler">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/utils/MetaStyler.as">MetaStyler</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.utils:MetaStyler">com.openflux.utils:MetaStyler</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">com.openflux.metadata:StyleBindingDirective</li>
+<li class="dependency external">mx.styles:IStyleClient</li>
+<li class="dependency ">com.openflux.metadata:ClassDirectives</li>
+<li class="dependency ">com.openflux.utils:MetaUtil</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">flash.utils:getDefinitionByName</li>
+</ul>
+</div>
+</td>
+<td>5</td>
+<td class="number">
+<div class="size">1.3 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="MetaUtil">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/utils/MetaUtil.as">MetaUtil</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.utils:MetaUtil">com.openflux.utils:MetaUtil</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.utils:describeType</li>
+<li class="dependency ">com.openflux.metadata:ClassDirectives</li>
+<li class="dependency ">com.openflux.metadata:ViewHandlerDirective</li>
+<li class="dependency external">flash.utils:getQualifiedSuperclassName</li>
+<li class="dependency ">com.openflux.metadata:ModelAliasDirective</li>
+<li class="dependency external">XMLList</li>
+<li class="dependency external">AS3</li>
+<li class="dependency ">com.openflux.metadata:StyleBindingDirective</li>
+<li class="dependency ">com.openflux.metadata:EventHandlerDirective</li>
+<li class="dependency external">flash.system:ApplicationDomain</li>
+<li class="dependency external">XML</li>
+<li class="dependency external">flash.utils:getQualifiedClassName</li>
+<li class="dependency ">com.openflux.metadata:ViewContractDirective</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">3.7 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ButtonView">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/views/ButtonView.mxml">ButtonView</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.views:ButtonView">com.openflux.views:ButtonView</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:FluxView</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+<li class="prequisite external">mx.binding:IBindingClient</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">com.degrafa:GeometryGroup</li>
+<li class="dependency external">mx.core:mx_internal</li>
+<li class="dependency external">com.degrafa:Surface</li>
+<li class="dependency external">com.degrafa.core:IGraphicsStroke</li>
+<li class="dependency external">com.degrafa.core:IGraphicsFill</li>
+<li class="dependency external">mx.binding:Binding</li>
+<li class="dependency external">mx.states:SetProperty</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">com.degrafa.paint:SolidStroke</li>
+<li class="dependency external">mx.controls:Label</li>
+<li class="dependency external">com.degrafa.paint:SolidFill</li>
+<li class="dependency external">mx.binding:IWatcherSetupUtil</li>
+<li class="dependency external">com.degrafa.geometry:RoundedRectangle</li>
+<li class="dependency external">mx.binding:BindingManager</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+<li class="dependency external">mx.states:State</li>
+<li class="dependency external">flash.utils:getDefinitionByName</li>
+<li class="dependency ">_com_openflux_views_ButtonViewWatcherSetupUtil</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">5.9 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="CheckBoxView">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/views/CheckBoxView.mxml">CheckBoxView</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.views:CheckBoxView">com.openflux.views:CheckBoxView</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:FluxView</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+<li class="prequisite external">mx.binding:IBindingClient</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">com.degrafa:GeometryGroup</li>
+<li class="dependency external">mx.core:mx_internal</li>
+<li class="dependency external">com.degrafa.geometry:RegularRectangle</li>
+<li class="dependency external">com.degrafa:Surface</li>
+<li class="dependency external">com.degrafa.core:IGraphicsStroke</li>
+<li class="dependency ">_com_openflux_views_CheckBoxViewWatcherSetupUtil</li>
+<li class="dependency external">com.degrafa.core:IGraphicsFill</li>
+<li class="dependency external">mx.binding:Binding</li>
+<li class="dependency external">com.degrafa.geometry:Line</li>
+<li class="dependency external">mx.states:SetProperty</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">com.degrafa.paint:SolidStroke</li>
+<li class="dependency external">mx.controls:Label</li>
+<li class="dependency external">com.degrafa.paint:SolidFill</li>
+<li class="dependency external">mx.binding:IWatcherSetupUtil</li>
+<li class="dependency external">mx.binding:BindingManager</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+<li class="dependency external">mx.states:State</li>
+<li class="dependency external">flash.utils:getDefinitionByName</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">7.3 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="HierarchicalItemView">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/views/HierarchicalItemView.mxml">HierarchicalItemView</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.views:HierarchicalItemView">com.openflux.views:HierarchicalItemView</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:FluxView</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+<li class="prequisite external">mx.binding:IBindingClient</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">com.degrafa:GeometryGroup</li>
+<li class="dependency external">mx.core:mx_internal</li>
+<li class="dependency ">_com_openflux_views_HierarchicalItemViewWatcherSetupUtil</li>
+<li class="dependency external">com.degrafa:Surface</li>
+<li class="dependency external">com.degrafa.core:IGraphicsFill</li>
+<li class="dependency external">mx.binding:Binding</li>
+<li class="dependency external">mx.states:SetProperty</li>
+<li class="dependency external">AS3</li>
+<li class="dependency ">com.openflux.constants:ButtonStates</li>
+<li class="dependency external">mx.controls:Label</li>
+<li class="dependency external">com.degrafa.paint:SolidFill</li>
+<li class="dependency external">mx.binding:IWatcherSetupUtil</li>
+<li class="dependency external">com.degrafa.geometry:RoundedRectangle</li>
+<li class="dependency external">mx.binding:BindingManager</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+<li class="dependency external">mx.states:State</li>
+<li class="dependency external">flash.utils:getDefinitionByName</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">7 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="HorizontalScrollBarView">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/views/HorizontalScrollBarView.mxml">HorizontalScrollBarView</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.views:HorizontalScrollBarView">com.openflux.views:HorizontalScrollBarView</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:FluxView</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+<li class="prequisite external">mx.binding:IBindingClient</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.core:mx_internal</li>
+<li class="dependency ">_com_openflux_views_HorizontalScrollBarViewWatcherSetupUtil</li>
+<li class="dependency external">mx.controls:Button</li>
+<li class="dependency external">mx.binding:IWatcherSetupUtil</li>
+<li class="dependency external">mx.binding:Binding</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+<li class="dependency external">mx.binding:BindingManager</li>
+<li class="dependency external">flash.utils:getDefinitionByName</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">4.2 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ListItemView">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/views/ListItemView.mxml">ListItemView</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.views:ListItemView">com.openflux.views:ListItemView</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:FluxView</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+<li class="prequisite external">mx.binding:IBindingClient</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">com.degrafa:GeometryGroup</li>
+<li class="dependency external">mx.core:mx_internal</li>
+<li class="dependency external">com.degrafa:Surface</li>
+<li class="dependency ">_com_openflux_views_ListItemViewWatcherSetupUtil</li>
+<li class="dependency external">com.degrafa.core:IGraphicsFill</li>
+<li class="dependency external">mx.binding:Binding</li>
+<li class="dependency external">mx.states:SetProperty</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.controls:Label</li>
+<li class="dependency external">com.degrafa.paint:SolidFill</li>
+<li class="dependency external">mx.binding:IWatcherSetupUtil</li>
+<li class="dependency external">com.degrafa.geometry:RoundedRectangle</li>
+<li class="dependency external">mx.binding:BindingManager</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+<li class="dependency external">mx.states:State</li>
+<li class="dependency external">flash.utils:getDefinitionByName</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">5.8 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ListView">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/views/ListView.mxml">ListView</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.views:ListView">com.openflux.views:ListView</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:FluxView</li>
+<li class="prequisite external">mx.binding:IBindingClient</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.core:mx_internal</li>
+<li class="dependency ">_com_openflux_views_ListViewWatcherSetupUtil</li>
+<li class="dependency ">com.openflux.layouts:VerticalLayout</li>
+<li class="dependency external">mx.binding:IWatcherSetupUtil</li>
+<li class="dependency external">mx.binding:Binding</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">flash.utils:getDefinitionByName</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">3 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="VerticalScrollBarView">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/openflux/views/VerticalScrollBarView.mxml">VerticalScrollBarView</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.openflux.views:VerticalScrollBarView">com.openflux.views:VerticalScrollBarView</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:FluxView</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+<li class="prequisite external">mx.binding:IBindingClient</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency ">_com_openflux_views_VerticalScrollBarViewWatcherSetupUtil</li>
+<li class="dependency external">mx.core:mx_internal</li>
+<li class="dependency external">mx.controls:Button</li>
+<li class="dependency external">mx.binding:IWatcherSetupUtil</li>
+<li class="dependency external">mx.binding:Binding</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+<li class="dependency external">mx.binding:BindingManager</li>
+<li class="dependency external">flash.utils:getDefinitionByName</li>
+</ul>
+</div>
+</td>
+<td>2</td>
+<td class="number">
+<div class="size">4.1 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="PlexiAnimator">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/plexiglass/animators/PlexiAnimator.as">PlexiAnimator</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.plexiglass.animators:PlexiAnimator">com.plexiglass.animators:PlexiAnimator</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+<li class="prequisite ">com.openflux.animators:IAnimator</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency ">com.openflux.animators:AnimationToken</li>
+<li class="dependency external">caurina.transitions:Tweener</li>
+<li class="dependency ">com.plexiglass.containers:IPlexiContainer</li>
+<li class="dependency external">mx.core:UIComponent</li>
+<li class="dependency ">com.openflux.containers:IFluxContainer</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">away3d.primitives:Plane</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">1.6 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="CameraBase">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/plexiglass/cameras/CameraBase.as">CameraBase</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.plexiglass.cameras:CameraBase">com.plexiglass.cameras:CameraBase</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency ">com.plexiglass.containers:IPlexiContainer</li>
+<li class="dependency external">away3d.cameras:Camera3D</li>
+<li class="dependency external">flash.events:Event</li>
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>3</td>
+<td class="number">
+<div class="size">0.7 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="HoverCamera">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/plexiglass/cameras/HoverCamera.as">HoverCamera</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.plexiglass.cameras:HoverCamera">com.plexiglass.cameras:HoverCamera</div>
+<ul class="prequisites">
+<li class="prequisite ">com.plexiglass.cameras:ICamera</li>
+<li class="prequisite ">com.plexiglass.cameras:CameraBase</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">away3d.cameras:HoverCamera3D</li>
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency ">com.plexiglass.containers:IPlexiContainer</li>
+<li class="dependency external">flash.events:Event</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">away3d.primitives:Sphere</li>
+</ul>
+</div>
+</td>
+<td>0</td>
+<td class="number">
+<div class="size">1.1 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ICamera">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/plexiglass/cameras/ICamera.as">ICamera</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.plexiglass.cameras:ICamera">com.plexiglass.cameras:ICamera</div>
+<ul class="prequisites">
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency ">com.plexiglass.containers:IPlexiContainer</li>
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>4</td>
+<td class="number">
+<div class="size">0.3 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="SimpleCamera">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/plexiglass/cameras/SimpleCamera.as">SimpleCamera</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.plexiglass.cameras:SimpleCamera">com.plexiglass.cameras:SimpleCamera</div>
+<ul class="prequisites">
+<li class="prequisite ">com.plexiglass.cameras:ICamera</li>
+<li class="prequisite ">com.plexiglass.cameras:CameraBase</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">away3d.cameras:Camera3D</li>
+<li class="dependency external">AS3</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">0.3 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="ZoomCamera">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/plexiglass/cameras/ZoomCamera.as">ZoomCamera</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.plexiglass.cameras:ZoomCamera">com.plexiglass.cameras:ZoomCamera</div>
+<ul class="prequisites">
+<li class="prequisite ">com.plexiglass.cameras:ICamera</li>
+<li class="prequisite ">com.plexiglass.cameras:CameraBase</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.events:MouseEvent</li>
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency external">caurina.transitions:Tweener</li>
+<li class="dependency external">mx.events:ChildExistenceChangedEvent</li>
+<li class="dependency ">com.plexiglass.containers:IPlexiContainer</li>
+<li class="dependency external">mx.core:UIComponent</li>
+<li class="dependency external">flash.events:Event</li>
+<li class="dependency external">away3d.cameras:Camera3D</li>
+<li class="dependency external">away3d.core.math:Number3D</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">away3d.primitives:Plane</li>
+</ul>
+</div>
+</td>
+<td>0</td>
+<td class="number">
+<div class="size">1.7 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="IPlexiContainer">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/plexiglass/containers/IPlexiContainer.as">IPlexiContainer</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.plexiglass.containers:IPlexiContainer">com.plexiglass.containers:IPlexiContainer</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.containers:IFluxContainer</li>
+<li class="prequisite external">Object</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency external">away3d.containers:View3D</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">away3d.primitives:Plane</li>
+</ul>
+</div>
+</td>
+<td>6</td>
+<td class="number">
+<div class="size">0.3 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="PlexiContainer">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/plexiglass/containers/PlexiContainer.as">PlexiContainer</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.plexiglass.containers:PlexiContainer">com.plexiglass.containers:PlexiContainer</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.containers:Container</li>
+<li class="prequisite ">com.plexiglass.containers:IPlexiContainer</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">flash.utils:Dictionary</li>
+<li class="dependency external">mx.styles:IStyleClient</li>
+<li class="dependency external">mx.core:IUIComponent</li>
+<li class="dependency external">away3d.materials:MovieMaterial</li>
+<li class="dependency external">mx.events:ChildExistenceChangedEvent</li>
+<li class="dependency external">mx.core:UIComponent</li>
+<li class="dependency ">com.plexiglass.cameras:SimpleCamera</li>
+<li class="dependency external">flash.events:Event</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">flash.geom:Rectangle</li>
+<li class="dependency external">mx.containers:Canvas</li>
+<li class="dependency ">com.plexiglass.animators:PlexiAnimator</li>
+<li class="dependency external">flash.display:DisplayObject</li>
+<li class="dependency external">flash.display:Sprite</li>
+<li class="dependency ">com.openflux.utils:MetaStyler</li>
+<li class="dependency ">com.plexiglass.cameras:ICamera</li>
+<li class="dependency external">away3d.containers:View3D</li>
+<li class="dependency external">away3d.primitives:Plane</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">3.4 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="PlexiView">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/plexiglass/core/PlexiView.as">PlexiView</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.plexiglass.core:PlexiView">com.plexiglass.core:PlexiView</div>
+<ul class="prequisites">
+<li class="prequisite ">com.openflux.core:IFluxView</li>
+<li class="prequisite ">com.plexiglass.containers:PlexiContainer</li>
+<li class="prequisite external">flash.events:IEventDispatcher</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.styles:IStyleClient</li>
+<li class="dependency ">com.openflux.utils:MetaStyler</li>
+<li class="dependency external">AS3</li>
+<li class="dependency external">mx.events:PropertyChangeEvent</li>
+<li class="dependency external">mx.states:State</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">1.1 KB</div>
+</td>
+</tr>
+<tr>
+<td>
+<div class="class-name" title="PlexiListView">
+<a href="file://localhost/Users/mac/Workspace/OpenFlux/com/plexiglass/views/PlexiListView.mxml">PlexiListView</a>
+</div>
+</td>
+<td>
+<div class="hierarchy">
+<div title="com.plexiglass.views:PlexiListView">com.plexiglass.views:PlexiListView</div>
+<ul class="prequisites">
+<li class="prequisite ">com.plexiglass.core:PlexiView</li>
+<li class="prequisite external">mx.binding:IBindingClient</li>
+</ul>
+<ul class="dependencies">
+<li class="dependency external">mx.core:mx_internal</li>
+<li class="dependency ">com.openflux.layouts:VerticalLayout</li>
+<li class="dependency external">mx.binding:IWatcherSetupUtil</li>
+<li class="dependency external">mx.binding:Binding</li>
+<li class="dependency external">AS3</li>
+<li class="dependency ">_com_plexiglass_views_PlexiListViewWatcherSetupUtil</li>
+<li class="dependency external">flash.utils:getDefinitionByName</li>
+</ul>
+</div>
+</td>
+<td>1</td>
+<td class="number">
+<div class="size">3.1 KB</div>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td/>
+<td/>
+<td/>
+<td>
+<div class="size">124.1 KB</div>
+</td>
+</tr>
+</tfoot>
+</table>
+</body>
+</html>
