@@ -1,4 +1,4 @@
-package com.openflux
+package com.openflux.collections
 {
 	import mx.collections.ArrayCollection;
 	import mx.collections.ICollectionView;

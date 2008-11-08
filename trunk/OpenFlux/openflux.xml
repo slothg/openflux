@@ -25,6 +25,7 @@
     <component id="ListController" class="com.openflux.controllers.ListController" />
     <component id="ListItemController" class="com.openflux.controllers.ListItemController" />
     <component id="ScrollBarController" class="com.openflux.controllers.ScrollBarController" />
+    <component id="ComplexController" class="com.openflux.controllers.ComplexController" />
     
     <!-- constants -->
     <component id="ButtonStates" class="com.openflux.constants.ButtonStates" />
