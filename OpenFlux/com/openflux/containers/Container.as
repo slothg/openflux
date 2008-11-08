@@ -247,11 +247,11 @@ package com.openflux.containers
 			var factory:IFluxFactory = new FluxFactory(this.factory as IFactory); // testing CSS Data declarations
 			if(item is UIComponent) {
 				instance = item as UIComponent;
-			/*} else if (freeChildren.length > 0) {
+			} else if (freeChildren.length > 0) {
 				instance = freeChildren.shift() as UIComponent;
 				if(instance is IDataRenderer) {
 					(instance as IDataRenderer).data = item;
-				}*/
+				}
 			} else if(factory is IFluxFactory) {
 				instance = factory.createComponent(item) as UIComponent;
 				
@@ -277,6 +277,7 @@ package com.openflux.containers
 			
 			animator.addItem(instance);
 			invalidateDisplayList();
+			invalidateSize();
 			var event:ChildExistenceChangedEvent = new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD, false, false, instance);
 			dispatchEvent(event);
 		}
@@ -284,7 +285,7 @@ package com.openflux.containers
 		protected function removeItem(item:Object, index:int = -1):void {
 			var child:DisplayObject = _renderers.splice(index, 1)[0];
 			animator.removeItem(child, cleanChild);
-			invalidateDisplayList();
+			//invalidateDisplayList();
 			var event:ChildExistenceChangedEvent = new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_REMOVE, false, false, child);
 			dispatchEvent(event);
 		}
@@ -292,8 +293,9 @@ package com.openflux.containers
 		private function cleanChild(child:DisplayObject):void {
 			removeChild(child);
 			invalidateLayout();
-			//freeChildren.push(child);
-			//invalidateDisplayList();
+			freeChildren.push(child);
+			invalidateDisplayList();
+			invalidateSize();
 		}
 		
 		//******************************************

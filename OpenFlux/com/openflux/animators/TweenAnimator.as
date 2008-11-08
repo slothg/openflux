@@ -24,7 +24,7 @@ package com.openflux.animators
 		/**
 		 * The duration of time used to animate a component.
 		 */
-		[StyleBinding] public var time:Number = 1;
+		public var time:Number = 1;
 		
 		/**
 		 * The transition path on which to animate a component.
@@ -43,7 +43,14 @@ package com.openflux.animators
 		public function end():void {} // unused
 		
 		public function moveItem(item:DisplayObject, token:AnimationToken):void {
-			var parameters:Object = createTweenerParameters(token, 1);
+			var parameters:Object = createTweenerParameters(token, time);
+			if (item.alpha == 0) {
+				var ui:IUIComponent = item as IUIComponent;
+				ui.setActualSize(token.width, token.height);
+				ui.move(token.x, token.y);
+				parameters.alpha = 1;
+			}
+			
 			Tweener.addTween(item, parameters);
 		}
 		
@@ -53,8 +60,7 @@ package com.openflux.animators
 		}
 		
 		public function addItem(item:DisplayObject):void {
-			//item.alpha = 0;
-			//Tweener.addTween(item, {alpha:1, time:0.25});
+			item.alpha = 0;
 		}
 		
 		public function removeItem(item:DisplayObject, callback:Function):void

@@ -1,5 +1,8 @@
 package com.openflux.layouts
 {
+	import com.openflux.animators.AnimationToken;
+	
+	import flash.display.DisplayObject;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
@@ -86,7 +89,7 @@ package com.openflux.layouts
 	                childHeight = Math.max(itemMinSize.y, Math.min(itemMaxSize.y, childHeight));
 
 				// Set size
-	            child.setActualSize(childWidth, childHeight);
+	            //child.setActualSize(childWidth, childHeight);
 	            var actualSize:Point = new Point(childWidth, childHeight);
 	
 	            // Calculate position            
@@ -115,7 +118,9 @@ package com.openflux.layouts
 	
 	            // Set position
 	            child.visible = true;
-	            child.move(childX, childY);
+	            //child.move(childX, childY);
+	            
+	            container.animator.moveItem(child as DisplayObject, new AnimationToken(childWidth, childHeight, childX, childY));
 	        }
 			
 		}
