@@ -247,11 +247,11 @@ package com.openflux.containers
 			var factory:IFluxFactory = new FluxFactory(this.factory as IFactory); // testing CSS Data declarations
 			if(item is UIComponent) {
 				instance = item as UIComponent;
-			} else if (freeChildren.length > 0) {
+			/*} else if (freeChildren.length > 0) {
 				instance = freeChildren.shift() as UIComponent;
 				if(instance is IDataRenderer) {
 					(instance as IDataRenderer).data = item;
-				}
+				}*/
 			} else if(factory is IFluxFactory) {
 				instance = factory.createComponent(item) as UIComponent;
 				
@@ -293,7 +293,7 @@ package com.openflux.containers
 		private function cleanChild(child:DisplayObject):void {
 			removeChild(child);
 			invalidateLayout();
-			freeChildren.push(child);
+			//freeChildren.push(child);
 			invalidateDisplayList();
 			invalidateSize();
 		}
