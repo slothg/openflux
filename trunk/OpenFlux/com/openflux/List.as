@@ -44,6 +44,11 @@ package com.openflux
 			dispatchEvent(new ListEvent(ListEvent.CHANGE));
 		}
 		
+		[Bindable]
+		public function get selectedItem():Object { return selectedItems ? selectedItems.getItemAt(0) : null; }
+		public function set selectedItem(value:Object):void {
+			selectedItems = new ArrayCollection([value]);
+		}
 		
 		//****************************************************************************
 		// IFluxListItem Implementation (for hierarchical data)
