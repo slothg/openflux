@@ -5,7 +5,6 @@ package com.openflux.controllers
 	import com.openflux.views.*;
 	
 	import flash.display.DisplayObject;
-	import flash.events.IEventDispatcher;
 	import flash.events.MouseEvent;
 	
 	import mx.collections.ArrayCollection;
@@ -38,11 +37,17 @@ package com.openflux.controllers
 		metadata function childAddHandler(event:ChildExistenceChangedEvent):void {
 			var child:DisplayObject = event.relatedObject;
 			child.addEventListener(MouseEvent.CLICK, child_clickHandler, false, 0, true);
+			child.addEventListener(MouseEvent.DOUBLE_CLICK, child_doubleClickHandler, false, 0, true);
+			child.addEventListener(MouseEvent.ROLL_OVER, child_rollOverHandler, false, 0, true);
+			child.addEventListener(MouseEvent.ROLL_OUT, child_rollOutHandler, false, 0, true);
 		}
 		
 		metadata function childRemoveHandler(event:ChildExistenceChangedEvent):void {
 			var child:DisplayObject = event.relatedObject;
 			child.removeEventListener(MouseEvent.CLICK, child_clickHandler, false);
+			child.removeEventListener(MouseEvent.DOUBLE_CLICK, child_doubleClickHandler, false);
+			child.removeEventListener(MouseEvent.ROLL_OVER, child_rollOverHandler, false);
+			child.removeEventListener(MouseEvent.ROLL_OUT, child_rollOutHandler, false);
 		}
 		
 		private function child_clickHandler(event:MouseEvent):void {
@@ -52,11 +57,25 @@ package com.openflux.controllers
 			}
 			
 			var e:ListEvent = new ListEvent(ListEvent.ITEM_CLICK, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
-			(component as IEventDispatcher).dispatchEvent(e);
+			dispatchComponentEvent(e);
 			e = new ListEvent(ListEvent.CHANGE, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
-			(component as IEventDispatcher).dispatchEvent(e);
+			dispatchComponentEvent(e);
 		}
 		
+		private function child_doubleClickHandler(event:MouseEvent):void {
+			var e:ListEvent = new ListEvent(ListEvent.ITEM_DOUBLE_CLICK, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
+			dispatchComponentEvent(e);
+		}
+		
+		private function child_rollOverHandler(event:MouseEvent):void {
+			var e:ListEvent = new ListEvent(ListEvent.ITEM_ROLL_OVER, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
+			dispatchComponentEvent(e);
+		}
+		
+		private function child_rollOutHandler(event:MouseEvent):void {
+			var e:ListEvent = new ListEvent(ListEvent.ITEM_ROLL_OUT, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
+			dispatchComponentEvent(e);
+		}
 		
 		//************************************
 		// List Utility Functions
