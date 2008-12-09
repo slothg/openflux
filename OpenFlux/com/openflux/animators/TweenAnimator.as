@@ -21,6 +21,8 @@ package com.openflux.animators
 		static public const EASE_OUT_EXPO:String = "easeOutExpo";
 		static public const EASE_OUT_BOUNCE:String = "easeOutBounce";
 		
+		protected var container:IFluxContainer;
+		
 		/**
 		 * The duration of time used to animate a component.
 		 */
@@ -36,8 +38,12 @@ package com.openflux.animators
 			Tweener.registerSpecialProperty("actualHeight", getActualHeight, setActualHeight);
 		}
 		
-		public function attach(container:IFluxContainer):void {}
-		public function detach(container:IFluxContainer):void {}
+		public function attach(container:IFluxContainer):void {
+			this.container = container;
+		}
+		public function detach(container:IFluxContainer):void {
+			this.container = null;
+		}
 		
 		public function begin():void {} // unused
 		public function end():void {} // unused
