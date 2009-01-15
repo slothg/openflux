@@ -7,8 +7,6 @@ package com.openflux
 	import com.openflux.core.FluxComponent;
 	import com.openflux.core.IEnabled;
 	import com.openflux.core.IFluxList;
-	import com.openflux.core.IFluxListItem;
-	import com.openflux.layouts.ILayout;
 	import com.openflux.utils.CollectionUtil;
 	import com.openflux.views.ListView;
 	
@@ -25,7 +23,8 @@ package com.openflux
 	[Style(name="factory", type="mx.core.IFactory")]
 	[Style(name="layout", type="com.openflux.layouts.ILayout")]
 	public class List extends FluxComponent implements IFluxList, IEnabled
-	{	
+	{
+		
 		//****************************************************************************
 		// IFluxList Implementation
 		//****************************************************************************
@@ -45,26 +44,6 @@ package com.openflux
 			dispatchEvent(new ListEvent(ListEvent.CHANGE));
 		}
 		
-		[Bindable]
-		public function get selectedItem():Object { return selectedItems ? selectedItems.getItemAt(0) : null; }
-		public function set selectedItem(value:Object):void {
-			selectedItems = new ArrayCollection([value]);
-		}
-		
-		//****************************************************************************
-		// Capacitor Override
-		//****************************************************************************
-		
-		override public function get capacitor():Array { return super.capacitor.concat(getStyle("layout"), getStyle("factory")); }
-		override public function set capacitor(value:Array):void {
-			super.capacitor = value;
-			for each (var item:Object in value) {
-				if (item is ILayout)
-					setStyle("layout", item);
-				if (item is IFluxListItem)
-					setStyle("factory", item);
-			}
-		}
 		
 		//****************************************************************************
 		// IFluxListItem Implementation (for hierarchical data)
