@@ -4,7 +4,6 @@ package com.openflux.core
 	import com.openflux.metadata.*;
 	import com.openflux.utils.MetaUtil;
 	
-	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	import flash.system.ApplicationDomain;
 	
@@ -125,16 +124,6 @@ package com.openflux.core
 					}
 				}
 			}
-		}
-		
-		
-		//*****************************************************
-		// Controller Util Functions
-		//*****************************************************
-		
-		protected function dispatchComponentEvent(e:Event):void
-		{
-			(component as IEventDispatcher).dispatchEvent(e);
 		}
 		
 	}

@@ -8,6 +8,7 @@ package com.openflux.containers
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxListItem;
 	import com.openflux.core.IFluxView;
+	import com.openflux.core.PhoenixComponent;
 	import com.openflux.layouts.ContraintLayout;
 	import com.openflux.layouts.ILayout;
 	import com.openflux.utils.CollectionUtil;
@@ -20,17 +21,16 @@ package com.openflux.containers
 	import mx.collections.ICollectionView;
 	import mx.core.IDataRenderer;
 	import mx.core.IFactory;
-	import mx.core.UIComponent;
-	import mx.core.mx_internal;
+	import mx.core.IUIComponent;
 	import mx.events.ChildExistenceChangedEvent;
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 	import mx.styles.IStyleClient;
 	
-	use namespace mx_internal;
+	//use namespace mx_internal;
 	
 	[DefaultProperty("content")]
-	public class Container extends UIComponent implements IDataView, IFluxContainer, IDataRenderer
+	public class Container extends PhoenixComponent implements IDataView, IFluxContainer, IDataRenderer
 	{	
 		//*********************************
 		// Constructor
@@ -137,7 +137,7 @@ package com.openflux.containers
 		// Framework Overrides
 		//***********************************************
 		
-		/** @private */
+		/** @private *//*
 		override protected function createChildren():void {
 			super.createChildren();
 			if (animator == null) {
@@ -150,7 +150,7 @@ package com.openflux.containers
 				factory = new ListItem();
 			}
 		}
-		
+		*/
 		/** @private */
 		override protected function commitProperties():void {
 			super.commitProperties();
@@ -240,27 +240,27 @@ package com.openflux.containers
 			invalidateDisplayList();
 		}
 		
-		private var freeChildren:Array = [];
+//		private var freeChildren:Array = [];
 		
 		protected function addItem(item:Object, index:int=-1):void {
-			var instance:UIComponent;
-			var factory:IFluxFactory = new FluxFactory(this.factory as IFactory); // testing CSS Data declarations
-			if(item is UIComponent) {
-				instance = item as UIComponent;
+			var instance:IUIComponent;
+			var factory:IFluxFactory = null; //new FluxFactory(this.factory as IFactory); // testing CSS Data declarations
+			if(item is IUIComponent) {
+				instance = item as IUIComponent;
 			/*} else if (freeChildren.length > 0) {
 				instance = freeChildren.shift() as UIComponent;
 				if(instance is IDataRenderer) {
 					(instance as IDataRenderer).data = item;
 				}*/
 			} else if(factory is IFluxFactory) {
-				instance = factory.createComponent(item) as UIComponent;
+				instance = factory.createComponent(item) as IUIComponent;
 				
 				if(instance is IDataRenderer) {
 					(instance as IDataRenderer).data = item;
 				}
 			}
 			
-			instance.styleName = this; // ???
+			//instance.styleName = this; // ???
 
 			if(this is IFluxView && instance is IFluxListItem) {
 				// this is a little weird, but okay?... maybe?
@@ -269,16 +269,16 @@ package com.openflux.containers
 			
 			if (index != -1) {
 				_renderers.splice(index, 0, instance);
-				addChildAt(instance, index);
+				addChildAt(instance as DisplayObject, index);
 			} else {
 				_renderers.push(instance);
-				addChild(instance);
+				addChild(instance as DisplayObject);
 			}
 			
-			animator.addItem(instance);
+			animator.addItem(instance as DisplayObject);
 			invalidateDisplayList();
 			invalidateSize();
-			var event:ChildExistenceChangedEvent = new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD, false, false, instance);
+			var event:ChildExistenceChangedEvent = new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD, false, false, instance as DisplayObject);
 			dispatchEvent(event);
 		}
 		
