@@ -5,11 +5,66 @@ package com.openflux.core
 	import flash.display.Sprite;
 	
 	import mx.core.IFlexDisplayObject;
+	import mx.core.IInvalidating;
 	import mx.core.IUIComponent;
 	import mx.managers.ISystemManager;
 	
-	public class PhoenixComponent extends DisplayObject implements IUIComponent, IFlexDisplayObject
+	public class PhoenixComponent extends Sprite implements IFlexDisplayObject, IUIComponent, IInvalidating
 	{
+		
+		public function get states():Array { return null; }
+		public function set states(value:Array):void {}
+		
+		public function get currentState():String { return null; }
+		public function set currentState(value:String):void {}
+		
+		private var _width:Number; [Bindable]
+		override public function get width():Number { return _width; }
+		override public function set width(value:Number):void {
+			_width = value;
+		}
+		
+		private var _height:Number; [Bindable]
+		override public function get height():Number { return _height; }
+		override public function set height(value:Number):void {
+			_height = value;
+		}
+		
+		// IInvalidation
+		
+		public function invalidateProperties():void {};
+		public function invalidateDisplayList():void {};
+		public function invalidateSize():void {}
+		public function validateNow():void {}
+		
+		// assumed (from above)
+		protected function createChildren():void {}
+		protected function commitProperties():void {}
+		protected function measure():void {}
+		protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {}
+		public function stylesInitialized():void {}
+		public function styleChanged(styleName:String):void {}
+		
+		
+		// component stuff
+		
+		public function get enabled():Boolean { return true; }
+		public function set enabled(value:Boolean):void {}
+		
+		
+		// uility stuff
+		
+		public function initialize():void {
+			
+		}
+		
+		public function owns(displayObject:DisplayObject):Boolean {
+			return false;
+		}
+		
+		public function parentChanged(p:DisplayObjectContainer):void {
+			
+		}
 		
 		// meat
 		
@@ -35,11 +90,6 @@ package com.openflux.core
 		
 		public function get baselinePosition():Number { return 0; }
 		
-		// component stuff
-		
-		public function get enabled():Boolean { return true; }
-		public function set enabled(value:Boolean):void {}
-		
 		public function get includeInLayout():Boolean { return true; }
 		public function set includeInLayout(value:Boolean):void {}
 		
@@ -52,8 +102,10 @@ package com.openflux.core
 		public function set explicitHeight(value:Number):void {};
 		
 		public function get minWidth():Number { return 0; }
-		public function get minHeight():Number { return 0; }
+		public function set minWidth(value:Number):void {} // implied
 		
+		public function get minHeight():Number { return 0; }
+		public function set minHeight(value:Number):void {} // implied
 		
 		public function get explicitMinWidth():Number { return 0; }
 		public function get explicitMinHeight():Number { return 0; }
@@ -64,9 +116,11 @@ package com.openflux.core
 		public function get maxWidth():Number { return 0; }
 		public function get maxHeight():Number { return 0; }
 		
-		
 		public function get measuredWidth():Number { return 0; }
+		public function set measuredWidth(value:Number):void {} // implied
+		
 		public function get measuredHeight():Number { return 0; }
+		public function set measuredHeight(value:Number):void {} // implied
 		
 		public function get measuredMinWidth():Number { return 0; }
 		public function set measuredMinWidth(value:Number):void {}
@@ -85,18 +139,6 @@ package com.openflux.core
 		
 		
 		// uility stuff
-		
-		public function initialize():void {
-			
-		}
-		
-		public function owns(displayObject:DisplayObject):Boolean {
-			return false;
-		}
-		
-		public function parentChanged(p:DisplayObjectContainer):void {
-			
-		}
 		
 		public function move(x:Number, y:Number):void {
 			
