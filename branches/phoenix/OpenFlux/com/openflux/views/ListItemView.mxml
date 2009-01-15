@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flux:FluxView xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:flux="http://www.openflux.org/2008"
+	xmlns:degrafa="http://www.degrafa.com/2008" minWidth="30" minHeight="30" >
+	
+	<flux:states>
+		<mx:State name="up" />
+		<mx:State name="over">
+			<mx:SetProperty target="{fill}" name="color" value="#7FCEFF" />
+			<mx:SetProperty target="{fill}" name="alpha" value="0.7" />
+		</mx:State>
+		<mx:State name="down">
+			<mx:SetProperty target="{fill}" name="color" value="#7FCEFF" />
+		</mx:State>
+		<mx:State name="selectedUp">
+			<mx:SetProperty target="{fill}" name="color" value="#7FCEFF" />
+		</mx:State>
+	</flux:states>
+	
+	<degrafa:SolidFill id="fill" color="#FFFFFF" />
+	
+	<flux:content>
+		<degrafa:Surface id="surface" >
+			<degrafa:GeometryGroup>
+				<degrafa:RoundedRectangle width="{width}" height="{height}" fill="{fill}" />
+			</degrafa:GeometryGroup>
+		</degrafa:Surface>
+		
+		<mx:Label text="{component.data.label}" left="10" right="10" verticalCenter="0" />
+		
+	</flux:content>
+	
+</flux:FluxView>
