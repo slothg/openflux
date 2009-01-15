@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
-	xmlns:flux="http://www.openflux.org/2008" 
-	layout="absolute" viewSourceURL="srcview/index.html">
-	<mx:Style source="assets/css/button_example_3.css" />
-	<flux:Button label="Button Example" left="20" top="20" styleName="checkbox" />
-</mx:Application>
