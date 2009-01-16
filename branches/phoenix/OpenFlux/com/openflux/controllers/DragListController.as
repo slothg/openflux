@@ -1,8 +1,8 @@
 package com.openflux.controllers
 {
-	import com.openflux.ListItem;
 	import com.openflux.core.FluxController;
 	import com.openflux.core.IFluxList;
+	import com.openflux.core.IFluxListItem;
 	
 	import flash.display.DisplayObject;
 	import flash.events.IEventDispatcher;
@@ -79,7 +79,7 @@ package com.openflux.controllers
 		}
 		
 		metadata function dragCompleteHandler(event:DragEvent):void {
-			if (event.currentTarget == (event.dragInitiator as ListItem).list)
+			if (event.currentTarget == (event.dragInitiator as IFluxListItem).list)
 				return;
 			
 			var data:Object = event.dragSource.dataForFormat("data");

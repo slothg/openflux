@@ -3,9 +3,10 @@ package com.openflux.utils
 	import com.openflux.metadata.ClassDirectives;
 	import com.openflux.metadata.StyleBindingDirective;
 	
-	import mx.styles.IStyleClient;
-	
 	import flash.utils.getDefinitionByName;
+	
+	import mx.styles.ISimpleStyleClient;
+	import mx.styles.IStyleClient;
 	/**
 	 * The MetaStyler Utility is used to marshal style information into properties automatically through Metadata.
 	 * 
