@@ -57,24 +57,24 @@ package com.openflux.controllers
 			}
 			
 			var e:ListEvent = new ListEvent(ListEvent.ITEM_CLICK, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
-			dispatchComponentEvent(e);
+			//dispatchComponentEvent(e);
 			e = new ListEvent(ListEvent.CHANGE, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
-			dispatchComponentEvent(e);
+			//dispatchComponentEvent(e);
 		}
 		
 		private function child_doubleClickHandler(event:MouseEvent):void {
 			var e:ListEvent = new ListEvent(ListEvent.ITEM_DOUBLE_CLICK, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
-			dispatchComponentEvent(e);
+			//dispatchComponentEvent(e);
 		}
 		
 		private function child_rollOverHandler(event:MouseEvent):void {
 			var e:ListEvent = new ListEvent(ListEvent.ITEM_ROLL_OVER, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
-			dispatchComponentEvent(e);
+			//dispatchComponentEvent(e);
 		}
 		
 		private function child_rollOutHandler(event:MouseEvent):void {
 			var e:ListEvent = new ListEvent(ListEvent.ITEM_ROLL_OUT, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
-			dispatchComponentEvent(e);
+			//dispatchComponentEvent(e);
 		}
 		
 		//************************************

@@ -5,12 +5,11 @@ package com.openflux.core
 	
 	import flash.display.DisplayObject;
 	
-	import mx.core.IInvalidating;
 	import mx.core.UIComponent;
 	import mx.core.mx_internal;
-	import mx.managers.ILayoutManagerClient;
 	import mx.styles.CSSStyleDeclaration;
 	import mx.styles.StyleManager;
+	import mx.core.IInvalidating;
 	
 	use namespace mx_internal;
 	
@@ -61,7 +60,7 @@ package com.openflux.core
 			controllerChanged = true;
 			invalidateProperties();
 		}
-		
+		/*
 		private var _z:Number = 0; [Bindable]
 		public function get z():Number { return _z; }
 		public function set z(value:Number):void { _z = value; }
@@ -77,7 +76,7 @@ package com.openflux.core
 		private var _rotationZ:Number = 0; [Bindable]
 		public function get rotationZ():Number { return _rotationZ; }
 		public function set rotationZ(value:Number):void { _rotationZ = value; }
-		
+		*/
 		//******************************************
 		// Constructor
 		//******************************************
@@ -98,7 +97,7 @@ package com.openflux.core
 			if(viewChanged) {
 				view.component = this;
 				//(view as UIComponent).styleName = this;
-				addChild(view as UIComponent);
+				addChild(view as DisplayObject);
 				/*this.measuredWidth = view.measuredWidth;
 				this.measuredHeight = view.measuredHeight;
 				this.measuredMinWidth = view.measuredMinWidth;
@@ -131,7 +130,7 @@ package com.openflux.core
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
 			if(view) {
 				view.setActualSize(unscaledWidth, unscaledHeight);
-				UIComponent(view).invalidateDisplayList();
+				IInvalidating(view).invalidateDisplayList();
 			}
 		}
 		
