@@ -2,8 +2,9 @@ package com.openflux.core
 {
 	
 	import mx.controls.listClasses.IListItemRenderer;
+	import mx.core.IDataRenderer;
 	
-	public interface IFluxListItem extends IListItemRenderer
+	public interface IFluxListItem extends IDataRenderer //IListItemRenderer
 	{
 		
 		//function get data():Object;

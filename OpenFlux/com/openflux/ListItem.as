@@ -5,7 +5,7 @@ package com.openflux
 	import com.openflux.views.*;
 	
 	import mx.core.IFactory;
-
+	
 	public class ListItem extends FluxComponent implements IFluxListItem, IFluxButton, ISelectable, IFactory
 	{
 		

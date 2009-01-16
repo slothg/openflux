@@ -4,12 +4,18 @@ package com.openflux.core
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	
+	import mx.core.IDeferredInstantiationUIComponent;
 	import mx.core.IFlexDisplayObject;
 	import mx.core.IInvalidating;
 	import mx.core.IUIComponent;
+	import mx.core.UIComponentDescriptor;
 	import mx.managers.ISystemManager;
+	import mx.styles.CSSStyleDeclaration;
+	import mx.styles.ISimpleStyleClient;
+	import mx.styles.IStyleClient;
 	
-	public class PhoenixComponent extends Sprite implements IFlexDisplayObject, IUIComponent, IInvalidating
+	public class PhoenixComponent extends Sprite 
+	implements IFlexDisplayObject, IUIComponent, IInvalidating, ISimpleStyleClient, IStyleClient, IDeferredInstantiationUIComponent
 	{
 		
 		public function get states():Array { return null; }
@@ -43,7 +49,6 @@ package com.openflux.core
 		protected function measure():void {}
 		protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {}
 		public function stylesInitialized():void {}
-		public function styleChanged(styleName:String):void {}
 		
 		
 		// component stuff
@@ -152,5 +157,45 @@ package com.openflux.core
 			
 		}
 		
+		// ISimpleStyleClient
+		public function get styleName():Object { return null; }
+		public function set styleName(value:Object):void {}
+		
+		public function styleChanged(styleProp:String):void {}
+		
+		// IStyleClient
+		public function get className():String { return null; }
+		
+		public function get inheritingStyles():Object { return null; }
+		public function set inheritingStyles(value:Object):void {}
+		
+		public function get nonInheritingStyles():Object { return null; }
+		public function set nonInheritingStyles(value:Object):void {}
+		
+		public function get styleDeclaration():CSSStyleDeclaration { return null; } // CSSStyleDeclaration Ahhh!!!
+		public function set styleDeclaration(value:CSSStyleDeclaration):void {}
+		
+		public function getStyle(styleProp:String):* { return null; }
+		public function setStyle(styleProp:String, newValue:*):void {}
+		
+		public function clearStyle(styleProp:String):void {}
+		public function getClassStyleDeclarations():Array { return null; }
+		
+		public function notifyStyleChangeInChildren(styleProp:String, recursive:Boolean):void {}
+		
+		public function regenerateStyleCache(recursive:Boolean):void {}
+		public function registerEffects(effects:Array /* of String */):void {}
+		
+		// IDefferredInstantiationUIComponent (Assumed by Flex Containers! wtf?!!!)
+		public function set cacheHeuristic(value:Boolean):void {}
+		public function get cachePolicy():String { return null; }
+		public function get descriptor():UIComponentDescriptor { return null; }
+		public function set descriptor(value:UIComponentDescriptor):void {}
+		public function get id():String {return null; }
+		public function set id(value:String):void {}
+		public function createReferenceOnParentDocument(parentDocument:IFlexDisplayObject):void {}
+		public function deleteReferenceOnParentDocument(parentDocument:IFlexDisplayObject):void {}
+		public function executeBindings(recurse:Boolean = false):void {}
+		//public function registerEffects(effects:Array):void {}
 	}
 }

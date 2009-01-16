@@ -1,10 +1,10 @@
 package com.openflux.controllers
 {
-	import com.openflux.ListItem;
 	import com.openflux.containers.IFluxContainer;
 	import com.openflux.core.FluxController;
 	import com.openflux.core.IFluxComponent;
 	import com.openflux.core.IFluxList;
+	import com.openflux.core.IFluxListItem;
 	import com.openflux.layouts.IDragLayout;
 	
 	import flash.events.IEventDispatcher;
@@ -58,7 +58,7 @@ package com.openflux.controllers
 			var data:Object = event.dragSource.dataForFormat("items")[0];
 			var collection:IList = list.data as IList;
 			
-			if (event.currentTarget == (event.dragInitiator as ListItem).list) {
+			if (event.currentTarget == (event.dragInitiator as IFluxListItem).list) {
 				var oldIndex:int = collection.getItemIndex(data);
 				collection.removeItemAt(oldIndex);
 			}

@@ -5,16 +5,16 @@ package com.openflux.core
 	
 	import flash.display.DisplayObject;
 	
+	import mx.core.IInvalidating;
 	import mx.core.UIComponent;
 	import mx.core.mx_internal;
 	import mx.styles.CSSStyleDeclaration;
 	import mx.styles.StyleManager;
-	import mx.core.IInvalidating;
 	
 	use namespace mx_internal;
 	
 	[DefaultProperty("capacitor")]
-	public class FluxComponent extends UIComponent implements IFluxComponent
+	public class FluxComponent extends PhoenixComponent implements IFluxComponent
 	{
 		
 		// private variables
@@ -196,7 +196,7 @@ package com.openflux.core
 		
 		// adds support for multiple styleNames (space seperated)
 		// todo: test support for runtime/programmatic style updates
-		override mx_internal function initProtoChain():void {
+		/*override mx_internal function initProtoChain():void {
 			super.initProtoChain();
 			if(styleNames) {
 			var length:int = styleNames.length;
@@ -218,7 +218,7 @@ package com.openflux.core
 			nonInheritingStyles = styleDeclaration ? styleDeclaration.addStyleToProtoChain(nonInheritingStyles, this) : nonInheritingStyles;
 			}
 		}
-		
+		*/
 		//private var oldMinWidth:Number, oldMinHeight:Number;
 		//private var oldExplicitWidth:Number, oldExplicitHeight:Number;
 		
