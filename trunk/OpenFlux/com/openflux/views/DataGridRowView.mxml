@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flux:FluxView xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:flux="http://www.openflux.org/2008"
+	xmlns:degrafa="http://www.degrafa.com/2007">
+
+	<!-- content -->	
+	<flux:content>
+		<flux:DataGridRowCollection rowData="{component.data}" source="{component.columns}"/>
+	</flux:content>
+	
+	<!-- states -->
+	<flux:states>
+		<mx:State name="up" />
+		<mx:State name="over">
+			<mx:SetProperty target="{fill}" name="color" value="#7FCEFF" />
+			<mx:SetProperty target="{fill}" name="alpha" value="0.7" />
+		</mx:State>
+		<mx:State name="down">
+			<mx:SetProperty target="{fill}" name="color" value="#7FCEFF" />
+		</mx:State>
+		<mx:State name="selectedUp">
+			<mx:SetProperty target="{fill}" name="color" value="#7FCEFF" />
+		</mx:State>
+	</flux:states>
+	
+	<!-- layout -->
+	<flux:layout>
+		<flux:DataGridLayout columns="{component.columns}"/>
+	</flux:layout>
+	
+	<!-- degrafa background -->
+	<degrafa:SolidFill id="fill" color="#FFFFFF" />
+	<degrafa:GeometryComposition id="gc" graphicsTarget="{[this]}" width="{width}" height="{height}">
+		<degrafa:RegularRectangle x="0" y="0" width="{width}" height="{height}" fill="{fill}"/>
+	</degrafa:GeometryComposition>
+	
+</flux:FluxView>

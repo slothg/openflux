@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flux:FluxView xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:flux="http://www.openflux.org/2008">
+	
+	<!-- layout -->
+	<flux:layout>
+		<flux:VerticalLayout/>
+	</flux:layout>
+	
+	<flux:content>
+		<!-- header -->
+		<flux:DataGridHeaderList id="headerList" data="{component.columns}">
+			<flux:layout>
+				<flux:DataGridLayout columns="{component.columns}"/>
+			</flux:layout>
+		</flux:DataGridHeaderList>
+		
+		<!-- rows -->
+		<flux:DataGridRowList id="rowList" data="{component.data}"/>
+	</flux:content>
+	
+	<mx:Binding source="rowList.selectedItems" destination="component.selectedItems"/>
+</flux:FluxView>

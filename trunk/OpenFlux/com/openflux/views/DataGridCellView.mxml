@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flux:FluxView xmlns:flux="http://www.openflux.org/2008" xmlns:mx="http://www.adobe.com/2006/mxml" doubleClickEnabled="true">
+	<flux:states>
+		<mx:State name="notEditing"/>
+		<mx:State name="editing" enterState="input.setFocus()">
+			<mx:SetProperty target="{lbl}" name="visible" value="false"/>
+			<mx:SetProperty target="{input}" name="visible" value="true"/>
+		</mx:State>
+	</flux:states>
+	<flux:content>
+		<mx:Label id="lbl" text="{component.data}" truncateToFit="false"/>
+		<mx:TextInput id="input" width="200" height="16" visible="false"/>
+	</flux:content>
+</flux:FluxView>

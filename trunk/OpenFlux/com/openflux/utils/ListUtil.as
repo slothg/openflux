@@ -23,5 +23,9 @@ package com.openflux.utils
 		public static function numSelectedItems(list:IFluxList):int {
 			return list.selectedItems ? list.selectedItems.length : 0;
 		}
+		
+		public static function getItemsAt(list:IFluxList, indices:Array):Array {
+			return indices.map(function(item:*, index:int, array:Array):Object { return list.data[item]; });
+		}
 	}
 }

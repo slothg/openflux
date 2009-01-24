@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <flux:FluxView xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:flux="http://www.openflux.org/2008"
-	xmlns:degrafa="http://www.degrafa.com/2008" minWidth="30" minHeight="30" >
+	xmlns:degrafa="http://www.degrafa.com/2007" minWidth="30" minHeight="30" >
 	
 	<flux:states>
 		<mx:State name="up" />
@@ -26,7 +26,7 @@
 			</degrafa:GeometryGroup>
 		</degrafa:Surface>
 		
-		<mx:Label text="{component.data.label}" left="10" right="10" verticalCenter="0" />
+		<mx:Label text="{component.data is String ? component.data : component.data.label}" left="10" right="10" verticalCenter="0" truncateToFit="false" />
 		
 	</flux:content>
 	

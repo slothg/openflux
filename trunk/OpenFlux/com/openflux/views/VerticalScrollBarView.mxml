@@ -2,7 +2,7 @@
 <flux:FluxView
 	xmlns:flux="http://www.openflux.org/2008"
 	xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:degrafa="http://www.degrafa.com/2008">
+	xmlns:degrafa="http://www.degrafa.com/2007">
 	<flux:content>
 		<mx:Button id="upButton" label="up" left="0" right="0" top="0" />
 		<mx:Button id="downButton" label="dn" left="0" right="0" bottom="0" />

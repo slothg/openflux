@@ -5,11 +5,13 @@ package com.openflux.controllers
 	import com.openflux.core.FluxController;
 	import com.openflux.core.IFluxComponent;
 	import com.openflux.core.IFluxList;
+	import com.openflux.core.IFluxStrictList;
 	import com.openflux.layouts.IDragLayout;
 	
 	import flash.events.IEventDispatcher;
 	import flash.geom.Rectangle;
 	
+	import mx.collections.ICollectionView;
 	import mx.collections.IList;
 	import mx.core.IUIComponent;
 	import mx.events.DragEvent;
@@ -39,6 +41,10 @@ package com.openflux.controllers
 			// we need better evaluation here.
 			// perhaps integrate with IFluxFactory
 			if(event.dragSource.hasFormat("items")) {
+				var data:Object = event.dragSource.dataForFormat("items")[0];
+				if (list is IFluxStrictList && !IFluxStrictList(list).validate(data))
+					return;
+				
 				var dropTarget:IUIComponent = event.currentTarget as IUIComponent;
 				DragManager.acceptDragDrop(dropTarget);
 			}
@@ -58,7 +64,7 @@ package com.openflux.controllers
 			var data:Object = event.dragSource.dataForFormat("items")[0];
 			var collection:IList = list.data as IList;
 			
-			if (event.currentTarget == (event.dragInitiator as ListItem).list) {
+			if (event.dragInitiator is ListItem && event.currentTarget == (event.dragInitiator as ListItem).list) {
 				var oldIndex:int = collection.getItemIndex(data);
 				collection.removeItemAt(oldIndex);
 			}

@@ -104,6 +104,8 @@ package com.openflux.core
 				this.measuredMinWidth = view.measuredMinWidth;
 				this.measuredMinHeight = view.measuredMinHeight;*/
 				MetaStyler.initialize(view, this);
+				if (controller && !controllerChanged)
+					MetaStyler.initialize(controller, this);
 				viewChanged = false;
 			}
 			if(controllerChanged && controller) {
