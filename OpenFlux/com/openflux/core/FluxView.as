@@ -3,7 +3,7 @@ package com.openflux.core
 	import com.openflux.containers.Container;
 	import com.openflux.utils.MetaStyler;
 	
-	import mx.core.ScrollPolicy;
+	//import mx.core.ScrollPolicy;
 	import mx.states.State;
 	import mx.styles.IStyleClient;
 	

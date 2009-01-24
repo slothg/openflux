@@ -6,13 +6,14 @@ package com.openflux
 	
 	import mx.core.IFactory;
 
-	public class ListItem extends FluxComponent implements IFluxListItem, IFluxButton, ISelectable, IFactory
+	public class ListItem extends FluxComponent implements IFluxEditableListItem, IFluxButton, ISelectable, IFactory
 	{
 		
 		
 		private var _data:Object;
 		private var _list:IFluxList;
 		private var _selected:Boolean;
+		private var _editing:Boolean;
 		//private var _buttonState:String;
 		
 		[Bindable]
@@ -31,6 +32,12 @@ package com.openflux
 		public function get selected():Boolean { return _selected; }
 		public function set selected(value:Boolean):void {
 			_selected = value;
+		}
+		
+		[Bindable]
+		public function get editing():Boolean { return _editing; }
+		public function set editing(value:Boolean):void {
+			_editing = value;
 		}
 		
 		public function newInstance():* {

@@ -20,7 +20,7 @@ package com.openflux.controllers
 	[ViewHandler(event="childAdd", handler="childAddHandler")]
 	[ViewHandler(event="childRemove", handler="childRemoveHandler")]
 	[EventHandler(event="dragStart", handler="dragStartHandler")]
-	[EventHandler(event="dragComplete", handler="dragCompleteHandler")]
+	//[EventHandler(event="dragComplete", handler="dragCompleteHandler")]
 	public class DragListController extends FluxController
 	{
 		
@@ -37,11 +37,13 @@ package com.openflux.controllers
 		metadata function childAddHandler(event:ChildExistenceChangedEvent):void {
 			var child:DisplayObject = event.relatedObject;
 			child.addEventListener(MouseEvent.MOUSE_DOWN, child_mouseDownHandler, false, 0, true);
+			child.addEventListener(DragEvent.DRAG_COMPLETE, dragCompleteHandler, false, 0, true)
 		}
 		
 		metadata function childRemoveHandler(event:ChildExistenceChangedEvent):void {
 			var child:DisplayObject = event.relatedObject;
 			child.removeEventListener(MouseEvent.MOUSE_DOWN, child_mouseDownHandler, false);
+			child.removeEventListener(DragEvent.DRAG_COMPLETE, dragCompleteHandler, false);
 		}
 		
 		private function child_mouseDownHandler(event:MouseEvent):void {
@@ -78,14 +80,16 @@ package com.openflux.controllers
 			
 		}
 		
-		metadata function dragCompleteHandler(event:DragEvent):void {
-			if (event.currentTarget == (event.dragInitiator as ListItem).list)
-				return;
-			
-			var data:Object = event.dragSource.dataForFormat("data");
-			var collection:IList = list.data as IList;
-			var index:int = collection.getItemIndex(data);
-			collection.removeItemAt(index);
+		protected function dragCompleteHandler(event:DragEvent):void {
+			if (event.dragInitiator is ListItem) {
+				if (event.action == DragManager.NONE || event.currentTarget == (event.dragInitiator as ListItem).list)
+					return;
+				
+				var data:Object = event.dragSource.dataForFormat("items")[0];
+				var collection:IList = list.data as IList;
+				var index:int = collection.getItemIndex(data);
+				collection.removeItemAt(index);
+			}
 		}
 		
 	}

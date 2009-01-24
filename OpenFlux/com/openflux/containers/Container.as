@@ -116,6 +116,9 @@ package com.openflux.containers
 				_layout.detach(this);
 			}
 			_layout = value;
+			if (_layout) {
+				_layout.attach(this);
+			}
 			layoutChanged = true;
 			invalidateProperties();
 		}
@@ -317,7 +320,7 @@ package com.openflux.containers
 					}
 					//removeItem(event.items[0], event.location);
 					break;
-				case CollectionEventKind.RESET:
+				default:
 					contentChanged = true;
 					invalidateProperties();
 					break;

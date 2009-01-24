@@ -117,7 +117,7 @@ package com.openflux.layouts
 	                childY = child.y;
 	
 	            // Set position
-	            child.visible = true;
+	            //child.visible = true;
 	            //child.move(childX, childY);
 	            
 	            container.animator.moveItem(child as DisplayObject, new AnimationToken(childWidth, childHeight, childX, childY));
