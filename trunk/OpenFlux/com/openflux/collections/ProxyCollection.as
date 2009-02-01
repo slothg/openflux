@@ -56,7 +56,7 @@ package com.openflux.collections
 		
 		// not used
 		public function itemUpdated(item:Object, property:Object=null, oldValue:Object=null, newValue:Object=null):void { _source.itemUpdated(item, property, oldValue, newValue); }
-	    public function disableAutoUpdate():void { _source.disableAutoUpdate(); }
+		public function disableAutoUpdate():void { _source.disableAutoUpdate(); }
 		public function enableAutoUpdate():void { _source.enableAutoUpdate(); }
 		public function createCursor():IViewCursor { return _source.createCursor(); }
 		public function get filterFunction():Function { return _source.filterFunction; }

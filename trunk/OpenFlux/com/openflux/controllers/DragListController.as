@@ -12,6 +12,7 @@ package com.openflux.controllers
 	import mx.core.DragSource;
 	import mx.core.IDataRenderer;
 	import mx.core.IUIComponent;
+	import mx.core.IUITextField;
 	import mx.events.ChildExistenceChangedEvent;
 	import mx.events.DragEvent;
 	import mx.managers.DragManager;
@@ -47,6 +48,9 @@ package com.openflux.controllers
 		}
 		
 		private function child_mouseDownHandler(event:MouseEvent):void {
+			if ( event.target is IUITextField )
+				return;
+			
 			var instance:DisplayObject = event.currentTarget as DisplayObject;
 			instance.addEventListener(MouseEvent.MOUSE_UP, child_mouseUpHandler, false, 0, true);
 			instance.addEventListener(MouseEvent.MOUSE_MOVE, child_mouseMoveHandler, false, 0, true);

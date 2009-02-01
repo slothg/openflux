@@ -9,6 +9,6 @@
 	</flux:states>
 	<flux:content>
 		<mx:Label id="lbl" text="{component.data}" truncateToFit="false"/>
-		<mx:TextInput id="input" width="200" height="16" visible="false"/>
+		<mx:TextInput id="input" width="150" height="16" visible="false"/>
 	</flux:content>
 </flux:FluxView>
