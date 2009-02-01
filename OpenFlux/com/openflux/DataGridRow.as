@@ -10,7 +10,6 @@ package com.openflux
 		public function DataGridRow()
 		{
 			super();
-			setStyle("factory", DataGridCell);
 		}
 		
 		private var _columns:ICollectionView; [Bindable]

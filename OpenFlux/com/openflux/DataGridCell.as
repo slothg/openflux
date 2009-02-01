@@ -21,7 +21,7 @@ package com.openflux
 			if (!view)
 				view = new DataGridCellView();
 			if (!controller)
-				controller = new ComplexController([new ListItemController(), new EditableListItemController()]);
+				controller = new ComplexController([new EditableListItemController()]);
 			super.createChildren();
 		}
 		
