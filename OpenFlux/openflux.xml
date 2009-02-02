@@ -15,6 +15,9 @@
     <component id="DataGridHeaderList" class="com.openflux.DataGridHeaderList" />
     <component id="DataGridRow" class="com.openflux.DataGridRow" />
     <component id="DataGridRowList" class="com.openflux.DataGridRowList" />
+    <component id="Tree" class="com.openflux.Tree" />
+    <component id="TreeItem" class="com.openflux.TreeItem" />
+   	<component id="TreeDataGridRow" class="com.openflux.TreeDataGridRow" />
     
     <!-- views -->
     <component id="ButtonView" class="com.openflux.views.ButtonView" />
@@ -30,6 +33,10 @@
     <component id="DataGridHeaderView" class="com.openflux.views.DataGridHeaderView" />
     <component id="DataGridRowView" class="com.openflux.views.DataGridRowView" />
     <component id="DataGridView" class="com.openflux.views.DataGridView" />
+    <component id="TreeView" class="com.openflux.views.TreeView" />
+    <component id="TreeItemView" class="com.openflux.views.TreeItemView" />
+    <component id="TreeDataGridView" class="com.openflux.views.TreeDataGridView" />
+    <component id="TreeDataGridRowView" class="com.openflux.views.TreeDataGridRowView" />
     
     <!-- controllers -->
     <component id="ButtonController" class="com.openflux.controllers.ButtonController" />
@@ -42,6 +49,8 @@
     <component id="DataGridHeaderController" class="com.openflux.controllers.DataGridHeaderController" />
     <component id="DataGridHeaderListController" class="com.openflux.controllers.DataGridHeaderListController" />
     <component id="DataGridRowListController" class="com.openflux.controllers.DataGridRowListController" />
+    <component id="TreeController" class="com.openflux.controllers.TreeController" />
+    <component id="TreeItemController" class="com.openflux.controllers.TreeItemController" />
     
     <!-- constants -->
     <component id="ButtonStates" class="com.openflux.constants.ButtonStates" />

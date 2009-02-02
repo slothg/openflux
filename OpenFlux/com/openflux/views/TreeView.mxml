@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openflux:ListView
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:openflux="http://www.openflux.org/2008">
+	
+	<!-- factory -->
+	<openflux:factory>
+		<openflux:TreeItem/>
+	</openflux:factory>
+	
+</openflux:ListView>

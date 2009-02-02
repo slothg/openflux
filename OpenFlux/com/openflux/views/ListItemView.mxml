@@ -20,11 +20,11 @@
 	<degrafa:SolidFill id="fill" color="#FFFFFF" />
 	
 	<flux:content>
-		<degrafa:Surface id="surface" >
+		<!--<degrafa:Surface id="surface" >
 			<degrafa:GeometryGroup>
 				<degrafa:RoundedRectangle width="{width}" height="{height}" fill="{fill}" />
 			</degrafa:GeometryGroup>
-		</degrafa:Surface>
+		</degrafa:Surface>-->
 		
 		<mx:Label text="{component.data is String ? component.data : component.data.label}" left="10" right="10" verticalCenter="0" truncateToFit="false" />
 		

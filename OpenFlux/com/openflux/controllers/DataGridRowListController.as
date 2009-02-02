@@ -1,9 +1,9 @@
 package com.openflux.controllers
 {
-	import com.openflux.views.DataGridView;
 	import com.openflux.DataGridRow;
 	import com.openflux.List;
 	import com.openflux.core.FluxController;
+	import com.openflux.core.IFluxView;
 	
 	import mx.events.ChildExistenceChangedEvent;
 
@@ -15,7 +15,7 @@ package com.openflux.controllers
 		metadata function childAddHandler(event:ChildExistenceChangedEvent):void {
 			var child:DataGridRow = event.relatedObject as DataGridRow;
 			if (child) {
-				child.columns = DataGridView(list.parent).component.columns;
+				child.columns = (list.parent as IFluxView).component.columns;
 			}
 		}
 		
