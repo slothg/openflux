@@ -316,7 +316,7 @@ package com.openflux.containers
 					break;
 				case CollectionEventKind.REMOVE:
 					for (i = 0; i < event.items.length; i++) {
-						removeItem(event.items[i] , event.location+i);
+						removeItem(event.items[i] , event.location);
 					}
 					//removeItem(event.items[0], event.location);
 					break;

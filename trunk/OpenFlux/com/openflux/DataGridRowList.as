@@ -19,7 +19,6 @@ package com.openflux
 		}
 		
 		override protected function createChildren():void {
-			setStyle("factory", new DataGridRow());
 			if (!controller) {
 				controller = new ComplexController([new ListController(),
 													new DragListController(),
