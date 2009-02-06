@@ -137,7 +137,7 @@ package com.openflux.containers
 		// Framework Overrides
 		//***********************************************
 		
-		/** @private *//*
+		/** @private */
 		override protected function createChildren():void {
 			super.createChildren();
 			if (animator == null) {
@@ -150,7 +150,7 @@ package com.openflux.containers
 				factory = new ListItem();
 			}
 		}
-		*/
+		
 		/** @private */
 		override protected function commitProperties():void {
 			super.commitProperties();
