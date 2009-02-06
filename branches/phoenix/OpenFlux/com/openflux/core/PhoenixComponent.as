@@ -17,22 +17,24 @@ package com.openflux.core
 	import mx.core.IRawChildrenContainer;
 	import mx.core.IUIComponent;
 	import mx.core.IUITextField;
+	import mx.managers.ILayoutManagerClient;
+	import mx.managers.ISystemManager;
+	import mx.styles.ISimpleStyleClient;
+	import mx.styles.IStyleClient;
+	
 	import mx.core.UIComponentDescriptor;
 	import mx.core.UIComponentGlobals;
-	import mx.core.UITextFormat;
-	import mx.core.mx_internal;
+	import mx.managers.SystemManager;
+	import mx.states.State;
+	import mx.styles.CSSStyleDeclaration;
+	import mx.styles.StyleManager;
+	
 	import mx.events.FlexEvent;
 	import mx.events.MoveEvent;
 	import mx.events.ResizeEvent;
 	import mx.events.StateChangeEvent;
-	import mx.managers.ILayoutManagerClient;
-	import mx.managers.ISystemManager;
-	import mx.managers.SystemManager;
-	import mx.states.State;
-	import mx.styles.CSSStyleDeclaration;
-	import mx.styles.ISimpleStyleClient;
-	import mx.styles.IStyleClient;
-	import mx.styles.StyleManager;
+	
+	import mx.core.mx_internal;
 	
 	use namespace mx_internal;
 	
@@ -767,13 +769,10 @@ package com.openflux.core
 		public function clearStyle(styleProp:String):void {
 			 setStyle(styleProp, undefined);
 		}
-
-private var cachedTextFormat:UITextFormat;
-		
+	
     public function notifyStyleChangeInChildren(
                         styleProp:String, recursive:Boolean):void
     {
-        cachedTextFormat = null;
 
         var n:int = numChildren;
         for (var i:int = 0; i < n; i++)
