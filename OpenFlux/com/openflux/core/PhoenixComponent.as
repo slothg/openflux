@@ -6,14 +6,20 @@ package com.openflux.core
 	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.system.ApplicationDomain;
+	import flash.utils.getQualifiedClassName;
+	import flash.utils.getQualifiedSuperclassName;
 	
+	import mx.core.IChildList;
 	import mx.core.IDeferredInstantiationUIComponent;
 	import mx.core.IFlexDisplayObject;
 	import mx.core.IInvalidating;
+	import mx.core.IRawChildrenContainer;
 	import mx.core.IUIComponent;
 	import mx.core.IUITextField;
 	import mx.core.UIComponentDescriptor;
 	import mx.core.UIComponentGlobals;
+	import mx.core.UITextFormat;
 	import mx.core.mx_internal;
 	import mx.events.FlexEvent;
 	import mx.events.MoveEvent;
@@ -21,6 +27,7 @@ package com.openflux.core
 	import mx.events.StateChangeEvent;
 	import mx.managers.ILayoutManagerClient;
 	import mx.managers.ISystemManager;
+	import mx.managers.SystemManager;
 	import mx.states.State;
 	import mx.styles.CSSStyleDeclaration;
 	import mx.styles.ISimpleStyleClient;
@@ -30,7 +37,7 @@ package com.openflux.core
 	use namespace mx_internal;
 	
 	public class PhoenixComponent extends Sprite 
-	implements IFlexDisplayObject, IUIComponent, IInvalidating, ISimpleStyleClient, IStyleClient, IDeferredInstantiationUIComponent, ILayoutManagerClient
+	implements IFlexDisplayObject, IUIComponent, IInvalidating, ISimpleStyleClient, IStyleClient, IDeferredInstantiationUIComponent, ILayoutManagerClient, IChildList
 	{
 
 		// ***************************************************************
@@ -135,7 +142,7 @@ package com.openflux.core
 		private var oldWidth:Number;
 		private var oldHeight:Number;
 
-		private var _width:Number; [Bindable] [PercentProxy("percentWidth")]
+		private var _width:Number = 0; [Bindable] [PercentProxy("percentWidth")]
 		override public function get width():Number { return _width; }
 		override public function set width(value:Number):void {
 	        if (explicitWidth != value) {
@@ -152,7 +159,7 @@ package com.openflux.core
 	        }
 		}
 		
-		private var _height:Number; [Bindable] [PercentProxy("percentHeight")]
+		private var _height:Number = 0; [Bindable] [PercentProxy("percentHeight")]
 		override public function get height():Number { return _height; }
 		override public function set height(value:Number):void {
 	        if (explicitHeight != value) {
@@ -336,6 +343,7 @@ package com.openflux.core
 		
 		public function validateSize(recursive:Boolean=false):void
 		{
+			trace("validate size");
 			if (recursive) {
 				for (var i:int = 0; i < numChildren; i++) {
 					var child:DisplayObject = getChildAt(i);
@@ -444,6 +452,7 @@ package com.openflux.core
 		
 		public function validateProperties():void
 		{
+			trace("validate properties");
 			if (invalidatePropertiesFlag) {
 				commitProperties();
 				invalidatePropertiesFlag = false;
@@ -472,6 +481,7 @@ package com.openflux.core
 		
 		public function validateDisplayList():void
 		{
+			trace("validate display list");
 			if (invalidateDisplayListFlag) {
 				var unscaledWidth:Number = scaleX == 0 ? 0 : width / scaleX;
 				var unscaledHeight:Number = scaleY == 0 ? 0 : height / scaleY;
@@ -661,8 +671,18 @@ package com.openflux.core
 			}
 		}
 		
-		public function setVisible(value:Boolean, noEvent:Boolean = false):void {
-			this.visible = value;
+		override public function get visible():Boolean { return super.visible; }
+		override public function set visible(value:Boolean):void {
+			setVisible(value);
+		}
+		
+		public function setVisible(value:Boolean, event:Boolean=true):void
+		{
+			if (visible != value) {
+				super.visible = value;
+				if (initialized)
+					dispatchEvent(new FlexEvent(value ? FlexEvent.SHOW : FlexEvent.HIDE));
+			}	
 		}
 		
 		// ISimpleStyleClient
@@ -673,11 +693,29 @@ package com.openflux.core
 			_styleName = value;
 		}
 		
-		public function styleChanged(styleProp:String):void {}
+		public function styleChanged(styleProp:String):void {
+			if (!styleProp || styleProp == "styleName" || StyleManager.isSizeInvalidatingStyle(styleProp)) {
+				invalidateSize();
+			}
+			
+			invalidateDisplayList();
+			
+			if (parent is IInvalidating) {
+				if (StyleManager.isParentSizeInvalidatingStyle(styleProp))
+					IInvalidating(parent).invalidateSize();
+			
+				if (StyleManager.isParentDisplayListInvalidatingStyle(styleProp))
+					IInvalidating(parent).invalidateDisplayList();
+			}
+		}
 		
 		// IStyleClient
 		
-		public function get className():String { return null; }
+		private var _className:String;
+		public function get className():String { return _className; }
+		public function set className(value:String):void {
+			_className = value;
+		}
 		
 		private var _inheritingStyles:Object = {};
 		public function get inheritingStyles():Object { return _inheritingStyles; }
@@ -726,12 +764,234 @@ package com.openflux.core
 	        }
 		}
 		
-		public function clearStyle(styleProp:String):void {}
-		public function getClassStyleDeclarations():Array { return null; }
+		public function clearStyle(styleProp:String):void {
+			 setStyle(styleProp, undefined);
+		}
+
+private var cachedTextFormat:UITextFormat;
 		
-		public function notifyStyleChangeInChildren(styleProp:String, recursive:Boolean):void {}
+    public function notifyStyleChangeInChildren(
+                        styleProp:String, recursive:Boolean):void
+    {
+        cachedTextFormat = null;
+
+        var n:int = numChildren;
+        for (var i:int = 0; i < n; i++)
+        {
+            var child:ISimpleStyleClient = getChildAt(i) as ISimpleStyleClient;
+            if (child)
+            {
+                child.styleChanged(styleProp);
+
+                if (child is IStyleClient)
+                    IStyleClient(child).notifyStyleChangeInChildren(styleProp, recursive);
+            }
+        }
+    }
 		
-		public function regenerateStyleCache(recursive:Boolean):void {}
+
+    public function getClassStyleDeclarations():Array
+    {
+        var myApplicationDomain:ApplicationDomain;
+
+            var myRoot:DisplayObject = SystemManager.getSWFRoot(this);
+            if (!myRoot)
+                return [];
+            myApplicationDomain = myRoot.loaderInfo.applicationDomain;
+
+        var className:String = flash.utils.getQualifiedClassName(this)
+        className = className.replace("::", ".");
+        var cache:Array;
+        cache = StyleManager.typeSelectorCache[className];
+        if (cache)
+            return cache;
+        
+        // trace("getClassStyleDeclaration", className);
+        var decls:Array = [];
+        var classNames:Array = [];
+        var caches:Array = [];
+        var declcache:Array = [];
+
+        while (className != null && className != "com.openflux.core.PhoenixComponent")
+        {
+            var s:CSSStyleDeclaration;
+            cache = StyleManager.typeSelectorCache[className];
+            if (cache)
+            {
+                decls = decls.concat(cache);
+                break;
+            }
+
+            s = StyleManager.getStyleDeclaration(className);
+            
+            if (s)
+            {
+                decls.unshift(s);
+                // we found one so the next set define the selectors for this
+                // found class and its ancestors.  Save the old list and start
+                // a new list
+                classNames.push(className);
+                caches.push(classNames);
+                declcache.push(decls);
+                decls = [];
+                classNames = [];
+                // trace("   ", className);
+                // break;
+            }
+            else
+                classNames.push(className);
+
+            try
+            {
+                className = flash.utils.getQualifiedSuperclassName(myApplicationDomain.getDefinition(className));
+                className = className.replace("::", ".");
+            }
+            catch(e:ReferenceError)
+            {
+                className = null;
+            }
+        }
+
+        caches.push(classNames);
+        declcache.push(decls);
+        decls = [];
+        while (caches.length)
+        {
+            classNames = caches.pop();
+            decls = decls.concat(declcache.pop());
+            while (classNames.length)
+            {
+                StyleManager.typeSelectorCache[classNames.pop()] = decls;
+            }
+        }
+
+        return decls;
+    }
+
+    public function regenerateStyleCache(recursive:Boolean):void
+    {
+        // Regenerate the proto chain for this object
+        initProtoChain();
+
+        var childList:IChildList =
+            this is IRawChildrenContainer ?
+            IRawChildrenContainer(this).rawChildren :
+            IChildList(this);
+        
+        // Recursively call this method on each child.
+        var n:int = childList.numChildren;
+        for (var i:int = 0; i < n; i++)
+        {
+            var child:DisplayObject = childList.getChildAt(i);
+
+            if (child is IStyleClient)
+            {
+                // Does this object already have a proto chain? 
+                // If not, there's no need to regenerate a new one.
+                if (IStyleClient(child).inheritingStyles !=
+                    {})
+                {
+                    IStyleClient(child).regenerateStyleCache(recursive);
+                }
+            }
+        }
+    }
+
+		
+		    mx_internal function initProtoChain():void
+    {
+        //trace("initProtoChain", name);
+
+        var classSelector:CSSStyleDeclaration;
+
+        if (styleName)
+        {
+            if (styleName is CSSStyleDeclaration)
+            {
+                // Get the style sheet referenced by the styleName property
+                classSelector = CSSStyleDeclaration(styleName);
+            }
+            else if (styleName is IFlexDisplayObject || styleName is IStyleClient)
+            {
+                // If the styleName property is a UIComponent, then there's a
+                // special search path for that case.
+                
+                mx.styles.StyleProtoChain.initProtoChainForUIComponentStyleName(this);
+                return;
+            }
+            else if (styleName is String)
+            {
+                // Get the style sheet referenced by the styleName property
+                classSelector =
+                    StyleManager.getStyleDeclaration("." + styleName);
+            }
+        }
+
+        // To build the proto chain, we start at the end and work forward.
+        // Referring to the list at the top of this function, we'll start by
+        // getting the tail of the proto chain, which is:
+        //  - for non-inheriting styles, the global style sheet
+        //  - for inheriting styles, my parent's style object
+        var nonInheritChain:Object = StyleManager.stylesRoot;
+        
+        if (nonInheritChain && nonInheritChain.effects)
+            registerEffects(nonInheritChain.effects);
+        
+        var p:IStyleClient = parent as IStyleClient;
+        if (p)
+        {
+            var inheritChain:Object = p.inheritingStyles;
+            if (inheritChain == {})
+                inheritChain = nonInheritChain;
+        }
+        else
+        {
+                inheritChain = StyleManager.stylesRoot;
+        }
+
+        // Working backwards up the list, the next element in the
+        // search path is the type selector
+        var typeSelectors:Array = getClassStyleDeclarations();
+        var n:int = typeSelectors.length;
+        for (var i:int = 0; i < n; i++)
+        {
+            var typeSelector:CSSStyleDeclaration = typeSelectors[i];
+            inheritChain =
+                typeSelector.addStyleToProtoChain(inheritChain, this);
+
+            nonInheritChain =
+                typeSelector.addStyleToProtoChain(nonInheritChain, this);
+            
+            if (typeSelector.effects)
+                registerEffects(typeSelector.effects);
+        }
+
+        // Next is the class selector
+        if (classSelector)
+        {
+            inheritChain =
+                classSelector.addStyleToProtoChain(inheritChain, this);
+
+            nonInheritChain =
+                classSelector.addStyleToProtoChain(nonInheritChain, this);
+            
+            if (classSelector.effects)
+                registerEffects(classSelector.effects);
+        }
+
+        // Finally, we'll add the in-line styles
+        // to the head of the proto chain.
+        inheritingStyles =
+            _styleDeclaration ?
+            _styleDeclaration.addStyleToProtoChain(inheritChain, this) :
+            inheritChain;
+
+        nonInheritingStyles =
+            _styleDeclaration ?
+            _styleDeclaration.addStyleToProtoChain(nonInheritChain, this) :
+            nonInheritChain;
+    }
+		
 		
 		// IDefferredInstantiationUIComponent (Assumed by Flex Containers! wtf?!!!)
 		
@@ -773,6 +1033,8 @@ package com.openflux.core
 		public function get processedDescriptors():Boolean { return _processedDescriptors; }
 		public function set processedDescriptors(value:Boolean):void {
 			_processedDescriptors = value;
+			if (value)
+				dispatchEvent(new FlexEvent(FlexEvent.INITIALIZE));
 		}
 		
 		private var _updateCompletePendingFlag:Boolean;
