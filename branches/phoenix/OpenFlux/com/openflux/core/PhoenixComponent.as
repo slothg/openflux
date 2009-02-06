@@ -24,7 +24,6 @@ package com.openflux.core
 	
 	import mx.core.UIComponentDescriptor;
 	import mx.core.UIComponentGlobals;
-	import mx.managers.SystemManager;
 	import mx.states.State;
 	import mx.styles.CSSStyleDeclaration;
 	import mx.styles.StyleManager;
@@ -141,8 +140,8 @@ package com.openflux.core
 		// Sizes & Measurement
 		// ***************************************************************
 
-		private var oldWidth:Number;
-		private var oldHeight:Number;
+		private var oldWidth:Number = 0;
+		private var oldHeight:Number = 0;
 
 		private var _width:Number = 0; [Bindable] [PercentProxy("percentWidth")]
 		override public function get width():Number { return _width; }
@@ -181,7 +180,7 @@ package com.openflux.core
 		protected function get unscaledWidth():Number { return width / Math.abs(scaleX); }
 		protected function get unscaledHeight():Number { return height / Math.abs(scaleY); }
 
-		private var _explicitWidth:Number; [Bindable]
+		private var _explicitWidth:Number = 0; [Bindable]
 		public function get explicitWidth():Number { return _explicitWidth; }
 		public function set explicitWidth(value:Number):void {
 			if (_explicitWidth != value) {            
@@ -195,7 +194,7 @@ package com.openflux.core
 			}
 		}
 		
-		private var _explicitHeight:Number;
+		private var _explicitHeight:Number = 0;
 		public function get explicitHeight():Number { return _explicitHeight; }
 		public function set explicitHeight(value:Number):void {
 			if (_explicitHeight != value) {            
@@ -233,7 +232,7 @@ package com.openflux.core
 				explicitMaxHeight = value;
 		}
 				
-		private var _explicitMinWidth:Number;
+		private var _explicitMinWidth:Number = 0;
 		public function get explicitMinWidth():Number { return _explicitMinWidth; }
 		public function set explicitMinWidth(value:Number):void {
 			if (_explicitMinWidth != value) {
@@ -243,7 +242,7 @@ package com.openflux.core
 			}
 		}
 		
-		private var _explicitMinHeight:Number;
+		private var _explicitMinHeight:Number = 0;
 		public function get explicitMinHeight():Number { return _explicitMinHeight; }
 		public function set explicitMinHeight(value:Number):void {
 			if (_explicitMinWidth != value) {
@@ -253,7 +252,7 @@ package com.openflux.core
 			}
 		}
 		
-		private var _explicitMaxWidth:Number;
+		private var _explicitMaxWidth:Number = 0;
 		public function get explicitMaxWidth():Number { return _explicitMaxWidth; }
 		public function set explicitMaxWidth(value:Number):void {
 			if (_explicitMaxWidth != value) {
@@ -263,7 +262,7 @@ package com.openflux.core
 			}
 		}
 		
-		private var _explicitMaxHeight:Number;
+		private var _explicitMaxHeight:Number = 0;
 		public function get explicitMaxHeight():Number { return _explicitMaxHeight; }
 		public function set explicitMaxHeight(value:Number):void {
 			if (_explicitMaxHeight != value) {
@@ -273,31 +272,31 @@ package com.openflux.core
 			}
 		}
 		
-		private var _measuredWidth:Number;
+		private var _measuredWidth:Number = 0;
 		public function get measuredWidth():Number { return _measuredWidth; }
-		public function set measuredWidth(value:Number):void { // implied
+		public function set measuredWidth(value:Number):void {
 			_measuredWidth = value;
 		}
 		
-		private var _measuredHeight:Number;
+		private var _measuredHeight:Number = 0;
 		public function get measuredHeight():Number { return _measuredHeight; }
-		public function set measuredHeight(value:Number):void { // implied
+		public function set measuredHeight(value:Number):void {
 			_measuredHeight = value;
 		}
 		
-		private var _measuredMinWidth:Number;
+		private var _measuredMinWidth:Number = 0;
 		public function get measuredMinWidth():Number { return _measuredMinWidth; }
 		public function set measuredMinWidth(value:Number):void {
 			_measuredMinWidth = value;
 		}
 		
-		private var _measuredMinHeight:Number;
+		private var _measuredMinHeight:Number = 0;
 		public function get measuredMinHeight():Number { return _measuredMinHeight; }
 		public function set measuredMinHeight(value:Number):void {
 			_measuredMinHeight = value;
 		}
 		
-		private var _percentWidth:Number;
+		private var _percentWidth:Number = 0;
 		public function get percentWidth():Number { return _percentWidth; }
 		public function set percentWidth(value:Number):void {
 			if (_percentWidth != value) {
@@ -308,7 +307,7 @@ package com.openflux.core
 			}
 		}
 		
-		private var _percentHeight:Number;
+		private var _percentHeight:Number = 0;
 		public function get percentHeight():Number { return _percentHeight; }
 		public function set percentHeight(value:Number):void {
 			if (_percentHeight != value) {
@@ -377,12 +376,7 @@ package com.openflux.core
 				
 				if (includeInLayout) {
 					invalidateDisplayList();
-			
-					var p:IInvalidating = parent as IInvalidating;
-					if (p) {
-						p.invalidateSize();
-						p.invalidateDisplayList();
-					}
+					invalidateParentSizeAndDisplayList();
 				}
         	}
 		}
@@ -792,8 +786,8 @@ package com.openflux.core
     public function getClassStyleDeclarations():Array
     {
         var myApplicationDomain:ApplicationDomain;
-
-            var myRoot:DisplayObject = SystemManager.getSWFRoot(this);
+        
+            var myRoot:DisplayObject = root; //SystemManager.getSWFRoot(this);
             if (!myRoot)
                 return [];
             myApplicationDomain = myRoot.loaderInfo.applicationDomain;

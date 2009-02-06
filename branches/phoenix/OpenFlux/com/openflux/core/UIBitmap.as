@@ -2,8 +2,9 @@ package com.openflux.core
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
-	import mx.core.IFlexDisplayObject;
 	import flash.display.DisplayObject;
+	
+	import mx.core.IFlexDisplayObject;
 	import mx.core.IUIComponent;
 
 	public class UIBitmap extends Bitmap implements IFlexDisplayObject

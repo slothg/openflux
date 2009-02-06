@@ -17,17 +17,17 @@ package com.plexiglass.containers
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
 	
-	import mx.containers.Canvas;
+	import mx.core.IInvalidating;
 	import mx.core.IUIComponent;
-	import mx.core.UIComponent;
 	import mx.events.ChildExistenceChangedEvent;
+	import mx.managers.ILayoutManagerClient;
 	import mx.styles.IStyleClient;
 	
 	public class PlexiContainer extends Container implements IPlexiContainer
 	{
 		private var _view:View3D;
-		private var viewContainer:Canvas;
-		private var container:Canvas;
+		private var viewContainer:PhoenixComponent;
+		private var container:PhoenixComponent;
 		private var _renderers:Array = new Array();
 		private var _camera:ICamera;
 		private var _newCamera:ICamera;
@@ -36,7 +36,7 @@ package com.plexiglass.containers
 		public function PlexiContainer()
 		{
 			super();
-			container = new Canvas();
+			container = new PhoenixComponent();
 			container.visible = false;
 			_view = new View3D();
 		}
@@ -75,7 +75,7 @@ package com.plexiglass.containers
 				animator = new PlexiAnimator();
 			}
 			super.createChildren();
-			viewContainer = new Canvas();
+			viewContainer = new PhoenixComponent();
 			// no more rawChildren, but might of broke something here :-)
 			super.addChild(viewContainer); //rawChildren.addChild(viewContainer);
 			super.addChild(container); //rawChildren.addChild(container);
@@ -100,9 +100,9 @@ package com.plexiglass.containers
 			if (!hasWidth || !hasHeight)
 			{
 				container.addChild(child);
-				var ui:UIComponent = child as UIComponent;
-				ui.validateSize(true);
-				ui.validateNow();
+				var ui:IUIComponent = child as IUIComponent;
+				ILayoutManagerClient(ui).validateSize(true);
+				IInvalidating(ui).validateNow(); 
 				if (!hasWidth) ui.width = ui.getExplicitOrMeasuredWidth();
 				if (!hasHeight) ui.height = ui.getExplicitOrMeasuredHeight();
 				container.removeChild(child);

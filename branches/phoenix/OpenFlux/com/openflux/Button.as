@@ -5,8 +5,6 @@ package com.openflux
 	import com.openflux.core.*;
 	import com.openflux.views.ButtonView;
 	
-	import mx.core.UIComponent;
-	
 	[Style(name="selectable", type="Boolean")]
 	public class Button extends FluxComponent implements IFluxButton, ISelectable, IEnabled
 	{

@@ -6,10 +6,7 @@ package com.openflux.core
 	import flash.display.DisplayObject;
 	
 	import mx.core.IInvalidating;
-	import mx.core.UIComponent;
 	import mx.core.mx_internal;
-	import mx.styles.CSSStyleDeclaration;
-	import mx.styles.StyleManager;
 	
 	use namespace mx_internal;
 	
@@ -43,8 +40,8 @@ package com.openflux.core
 		[StyleBinding]
 		public function get view():IFluxView { return _view; }
 		public function set view(value:IFluxView):void {
-			if(_view != null && contains(_view as UIComponent)) {
-				removeChild(_view as UIComponent);
+			if(_view != null && contains(_view as DisplayObject)) {
+				removeChild(_view as DisplayObject);
 			}
 			_view = value;
 			viewChanged = true;

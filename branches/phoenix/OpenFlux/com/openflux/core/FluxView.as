@@ -3,7 +3,6 @@ package com.openflux.core
 	import com.openflux.containers.Container;
 	import com.openflux.utils.MetaStyler;
 	
-	import mx.core.ScrollPolicy;
 	import mx.states.State;
 	import mx.styles.IStyleClient;
 	
@@ -48,8 +47,6 @@ package com.openflux.core
 		public function FluxView()
 		{
 			super();
-			//clipContent = false;
-			//verticalScrollPolicy = horizontalScrollPolicy = ScrollPolicy.OFF;
 			MetaStyler.initialize(this);
 		}
 		

@@ -7,7 +7,7 @@ package com.openflux.views
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
-	import mx.core.UIComponent;
+	import mx.core.IUIComponent;
 	
 	public class FisheyeView extends PlexiListView
 	{
@@ -28,7 +28,7 @@ package com.openflux.views
 			var distance:Number;
 			hasScaled = true;
 			var i:int=0;
-			for each (var child:UIComponent in children) {
+			for each (var child:IUIComponent in children) {
 				var plane:Plane = this.getChildPlane(child);
 				/*if (i==0) {
 					trace("plane x: " + plane.x + " y: " + plane.y + " bb: " + (plane.y - (height/2+plane.height/2)));

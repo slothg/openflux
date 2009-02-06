@@ -6,8 +6,6 @@ package com.openflux.layouts
 	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	
-	import mx.core.Container;
-	import mx.core.UIComponent;
 	import mx.events.ChildExistenceChangedEvent;
 	
 	import org.generalrelativity.foam.Foam;

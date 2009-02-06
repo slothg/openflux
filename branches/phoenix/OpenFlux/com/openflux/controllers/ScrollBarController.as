@@ -11,7 +11,7 @@ package com.openflux.controllers
 	import flash.geom.Point;
 	import flash.utils.Timer;
 	
-	import mx.core.UIComponent;
+	import mx.core.IUIComponent;
 	
 	public class ScrollBarController extends FluxController
 	{
@@ -30,7 +30,7 @@ package com.openflux.controllers
 		
 		[ModelAlias] public var edata:IEventDispatcher;
 		[ModelAlias] public var sdata:IFluxScrollBar;
-		[ModelAlias] public var view:UIComponent;
+		[ModelAlias] public var view:IUIComponent;
 		
 		[EventHandler(event="mouseDown", handler="upButton_mouseDownHandler")]
 		[ViewContract] public var upButton:DisplayObject;

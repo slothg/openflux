@@ -13,7 +13,7 @@ package com.plexiglass.layouts
 	
 	import mx.binding.utils.BindingUtils;
 	import mx.binding.utils.ChangeWatcher;
-	import mx.core.UIComponent;
+	import mx.core.IUIComponent;
 	
 	public class ConstraintLayout extends LayoutBase implements ILayout
 	{
@@ -64,7 +64,7 @@ package com.plexiglass.layouts
 				
 				// add change watchers for any newly added child
 				for each (child in container.children) {
-					plane = view.getChildPlane(child as UIComponent);
+					plane = view.getChildPlane(child as IUIComponent);
 					if (!watchers[child] && plane) {
 						plane.x = child.getExplicitOrMeasuredWidth() / 2 + child.x + rectangle.width/2;
 						plane.y = (child.getExplicitOrMeasuredHeight() / 2 + child.y + rectangle.height/2) * -1;
