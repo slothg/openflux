@@ -7,7 +7,6 @@ package com.openflux.animators
 	import flash.display.DisplayObject;
 	
 	import mx.core.IUIComponent;
-	import mx.core.UIComponent;
 	
 	/**
 	 * An animator class which uses the Tweener library. This is the default animator provided by OpenFlux. 
@@ -86,7 +85,7 @@ package com.openflux.animators
 		}
 		
 		private function getActualWidth(item:IUIComponent, parameters:Array, ...args):Number { return item.width; }
-		private function setActualWidth(item:UIComponent, value:Number, parameters:Array, ...args):void {
+		private function setActualWidth(item:IUIComponent, value:Number, parameters:Array, ...args):void {
 			item.setActualSize(value, item.height);
 		}
 		

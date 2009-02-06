@@ -8,11 +8,10 @@ package com.plexiglass.animators
 	import com.openflux.animators.IAnimator;
 	import com.openflux.containers.IFluxContainer;
 	import com.plexiglass.containers.IPlexiContainer;
-	import com.plexiglass.animators.PlexiAnimationToken;
 	
 	import flash.display.DisplayObject;
 	
-	import mx.core.UIComponent;
+	import mx.core.IUIComponent;
 
 	public class PlexiAnimator implements IAnimator
 	{
@@ -52,7 +51,7 @@ package com.plexiglass.animators
 		public function moveItem(item:DisplayObject, token:AnimationToken):void {
 			if(container is IPlexiContainer) {
 				var pv:IPlexiContainer = container as IPlexiContainer;
-				var plane:Plane = pv.getChildPlane(item as UIComponent);
+				var plane:Plane = pv.getChildPlane(item as IUIComponent);
 				token.x = token.x - container.width / 2 + token.width / 2;
 				token.y = (token.y - container.height / 2 + token.height / 2) * -1;
 				Tweener.addTween(plane, createTweenParameters3d(token, time));
@@ -71,7 +70,7 @@ package com.plexiglass.animators
 			if(container is IPlexiContainer) {
 				var parameters3d:Object = createTweenParameters3d(token, 1/3);
 				var pv:IPlexiContainer = container as IPlexiContainer;
-				var plane:Plane = pv.getChildPlane(item as UIComponent);
+				var plane:Plane = pv.getChildPlane(item as IUIComponent);
 				if (plane) {
 						Tweener.addTween(plane, parameters3d);
 				}

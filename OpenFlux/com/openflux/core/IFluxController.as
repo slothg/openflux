@@ -1,7 +1,5 @@
 package com.openflux.core
-{
-	import mx.core.UIComponent;
-	
+{	
 	/**
 	 * Defines the interface which all Flux controllers extending from this library must implement.
 	 * @see IFluxComponent

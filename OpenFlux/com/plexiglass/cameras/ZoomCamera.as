@@ -12,7 +12,6 @@ package com.plexiglass.cameras
 	import flash.events.MouseEvent;
 	
 	import mx.core.IUIComponent;
-	import mx.core.UIComponent;
 	import mx.events.ChildExistenceChangedEvent;
 	
 	public class ZoomCamera extends CameraBase implements ICamera
@@ -55,7 +54,7 @@ package com.plexiglass.cameras
 		}
 
 		private function onClick(event:MouseEvent):void {
-			var plane:Plane = container.getChildPlane(event.currentTarget as UIComponent);
+			var plane:Plane = container.getChildPlane(event.currentTarget as IUIComponent);
 			if (plane == zoomedPlane) {
 				Tweener.addTween(lookAt, {x:0, y:0, z:0, time:1});
 				Tweener.addTween(cameraPos, {x:origCameraPos.x, y:origCameraPos.y, z:origCameraPos.z, time:1});
