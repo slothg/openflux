@@ -10,6 +10,8 @@ package com.openflux.core
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.getQualifiedSuperclassName;
 	
+	import mx.binding.IBindingClient;
+	import mx.binding.BindingManager;
 	import mx.core.IChildList;
 	import mx.core.IDeferredInstantiationUIComponent;
 	import mx.core.IFlexDisplayObject;
@@ -17,32 +19,43 @@ package com.openflux.core
 	import mx.core.IRawChildrenContainer;
 	import mx.core.IUIComponent;
 	import mx.core.IUITextField;
-	import mx.managers.ILayoutManagerClient;
-	import mx.managers.ISystemManager;
-	import mx.styles.ISimpleStyleClient;
-	import mx.styles.IStyleClient;
-	
+	import mx.core.ApplicationGlobals;
+	import mx.core.UIComponentCachePolicy;
 	import mx.core.UIComponentDescriptor;
 	import mx.core.UIComponentGlobals;
-	import mx.states.State;
-	import mx.styles.CSSStyleDeclaration;
-	import mx.styles.StyleManager;
-	
+	import mx.core.mx_internal;
 	import mx.events.FlexEvent;
 	import mx.events.MoveEvent;
 	import mx.events.ResizeEvent;
 	import mx.events.StateChangeEvent;
-	
-	import mx.core.mx_internal;
+	import mx.managers.ILayoutManagerClient;
+	import mx.managers.ISystemManager;
+	import mx.states.State;
+	import mx.styles.CSSStyleDeclaration;
+	import mx.styles.ISimpleStyleClient;
+	import mx.styles.IStyleClient;
+	import mx.styles.StyleManager;
 	
 	use namespace mx_internal;
 	
 	public class PhoenixComponent extends Sprite 
 	implements IFlexDisplayObject, IUIComponent, IInvalidating, ISimpleStyleClient, IStyleClient, IDeferredInstantiationUIComponent, ILayoutManagerClient, IChildList
 	{
+		public static const DEFAULT_MAX_WIDTH:Number   = 10000;
+		public static const DEFAULT_MAX_HEIGHT:Number  = 10000;
+		public static var   STYLE_UNINITIALIZED:Object = {};
+
+		public function PhoenixComponent() {
+			enabled = true;
+			super.visible = false;
+			_width = super.width;
+			_height = super.height;
+		}
 
 		// ***************************************************************
 		// States
+		// For the record, I hate Flex 3 States.
+		// It would be great if OpenFlux could do something different
 		// ***************************************************************
 	
 		private var _states:Array;
@@ -220,13 +233,13 @@ package com.openflux.core
 				explicitMinHeight = value;
 		}
 		
-		public function get maxWidth():Number { return !isNaN(explicitMaxWidth) ? explicitMaxWidth : 10000; }
+		public function get maxWidth():Number { return !isNaN(explicitMaxWidth) ? explicitMaxWidth : DEFAULT_MAX_WIDTH; }
 		public function set maxWidth(value:Number):void {
 			if (explicitMaxWidth != value)
 				explicitMaxWidth = value;
 		}
 		
-		public function get maxHeight():Number { return !isNaN(explicitMaxHeight) ? explicitMaxHeight : 10000; }
+		public function get maxHeight():Number { return !isNaN(explicitMaxHeight) ? explicitMaxHeight : DEFAULT_MAX_HEIGHT; }
 		public function set maxHeight(value:Number):void {
 			if (explicitMaxHeight != value)
 				explicitMaxHeight = value;
@@ -336,10 +349,11 @@ package com.openflux.core
 
 		private var invalidateSizeFlag:Boolean;
 		public function invalidateSize():void {
-			invalidateSizeFlag = true;
-			
-			if (parent && UIComponentGlobals.layoutManager)
-				UIComponentGlobals.layoutManager.invalidateSize(this);
+			if (!invalidateSizeFlag) {
+				invalidateSizeFlag = true;		
+				if (parent && UIComponentGlobals.layoutManager)
+					UIComponentGlobals.layoutManager.invalidateSize(this);
+			}
 		}
 		
 		public function validateSize(recursive:Boolean=false):void
@@ -406,6 +420,24 @@ package com.openflux.core
 		private var oldX:Number;
 		private var oldY:Number;
 		
+		[Bindable]
+		override public function get x():Number { return super.x; }
+		override public function set x(value:Number):void {
+			if (super.x != value) {
+				super.x = value;
+				invalidateProperties();
+			}
+		}
+		
+		[Bindable]
+		override public function get y():Number { return super.y; }
+		override public function set y(value:Number):void {
+			if (super.y != value) {
+				super.y = value;
+				invalidateProperties();
+			}
+		}
+		
 		public function move(x:Number, y:Number):void {
 			var changed:Boolean = false;
 			
@@ -440,10 +472,11 @@ package com.openflux.core
 
 		private var invalidatePropertiesFlag:Boolean;
 		public function invalidateProperties():void {
-			invalidatePropertiesFlag = true;
-			
-			if (parent && UIComponentGlobals.layoutManager)
-				UIComponentGlobals.layoutManager.invalidateProperties(this);
+			if (!invalidatePropertiesFlag) {
+				invalidatePropertiesFlag = true;
+				if (parent && UIComponentGlobals.layoutManager)
+					UIComponentGlobals.layoutManager.invalidateProperties(this);
+			}
 		}
 		
 		public function validateProperties():void
@@ -469,10 +502,11 @@ package com.openflux.core
 		
 		private var invalidateDisplayListFlag:Boolean;
 		public function invalidateDisplayList():void {
-			invalidateDisplayListFlag = true;
-			
-			if (parent && UIComponentGlobals.layoutManager)
-				UIComponentGlobals.layoutManager.invalidateDisplayList(this);
+			if (!invalidateDisplayListFlag) {
+				invalidateDisplayListFlag = true;
+				if (parent && UIComponentGlobals.layoutManager)
+					UIComponentGlobals.layoutManager.invalidateDisplayList(this);
+			}
 		}
 		
 		public function validateDisplayList():void
@@ -492,13 +526,31 @@ package com.openflux.core
 		// ***************************************************************
 		// Overrides
 		// ***************************************************************
+
+		override public function get doubleClickEnabled():Boolean {
+			return super.doubleClickEnabled;
+		}
 		
+		override public function set doubleClickEnabled(value:Boolean):void {
+			super.doubleClickEnabled = value;
+			
+			for (var i:int = 0; i < this.numChildren; i++) {
+				var child:InteractiveObject = this.getChildAt(i) as InteractiveObject;
+				if (child)
+					child.doubleClickEnabled = value;
+			}
+		}
+
 		private function addingChild(child:DisplayObject):void
 		{
 			var formerParent:DisplayObjectContainer = child.parent;
 			if (formerParent && !(formerParent is Loader))
 				formerParent.removeChild(child);
-			
+
+			if (child is IUIComponent && !IUIComponent(child).document) {
+				IUIComponent(child).document = document ? document : ApplicationGlobals.application;
+			}
+
 			if (child is IUIComponent)
             	IUIComponent(child).parentChanged(this);
             	
@@ -513,10 +565,13 @@ package com.openflux.core
 
 			if (child is IStyleClient)
 				IStyleClient(child).regenerateStyleCache(true);
+			
 			if (child is ISimpleStyleClient)
 				ISimpleStyleClient(child).styleChanged(null);
+			
 			if (child is IStyleClient)
 				IStyleClient(child).notifyStyleChangeInChildren(null, true);
+			
 		}
 		
 		private function addedChild(child:DisplayObject):void
@@ -545,6 +600,8 @@ package com.openflux.core
 		
 		private function removedChild(child:DisplayObject):void {
 			if (child is IUIComponent) {
+				if (IUIComponent(child).document != child)
+					IUIComponent(child).document = null;
 				IUIComponent(child).parentChanged(null);
 			}
 		}
@@ -606,11 +663,39 @@ package com.openflux.core
 			
 			createChildren();
 			childrenCreated();
+			
+			processedDescriptors = true;
 		}
 		
-		public function owns(displayObject:DisplayObject):Boolean { return false; }
+		public function owns(child:DisplayObject):Boolean {
+			if (contains(child))
+				return true;
+			
+			try {
+				while (child && child != this) {
+					if (child is IUIComponent)
+						child = IUIComponent(child).owner;
+					else
+						child = child.parent;
+				}
+			} catch (e:SecurityError) {
+				return false;
+			}
+			
+			return child == this;
+		}
 		
 		public function parentChanged(p:DisplayObjectContainer):void {
+			if (!p) {
+				_parent = null;
+				_nestLevel = 0;
+			} else if (p is IStyleClient) {
+				_parent = p;
+			} else if (p is ISystemManager) {
+				_parent = p;
+			} else {
+				_parent = p.parent;
+			}
 		}
 		
 		// meat
@@ -618,6 +703,14 @@ package com.openflux.core
 		private var _document:Object;
 		public function get document():Object { return _document; }
 		public function set document(value:Object):void {
+			var n:int = numChildren;
+			for (var i:int = 0; i < n; i++) {
+				var child:IUIComponent = getChildAt(i) as IUIComponent;
+				if (child && (child.document == _document || child.document == ApplicationGlobals.application)) {
+					child.document = value;
+				}
+			}
+			
 			_document = value;
 		}
 		
@@ -625,6 +718,14 @@ package com.openflux.core
 		public function get owner():DisplayObjectContainer { return _owner ? _owner : parent; }
 		public function set owner(value:DisplayObjectContainer):void {
 			_owner = value;
+		}
+		
+		private var _parent:DisplayObjectContainer;
+		override public function get parent():DisplayObjectContainer {
+			try {
+				return _parent ? _parent : super.parent;
+			} catch (e:SecurityError) {}
+			return null;
 		}
 		
 		private var _systemManager:ISystemManager;
@@ -638,7 +739,17 @@ package com.openflux.core
 		private var _focusPane:Sprite;
 		public function get focusPane():Sprite { return _focusPane; }
 		public function set focusPane(value:Sprite):void {
-			_focusPane = value;
+			if (value) {
+				addChild(value);
+				value.x = 0;
+				value.y = 0;
+				value.scrollRect = null;
+				_focusPane = value;
+			} else {
+				removeChild(_focusPane);
+				_focusPane.mask = null;
+				_focusPane = null;
+			}
 		}
 		
 		private var _tweeningProperties:Array;
@@ -662,7 +773,6 @@ package com.openflux.core
 			_includeInLayout = value;
 			if (_includeInLayout != value) {
 				_includeInLayout = value;
-				
 				invalidateParentSizeAndDisplayList();
 			}
 		}
@@ -686,7 +796,17 @@ package com.openflux.core
 		private var _styleName:Object;
 		public function get styleName():Object { return _styleName; }
 		public function set styleName(value:Object):void {
+			if (_styleName === value)
+            	return;
+            	
 			_styleName = value;
+			
+			if (inheritingStyles == STYLE_UNINITIALIZED)
+				return;
+			
+			regenerateStyleCache(true);
+			styleChanged("styleName");
+			notifyStyleChangeInChildren("styleName", true);
 		}
 		
 		public function styleChanged(styleProp:String):void {
@@ -707,19 +827,21 @@ package com.openflux.core
 		
 		// IStyleClient
 		
-		private var _className:String;
-		public function get className():String { return _className; }
-		public function set className(value:String):void {
-			_className = value;
+		public function get className():String {
+			var name:String = getQualifiedClassName(this);
+			var index:int = name.indexOf("::");
+			if (index != -1)
+				name = name.substr(index + 2);
+			return name;
 		}
 		
-		private var _inheritingStyles:Object = {};
+		private var _inheritingStyles:Object = STYLE_UNINITIALIZED;
 		public function get inheritingStyles():Object { return _inheritingStyles; }
 		public function set inheritingStyles(value:Object):void {
 			_inheritingStyles = value;
 		}
 		
-		private var _nonInheritingStyles:Object = {};
+		private var _nonInheritingStyles:Object = STYLE_UNINITIALIZED;
 		public function get nonInheritingStyles():Object { return _nonInheritingStyles; }
 		public function set nonInheritingStyles(value:Object):void {
 			_nonInheritingStyles = value;
@@ -741,7 +863,7 @@ package com.openflux.core
 			}
 			
 			var isInheritingStyle:Boolean = StyleManager.isInheritingStyle(styleProp);
-			var isProtoChainInitialized:Boolean = false; //inheritingStyles != UIComponent.STYLE_UNINITIALIZED;
+			var isProtoChainInitialized:Boolean = inheritingStyles != STYLE_UNINITIALIZED;
 			var valueChanged:Boolean = getStyle(styleProp) != newValue;
         
 			if (!_styleDeclaration) {
@@ -934,7 +1056,7 @@ package com.openflux.core
         if (p)
         {
             var inheritChain:Object = p.inheritingStyles;
-            if (inheritChain == {})
+            if (inheritChain == STYLE_UNINITIALIZED)
                 inheritChain = nonInheritChain;
         }
         else
@@ -989,7 +1111,12 @@ package com.openflux.core
 		// IDefferredInstantiationUIComponent (Assumed by Flex Containers! wtf?!!!)
 		
 		public function set cacheHeuristic(value:Boolean):void {}
-		public function get cachePolicy():String { return null; }
+		
+		private var _cachePolicy:String = UIComponentCachePolicy.AUTO;
+		public function get cachePolicy():String { return _cachePolicy; }
+		public function set cachePolicy(value:String):void {
+			_cachePolicy = value;
+		}
 		
 		private var _descriptor:UIComponentDescriptor;
 		public function get descriptor():UIComponentDescriptor { return _descriptor; }
@@ -1003,9 +1130,22 @@ package com.openflux.core
 			_id = value;
 		}
 
-		public function createReferenceOnParentDocument(parentDocument:IFlexDisplayObject):void {}
-		public function deleteReferenceOnParentDocument(parentDocument:IFlexDisplayObject):void {}
-		public function executeBindings(recurse:Boolean = false):void {}
+		public function createReferenceOnParentDocument(parentDocument:IFlexDisplayObject):void {
+			if (id && id != "") {
+				parentDocument[id] = this;
+			}
+		}
+		public function deleteReferenceOnParentDocument(parentDocument:IFlexDisplayObject):void {
+			if (id && id != "") {
+				parentDocument[id] = null;
+			}
+		}
+
+		public function executeBindings(recurse:Boolean = false):void {
+	        var bindingsHost:Object = descriptor && descriptor.document ? descriptor.document : parentDocument;
+	        BindingManager.executeBindings(bindingsHost, id, this);
+		}
+
 		public function registerEffects(effects:Array):void {}
 		
 		// ILayoutManagerClient
@@ -1014,12 +1154,26 @@ package com.openflux.core
 		public function get initialized():Boolean { return _initialized; }
 		public function set initialized(value:Boolean):void {
 			_initialized = value;
+			if (value) {
+	            setVisible(visible, true);
+	            dispatchEvent(new FlexEvent(FlexEvent.CREATION_COMPLETE));
+			}
 		}
 		
 		private var _nestLevel:int;
 		public function get nestLevel():int { return _nestLevel; }
 		public function set nestLevel(value:int):void {
-			_nestLevel = value;
+			if (value > 1 && _nestLevel != value) {
+				_nestLevel = value;
+				updateCallbacks();
+				
+				for (var i:int = 0; i < this.numChildren; i++) {
+					var ui:ILayoutManagerClient  = this.getChildAt(i) as ILayoutManagerClient;
+					if (ui) {
+						ui.nestLevel = value + 1;
+					}
+				}
+			}
 		}
 		
 		private var _processedDescriptors:Boolean;
@@ -1043,6 +1197,41 @@ package com.openflux.core
 			if (p && includeInLayout) {
 				p.invalidateSize();
 				p.invalidateDisplayList();
+			}
+		}
+		
+		public function get parentDocument():Object {
+			if (document == this) {
+				var p:IUIComponent = parent as IUIComponent;
+				if (p)
+					return p.document;
+		
+				var sm:ISystemManager = parent as ISystemManager;
+				if (sm)
+					return sm.document;
+		
+				return null;            
+			} else {
+				return document;
+			}
+		}
+		
+		
+		public function updateCallbacks():void {
+			if (invalidateDisplayListFlag)
+				UIComponentGlobals.layoutManager.invalidateDisplayList(this);
+			if (invalidateSizeFlag)
+				UIComponentGlobals.layoutManager.invalidateSize(this);
+			if (invalidatePropertiesFlag)
+				UIComponentGlobals.layoutManager.invalidateProperties(this);
+			if (systemManager && (_systemManager.stage || _systemManager.useSWFBridge())) {
+				/*if (methodQueue.length > 0 && !listeningForRender) {
+					_systemManager.addEventListener(FlexEvent.RENDER, callLaterDispatcher);
+					_systemManager.addEventListener(FlexEvent.ENTER_FRAME, callLaterDispatcher);
+					listeningForRender = true;
+				}*/
+				if (_systemManager.stage)
+					_systemManager.stage.invalidate();
 			}
 		}
 	}

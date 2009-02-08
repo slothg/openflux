@@ -244,7 +244,7 @@ package com.openflux.containers
 		
 		protected function addItem(item:Object, index:int=-1):void {
 			var instance:IUIComponent;
-			var factory:IFluxFactory = null; //new FluxFactory(this.factory as IFactory); // testing CSS Data declarations
+			var factory:IFluxFactory = new FluxFactory(this.factory as IFactory); // testing CSS Data declarations
 			if(item is IUIComponent) {
 				instance = item as IUIComponent;
 			/*} else if (freeChildren.length > 0) {
@@ -312,7 +312,7 @@ package com.openflux.containers
 					//addItem(event.items[0], event.location);
 					break;
 				case CollectionEventKind.REMOVE:
-					for (i = 0; i < event.items.length; i++) {
+					for (i = 0; i < event.items.length; i) {
 						removeItem(event.items[i] , event.location+i);
 					}
 					//removeItem(event.items[0], event.location);

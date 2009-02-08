@@ -32,6 +32,7 @@ package com.openflux
 		private var collection:ICollectionView; [Bindable]
 		public function get data():Object { return collection; }
 		public function set data(value:Object):void {
+			trace("hello???");
 			collection = CollectionUtil.resolveCollection(value);
 		}
 		
@@ -77,6 +78,7 @@ package com.openflux
 		//*****************************************************************
 		
 		override protected function createChildren():void {
+			trace("createChildren");
 			if(!controller) {
 				controller = new ComplexController([new ListController(), new DragListController(), new DropListController()]); //new ListController();
 			}

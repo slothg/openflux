@@ -26,7 +26,7 @@
 			</degrafa:GeometryGroup>
 		</degrafa:Surface>
 		
-		<mx:Label text="{component.data.label}" left="10" right="10" verticalCenter="0" />
+		<mx:Label text="Test" left="10" right="10" verticalCenter="0" />
 		
 	</flux:content>
 	
