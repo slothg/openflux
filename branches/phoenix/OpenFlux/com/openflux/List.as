@@ -78,7 +78,6 @@ package com.openflux
 		//*****************************************************************
 		
 		override protected function createChildren():void {
-			trace("createChildren");
 			if(!controller) {
 				controller = new ComplexController([new ListController(), new DragListController(), new DropListController()]); //new ListController();
 			}

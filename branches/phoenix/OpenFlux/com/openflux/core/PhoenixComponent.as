@@ -1,17 +1,20 @@
 package com.openflux.core
 {
+	import com.openflux.states.State;
+	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.InteractiveObject;
 	import flash.display.Loader;
 	import flash.display.Sprite;
+	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.system.ApplicationDomain;
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.getQualifiedSuperclassName;
 	
-	import mx.binding.IBindingClient;
 	import mx.binding.BindingManager;
+	import mx.core.ApplicationGlobals;
 	import mx.core.IChildList;
 	import mx.core.IDeferredInstantiationUIComponent;
 	import mx.core.IFlexDisplayObject;
@@ -19,7 +22,6 @@ package com.openflux.core
 	import mx.core.IRawChildrenContainer;
 	import mx.core.IUIComponent;
 	import mx.core.IUITextField;
-	import mx.core.ApplicationGlobals;
 	import mx.core.UIComponentCachePolicy;
 	import mx.core.UIComponentDescriptor;
 	import mx.core.UIComponentGlobals;
@@ -30,14 +32,55 @@ package com.openflux.core
 	import mx.events.StateChangeEvent;
 	import mx.managers.ILayoutManagerClient;
 	import mx.managers.ISystemManager;
+	import mx.managers.SystemManagerProxy;
 	import mx.styles.CSSStyleDeclaration;
 	import mx.styles.ISimpleStyleClient;
 	import mx.styles.IStyleClient;
 	import mx.styles.StyleManager;
 	
-	import com.openflux.states.State;
-	
 	use namespace mx_internal;
+
+	[Event(name="add", type="mx.events.FlexEvent")]
+	[Event(name="creationComplete", type="mx.events.FlexEvent")]
+	[Event(name="updateComplete", type="mx.events.FlexEvent")]
+	[Event(name="hide", type="mx.events.FlexEvent")]
+	[Event(name="initialize", type="mx.events.FlexEvent")]
+	[Event(name="move", type="mx.events.MoveEvent")]
+	[Event(name="preinitialize", type="mx.events.FlexEvent")]
+	[Event(name="remove", type="mx.events.FlexEvent")]
+	[Event(name="resize", type="mx.events.ResizeEvent")]
+	[Event(name="show", type="mx.events.FlexEvent")]
+	[Event(name="mouseDownOutside", type="mx.events.FlexMouseEvent")]
+	[Event(name="mouseWheelOutside", type="mx.events.FlexMouseEvent")]
+	[Event(name="valueCommit", type="mx.events.FlexEvent")]
+	[Event(name="invalid", type="mx.events.FlexEvent")]
+	[Event(name="valid", type="mx.events.FlexEvent")]
+	[Event(name="dragEnter", type="mx.events.DragEvent")]
+	[Event(name="dragOver", type="mx.events.DragEvent")]
+	[Event(name="dragExit", type="mx.events.DragEvent")]
+	[Event(name="dragDrop", type="mx.events.DragEvent")]
+	[Event(name="dragComplete", type="mx.events.DragEvent")]
+	[Event(name="dragStart", type="mx.events.DragEvent")]
+	[Event(name="effectStart", type="mx.events.EffectEvent")]
+	[Event(name="effectEnd", type="mx.events.EffectEvent")]
+	[Event(name="currentStateChanging", type="mx.events.StateChangeEvent")]
+	[Event(name="currentStateChange", type="mx.events.StateChangeEvent")]
+	[Event(name="enterState", type="mx.events.FlexEvent")]
+	[Event(name="exitState", type="mx.events.FlexEvent")]
+	[Event(name="toolTipCreate", type="mx.events.ToolTipEvent")]
+	[Event(name="toolTipEnd", type="mx.events.ToolTipEvent")]
+	[Event(name="toolTipHide", type="mx.events.ToolTipEvent")]
+	[Event(name="toolTipShow", type="mx.events.ToolTipEvent")]
+	[Event(name="toolTipShown", type="mx.events.ToolTipEvent")]
+	[Event(name="toolTipStart", type="mx.events.ToolTipEvent")]
+	
+	[Style(name="baseline", type="String", inherit="no")]
+	[Style(name="bottom", type="String", inherit="no")]
+	[Style(name="horizontalCenter", type="String", inherit="no")]
+	[Style(name="left", type="String", inherit="no")]
+	[Style(name="right", type="String", inherit="no")]
+	[Style(name="top", type="String", inherit="no")]
+	[Style(name="verticalCenter", type="String", inherit="no")]
 	
 	public class PhoenixComponent extends Sprite 
 	implements IFlexDisplayObject, IUIComponent, IInvalidating, ISimpleStyleClient, IStyleClient, IDeferredInstantiationUIComponent, ILayoutManagerClient, IChildList
@@ -48,7 +91,7 @@ package com.openflux.core
 
 		public function PhoenixComponent() {
 			enabled = true;
-			//super.visible = false;
+			super.visible = false;
 			_width = super.width;
 			_height = super.height;
 		}
@@ -157,11 +200,11 @@ package com.openflux.core
 		// Sizes & Measurement
 		// ***************************************************************
 
-		private var oldWidth:Number = 0;
-		private var oldHeight:Number = 0;
+		private var oldWidth:Number;
+		private var oldHeight:Number;
 		private var invalidateSizeFlag:Boolean;
 
-		private var _width:Number = 0; [Bindable] [PercentProxy("percentWidth")]
+		private var _width:Number; [Bindable("widthChanged")] [PercentProxy("percentWidth")]
 		override public function get width():Number { return _width; }
 		override public function set width(value:Number):void {
 	        if (explicitWidth != value) {
@@ -175,10 +218,12 @@ package com.openflux.core
 	            invalidateParentSizeAndDisplayList();
 	
 	            _width = value;
+	            
+	              dispatchEvent(new Event("widthChanged"));
 	        }
 		}
 		
-		private var _height:Number = 0; [Bindable] [PercentProxy("percentHeight")]
+		private var _height:Number; [Bindable("heightChanged")] [PercentProxy("percentHeight")]
 		override public function get height():Number { return _height; }
 		override public function set height(value:Number):void {
 	        if (explicitHeight != value) {
@@ -192,13 +237,15 @@ package com.openflux.core
 				invalidateParentSizeAndDisplayList();
 	
 	            _height = value;
+	            
+	              dispatchEvent(new Event("heightChanged"));
 	        }
 		}
 		
 		protected function get unscaledWidth():Number { return width / Math.abs(scaleX); }
 		protected function get unscaledHeight():Number { return height / Math.abs(scaleY); }
 
-		private var _explicitWidth:Number = 0; [Bindable]
+		private var _explicitWidth:Number; [Bindable("explicitWidthChanged")]
 		public function get explicitWidth():Number { return _explicitWidth; }
 		public function set explicitWidth(value:Number):void {
 			if (_explicitWidth != value) {            
@@ -209,10 +256,12 @@ package com.openflux.core
 			
 				invalidateSize();
 				invalidateParentSizeAndDisplayList();
+				
+				dispatchEvent(new Event("explicitWidthChanged"));
 			}
 		}
 		
-		private var _explicitHeight:Number = 0;
+		private var _explicitHeight:Number; [Bindable("explicitWidthChanged")]
 		public function get explicitHeight():Number { return _explicitHeight; }
 		public function set explicitHeight(value:Number):void {
 			if (_explicitHeight != value) {            
@@ -226,67 +275,75 @@ package com.openflux.core
 			}
 		};
 		
+		[Bindable("explicitMinWidthChanged")]
 		public function get minWidth():Number { return !isNaN(explicitMinWidth) ? explicitMinWidth : measuredMinWidth; }
 		public function set minWidth(value:Number):void {
 			if (explicitMinWidth != value)
 				explicitMinWidth = value;
 		}
 		
+		[Bindable("explicitMinHeightChanged")]
 		public function get minHeight():Number { return !isNaN(explicitMinHeight) ? explicitMinHeight : measuredMinHeight; }
 		public function set minHeight(value:Number):void {
 			if (explicitMinHeight != value)
 				explicitMinHeight = value;
 		}
 		
+		[Bindable("explicitMaxWidthChanged")]
 		public function get maxWidth():Number { return !isNaN(explicitMaxWidth) ? explicitMaxWidth : DEFAULT_MAX_WIDTH; }
 		public function set maxWidth(value:Number):void {
 			if (explicitMaxWidth != value)
 				explicitMaxWidth = value;
 		}
 		
+		[Bindable("explicitMaxHeightChanged")]
 		public function get maxHeight():Number { return !isNaN(explicitMaxHeight) ? explicitMaxHeight : DEFAULT_MAX_HEIGHT; }
 		public function set maxHeight(value:Number):void {
 			if (explicitMaxHeight != value)
 				explicitMaxHeight = value;
 		}
 				
-		private var _explicitMinWidth:Number = 0;
+		private var _explicitMinWidth:Number; [Bindable("explicitMinWidthChanged")]
 		public function get explicitMinWidth():Number { return _explicitMinWidth; }
 		public function set explicitMinWidth(value:Number):void {
 			if (_explicitMinWidth != value) {
 				_explicitMinWidth = value;
 				invalidateSize();
 				invalidateParentSizeAndDisplayList();
+				dispatchEvent(new Event("explicitMinWidthChanged"));
 			}
 		}
 		
-		private var _explicitMinHeight:Number = 0;
+		private var _explicitMinHeight:Number; [Bindable("explicitMinHeightChanged")]
 		public function get explicitMinHeight():Number { return _explicitMinHeight; }
 		public function set explicitMinHeight(value:Number):void {
 			if (_explicitMinWidth != value) {
 				_explicitMinWidth = value;
 				invalidateSize();
 				invalidateParentSizeAndDisplayList();
+				dispatchEvent(new Event("explicitMinHeightChanged"));
 			}
 		}
 		
-		private var _explicitMaxWidth:Number = 0;
+		private var _explicitMaxWidth:Number; [Bindable("explicitMaxWidthChanged")]
 		public function get explicitMaxWidth():Number { return _explicitMaxWidth; }
 		public function set explicitMaxWidth(value:Number):void {
 			if (_explicitMaxWidth != value) {
 				_explicitMaxWidth = value;
 				invalidateSize();
 				invalidateParentSizeAndDisplayList();
+				dispatchEvent(new Event("explicitMaxWidthChanged"));
 			}
 		}
 		
-		private var _explicitMaxHeight:Number = 0;
+		private var _explicitMaxHeight:Number; [Bindable("explicitMaxHeightChanged")]
 		public function get explicitMaxHeight():Number { return _explicitMaxHeight; }
 		public function set explicitMaxHeight(value:Number):void {
 			if (_explicitMaxHeight != value) {
 				_explicitMaxHeight = value;
 				invalidateSize();
 				invalidateParentSizeAndDisplayList();
+				dispatchEvent(new Event("explicitMaxHeightChanged"));
 			}
 		}
 		
@@ -314,7 +371,8 @@ package com.openflux.core
 			_measuredMinHeight = value;
 		}
 		
-		private var _percentWidth:Number = 0;
+		
+		private var _percentWidth:Number; [Bindable("resize")]
 		public function get percentWidth():Number { return _percentWidth; }
 		public function set percentWidth(value:Number):void {
 			if (_percentWidth != value) {
@@ -325,7 +383,8 @@ package com.openflux.core
 			}
 		}
 		
-		private var _percentHeight:Number = 0;
+		
+		private var _percentHeight:Number; [Bindable("resize")]
 		public function get percentHeight():Number { return _percentHeight; }
 		public function set percentHeight(value:Number):void {
 			if (_percentHeight != value) {
@@ -345,11 +404,24 @@ package com.openflux.core
 		}
 		
 		public function setActualSize(newWidth:Number, newHeight:Number):void {
-			this.width = newWidth;
-			this.height = newHeight;
+			var changed:Boolean = false;
 			
-			invalidateDisplayList();
-            dispatchResizeEvent();
+			if (_width != newWidth) {
+				_width = newWidth;
+				dispatchEvent(new Event("widthChanged"));
+				changed = true;
+			}
+			
+			if (_height != newHeight) {
+				_height = newHeight;
+				dispatchEvent(new Event("heightChanged"));
+				changed = true;
+			}
+			
+			if (changed) {
+				invalidateDisplayList();
+				dispatchResizeEvent();
+			}
 		}
 
 		public function invalidateSize():void {
@@ -423,21 +495,23 @@ package com.openflux.core
 		private var oldX:Number;
 		private var oldY:Number;
 		
-		[Bindable]
+		[Bindable("xChanged")]
 		override public function get x():Number { return super.x; }
 		override public function set x(value:Number):void {
 			if (super.x != value) {
 				super.x = value;
 				invalidateProperties();
+				dispatchEvent(new Event("xChanged"));
 			}
 		}
 		
-		[Bindable]
+		[Bindable("yChanged")]
 		override public function get y():Number { return super.y; }
 		override public function set y(value:Number):void {
 			if (super.y != value) {
 				super.y = value;
 				invalidateProperties();
+				dispatchEvent(new Event("yChanged"));
 			}
 		}
 		
@@ -446,11 +520,13 @@ package com.openflux.core
 			
 			if (x != super.x) {
 				super.x = x;
+				dispatchEvent(new Event("xChanged"));
 				changed = true;
 			}
 			
 			if (y != super.y) {
 				super.y = y;
+				dispatchEvent(new Event("yChanged"));
 				changed = true;
 			}
 			
@@ -629,18 +705,27 @@ package com.openflux.core
 			}
 		}
 		
-		override public function get visible():Boolean { return super.visible; }
+		private var _visible:Boolean = true; [Bindable("hide")] [Bindable("show")]
+		override public function get visible():Boolean { return _visible; }
 		override public function set visible(value:Boolean):void {
 			setVisible(value);
 		}
 		
-		public function setVisible(value:Boolean, event:Boolean=true):void
+		public function setVisible(value:Boolean, noEvent:Boolean=false):void
 		{
-			if (visible != value) {
-				super.visible = value;
-				if (initialized)
-					dispatchEvent(new FlexEvent(value ? FlexEvent.SHOW : FlexEvent.HIDE));
-			}	
+			_visible = value;
+			
+			if (!initialized)
+				return;
+			
+			if (super.visible == value)
+				return;
+			
+			super.visible = value;
+			
+			if (!noEvent) {
+				dispatchEvent(new FlexEvent(value ? FlexEvent.SHOW : FlexEvent.HIDE));
+			}
 		}
 		
 		private var _parent:DisplayObjectContainer;
@@ -744,9 +829,37 @@ package com.openflux.core
 		}
 		
 		private var _systemManager:ISystemManager;
-		public function get systemManager():ISystemManager { return _systemManager; }
+		private var _systemManagerDirty:Boolean = false;
+		public function get systemManager():ISystemManager {
+			if (!_systemManager || _systemManagerDirty) {
+				var r:DisplayObject = root;
+				if (_systemManager is SystemManagerProxy) {
+				} else if (r && !(r is Stage)) {
+					_systemManager = (r as ISystemManager);
+				} else if (r) {
+					_systemManager = Stage(r).getChildAt(0) as ISystemManager;
+				} else {
+					var o:DisplayObjectContainer = parent;
+					while (o) {
+						var ui:IUIComponent = o as IUIComponent;
+						if (ui) {
+							_systemManager = ui.systemManager;
+							break;
+						} else if (o is ISystemManager) {
+							_systemManager = o as ISystemManager;
+							break;
+						}
+						o = o.parent;
+					}
+				}
+			_systemManagerDirty = false;
+			}
+			
+			return _systemManager;
+		}
 		public function set systemManager(value:ISystemManager):void {
 			_systemManager = value;
+			_systemManagerDirty = false;
 		}
 		
 		// gross stuff
