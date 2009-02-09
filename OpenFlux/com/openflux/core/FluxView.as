@@ -2,8 +2,8 @@ package com.openflux.core
 {
 	import com.openflux.containers.Container;
 	import com.openflux.utils.MetaStyler;
+	import com.openflux.states.State;
 	
-	import mx.states.State;
 	import mx.styles.IStyleClient;
 	
 	/**

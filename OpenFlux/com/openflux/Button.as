@@ -34,9 +34,9 @@ package com.openflux
 		//***************************************************
 		
 		override protected function createChildren():void {
-			/*if(!controller) {
+			if(!controller) {
 				controller = new ButtonController();
-			}*/
+			}
 			if(!view) {
 				view = new ButtonView();
 			}
