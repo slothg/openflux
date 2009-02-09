@@ -30,11 +30,12 @@ package com.openflux.core
 	import mx.events.StateChangeEvent;
 	import mx.managers.ILayoutManagerClient;
 	import mx.managers.ISystemManager;
-	import mx.states.State;
 	import mx.styles.CSSStyleDeclaration;
 	import mx.styles.ISimpleStyleClient;
 	import mx.styles.IStyleClient;
 	import mx.styles.StyleManager;
+	
+	import com.openflux.states.State;
 	
 	use namespace mx_internal;
 	
@@ -47,7 +48,7 @@ package com.openflux.core
 
 		public function PhoenixComponent() {
 			enabled = true;
-			super.visible = false;
+			//super.visible = false;
 			_width = super.width;
 			_height = super.height;
 		}
@@ -62,7 +63,7 @@ package com.openflux.core
 		//
 	
 		private var _states:Array;
-		[ArrayElementType("mx.states.State")]
+		[ArrayElementType("com.openflux.states.State")]
 		public function get states():Array { return _states; }
 		public function set states(value:Array):void {
 			_states = value;
