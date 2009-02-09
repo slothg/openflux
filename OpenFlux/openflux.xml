@@ -64,4 +64,10 @@
     <component id="HoverCamera" class="com.plexiglass.cameras.HoverCamera" />
     <component id="ZoomCamera" class="com.plexiglass.cameras.ZoomCamera" />
     
+    <!--  states -->
+    <component id="State" class="com.openflux.states.State" />
+    <component id="AddChild" class="com.openflux.states.AddChild" />
+    <component id="RemoveChild" class="com.openflux.states.RemoveChild" />
+    <component id="SetProperty" class="com.openflux.states.SetProperty" />
+    
 </componentPackage>    

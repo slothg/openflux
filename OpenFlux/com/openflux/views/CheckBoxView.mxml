@@ -4,23 +4,23 @@
 	xmlns:degrafa="http://www.degrafa.com/2008">
 	
 	<flux:states>
-		<mx:State name="up" />
-		<mx:State name="over">
-			<mx:SetProperty target="{fill}" name="color" value="#E5E5E5"/>
-		</mx:State>
-		<mx:State name="down">
-			<mx:SetProperty target="{fill}" name="color" value="#666666"/>
-			<mx:SetProperty target="{stroke}" name="color" value="#FFFFFF"/>
-		</mx:State>
-		<mx:State name="selectedOver" basedOn="over">
-			<mx:SetProperty target="{line}" name="alpha" value="1"/>
-		</mx:State>
-		<mx:State name="selectedDown" basedOn="down">
-			<mx:SetProperty target="{line}" name="alpha" value="1"/>
-		</mx:State>
-		<mx:State name="selectedUp" basedOn="up">
-			<mx:SetProperty target="{line}" name="alpha" value="1"/>
-		</mx:State>
+		<flux:State name="up" />
+		<flux:State name="over">
+			<flux:SetProperty target="{fill}" name="color" value="#E5E5E5"/>
+		</flux:State>
+		<flux:State name="down">
+			<flux:SetProperty target="{fill}" name="color" value="#666666"/>
+			<flux:SetProperty target="{stroke}" name="color" value="#FFFFFF"/>
+		</flux:State>
+		<flux:State name="selectedOver" basedOn="over">
+			<flux:SetProperty target="{line}" name="alpha" value="1"/>
+		</flux:State>
+		<flux:State name="selectedDown" basedOn="down">
+			<flux:SetProperty target="{line}" name="alpha" value="1"/>
+		</flux:State>
+		<flux:State name="selectedUp" basedOn="up">
+			<flux:SetProperty target="{line}" name="alpha" value="1"/>
+		</flux:State>
 	</flux:states>
 	
 	<!-- defining the fills/strokes used -->

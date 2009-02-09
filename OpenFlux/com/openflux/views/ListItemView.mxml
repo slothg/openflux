@@ -4,17 +4,17 @@
 	xmlns:degrafa="http://www.degrafa.com/2008" minWidth="30" minHeight="30" >
 	
 	<flux:states>
-		<mx:State name="up" />
-		<mx:State name="over">
-			<mx:SetProperty target="{fill}" name="color" value="#7FCEFF" />
-			<mx:SetProperty target="{fill}" name="alpha" value="0.7" />
-		</mx:State>
-		<mx:State name="down">
-			<mx:SetProperty target="{fill}" name="color" value="#7FCEFF" />
-		</mx:State>
-		<mx:State name="selectedUp">
-			<mx:SetProperty target="{fill}" name="color" value="#7FCEFF" />
-		</mx:State>
+		<flux:State name="up" />
+		<flux:State name="over">
+			<flux:SetProperty target="{fill}" name="color" value="#7FCEFF" />
+			<flux:SetProperty target="{fill}" name="alpha" value="0.7" />
+		</flux:State>
+		<flux:State name="down">
+			<flux:SetProperty target="{fill}" name="color" value="#7FCEFF" />
+		</flux:State>
+		<flux:State name="selectedUp">
+			<flux:SetProperty target="{fill}" name="color" value="#7FCEFF" />
+		</flux:State>
 	</flux:states>
 	
 	<degrafa:SolidFill id="fill" color="#FFFFFF" />
@@ -26,7 +26,7 @@
 			</degrafa:GeometryGroup>
 		</degrafa:Surface>
 		
-		<mx:Label text="Test" left="10" right="10" verticalCenter="0" />
+		<mx:Label text="{component.data.label}" left="10" right="10" verticalCenter="0" />
 		
 	</flux:content>
 	

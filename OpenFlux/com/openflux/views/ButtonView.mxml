@@ -5,14 +5,14 @@
 	mouseChildren="false" >
 	
 	<flux:states>
-		<mx:State name="up" />
-		<mx:State name="over">
-			<mx:SetProperty target="{fill}" name="color" value="#E5E5E5" />
-		</mx:State>
-		<mx:State name="down">
-			<mx:SetProperty target="{fill}" name="color" value="#666666" />
-			<mx:SetProperty target="{stroke}" name="color" value="#FFFFFF" />
-		</mx:State>
+		<flux:State name="up" />
+		<flux:State name="over">
+			<flux:SetProperty target="{fill}" name="color" value="#E5E5E5" />
+		</flux:State>
+		<flux:State name="down">
+			<flux:SetProperty target="{fill}" name="color" value="#666666" />
+			<flux:SetProperty target="{stroke}" name="color" value="#FFFFFF" />
+		</flux:State>
 	</flux:states>
 	
 	<!-- defining the fills/strokes used -->

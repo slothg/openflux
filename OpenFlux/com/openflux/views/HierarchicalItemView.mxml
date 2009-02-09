@@ -11,17 +11,17 @@
 	</mx:Script>
 	
 	<flux:states>
-		<mx:State name="{ButtonStates.UP}" basedOn="" />
-		<mx:State name="{ButtonStates.OVER}">
-			<mx:SetProperty target="{fill}" name="color" value="#7FCEFF" />
-			<mx:SetProperty target="{fill}" name="alpha" value="0.7" />
-		</mx:State>
-		<mx:State name="{ButtonStates.DOWN}">
-			<mx:SetProperty target="{fill}" name="color" value="#7FCEFF" />
-		</mx:State>
-		<mx:State name="{ButtonStates.SELECTED_UP}">
-			<mx:SetProperty target="{fill}" name="color" value="#7FCEFF" />
-		</mx:State>
+		<flux:State name="{ButtonStates.UP}" basedOn="" />
+		<flux:State name="{ButtonStates.OVER}">
+			<flux:SetProperty target="{fill}" name="color" value="#7FCEFF" />
+			<flux:SetProperty target="{fill}" name="alpha" value="0.7" />
+		</flux:State>
+		<flux:State name="{ButtonStates.DOWN}">
+			<flux:SetProperty target="{fill}" name="color" value="#7FCEFF" />
+		</flux:State>
+		<flux:State name="{ButtonStates.SELECTED_UP}">
+			<flux:SetProperty target="{fill}" name="color" value="#7FCEFF" />
+		</flux:State>
 	</flux:states>
 	
 	<degrafa:SolidFill id="fill" color="#FFFFFF" />
