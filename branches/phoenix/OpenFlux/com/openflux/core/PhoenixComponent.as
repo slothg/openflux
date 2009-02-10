@@ -983,7 +983,7 @@ package com.openflux.core
 		}
 		
 		public function getStyle(styleProp:String):* {
-			return StyleManager.inheritingStyles[styleProp] ? _inheritingStyles[styleProp] : _nonInheritingStyles[styleProp];
+			return StyleManager.inheritingStyles && StyleManager.inheritingStyles[styleProp] ? _inheritingStyles[styleProp] : _nonInheritingStyles[styleProp];
 		}
 		public function setStyle(styleProp:String, newValue:*):void {
 			if (styleProp == "styleName") {
