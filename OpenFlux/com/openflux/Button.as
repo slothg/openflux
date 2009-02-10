@@ -2,7 +2,10 @@ package com.openflux
 {
 	
 	import com.openflux.controllers.ButtonController;
-	import com.openflux.core.*;
+	import com.openflux.core.FluxComponent;
+	import com.openflux.core.IEnabled;
+	import com.openflux.core.IFluxButton;
+	import com.openflux.core.ISelectable;
 	import com.openflux.views.ButtonView;
 	
 	[Style(name="selectable", type="Boolean")]
