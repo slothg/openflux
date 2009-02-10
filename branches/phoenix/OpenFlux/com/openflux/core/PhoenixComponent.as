@@ -26,6 +26,7 @@ package com.openflux.core
 	import mx.core.UIComponentDescriptor;
 	import mx.core.UIComponentGlobals;
 	import mx.core.mx_internal;
+	import mx.events.ChildExistenceChangedEvent;
 	import mx.events.FlexEvent;
 	import mx.events.MoveEvent;
 	import mx.events.ResizeEvent;
@@ -691,10 +692,17 @@ package com.openflux.core
 		{
 			if (child is IUIComponent)
 				IUIComponent(child).initialize(); 
+				
+			dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD, false, false, child));
+			child.dispatchEvent(new FlexEvent(FlexEvent.ADD));
+			
+			invalidateSize();
+			invalidateDisplayList();
 		}
 		
 		private function removingChild(child:DisplayObject):void {
-			
+			child.dispatchEvent(new FlexEvent(FlexEvent.REMOVE));
+			dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_REMOVE, false, false, child));
 		}
 		
 		private function removedChild(child:DisplayObject):void {
@@ -703,6 +711,9 @@ package com.openflux.core
 					IUIComponent(child).document = null;
 				IUIComponent(child).parentChanged(null);
 			}
+			
+			invalidateSize();
+			invalidateDisplayList();
 		}
 		
 		private var _visible:Boolean = true; [Bindable("hide")] [Bindable("show")]
