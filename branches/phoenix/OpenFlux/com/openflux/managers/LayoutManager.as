@@ -1,4 +1,4 @@
-package com.openflux.core
+package com.openflux.managers
 {
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;

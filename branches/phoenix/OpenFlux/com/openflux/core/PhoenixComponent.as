@@ -33,6 +33,7 @@ package com.openflux.core
 	import mx.events.StateChangeEvent;
 	import mx.managers.ILayoutManagerClient;
 	import mx.managers.ISystemManager;
+	import mx.managers.SystemManager;
 	import mx.managers.SystemManagerProxy;
 	import mx.styles.CSSStyleDeclaration;
 	import mx.styles.ISimpleStyleClient;
@@ -1019,225 +1020,170 @@ package com.openflux.core
 		// The below style methods are exact copies from UIComponent
 		//
 	
-	    public function notifyStyleChangeInChildren(
-	                        styleProp:String, recursive:Boolean):void
-	    {
-	
-	        var n:int = numChildren;
-	        for (var i:int = 0; i < n; i++)
-	        {
-	            var child:ISimpleStyleClient = getChildAt(i) as ISimpleStyleClient;
-	            if (child)
-	            {
-	                child.styleChanged(styleProp);
-	
-	                if (child is IStyleClient)
-	                    IStyleClient(child).notifyStyleChangeInChildren(styleProp, recursive);
-	            }
-	        }
-	    }
+		public function notifyStyleChangeInChildren(styleProp:String, recursive:Boolean):void {
+			var n:int = numChildren;
+			for (var i:int = 0; i < n; i++) {
+				var child:ISimpleStyleClient = getChildAt(i) as ISimpleStyleClient;
+				if (child) {
+					child.styleChanged(styleProp);
+					if (child is IStyleClient)
+						IStyleClient(child).notifyStyleChangeInChildren(styleProp, recursive);
+				}
+			}
+		}
 			
 	
-	    public function getClassStyleDeclarations():Array
-	    {
-	        var myApplicationDomain:ApplicationDomain;
-	        
-	            var myRoot:DisplayObject = root; //SystemManager.getSWFRoot(this);
-	            if (!myRoot)
-	                return [];
-	            myApplicationDomain = myRoot.loaderInfo.applicationDomain;
+		public function getClassStyleDeclarations():Array {
+			var myApplicationDomain:ApplicationDomain;
+			var myRoot:DisplayObject = SystemManager.getSWFRoot(this);
+
+			if (!myRoot)
+				return [];
+
+			myApplicationDomain = myRoot.loaderInfo.applicationDomain;
+		
+			var className:String = flash.utils.getQualifiedClassName(this)
+			className = className.replace("::", ".");
+			var cache:Array;
+			cache = StyleManager.typeSelectorCache[className];
+			
+			if (cache)
+				return cache;
+		
+			var decls:Array = [];
+			var classNames:Array = [];
+			var caches:Array = [];
+			var declcache:Array = [];
+		
+			while (className != null && className != "com.openflux.core.PhoenixComponent") {
+				var s:CSSStyleDeclaration;
+				cache = StyleManager.typeSelectorCache[className];
+				
+				if (cache) {
+					decls = decls.concat(cache);
+					break;
+				}
+				
+				s = StyleManager.getStyleDeclaration(className);
+		
+				if (s) {
+					decls.unshift(s);
+					classNames.push(className);
+					caches.push(classNames);
+					declcache.push(decls);
+					decls = [];
+					classNames = [];
+				} else
+					classNames.push(className);
+		
+				try {
+					className = flash.utils.getQualifiedSuperclassName(myApplicationDomain.getDefinition(className));
+					className = className.replace("::", ".");
+				} catch(e:ReferenceError) {
+					className = null;
+				}
+			}
+		
+			caches.push(classNames);
+			declcache.push(decls);
+			decls = [];
+
+			while (caches.length) {
+				classNames = caches.pop();
+				decls = decls.concat(declcache.pop());
+				while (classNames.length) {
+					StyleManager.typeSelectorCache[classNames.pop()] = decls;
+				}
+			}
+		
+			return decls;
+		}
 	
-	        var className:String = flash.utils.getQualifiedClassName(this)
-	        className = className.replace("::", ".");
-	        var cache:Array;
-	        cache = StyleManager.typeSelectorCache[className];
-	        if (cache)
-	            return cache;
-	        
-	        // trace("getClassStyleDeclaration", className);
-	        var decls:Array = [];
-	        var classNames:Array = [];
-	        var caches:Array = [];
-	        var declcache:Array = [];
-	
-	        while (className != null && className != "com.openflux.core.PhoenixComponent")
-	        {
-	            var s:CSSStyleDeclaration;
-	            cache = StyleManager.typeSelectorCache[className];
-	            if (cache)
-	            {
-	                decls = decls.concat(cache);
-	                break;
-	            }
-	
-	            s = StyleManager.getStyleDeclaration(className);
-	            
-	            if (s)
-	            {
-	                decls.unshift(s);
-	                // we found one so the next set define the selectors for this
-	                // found class and its ancestors.  Save the old list and start
-	                // a new list
-	                classNames.push(className);
-	                caches.push(classNames);
-	                declcache.push(decls);
-	                decls = [];
-	                classNames = [];
-	                // trace("   ", className);
-	                // break;
-	            }
-	            else
-	                classNames.push(className);
-	
-	            try
-	            {
-	                className = flash.utils.getQualifiedSuperclassName(myApplicationDomain.getDefinition(className));
-	                className = className.replace("::", ".");
-	            }
-	            catch(e:ReferenceError)
-	            {
-	                className = null;
-	            }
-	        }
-	
-	        caches.push(classNames);
-	        declcache.push(decls);
-	        decls = [];
-	        while (caches.length)
-	        {
-	            classNames = caches.pop();
-	            decls = decls.concat(declcache.pop());
-	            while (classNames.length)
-	            {
-	                StyleManager.typeSelectorCache[classNames.pop()] = decls;
-	            }
-	        }
-	
-	        return decls;
-	    }
-	
-	    public function regenerateStyleCache(recursive:Boolean):void
-	    {
-	        // Regenerate the proto chain for this object
-	        initProtoChain();
-	
-	        var childList:IChildList =
-	            this is IRawChildrenContainer ?
-	            IRawChildrenContainer(this).rawChildren :
-	            IChildList(this);
-	        
-	        // Recursively call this method on each child.
-	        var n:int = childList.numChildren;
-	        for (var i:int = 0; i < n; i++)
-	        {
-	            var child:DisplayObject = childList.getChildAt(i);
-	
-	            if (child is IStyleClient)
-	            {
-	                // Does this object already have a proto chain? 
-	                // If not, there's no need to regenerate a new one.
-	                if (IStyleClient(child).inheritingStyles !=
-	                    {})
-	                {
-	                    IStyleClient(child).regenerateStyleCache(recursive);
-	                }
-	            }
-	        }
-	    }
+		public function regenerateStyleCache(recursive:Boolean):void {
+			// Regenerate the proto chain for this object
+			initProtoChain();
+		
+			// Recursively call this method on each child.
+			var n:int = this.numChildren;
+			for (var i:int = 0; i < n; i++) {
+				var child:DisplayObject = this.getChildAt(i);
+				if (child is IStyleClient) {
+					// Does this object already have a proto chain? 
+					// If not, there's no need to regenerate a new one.
+					if (IStyleClient(child).inheritingStyles != STYLE_UNINITIALIZED) {
+						IStyleClient(child).regenerateStyleCache(recursive);
+					}
+				}
+			}
+		}
 	    
-		mx_internal function initProtoChain():void
-	    {
-	        //trace("initProtoChain", name);
-	
-	        var classSelector:CSSStyleDeclaration;
-	
-	        if (styleName)
-	        {
-	            if (styleName is CSSStyleDeclaration)
-	            {
-	                // Get the style sheet referenced by the styleName property
-	                classSelector = CSSStyleDeclaration(styleName);
-	            }
-	            else if (styleName is IFlexDisplayObject || styleName is IStyleClient)
-	            {
-	                // If the styleName property is a UIComponent, then there's a
-	                // special search path for that case.
-	                
-	                mx.styles.StyleProtoChain.initProtoChainForUIComponentStyleName(this);
-	                return;
-	            }
-	            else if (styleName is String)
-	            {
-	                // Get the style sheet referenced by the styleName property
-	                classSelector =
-	                    StyleManager.getStyleDeclaration("." + styleName);
-	            }
-	        }
-	
-	        // To build the proto chain, we start at the end and work forward.
-	        // Referring to the list at the top of this function, we'll start by
-	        // getting the tail of the proto chain, which is:
-	        //  - for non-inheriting styles, the global style sheet
-	        //  - for inheriting styles, my parent's style object
-	        var nonInheritChain:Object = StyleManager.stylesRoot;
-	        
-	        if (nonInheritChain && nonInheritChain.effects)
-	            registerEffects(nonInheritChain.effects);
-	        
-	        var p:IStyleClient = parent as IStyleClient;
-	        if (p)
-	        {
-	            var inheritChain:Object = p.inheritingStyles;
-	            if (inheritChain == STYLE_UNINITIALIZED)
-	                inheritChain = nonInheritChain;
-	        }
-	        else
-	        {
-	                inheritChain = StyleManager.stylesRoot;
-	        }
-	
-	        // Working backwards up the list, the next element in the
-	        // search path is the type selector
-	        var typeSelectors:Array = getClassStyleDeclarations();
-	        var n:int = typeSelectors.length;
-	        for (var i:int = 0; i < n; i++)
-	        {
-	            var typeSelector:CSSStyleDeclaration = typeSelectors[i];
-	            inheritChain =
-	                typeSelector.addStyleToProtoChain(inheritChain, this);
-	
-	            nonInheritChain =
-	                typeSelector.addStyleToProtoChain(nonInheritChain, this);
-	            
-	            if (typeSelector.effects)
-	                registerEffects(typeSelector.effects);
-	        }
-	
-	        // Next is the class selector
-	        if (classSelector)
-	        {
-	            inheritChain =
-	                classSelector.addStyleToProtoChain(inheritChain, this);
-	
-	            nonInheritChain =
-	                classSelector.addStyleToProtoChain(nonInheritChain, this);
-	            
-	            if (classSelector.effects)
-	                registerEffects(classSelector.effects);
-	        }
-	
-	        // Finally, we'll add the in-line styles
-	        // to the head of the proto chain.
-	        inheritingStyles =
-	            _styleDeclaration ?
-	            _styleDeclaration.addStyleToProtoChain(inheritChain, this) :
-	            inheritChain;
-	
-	        nonInheritingStyles =
-	            _styleDeclaration ?
-	            _styleDeclaration.addStyleToProtoChain(nonInheritChain, this) :
-	            nonInheritChain;
-	    }
+		mx_internal function initProtoChain():void {
+			var classSelector:CSSStyleDeclaration;
+		
+			if (styleName) {
+				if (styleName is CSSStyleDeclaration) {
+					// Get the style sheet referenced by the styleName property
+					classSelector = CSSStyleDeclaration(styleName);
+				} else if (styleName is IFlexDisplayObject || styleName is IStyleClient) {
+					// If the styleName property is a UIComponent, then there's a
+					// special search path for that case.
+					mx.styles.StyleProtoChain.initProtoChainForUIComponentStyleName(this);
+					return;
+				} else if (styleName is String) {
+					// Get the style sheet referenced by the styleName property
+					classSelector = StyleManager.getStyleDeclaration("." + styleName);
+				}
+			}
+		
+			// To build the proto chain, we start at the end and work forward.
+			// Referring to the list at the top of this function, we'll start by
+			// getting the tail of the proto chain, which is:
+			//  - for non-inheriting styles, the global style sheet
+			//  - for inheriting styles, my parent's style object
+			var nonInheritChain:Object = StyleManager.stylesRoot;
+		
+			if (nonInheritChain && nonInheritChain.effects)
+				registerEffects(nonInheritChain.effects);
+		
+			var p:IStyleClient = parent as IStyleClient;
+			
+			if (p) {
+				var inheritChain:Object = p.inheritingStyles;
+				if (inheritChain == STYLE_UNINITIALIZED)
+					inheritChain = nonInheritChain;
+			} else {
+				inheritChain = StyleManager.stylesRoot;
+			}
+		
+			// Working backwards up the list, the next element in the
+			// search path is the type selector
+			var typeSelectors:Array = getClassStyleDeclarations();
+			var n:int = typeSelectors.length;
+			
+			for (var i:int = 0; i < n; i++) {
+				var typeSelector:CSSStyleDeclaration = typeSelectors[i];
+				
+				inheritChain = typeSelector.addStyleToProtoChain(inheritChain, this);
+				nonInheritChain = typeSelector.addStyleToProtoChain(nonInheritChain, this);
+		
+				if (typeSelector.effects)
+					registerEffects(typeSelector.effects);
+			}
+		
+			// Next is the class selector
+			if (classSelector) {
+				inheritChain = classSelector.addStyleToProtoChain(inheritChain, this);
+				nonInheritChain = classSelector.addStyleToProtoChain(nonInheritChain, this);
+		
+				if (classSelector.effects)
+					registerEffects(classSelector.effects);
+			}
+		
+			// Finally, we'll add the in-line styles
+			// to the head of the proto chain.
+			inheritingStyles = _styleDeclaration ? _styleDeclaration.addStyleToProtoChain(inheritChain, this) : inheritChain;
+			nonInheritingStyles = _styleDeclaration ? _styleDeclaration.addStyleToProtoChain(nonInheritChain, this) : nonInheritChain;
+		}
 		
 		// ***************************************************************************
 		// ILayoutManagerClient
