@@ -1,6 +1,6 @@
 package com.openflux
 {
-	import com.openflux.core.PhoenixComponent;
+	import com.openflux.containers.Container;
 	
 	import flash.display.DisplayObject;
 	import flash.events.Event;
@@ -17,9 +17,14 @@ package com.openflux
 	
 	use namespace mx_internal;
 
-	[Frame(factoryClass="mx.managers.SystemManager")]
+	[Frame(factoryClass="com.openflux.managers.SystemManager")]
+	
+	[Event(name="applicationComplete", type="mx.events.FlexEvent")]
+	[Event(name="error", type="flash.events.ErrorEvent")]
+	
+	[ResourceBundle("core")]
 
-	public class Application extends PhoenixComponent
+	public class Application extends Container
 	{		
 		private var _url:String;
 		private var _parameters:Object;
@@ -161,12 +166,12 @@ package com.openflux
 			_parameters = sm.loaderInfo.parameters;
 		
 			initManagers(sm);
-/*			_descriptor = null;
+			/*_descriptor = null;
 		
 			if (documentDescriptor) {
-				creationPolicy = documentDescriptor.properties.creationPolicy;
-				if (creationPolicy == null || creationPolicy.length == 0)
-					creationPolicy = ContainerCreationPolicy.AUTO;
+				//creationPolicy = documentDescriptor.properties.creationPolicy;
+				//if (creationPolicy == null || creationPolicy.length == 0)
+				//	creationPolicy = ContainerCreationPolicy.AUTO;
 			
 				var properties:Object = documentDescriptor.properties;
 				
@@ -291,7 +296,7 @@ package com.openflux
 			}
 		
 			setActualSize(w, h);
-			invalidateDisplayList();
+			//invalidateDisplayList();
 		}   
 	}
 }
