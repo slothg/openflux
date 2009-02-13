@@ -1,6 +1,7 @@
 package com.openflux.core
 {
 	import com.openflux.states.State;
+	import com.openflux.managers.SystemManager;
 	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
@@ -33,8 +34,6 @@ package com.openflux.core
 	import mx.events.StateChangeEvent;
 	import mx.managers.ILayoutManagerClient;
 	import mx.managers.ISystemManager;
-	import mx.managers.SystemManager;
-	import mx.managers.SystemManagerProxy;
 	import mx.styles.CSSStyleDeclaration;
 	import mx.styles.ISimpleStyleClient;
 	import mx.styles.IStyleClient;
@@ -845,8 +844,9 @@ package com.openflux.core
 		public function get systemManager():ISystemManager {
 			if (!_systemManager || _systemManagerDirty) {
 				var r:DisplayObject = root;
-				if (_systemManager is SystemManagerProxy) {
-				} else if (r && !(r is Stage)) {
+				//if (_systemManager is SystemManagerProxy) {
+				//} else
+				if (r && !(r is Stage)) {
 					_systemManager = (r as ISystemManager);
 				} else if (r) {
 					_systemManager = Stage(r).getChildAt(0) as ISystemManager;
