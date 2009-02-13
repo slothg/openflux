@@ -1,6 +1,6 @@
 package com.openflux.containers
 {
-	import com.openflux.ListItem;
+	//import com.openflux.ListItem;
 	import com.openflux.animators.IAnimator;
 	import com.openflux.animators.TweenAnimator;
 	import com.openflux.core.FluxFactory;
@@ -26,8 +26,6 @@ package com.openflux.containers
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 	import mx.styles.IStyleClient;
-	
-	//use namespace mx_internal;
 	
 	[DefaultProperty("content")]
 	public class Container extends PhoenixComponent implements IDataView, IFluxContainer, IDataRenderer
@@ -141,13 +139,13 @@ package com.openflux.containers
 		override protected function createChildren():void {
 			super.createChildren();
 			if (animator == null) {
-				animator = new TweenAnimator();
+				//animator = new TweenAnimator();
 			}
 			if (layout == null) {
-				layout = new ContraintLayout();
+				//layout = new ContraintLayout();
 			}
 			if(factory == null) {
-				factory = new ListItem();
+				//factory = new ListItem();
 			}
 		}
 		
@@ -278,16 +276,16 @@ package com.openflux.containers
 			animator.addItem(instance as DisplayObject);
 			invalidateDisplayList();
 			invalidateSize();
-			var event:ChildExistenceChangedEvent = new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD, false, false, instance as DisplayObject);
-			dispatchEvent(event);
+			//var event:ChildExistenceChangedEvent = new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD, false, false, instance as DisplayObject);
+			//dispatchEvent(event);
 		}
 		
 		protected function removeItem(item:Object, index:int = -1):void {
 			var child:DisplayObject = _renderers.splice(index, 1)[0];
 			animator.removeItem(child, cleanChild);
 			//invalidateDisplayList();
-			var event:ChildExistenceChangedEvent = new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_REMOVE, false, false, child);
-			dispatchEvent(event);
+			//var event:ChildExistenceChangedEvent = new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_REMOVE, false, false, child);
+			//dispatchEvent(event);
 		}
 		
 		private function cleanChild(child:DisplayObject):void {
