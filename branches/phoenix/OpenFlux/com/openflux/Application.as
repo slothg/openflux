@@ -1,6 +1,6 @@
 package com.openflux
 {
-	import com.openflux.containers.Container;
+	import com.openflux.core.PhoenixComponent;
 	
 	import flash.display.DisplayObject;
 	import flash.events.Event;
@@ -24,7 +24,7 @@ package com.openflux
 	
 	[ResourceBundle("core")]
 
-	public class Application extends Container
+	public class Application extends PhoenixComponent
 	{		
 		private var _url:String;
 		private var _parameters:Object;

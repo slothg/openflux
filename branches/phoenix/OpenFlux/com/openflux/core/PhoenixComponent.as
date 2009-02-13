@@ -1127,7 +1127,7 @@ package com.openflux.core
 				} else if (styleName is IFlexDisplayObject || styleName is IStyleClient) {
 					// If the styleName property is a UIComponent, then there's a
 					// special search path for that case.
-					mx.styles.StyleProtoChain.initProtoChainForUIComponentStyleName(this);
+					StyleProtoChain.initProtoChainForUIComponentStyleName(this);
 					return;
 				} else if (styleName is String) {
 					// Get the style sheet referenced by the styleName property
