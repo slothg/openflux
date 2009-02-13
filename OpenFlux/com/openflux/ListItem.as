@@ -1,12 +1,17 @@
 package com.openflux
 {
-	import com.openflux.controllers.*;
-	import com.openflux.core.*;
-	import com.openflux.views.*;
+	
+	import com.openflux.controllers.ListItemController;
+	import com.openflux.core.FluxComponent;
+	import com.openflux.core.IFluxButton;
+	import com.openflux.core.IFluxList;
+	import com.openflux.core.IFluxListItem;
+	import com.openflux.core.ISelectable;
+	//import com.openflux.views.ListItemView;
 	
 	import mx.core.IFactory;
 	
-	public class ListItem extends FluxComponent implements IFluxListItem, IFluxButton, ISelectable, IFactory
+	public class ListItem extends FluxComponent implements IFluxListItem, IFluxButton, ISelectable, IFactory 
 	{
 		
 		
@@ -48,9 +53,9 @@ package com.openflux
 			if(!controller) {
 				controller = new ListItemController();
 			}
-			if(!view) {
+			/*if(!view) {
 				view = new ListItemView();
-			}
+			}*/
 			super.createChildren();
 		}
 		
