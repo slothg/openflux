@@ -1,10 +1,11 @@
 package com.openflux
 {
-	import com.openflux.controllers.ScrollBarController;
+	
 	import com.openflux.core.FluxComponent;
 	import com.openflux.core.IFluxScrollBar;
-	import com.openflux.views.VerticalScrollBarView;
 	
+	[DefaultSetting(view="com.openflux.views.VerticalScrollBarView")]
+	[DefaultSetting(controller="com.openflux.controllers.ScrollBarController")]
 	public class ScrollBar extends FluxComponent implements IFluxScrollBar
 	{
 		private var _min:Number = 0;
@@ -31,19 +32,6 @@ package com.openflux
 			_position = Math.max(Math.min(value, max), min);
 		}
 		
-		//***************************************************
-		// Framework Overrides
-		//***************************************************
-		
-		override protected function createChildren():void {
-			if(!controller) {
-				controller = new ScrollBarController();
-			}
-			if(!view) {
-				view = new VerticalScrollBarView();
-			}
-			super.createChildren();
-		}
 		
 	}
 }

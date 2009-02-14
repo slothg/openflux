@@ -11,5 +11,6 @@ package com.openflux.metadata
 		public var modelHandlers:Array = [];
 		public var viewContracts:Array = [];
 		public var viewHandlers:Array = [];
+		public var defaultSettings:Array = [];
 	}
 }

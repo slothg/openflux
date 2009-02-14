@@ -1,6 +1,7 @@
 package com.openflux.core
 {
 	
+	import com.openflux.utils.MetaInjector;
 	import com.openflux.utils.MetaStyler;
 	
 	import flash.display.DisplayObject;
@@ -87,6 +88,11 @@ package com.openflux.core
 		//***************************************************
 		// Framework Overrides
 		//***************************************************
+		
+		override protected function createChildren():void {
+			MetaInjector.createDefaults(this);
+			super.createChildren();
+		}
 		
 		/** @private */
 		override protected function commitProperties():void {

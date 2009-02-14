@@ -30,6 +30,7 @@ package com.openflux.utils
 			if(baseClassName != null) {
 				var baseClassDirectives:ClassDirectives = directivesForClass(baseClassName);
 				//directives.bindings = baseClassDirectives.bindings.concat();
+				directives.defaultSettings = baseClassDirectives.defaultSettings.concat();
 				directives.modelAliases = baseClassDirectives.modelAliases.concat();
 				directives.modelHandlers = baseClassDirectives.modelHandlers.concat();
 				directives.viewContracts = baseClassDirectives.viewContracts.concat();
@@ -44,7 +45,7 @@ package com.openflux.utils
 			resolveModelHandlers(description, directives.modelHandlers); 
 			resolveViewContracts(description, directives.viewContracts);
 			resolveViewHandlers(description, directives.viewHandlers);
-			
+			resolveDefaultSettings(description, directives.defaultSettings);
 			directivesByClassName[className] = directives;
 			return directives;
 		}
@@ -111,6 +112,16 @@ package com.openflux.utils
 				handlerDirective.event = metadata[i].arg.(@key == "event").@value;
 				handlerDirective.handler = metadata[i].arg.(@key == "handler").@value;
 				directives.push(handlerDirective);
+			}
+		}
+		
+		private static function resolveDefaultSettings(description:XML, directives:Array):void {
+			var metadata:XMLList = description.factory.metadata.(@name == "DefaultSetting");
+			for (var i:int = 0; i < metadata.length(); i++) {
+				var directive:DefaultSettingsDirective = new DefaultSettingsDirective();
+				directive.property = metadata[i].arg.@key;
+				directive.value = metadata[i].arg.@value;
+				directives.push(directive);
 			}
 		}
 		

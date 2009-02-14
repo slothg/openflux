@@ -55,15 +55,7 @@
     <component id="ComplexCollection" class="com.openflux.collections.ComplexCollection" />
     
     <!-- utils -->
-    
-    <!-- plexiglass -->
-    <component id="PlexiContainer" class="com.plexiglass.containers.PlexiContainer" />
-    <component id="PlexiView" class="com.plexiglass.core.PlexiView" />
-    <component id="PlexiAnimator" class="com.plexiglass.animators.PlexiAnimator" />
-    <component id="PlexiListView" class="com.plexiglass.views.PlexiListView" />
-    <component id="SimpleCamera" class="com.plexiglass.cameras.SimpleCamera" />
-    <component id="HoverCamera" class="com.plexiglass.cameras.HoverCamera" />
-    <component id="ZoomCamera" class="com.plexiglass.cameras.ZoomCamera" />
+    <component id="ClassReferences" class="com.openflux.utils.ClassReferences" />
     
     <!--  states -->
     <component id="State" class="com.openflux.states.State" />
