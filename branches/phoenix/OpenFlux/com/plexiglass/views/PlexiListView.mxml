@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<flux:PlexiView xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:flux="http://www.openflux.org/2008" content="{component.data}"><!-- fix me back -->
-	<flux:layout>
-		<flux:VerticalLayout/>
-	</flux:layout>
-</flux:PlexiView>

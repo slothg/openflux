@@ -1,14 +1,10 @@
 package com.openflux
 {
-	import com.openflux.controllers.ComplexController;
-	import com.openflux.controllers.DragListController;
-	import com.openflux.controllers.DropListController;
-	import com.openflux.controllers.ListController;
+	
 	import com.openflux.core.FluxComponent;
 	import com.openflux.core.IEnabled;
 	import com.openflux.core.IFluxList;
 	import com.openflux.utils.CollectionUtil;
-	import com.openflux.views.ListView;
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.ICollectionView;
@@ -22,6 +18,9 @@ package com.openflux
 	
 	[Style(name="factory", type="mx.core.IFactory")]
 	[Style(name="layout", type="com.openflux.layouts.ILayout")]
+	
+	[DefaultSetting(view="com.openflux.views.ListView")]
+	[DefaultSetting(controller="com.openflux.controllers.ListController")]
 	public class List extends FluxComponent implements IFluxList, IEnabled
 	{
 		
@@ -73,19 +72,6 @@ package com.openflux
 		}
 		
 		*/
-		//*****************************************************************
-		// Framework Overrides
-		//*****************************************************************
-		
-		override protected function createChildren():void {
-			if(!controller) {
-				controller = new ComplexController([new ListController(), new DragListController(), new DropListController()]); //new ListController();
-			}
-			if(!view) {
-				view = new ListView();
-			}
-		}
-		
 		
 		//********************************************************************
 		// Event Listeners

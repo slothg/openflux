@@ -1,17 +1,16 @@
 package com.openflux.containers
 {
-	//import com.openflux.ListItem;
+	
 	import com.openflux.animators.IAnimator;
-	import com.openflux.animators.TweenAnimator;
 	import com.openflux.core.FluxFactory;
 	import com.openflux.core.IFluxFactory;
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxListItem;
 	import com.openflux.core.IFluxView;
 	import com.openflux.core.PhoenixComponent;
-	import com.openflux.layouts.ContraintLayout;
 	import com.openflux.layouts.ILayout;
 	import com.openflux.utils.CollectionUtil;
+	import com.openflux.utils.MetaInjector;
 	import com.openflux.utils.MetaStyler;
 	
 	import flash.display.DisplayObject;
@@ -22,12 +21,14 @@ package com.openflux.containers
 	import mx.core.IDataRenderer;
 	import mx.core.IFactory;
 	import mx.core.IUIComponent;
-	import mx.events.ChildExistenceChangedEvent;
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 	import mx.styles.IStyleClient;
 	
 	[DefaultProperty("content")]
+	[DefaultSetting(factory="com.openflux.ListItem")]
+	[DefaultSetting(layout="com.openflux.layouts.ContraintLayout")]
+	[DefaultSetting(animator="com.openflux.animators.TweenAnimator")]
 	public class Container extends PhoenixComponent implements IDataView, IFluxContainer, IDataRenderer
 	{	
 		//*********************************
@@ -137,16 +138,8 @@ package com.openflux.containers
 		
 		/** @private */
 		override protected function createChildren():void {
+			MetaInjector.createDefaults(this);
 			super.createChildren();
-			if (animator == null) {
-				//animator = new TweenAnimator();
-			}
-			if (layout == null) {
-				//layout = new ContraintLayout();
-			}
-			if(factory == null) {
-				//factory = new ListItem();
-			}
 		}
 		
 		/** @private */
