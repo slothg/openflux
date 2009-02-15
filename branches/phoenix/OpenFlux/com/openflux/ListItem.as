@@ -13,7 +13,6 @@ package com.openflux
 	public class ListItem extends FluxComponent implements IFluxListItem, IFluxButton, ISelectable, IFactory 
 	{
 		
-		
 		private var _data:Object;
 		private var _list:IFluxList;
 		private var _selected:Boolean;
@@ -35,12 +34,6 @@ package com.openflux
 		public function get selected():Boolean { return _selected; }
 		public function set selected(value:Boolean):void {
 			_selected = value;
-		}
-		
-		public function newInstance():* {
-			var instance:ListItem = new ListItem();
-			// instantiate view and controller?
-			return instance;
 		}
 		
 		

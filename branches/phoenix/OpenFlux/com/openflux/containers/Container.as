@@ -2,14 +2,12 @@ package com.openflux.containers
 {
 	
 	import com.openflux.animators.IAnimator;
-	import com.openflux.core.FluxFactory;
 	import com.openflux.core.IFluxFactory;
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxListItem;
 	import com.openflux.core.IFluxView;
 	import com.openflux.core.PhoenixComponent;
 	import com.openflux.layouts.ILayout;
-	import com.openflux.utils.CollectionUtil;
 	import com.openflux.utils.MetaInjector;
 	import com.openflux.utils.MetaStyler;
 	
@@ -26,19 +24,15 @@ package com.openflux.containers
 	import mx.styles.IStyleClient;
 	
 	[DefaultProperty("content")]
-	[DefaultSetting(factory="com.openflux.ListItem")]
+	[DefaultSetting(factory="com.openflux.core.FluxFactory")]
 	[DefaultSetting(layout="com.openflux.layouts.ContraintLayout")]
 	[DefaultSetting(animator="com.openflux.animators.TweenAnimator")]
 	public class Container extends PhoenixComponent implements IDataView, IFluxContainer, IDataRenderer
 	{	
-		//*********************************
-		// Constructor
-		//*********************************
 		
-		public function Container()
-		{
-			super();
-		}
+		//************************************
+		// IDataRenderer implementation
+		//************************************
 		
 		private var _data:Object;
 		public function get data():Object { return _data; }
@@ -49,14 +43,14 @@ package com.openflux.containers
 		//************************************
 		// IDataView implementation
 		//************************************
-
-		private var _renderers:Array = [];
+		
 		private var _content:*;
 		private var _factory:IFactory;
-
+		private var _renderers:Array = [];
+		
 		private var collection:ICollectionView;
 		private var contentChanged:Boolean = false;
-
+		
 		/**
 		 * Holds data (like dataProvider) or UIComponents
 		 */
@@ -68,11 +62,14 @@ package com.openflux.containers
 				collection = null;
 			}
 			
-			_content = value;
-			collection = CollectionUtil.resolveCollection(value);
-			
-			if(collection) {
+			if(value is ICollectionView) {
+				_content = value;
+				collection = value as ICollectionView;
 				collection.addEventListener(CollectionEvent.COLLECTION_CHANGE, contentChangeHandler);
+			} else if(value is Array) {
+				_content = value;
+			} else {
+				_content = [value];
 			}
 			
 			contentChanged = true;
@@ -120,14 +117,6 @@ package com.openflux.containers
 		}
 		
 		public function get children():Array {
-			/*var arr:Array = [];
-			var count:int = numChildren;
-			for (var i:int = 0; i < count; i++) {
-				var child:IUIComponent = getChildAt(i) as IUIComponent;
-				if (child && child.includeInLayout)
-					arr.push(child);
-			}
-			return arr;*/
 			return _renderers;
 		}
 		
@@ -225,7 +214,8 @@ package com.openflux.containers
 				removeChild(o);
 			}
 			_renderers = [];
-			for each(var item:Object in collection) {
+			var c:Object = collection ? collection : _content;
+			for each(var item:Object in c) {
 				addItem(item);
 			}
 			invalidateDisplayList();
@@ -233,19 +223,18 @@ package com.openflux.containers
 		
 //		private var freeChildren:Array = [];
 		
-		protected function addItem(item:Object, index:int=-1):void {
+		protected function addItem(item:Object, index:int=-1):IUIComponent {
 			var instance:IUIComponent;
-			var factory:IFluxFactory = new FluxFactory(this.factory as IFactory); // testing CSS Data declarations
+			//var factory:IFluxFactory = new FluxFactory(this.factory as IFactory); // testing CSS Data declarations
 			if(item is IUIComponent) {
 				instance = item as IUIComponent;
-			/*} else if (freeChildren.length > 0) {
-				instance = freeChildren.shift() as UIComponent;
+			} else if(factory is IFluxFactory) {
+				instance = (factory as IFluxFactory).createComponent(item) as IUIComponent;
 				if(instance is IDataRenderer) {
 					(instance as IDataRenderer).data = item;
-				}*/
-			} else if(factory is IFluxFactory) {
-				instance = factory.createComponent(item) as IUIComponent;
-				
+				}
+			} else if(factory is IFactory) {
+				instance = factory.newInstance() as IUIComponent;
 				if(instance is IDataRenderer) {
 					(instance as IDataRenderer).data = item;
 				}
@@ -269,16 +258,13 @@ package com.openflux.containers
 			animator.addItem(instance as DisplayObject);
 			invalidateDisplayList();
 			invalidateSize();
-			//var event:ChildExistenceChangedEvent = new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD, false, false, instance as DisplayObject);
-			//dispatchEvent(event);
+			return instance;
 		}
 		
-		protected function removeItem(item:Object, index:int = -1):void {
+		protected function removeItem(item:Object, index:int = -1):IUIComponent {
 			var child:DisplayObject = _renderers.splice(index, 1)[0];
 			animator.removeItem(child, cleanChild);
-			//invalidateDisplayList();
-			//var event:ChildExistenceChangedEvent = new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_REMOVE, false, false, child);
-			//dispatchEvent(event);
+			return child as IUIComponent;
 		}
 		
 		private function cleanChild(child:DisplayObject):void {

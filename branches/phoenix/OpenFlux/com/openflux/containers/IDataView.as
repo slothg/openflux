@@ -3,7 +3,6 @@ package com.openflux.containers
 	
 	import mx.core.IFactory;
 	
-	// inferred dataViewChanged event
 	public interface IDataView
 	{
 		
