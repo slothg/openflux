@@ -4,7 +4,7 @@ package com.openflux
 	import com.openflux.core.FluxComponent;
 	import com.openflux.core.IEnabled;
 	import com.openflux.core.IFluxList;
-	import com.openflux.utils.CollectionUtil;
+	//import com.openflux.utils.CollectionUtil;
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.ICollectionView;
@@ -28,11 +28,10 @@ package com.openflux
 		// IFluxList Implementation
 		//****************************************************************************
 		
-		private var collection:ICollectionView; [Bindable]
+		private var collection:Object; [Bindable] // ICollectionView
 		public function get data():Object { return collection; }
 		public function set data(value:Object):void {
-			trace("hello???");
-			collection = CollectionUtil.resolveCollection(value);
+			collection = value; //CollectionUtil.resolveCollection(value);
 		}
 		
 		private var _selectedItems:ArrayCollection; [Bindable]
@@ -62,26 +61,6 @@ package com.openflux
 		}
 		
 		*/
-		//****************************************************************************
-		// IFactory Implementation
-		//****************************************************************************
-		/*
-		public function newInstance():* {
-			var instance:List = new List();
-			return instance;
-		}
 		
-		*/
-		
-		//********************************************************************
-		// Event Listeners
-		//********************************************************************
-		
-		// move to controller
-		/*
-		private function collectionChangeHandler(event:CollectionEvent):void {
-			dispatchEvent(new ListEvent(ListEvent.CHANGE, false, false));
-		}
-		*/
 	}
 }

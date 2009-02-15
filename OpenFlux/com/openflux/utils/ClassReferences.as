@@ -1,6 +1,6 @@
 package com.openflux.utils
 {
-	import com.openflux.ListItem;
+	
 	import com.openflux.animators.TweenAnimator;
 	import com.openflux.controllers.ButtonController;
 	import com.openflux.controllers.ListController;
@@ -17,7 +17,6 @@ package com.openflux.utils
 	{
 		
 		private var fluxFactory:FluxFactory;
-		private var listItem:ListItem;
 		private var constraintLayout:ContraintLayout;
 		private var tweenAnimator:TweenAnimator;
 		

@@ -1,6 +1,7 @@
 package com.openflux.core
 {
 	
+	import com.openflux.utils.ComponentUtil;
 	import com.openflux.utils.MetaInjector;
 	import com.openflux.utils.MetaStyler;
 	
@@ -75,13 +76,15 @@ package com.openflux.core
 		public function get rotationZ():Number { return _rotationZ; }
 		public function set rotationZ(value:Number):void { _rotationZ = value; }
 		*/
+		
 		//******************************************
-		// Constructor
+		// lazy IFactory base
+		// (for overrides that implement IFactory)
 		//******************************************
 		
-		/** @private */
-		public function FluxComponent():void {
-			super();
+		public function newInstance():* {
+			var instance:Object = ComponentUtil.clone(this, "com.openflux.core::FluxComponent");
+			return instance;
 		}
 		
 		

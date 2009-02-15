@@ -9,7 +9,7 @@ package com.openflux.core
 	import mx.styles.CSSStyleDeclaration;
 	import mx.styles.StyleManager;
 	
-	public class FluxFactory implements IFluxFactory
+	public class FluxFactory implements IFluxFactory, IFactory
 	{
 		
 		private var itemRenderer:IFactory;
@@ -42,6 +42,10 @@ package com.openflux.core
 				component = itemRenderer.newInstance();
 			}
 			return component;
+		}
+		
+		public function newInstance():* {
+			return itemRenderer.newInstance();
 		}
 		
 		private function createRenderer(declaration:CSSStyleDeclaration):IUIComponent {
