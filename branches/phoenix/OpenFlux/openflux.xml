@@ -9,6 +9,7 @@
     <component id="ListItem" class="com.openflux.ListItem" />
     <component id="ScrollBar" class="com.openflux.ScrollBar" />
     <component id="Application" class="com.openflux.Application" />
+    <component id="Label" class="com.openflux.Label" />
     
     <!-- views -->
     <component id="ButtonView" class="com.openflux.views.ButtonView" />

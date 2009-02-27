@@ -1,13 +1,14 @@
 package com.openflux.utils
 {
 	
-	import com.openflux.animators.TweenAnimator;
+	import com.openflux.animators.TweenAnimator; 
 	import com.openflux.controllers.ButtonController;
 	import com.openflux.controllers.ListController;
 	import com.openflux.controllers.ListItemController;
 	import com.openflux.controllers.ScrollBarController;
 	import com.openflux.core.FluxFactory;
 	import com.openflux.layouts.ContraintLayout;
+	import com.openflux.managers.LayoutManager;
 	import com.openflux.views.ButtonView;
 	import com.openflux.views.ListItemView;
 	import com.openflux.views.ListView;
@@ -31,6 +32,8 @@ package com.openflux.utils
 		
 		private var scrollBarController:ScrollBarController;
 		private var verticalScrollBarView:VerticalScrollBarView;
+		
+		private var layoutManager:LayoutManager;
 		
 	}
 }

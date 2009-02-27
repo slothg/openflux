@@ -12,6 +12,12 @@ package com.openflux.managers
 		private var invalidSize:Array = [];
 		private var invalidDisplayList:Array = [];
 		
+		private static var instance:ILayoutManager;
+		public static function getInstance():ILayoutManager {
+			if (!instance) instance = new LayoutManager();
+			return instance;
+		}
+		
 		public function LayoutManager(target:IEventDispatcher=null)
 		{
 			super(target);
