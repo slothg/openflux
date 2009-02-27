@@ -1,7 +1,7 @@
 package com.openflux.core
 {
-	import com.openflux.states.State;
 	import com.openflux.managers.SystemManager;
+	import com.openflux.states.State;
 	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
@@ -20,7 +20,6 @@ package com.openflux.core
 	import mx.core.IDeferredInstantiationUIComponent;
 	import mx.core.IFlexDisplayObject;
 	import mx.core.IInvalidating;
-	import mx.core.IRawChildrenContainer;
 	import mx.core.IUIComponent;
 	import mx.core.IUITextField;
 	import mx.core.UIComponentCachePolicy;
@@ -208,39 +207,37 @@ package com.openflux.core
 		private var _width:Number; [Bindable("widthChanged")] [PercentProxy("percentWidth")]
 		override public function get width():Number { return _width; }
 		override public function set width(value:Number):void {
-	        if (explicitWidth != value) {
-	            explicitWidth = value;
-	            invalidateSize();
-	        }
-	
-	        if (_width != value) {
-	            invalidateProperties();
-	            invalidateDisplayList();
-	            invalidateParentSizeAndDisplayList();
-	
-	            _width = value;
-	            
-	              dispatchEvent(new Event("widthChanged"));
-	        }
+			if (explicitWidth != value) {
+				explicitWidth = value;
+				invalidateSize();
+			}
+			
+			if (_width != value) {
+				invalidateProperties();
+				invalidateDisplayList();
+				invalidateParentSizeAndDisplayList();
+				
+				_width = value;
+				dispatchEvent(new Event("widthChanged"));
+			}
 		}
 		
 		private var _height:Number; [Bindable("heightChanged")] [PercentProxy("percentHeight")]
 		override public function get height():Number { return _height; }
 		override public function set height(value:Number):void {
-	        if (explicitHeight != value) {
-	        	explicitHeight = value;
-	            invalidateSize();
-	        }
+			if (explicitHeight != value) {
+				explicitHeight = value;
+				invalidateSize();
+			}
 	
-	        if (_height != value) {
-	            invalidateProperties();
-	            invalidateDisplayList();
+			if (_height != value) {
+				invalidateProperties();
+				invalidateDisplayList();
 				invalidateParentSizeAndDisplayList();
-	
-	            _height = value;
-	            
-	              dispatchEvent(new Event("heightChanged"));
-	        }
+				
+				_height = value;
+				dispatchEvent(new Event("heightChanged"));
+			}
 		}
 		
 		protected function get unscaledWidth():Number { return width / Math.abs(scaleX); }
@@ -262,7 +259,7 @@ package com.openflux.core
 			}
 		}
 		
-		private var _explicitHeight:Number; [Bindable("explicitWidthChanged")]
+		private var _explicitHeight:Number; [Bindable("explicitHeightChanged")]
 		public function get explicitHeight():Number { return _explicitHeight; }
 		public function set explicitHeight(value:Number):void {
 			if (_explicitHeight != value) {            
@@ -273,6 +270,8 @@ package com.openflux.core
 			
 				invalidateSize();
 				invalidateParentSizeAndDisplayList();
+				
+				dispatchEvent(new Event("explicitHeightChanged"));
 			}
 		};
 		
@@ -661,9 +660,8 @@ package com.openflux.core
 			if (formerParent && !(formerParent is Loader))
 				formerParent.removeChild(child);
 
-			if (child is IUIComponent && !IUIComponent(child).document) {
+			if (child is IUIComponent && !IUIComponent(child).document)
 				IUIComponent(child).document = document ? document : ApplicationGlobals.application;
-			}
 
 			if (child is IUIComponent)
             	IUIComponent(child).parentChanged(this);
@@ -673,11 +671,10 @@ package com.openflux.core
 	        else if (child is IUITextField)
 	            IUITextField(child).nestLevel = nestLevel + 1;
 	            
-			if (child is InteractiveObject)
-            	if (doubleClickEnabled)
+			if (child is InteractiveObject && doubleClickEnabled)
 	                InteractiveObject(child).doubleClickEnabled = true;
 
-			if (child is IStyleClient)
+/*			if (child is IStyleClient)
 				IStyleClient(child).regenerateStyleCache(true);
 			
 			if (child is ISimpleStyleClient)
@@ -685,7 +682,7 @@ package com.openflux.core
 			
 			if (child is IStyleClient)
 				IStyleClient(child).notifyStyleChangeInChildren(null, true);
-			
+*/			
 		}
 		
 		private function addedChild(child:DisplayObject):void
@@ -808,9 +805,7 @@ package com.openflux.core
 			if (!p) {
 				_parent = null;
 				_nestLevel = 0;
-			} else if (p is IStyleClient) {
-				_parent = p;
-			} else if (p is ISystemManager) {
+			} else if (/*p is IStyleClient ||*/ p is ISystemManager) {
 				_parent = p;
 			} else {
 				_parent = p.parent;

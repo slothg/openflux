@@ -204,7 +204,7 @@ package com.openflux
 			resizeHeight = isNaN(explicitHeight);
 			
 			if (resizeWidth || resizeHeight) {
-				resizeHandler(new Event(Event.RESIZE));
+				//resizeHandler(new Event(Event.RESIZE));
 			
 				if (!resizeHandlerAdded) {
 					systemManager.addEventListener(Event.RESIZE, resizeHandler, false, 0, true);
@@ -291,7 +291,7 @@ package com.openflux
 			}
 		
 			if (w != width || h != height) {
-				invalidateProperties();
+				//invalidateProperties();
 				invalidateSize();
 			}
 		

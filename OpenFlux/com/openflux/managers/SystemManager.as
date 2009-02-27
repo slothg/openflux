@@ -1,7 +1,6 @@
 package com.openflux.managers
 {
 	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
 	import flash.display.Graphics;
 	import flash.display.InteractiveObject;
 	import flash.display.Loader;
@@ -16,37 +15,30 @@ package com.openflux.managers
 	import flash.geom.Rectangle;
 	import flash.system.ApplicationDomain;
 	import flash.system.Capabilities;
-	import flash.text.Font;
 	import flash.text.TextFormat;
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
 	
-	import mx.core.EmbeddedFontRegistry;
 	import mx.core.FlexSprite;
 	import mx.core.IChildList;
-	import mx.core.IInvalidating;
 	import mx.core.ISWFBridgeGroup;
 	import mx.core.IUIComponent;
-	import mx.core.RSLItem;
 	import mx.core.Singleton;
-	import mx.core.TextFieldFactory;
 	import mx.core.mx_internal;
 	import mx.core.IFlexDisplayObject;
 	import mx.events.FlexEvent;
-	import mx.events.InterManagerRequest;
 	import mx.managers.IFocusManagerContainer;
 	import mx.managers.ILayoutManagerClient;
 	import mx.managers.ISystemManager;
 	import mx.managers.SystemManagerGlobals;
 	import mx.messaging.config.LoaderConfig;
-	import mx.preloaders.DownloadProgressBar;
-	import mx.preloaders.Preloader;
 	import mx.resources.IResourceManager;
 	import mx.resources.ResourceBundle;
 	import mx.resources.ResourceManager;
 	import mx.styles.ISimpleStyleClient;
-	import mx.styles.IStyleClient;
-	import mx.styles.StyleManager;
+	import mx.styles.IStyleClient; mx.styles.StyleManagerImpl;
+	
+	import com.openflux.utils.ClassReferences; ClassReferences;
 
 	[Event(name="applicationComplete", type="mx.events.FlexEvent")]
 	[Event(name="idle", type="mx.events.FlexEvent")]
@@ -66,7 +58,7 @@ package com.openflux.managers
 		private var lastFrame:int;
 		private var nextFrameTimer:Timer = null;
 		private var initialized:Boolean = false;
-		private var preloader:Preloader;
+		//private var preloader:Preloader;
 		private var _width:Number;
 		private var _height:Number;
 		private var _screen:Rectangle;
@@ -144,8 +136,8 @@ package com.openflux.managers
 		
 		private var _cursorChildren:IChildList;
 		public function get cursorChildren():IChildList {
-			if (!topLevel)
-				return _topLevelSystemManager.cursorChildren;
+			//if (!topLevel)
+			//	return _topLevelSystemManager.cursorChildren;
 				
 			//if (!_cursorChildren)
 			//	_cursorChildren = new SystemChildrenList(this, new QName(mx_internal, "toolTipIndex"), new QName(mx_internal, "cursorIndex"));
@@ -154,8 +146,8 @@ package com.openflux.managers
 		}
 		
 		private var _fontList:Object;
-		public function get embeddedFontList():Object {
-			if (_fontList == null) {
+		public function get embeddedFontList():Object { return {};
+			/*if (_fontList == null) {
 				_fontList = {};
 				
 				var o:Object = info()["fonts"];
@@ -173,13 +165,13 @@ package com.openflux.managers
 				}
 			}
 			
-			return _fontList;
+			return _fontList;*/
 		}
 		
 		private var _popUpChildren:IChildList;
 		public function get popUpChildren():IChildList {
-			if (!topLevel)
-				return _topLevelSystemManager.popUpChildren;
+			//if (!topLevel)
+			//	return _topLevelSystemManager.popUpChildren;
 			
 			//if (!_popUpChildren) {
 			//	_popUpChildren = new SystemChildrenList(this, new QName(mx_internal, "noTopMostIndex"), new QName(mx_internal, "topMostIndex"));
@@ -198,12 +190,12 @@ package com.openflux.managers
 		
 		private var _swfBridgeGroup:ISWFBridgeGroup;
 		public function get swfBridgeGroup():ISWFBridgeGroup {
-			if (topLevel)
+			//if (topLevel)
 				return _swfBridgeGroup;
-			else if (topLevelSystemManager)
-				return topLevelSystemManager.swfBridgeGroup;
-			
-			return null;
+			//else if (topLevelSystemManager)
+			//	return topLevelSystemManager.swfBridgeGroup;
+			//
+			//return null;
 		}
 		
 		public function get screen():Rectangle {
@@ -215,8 +207,8 @@ package com.openflux.managers
 		
 		private var _toolTipChildren:IChildList;
 		public function get toolTipChildren():IChildList {
-			if (!topLevel)
-				return _topLevelSystemManager.toolTipChildren;
+			//if (!topLevel)
+			//	return _topLevelSystemManager.toolTipChildren;
 			
 			//if (!_toolTipChildren) {
 			//	_toolTipChildren = new SystemChildrenList(this, new QName(mx_internal, "topMostIndex"), new QName(mx_internal, "toolTipIndex"));
@@ -225,8 +217,8 @@ package com.openflux.managers
 			return this; //_toolTipChildren;
 		}
 		
-		private var _topLevelSystemManager:ISystemManager;
-		public function get topLevelSystemManager():ISystemManager { return _topLevelSystemManager; }
+		//private var _topLevelSystemManager:ISystemManager;
+		public function get topLevelSystemManager():ISystemManager { return this; } //_topLevelSystemManager; }
 		
 		public function addFocusManager(f:IFocusManagerContainer):void {}
 		public function removeFocusManager(f:IFocusManagerContainer):void {}
@@ -243,8 +235,8 @@ package com.openflux.managers
 			return definition;
 		}
 		
-		public function isFontFaceEmbedded(textFormat:TextFormat):Boolean {
-			var fontName:String = textFormat.font;
+		public function isFontFaceEmbedded(textFormat:TextFormat):Boolean { return false;
+			/*var fontName:String = textFormat.font;
 			var fl:Array = Font.enumerateFonts();
 			
 			for (var f:int = 0; f < fl.length; ++f) {
@@ -269,7 +261,7 @@ package com.openflux.managers
 			
 			var info:Object = embeddedFontList[fontName];
 			
-			return !((textFormat.bold && !info.bold) || (textFormat.italic && !info.italic) || (!textFormat.bold && !textFormat.italic && !info.regular));
+			return !((textFormat.bold && !info.bold) || (textFormat.italic && !info.italic) || (!textFormat.bold && !textFormat.italic && !info.regular));*/
 		}
 
 		public function isTopLevel():Boolean { return topLevel; }
@@ -345,8 +337,8 @@ package com.openflux.managers
 				Singleton.registerClass("mx.managers::IDragManager", Class(getDefinitionByName("mx.managers::DragManagerImpl")));
 			}
 		
-			var textFieldFactory:TextFieldFactory;
-			Singleton.registerClass("mx.core::ITextFieldFactory", Class(getDefinitionByName("mx.core::TextFieldFactory")));
+			//var textFieldFactory:TextFieldFactory;
+			//Singleton.registerClass("mx.core::ITextFieldFactory", Class(getDefinitionByName("mx.core::TextFieldFactory")));
 				
 			executeCallbacks();
 			doneExecutingInitCallbacks = true;
@@ -388,28 +380,28 @@ package com.openflux.managers
 				_height = loaderInfo.height;
 			}
 			
-			preloader = new Preloader();
-			preloader.addEventListener(FlexEvent.INIT_PROGRESS, preloader_initProgressHandler);
-			preloader.addEventListener(FlexEvent.PRELOADER_DONE, preloader_preloaderDoneHandler);
+			//preloader = new Preloader();
+			//preloader.addEventListener(FlexEvent.INIT_PROGRESS, preloader_initProgressHandler);
+			//preloader.addEventListener(FlexEvent.PRELOADER_DONE, preloader_preloaderDoneHandler);
 			
-			addingChild(preloader);
-			this.addChild(preloader);
-			childAdded(preloader);
+			//addingChild(preloader);
+			//this.addChild(preloader);
+			//childAdded(preloader);
 			
-			var rsls:Array = info()["rsls"];
-			var cdRsls:Array = info()["cdRsls"];
-			var usePreloader:Boolean = true;
-			if (info()["usePreloader"] != undefined)
-				usePreloader = info()["usePreloader"];
+			//var rsls:Array = info()["rsls"];
+			//var cdRsls:Array = info()["cdRsls"];
+			//var usePreloader:Boolean = true;
+			//if (info()["usePreloader"] != undefined)
+			//	usePreloader = info()["usePreloader"];
 			
-			var preloaderDisplayClass:Class = info()["preloader"] as Class;
-			if (usePreloader && !preloaderDisplayClass)
-				preloaderDisplayClass = DownloadProgressBar;
+			//var preloaderDisplayClass:Class = info()["preloader"] as Class;
+			//if (usePreloader && !preloaderDisplayClass)
+			//	preloaderDisplayClass = DownloadProgressBar;
 			
-			var rslList:Array = [];
-			var n:int;
-			var i:int;
-			if (cdRsls && cdRsls.length > 0) {
+			//var rslList:Array = [];
+			//var n:int;
+			//var i:int;
+			/*if (cdRsls && cdRsls.length > 0) {
 				var crossDomainRSLItem:Class = Class(getDefinitionByName("mx.core::CrossDomainRSLItem"));
 				n = cdRsls.length;
 				for (i = 0; i < n; i++) {
@@ -421,20 +413,20 @@ package com.openflux.managers
 											this.loaderInfo.url);
 					rslList.push(cdNode);	
 				}
-			}
+			}*/
 
-			if (rsls != null && rsls.length > 0) {
+			/*if (rsls != null && rsls.length > 0) {
 				n = rsls.length;
 				for (i = 0; i < n; i++) {
 					var node:RSLItem = new RSLItem(rsls[i].url, this.loaderInfo.url);
 					rslList.push(node);
 				}
-			}
+			}*/
 
 			Singleton.registerClass("mx.resources::IResourceManager", Class(getDefinitionByName("mx.resources::ResourceManagerImpl")));
-			Singleton.registerClass("mx.core::IEmbeddedFontRegistry", Class(getDefinitionByName("mx.core::EmbeddedFontRegistry")));
+			//Singleton.registerClass("mx.core::IEmbeddedFontRegistry", Class(getDefinitionByName("mx.core::EmbeddedFontRegistry")));
 			var resourceManager:IResourceManager = ResourceManager.getInstance();
-			var fontRegistry:EmbeddedFontRegistry;
+			//var fontRegistry:EmbeddedFontRegistry;
 			Singleton.registerClass("mx.styles::IStyleManager", Class(getDefinitionByName("mx.styles::StyleManagerImpl")));
 			Singleton.registerClass("mx.styles::IStyleManager2", Class(getDefinitionByName("mx.styles::StyleManagerImpl")));
 
@@ -444,19 +436,21 @@ package com.openflux.managers
 			var resourceModuleURLList:String = loaderInfo.parameters["resourceModuleURLs"];
 			var resourceModuleURLs:Array = resourceModuleURLList ? resourceModuleURLList.split(",") : null;
 
-			preloader.initialize(
-				usePreloader,
-				preloaderDisplayClass,
-				preloaderBackgroundColor,
-				1, //preloaderBackgroundAlpha,
-				null, //preloaderBackgroundImage,
-				null, //preloaderBackgroundSize,
-				isStageRoot ? stage.stageWidth : loaderInfo.width,
-				isStageRoot ? stage.stageHeight : loaderInfo.height,
-				null,
-				null,
-				rslList,
-				resourceModuleURLs);
+			//preloader.initialize(
+			//	usePreloader,
+			//	preloaderDisplayClass,
+			//	preloaderBackgroundColor,
+			//	1, //preloaderBackgroundAlpha,
+			//	null, //preloaderBackgroundImage,
+			//	null, //preloaderBackgroundSize,
+			//	isStageRoot ? stage.stageWidth : loaderInfo.width,
+			//	isStageRoot ? stage.stageHeight : loaderInfo.height,
+			//	null,
+			//	null,
+			//	rslList,
+			//	resourceModuleURLs);
+			
+			deferredNextFrame();
 		}
 
 		private function executeCallbacks():void {
@@ -499,7 +493,7 @@ package com.openflux.managers
 			if (!parent && parentAllowsChild)
 				return;
 		
-			if (!topLevel) {
+			/*if (!topLevel) {
 				var obj:DisplayObjectContainer = parent.parent;
 				if (!obj)
 		  			return;
@@ -514,18 +508,18 @@ package com.openflux.managers
 					}
 					obj = obj.parent;
 				}
-			}
+			}*/
 
-			if (isTopLevelRoot() || getSandboxRoot() == this)
+			//if (isTopLevelRoot() || getSandboxRoot() == this)
 				addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler, true);
 			
-			if (isTopLevelRoot() && stage)
+			//if (isTopLevelRoot() && stage)
 				stage.addEventListener(Event.RESIZE, Stage_resizeHandler, false, 0, true);
-			else if (topLevel && stage) {
-				var sandboxRoot:DisplayObject = getSandboxRoot();
-				if (sandboxRoot != this)
-					sandboxRoot.addEventListener(Event.RESIZE, Stage_resizeHandler, false, 0, true);
-			}
+			//else if (topLevel && stage) {
+			//	var sandboxRoot:DisplayObject = getSandboxRoot();
+			//	if (sandboxRoot != this)
+			//		sandboxRoot.addEventListener(Event.RESIZE, Stage_resizeHandler, false, 0, true);
+			//}
 						
 			var app:IUIComponent;
 			document = app = topLevelWindow = IUIComponent(create());
@@ -538,18 +532,19 @@ package com.openflux.managers
 					LoaderConfig._parameters = loaderInfo.parameters;
 				}
 			
-				if (isStageRoot && stage) {
+				//if (isStageRoot && stage) {
 					_width = stage.stageWidth;
 					_height = stage.stageHeight;
 					IFlexDisplayObject(app).setActualSize(_width, _height);
-				}
-				else
-					IFlexDisplayObject(app).setActualSize(loaderInfo.width, loaderInfo.height);
+				//}
+				//else
+				//	IFlexDisplayObject(app).setActualSize(loaderInfo.width, loaderInfo.height);
 			
-				if (preloader)
-					preloader.registerApplication(app);
+				//if (preloader)
+				//	preloader.registerApplication(app);
 			
 				addingChild(DisplayObject(app));
+				preloader_preloaderDoneHandler(null);
 				childAdded(DisplayObject(app));
 				Object(app).validateNow();
 			} else {
@@ -643,7 +638,7 @@ package com.openflux.managers
 		}
 		
 		private function appCreationCompleteHandler(event:FlexEvent):void {
-			if (!topLevel && parent) {
+			/*if (!topLevel && parent) {
 				var obj:DisplayObjectContainer = parent.parent;
 				while (obj) {
 					if (obj is IInvalidating) {
@@ -653,7 +648,7 @@ package com.openflux.managers
 					}
 					obj = obj.parent;
 				}
-			}
+			}*/
 			 
 			//if (topLevel && useSWFBridge())
 			//	dispatchInvalidateRequest();
@@ -662,7 +657,7 @@ package com.openflux.managers
 		private function addingChild(child:DisplayObject):void {
 			var newNestLevel:int = 1;
 			
-			if (!topLevel && parent) {
+			/*if (!topLevel && parent) {
 				var obj:DisplayObjectContainer = parent.parent;
 				while (obj) {
 					if (obj is ILayoutManagerClient) {
@@ -671,7 +666,7 @@ package com.openflux.managers
 					}
 					obj = obj.parent;
 				}
-			}
+			}*/
 			nestLevel = newNestLevel;
 			
 			if (child is IUIComponent)
@@ -720,16 +715,16 @@ package com.openflux.managers
 			var sandboxRoot:DisplayObject = getSandboxRoot();
 			var sandboxScreen:Rectangle;
 			
-			if (sandboxRoot == this)
+			//if (sandboxRoot == this)
 				sandboxScreen = new Rectangle(0, 0, width, height);			
-			else if (sandboxRoot == topLevelSystemManager) {
-				var sm:DisplayObject = DisplayObject(topLevelSystemManager);
-				sandboxScreen = new Rectangle(0, 0, sm.width, sm.height);
-			} else {
-				var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, false, false, "screen");
-				sandboxRoot.dispatchEvent(me);
-				sandboxScreen = Rectangle(me.value);
-			}
+			//else if (sandboxRoot == topLevelSystemManager) {
+			//	var sm:DisplayObject = DisplayObject(topLevelSystemManager);
+			//	sandboxScreen = new Rectangle(0, 0, sm.width, sm.height);
+			//} else {
+			//	var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, false, false, "screen");
+			//	sandboxRoot.dispatchEvent(me);
+			//	sandboxScreen = Rectangle(me.value);
+			//}
 			
 			return sandboxScreen;
 		}
@@ -747,40 +742,35 @@ package com.openflux.managers
 			}
 		}
 		
-		private function preloader_initProgressHandler(event:Event):void {
+		/*private function preloader_initProgressHandler(event:Event):void {
 			preloader.removeEventListener(FlexEvent.INIT_PROGRESS, preloader_initProgressHandler);
 			deferredNextFrame();
-		}
+		}*/
 		
 		private function preloader_preloaderDoneHandler(event:Event):void {
 			var app:IUIComponent = topLevelWindow;
-			preloader.removeEventListener(FlexEvent.PRELOADER_DONE, preloader_preloaderDoneHandler);
+			//preloader.removeEventListener(FlexEvent.PRELOADER_DONE, preloader_preloaderDoneHandler);
 		
-			removingChild(preloader);
-			this.removeChild(preloader);
-			childRemoved(preloader);
-			preloader = null;
+			//removingChild(preloader);
+			//this.removeChild(preloader);
+			//childRemoved(preloader);
+			//preloader = null;
 		
 			mouseCatcher = new FlexSprite();
 			mouseCatcher.name = "mouseCatcher";
 			//noTopMostIndex++;
 			super.addChildAt(mouseCatcher, 0);	
 			resizeMouseCatcher();
-			if (!topLevel) {
-				mouseCatcher.visible = false;
-				mask = mouseCatcher;
-			}
+			//if (!topLevel) {
+			//	mouseCatcher.visible = false;
+			//	mask = mouseCatcher;
+			//}
 			
 			//noTopMostIndex++;
 			super.addChildAt(DisplayObject(app), 1);
 			
 			app.dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_COMPLETE));
 			dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_COMPLETE));
-		}
-		
-		public function get preloaderBackgroundColor():uint {
-			var value:* = info()["backgroundColor"];
-			return value == undefined ? mx.styles.StyleManager.NOT_A_COLOR : mx.styles.StyleManager.getColorName(value);
 		}
 	}
 }

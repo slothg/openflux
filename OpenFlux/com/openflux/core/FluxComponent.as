@@ -1,6 +1,7 @@
 package com.openflux.core
 {
 	
+	import com.openflux.controllers.ComplexController;
 	import com.openflux.utils.ComponentUtil;
 	import com.openflux.utils.MetaInjector;
 	import com.openflux.utils.MetaStyler;
@@ -34,7 +35,13 @@ package com.openflux.core
 					view = item as IFluxView;
 				}
 				if(item is IFluxController) {
-					controller = item as IFluxController;
+					if (!controller) {
+						controller = item as IFluxController;
+					} else if (controller is ComplexController) {
+						ComplexController(controller).controllers.push(item);
+					} else {
+						controller = new ComplexController([controller, item]);
+					}
 				}
 			}
 		}

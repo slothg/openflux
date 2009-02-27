@@ -4,14 +4,9 @@
 	xmlns:degrafa="http://www.degrafa.com/2008" 
 	minWidth="30" minHeight="30" height="50">
 	
-	<mx:Script>
-		<![CDATA[
-			import com.openflux.constants.ButtonStates
-		]]>
-	</mx:Script>
-	
+	<!-- states -->
 	<flux:states>
-		<flux:State name="{ButtonStates.UP}" basedOn="" />
+		<flux:State name="{ButtonStates.UP}" />
 		<flux:State name="{ButtonStates.OVER}">
 			<flux:SetProperty target="{fill}" name="color" value="#7FCEFF" />
 			<flux:SetProperty target="{fill}" name="alpha" value="0.7" />
@@ -24,16 +19,29 @@
 		</flux:State>
 	</flux:states>
 	
+	<mx:Script>
+		<![CDATA[
+			import com.openflux.constants.ButtonStates;
+		]]>
+	</mx:Script>
+	
+	<!-- fill -->
 	<degrafa:SolidFill id="fill" color="#FFFFFF" />
 	
-	<degrafa:Surface id="surface" width="{width}" height="{height}">
-		<degrafa:GeometryGroup>
-			<degrafa:RoundedRectangle width="{width}" height="{height}" fill="{fill}" />
-		</degrafa:GeometryGroup>
-	</degrafa:Surface>
-	
-	<mx:Label text="{component.data.toString()}" left="10" right="10" verticalCenter="0" />
-	<!--
-	<flux:DataView content="{component.data}" itemRenderer="{component as IFactory}" left="10" right="10" top="40" />
-	-->
+	<flux:content>
+		<!-- background -->
+		<degrafa:Surface id="surface" width="{width}" height="{height}">
+			<degrafa:GeometryGroup>
+				<degrafa:RoundedRectangle width="{width}" height="{height}" fill="{fill}" />
+			</degrafa:GeometryGroup>
+		</degrafa:Surface>
+		
+		<!-- label -->
+		<flux:Label text="{ component.data.label }" />
+		
+		<!--
+		<flux:DataView content="{component.data}" itemRenderer="{component as IFactory}" left="10" right="10" top="40" />
+		-->
+	</flux:content>
+
 </flux:FluxView>
