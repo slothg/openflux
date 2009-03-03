@@ -17,6 +17,10 @@ package com.openflux.controllers
 	[ViewHandler(event="mouseDown", handler="mouseDownHandler")]
 	[ViewHandler(event="mouseUp", handler="mouseUpHandler")]
 	[EventHandler(event="propertyChange", handler="propertyChangeHandler")]
+	
+	/**
+	 * Default Button controller handling current state and selection
+	 */
 	public class ButtonController extends FluxController implements IFluxController
 	{
 		

@@ -6,36 +6,88 @@ package com.openflux
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxListItem;
 	import com.openflux.core.ISelectable;
+	
+	import flash.events.Event;
+	
 	import mx.core.IFactory;
 	
 	[DefaultSetting(view="com.openflux.views.ListItemView")]
 	[DefaultSetting(controller="com.openflux.controllers.ListItemController")]
+	
+	/**
+	 * Default child component of a List.
+	 * 
+	 * @see com.openflux.views.ListItemView
+	 * @see com.openflux.controllers.ListItemController
+	 */
 	public class ListItem extends FluxComponent implements IFluxListItem, IFluxButton, ISelectable, IFactory 
 	{
+		/**
+		 * Contructor
+		 */
+		public function ListItem() {
+			super();
+		}
+		
+		// ========================================
+		// data property
+		// ========================================
 		
 		private var _data:Object;
-		private var _list:IFluxList;
-		private var _selected:Boolean;
 		
+		[Bindable("dataChange")]
 		
-		[Bindable]
+		/**
+		 * Data object for the current list item.
+		 * 
+		 * @see com.openflux.core.FluxFactory
+		 */
 		public function get data():Object { return _data; }
 		public function set data(value:Object):void {
-			_data = value;
+			if (_data != value) {
+				_data = value;
+				dispatchEvent(new Event("dataChange"));
+			}
 		}
 		
-		[Bindable]
+		// ========================================
+		// list property
+		// ========================================
+		
+		private var _list:IFluxList;
+		
+		[Bindable("listChange")]
+		
+		/**
+		 * Instance of the parent list component
+		 */
 		public function get list():IFluxList { return _list; }
 		public function set list(value:IFluxList):void {
-			_list = value;
+			if (_list != value) {
+				_list = value;
+				dispatchEvent(new Event("listChange"));
+			}
 		}
 		
-		[Bindable]
+		// ========================================
+		// selected property
+		// ========================================
+		
+		private var _selected:Boolean;
+		
+		[Bindable("selectedChange")]
+		
+		/**
+		 * Whether the data item in the list is currently selected
+		 * 
+		 * @see com.openflux.controllers.ListItemController
+		 */
 		public function get selected():Boolean { return _selected; }
 		public function set selected(value:Boolean):void {
-			_selected = value;
+			if (_selected != value) {
+				_selected = value;
+				dispatchEvent(new Event("selectedChange"));
+			}
 		}
-		
-		
 	}
 }

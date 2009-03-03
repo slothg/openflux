@@ -4,10 +4,10 @@ package com.openflux
 	import com.openflux.core.FluxComponent;
 	import com.openflux.core.IEnabled;
 	import com.openflux.core.IFluxList;
-	//import com.openflux.utils.CollectionUtil;
+	
+	import flash.events.Event;
 	
 	import mx.collections.ArrayCollection;
-	import mx.collections.ICollectionView;
 	import mx.events.ListEvent;
 	
 	[Event(name="change", type="mx.events.ListEvent")]
@@ -21,46 +21,61 @@ package com.openflux
 	
 	[DefaultSetting(view="com.openflux.views.ListView")]
 	[DefaultSetting(controller="com.openflux.controllers.ListController")]
+	
+	/**
+	 * Standard IFluxList component that contains selectable, draggable and 
+	 * droppable IFluxListItem instances
+	 * 
+	 * @see com.openflux.views.ListView
+	 * @see com.openflux.controllers.ListController
+	 */
 	public class List extends FluxComponent implements IFluxList, IEnabled
 	{
-		
-		//****************************************************************************
-		// IFluxList Implementation
-		//****************************************************************************
-		
-		private var collection:Object; [Bindable] // ICollectionView
-		public function get data():Object { return collection; }
-		public function set data(value:Object):void {
-			collection = value; //CollectionUtil.resolveCollection(value);
+		/**
+		 * Constructor
+		 */
+		public function List() {
+			super();
 		}
+
+		// ========================================
+		// data property
+		// ========================================
 		
-		private var _selectedItems:ArrayCollection; [Bindable]
-		public function get selectedItems():ArrayCollection { return _selectedItems; }
-		public function set selectedItems(value:ArrayCollection):void {
-			_selectedItems = value;
-			// move to controller
-			//_selectedItems.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);			
-			dispatchEvent(new ListEvent(ListEvent.CHANGE));
-		}
+		private var _data:Object;
 		
+		[Bindable("dataChange")]
 		
-		//****************************************************************************
-		// IFluxListItem Implementation (for hierarchical data)
-		//****************************************************************************
-		/*
-		private var _data:Object; [Bindable]
+		/**
+		 * Array of items to display in the list
+		 */
 		public function get data():Object { return _data; }
 		public function set data(value:Object):void {
-			_data = value;
+			if (_data != value) {
+				_data = value;
+				dispatchEvent(new Event("dataChange"));
+			}
 		}
+
+		// ========================================
+		// selectedItems property
+		// ========================================
 		
-		private var _list:IFluxList; [Bindable]
-		public function get list():IFluxList { return _list; }
-		public function set list(value:IFluxList):void {
-			_list = value;
+		private var _selectedItems:ArrayCollection;
+		
+		[Bindable("selectedItemsChange")]
+		
+		/**
+		 * Array of currently selected items in the list
+		 * 
+		 * @see com.openflux.controllers.ListController
+		 */
+		public function get selectedItems():ArrayCollection { return _selectedItems; }
+		public function set selectedItems(value:ArrayCollection):void {
+			if (_selectedItems != value) {
+				_selectedItems = value;
+				dispatchEvent(new Event("selectedItemsChange"));
+			}
 		}
-		
-		*/
-		
 	}
 }

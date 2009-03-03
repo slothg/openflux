@@ -24,6 +24,9 @@ package com.openflux
 	
 	[ResourceBundle("core")]
 
+	/**
+	 * OpenFlux application container
+	 */
 	public class Application extends Container
 	{		
 		private var _url:String;

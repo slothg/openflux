@@ -66,23 +66,6 @@ package com.openflux.core
 			controllerChanged = true;
 			invalidateProperties();
 		}
-		/*
-		private var _z:Number = 0; [Bindable]
-		public function get z():Number { return _z; }
-		public function set z(value:Number):void { _z = value; }
-		
-		private var _rotationX:Number = 0; [Bindable]
-		public function get rotationX():Number { return _rotationX; } 
-		public function set rotationX(value:Number):void { _rotationX = value; }
-		
-		private var _rotationY:Number = 0; [Bindable]
-		public function get rotationY():Number { return _rotationY; }
-		public function set rotationY(value:Number):void { _rotationY = value; }
-		
-		private var _rotationZ:Number = 0; [Bindable]
-		public function get rotationZ():Number { return _rotationZ; }
-		public function set rotationZ(value:Number):void { _rotationZ = value; }
-		*/
 		
 		//******************************************
 		// lazy IFactory base

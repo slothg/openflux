@@ -3,8 +3,6 @@ package com.openflux.layouts
 	import com.openflux.animators.AnimationToken;
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxView;
-	import com.openflux.layouts.ILayout;
-	import com.openflux.layouts.LayoutBase;
 	import com.openflux.utils.ListUtil;
 	
 	import flash.display.DisplayObject;
@@ -12,6 +10,7 @@ package com.openflux.layouts
 	import flash.geom.Rectangle;
 	
 	import mx.core.IUIComponent;
+	import mx.utils.ObjectUtil;
 
 	public class CoverFlowLayout extends LayoutBase implements ILayout
 	{
@@ -37,7 +36,7 @@ package com.openflux.layouts
 			if (container) container.invalidateDisplayList();
 		}
 		
-		private var _angle:Number = 70;
+		private var _angle:Number = 40;
 		[Bindable]
 		public function get angle():Number { return _angle; }
 		public function set angle(value:Number):void {
@@ -81,6 +80,8 @@ package com.openflux.layouts
 			var abs:Number;
 			var offset:Number = 0;
 			
+			var selectedWidth:Number = selectedChild.getExplicitOrMeasuredWidth();
+			
 			for (var i:int = 0; i < children.length; i++) {
 				child = children[i];
 				token = new AnimationToken(child.getExplicitOrMeasuredWidth(), child.getExplicitOrMeasuredHeight());
@@ -90,18 +91,21 @@ package com.openflux.layouts
 					if (indices.indexOf(i) != -1)
 						offset += token.width;
 
-					token.x = selectedChild.getExplicitOrMeasuredWidth() + ((abs - 1) * horizontalGap) + offset;
+					token.x = selectedWidth + ((abs - 1) * horizontalGap) + offset;
 					if (_gap > 0) token.x += (abs - 1) * (_gap + token.width);
 					token.y = -(maxChildHeight - child.height) / 2;
-					token.z = selectedChild.getExplicitOrMeasuredWidth() + abs * verticalGap;
-					token.rotationY = angle;
+					token.z = (selectedWidth + abs * verticalGap);
+					//token.rotationY = angle * -1;
+					
+					trace("x: " + token.x);
 					
 					if(i < selectedIndex) {
 						token.x *= -1;
-						token.rotationY *= -1;
+						token.x += selectedWidth;
+						//token.rotationY *= -1;
 					} else if(i == selectedIndex) {
 						token.x = 0;
-						token.z = -200 / 2;
+						token.z = 0;
 						token.rotationY = 0;
 						offset = 0;
 					}
@@ -129,6 +133,10 @@ package com.openflux.layouts
 				
 				token.x = token.x + rectangle.width/2 - token.width/2;
 				token.y = (token.y*-1) + rectangle.height/2 - token.height/2;
+				
+				trace(child["data"]["label"]);
+				trace(mx.utils.ObjectUtil.toString(token));
+				
 				container.animator.moveItem(child as DisplayObject, token);
 			}
 			

@@ -8,11 +8,12 @@ package com.openflux.utils
 	import com.openflux.controllers.ScrollBarController;
 	import com.openflux.core.FluxFactory;
 	import com.openflux.layouts.ContraintLayout;
-	import com.openflux.managers.LayoutManager;
 	import com.openflux.views.ButtonView;
 	import com.openflux.views.ListItemView;
 	import com.openflux.views.ListView;
 	import com.openflux.views.VerticalScrollBarView;
+	
+	import com.openflux.managers.LayoutManager;
 	
 	public class ClassReferences
 	{

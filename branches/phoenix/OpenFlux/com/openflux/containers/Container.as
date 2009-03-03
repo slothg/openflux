@@ -221,8 +221,6 @@ package com.openflux.containers
 			invalidateDisplayList();
 		}
 		
-//		private var freeChildren:Array = [];
-		
 		protected function addItem(item:Object, index:int=-1):IUIComponent {
 			var instance:IUIComponent;
 			//var factory:IFluxFactory = new FluxFactory(this.factory as IFactory); // testing CSS Data declarations
@@ -270,7 +268,6 @@ package com.openflux.containers
 		private function cleanChild(child:DisplayObject):void {
 			removeChild(child);
 			invalidateLayout();
-			//freeChildren.push(child);
 			invalidateDisplayList();
 			invalidateSize();
 		}
@@ -286,13 +283,11 @@ package com.openflux.containers
 					for (i = 0; i < event.items.length; i++) {
 						addItem(event.items[i] , event.location+i);
 					}
-					//addItem(event.items[0], event.location);
 					break;
 				case CollectionEventKind.REMOVE:
 					for (i = 0; i < event.items.length; i++) {
 						removeItem(event.items[i] , event.location);
 					}
-					//removeItem(event.items[0], event.location);
 					break;
 				case CollectionEventKind.RESET:
 					contentChanged = true;

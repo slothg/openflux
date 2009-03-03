@@ -24,17 +24,20 @@ package com.openflux.layouts
 			this.container = container;
 			if (updateOnChange && (container as IFluxView).component is IFluxList)
 				(container as IFluxView).component.addEventListener(ListEvent.CHANGE, onChange);
+			trace("attach");
 		}
 		
 		public function detach(container:IFluxContainer):void {
 			this.container = null;
 			if (updateOnChange && (container as IFluxView).component is IFluxList)
 				(container as IFluxView).component.removeEventListener(ListEvent.CHANGE, onChange);
+			trace("detach");
 		}
 		
 		protected function onChange(event:ListEvent):void
 		{
 			container.invalidateDisplayList();
+			trace("invalidate!");
 		}
 		
 		/*

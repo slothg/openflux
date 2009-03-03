@@ -5,6 +5,7 @@ package com.openflux.controllers
 	import com.openflux.views.*;
 	
 	import flash.display.DisplayObject;
+	import flash.events.IEventDispatcher;
 	import flash.events.MouseEvent;
 	
 	import mx.collections.ArrayCollection;
@@ -14,24 +15,19 @@ package com.openflux.controllers
 	import mx.events.ListEvent;
 	import mx.events.ListEventReason;
 	
-	/* // These are just for my reference
-	[Event(name="change", type="mx.events.ListEvent")]
-	[Event(name="itemClick", type="mx.events.ListEvent")]
-	[Event(name="itemDoubleClick", type="mx.events.ListEvent")]
-	[Event(name="itemRollOver", type="mx.events.ListEvent")]
-	[Event(name="itemRollOut", type="mx.events.ListEvent")]
-	*/
-	
 	[ViewHandler(event="childAdd", handler="childAddHandler")]
 	[ViewHandler(event="childRemove", handler="childRemoveHandler")]
+	
+	/**
+	 * Default List controller which handles multiple selection and dispatching ITEM_* events
+	 */
 	public class ListController extends FluxController
 	{
-		
+		[ModelAlias] public var dispatcher:IEventDispatcher;
 		[ModelAlias] [Bindable] public var list:IFluxList;
 		
-		
 		//***************************************************************
-		// Event Handlers
+		// View Event Handlers
 		//***************************************************************
 		
 		metadata function childAddHandler(event:ChildExistenceChangedEvent):void {
@@ -50,35 +46,34 @@ package com.openflux.controllers
 			child.removeEventListener(MouseEvent.ROLL_OUT, child_rollOutHandler, false);
 		}
 		
+		//***************************************************************
+		// Child Event Handlers
+		//***************************************************************
+		
 		private function child_clickHandler(event:MouseEvent):void {
 			if(event.currentTarget is IDataRenderer) {
 				if(!event.ctrlKey) { clearSelection(); }
 				toggleSelection(event.currentTarget.data);
 			}
 			
-			var e:ListEvent = new ListEvent(ListEvent.ITEM_CLICK, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
-			//dispatchComponentEvent(e);
-			e = new ListEvent(ListEvent.CHANGE, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
-			//dispatchComponentEvent(e);
+			dispatcher.dispatchEvent(new ListEvent(ListEvent.ITEM_CLICK, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer));
+			dispatcher.dispatchEvent(new ListEvent(ListEvent.CHANGE, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer));
 		}
 		
 		private function child_doubleClickHandler(event:MouseEvent):void {
-			var e:ListEvent = new ListEvent(ListEvent.ITEM_DOUBLE_CLICK, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
-			//dispatchComponentEvent(e);
+			dispatcher.dispatchEvent(new ListEvent(ListEvent.ITEM_DOUBLE_CLICK, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer));
 		}
 		
 		private function child_rollOverHandler(event:MouseEvent):void {
-			var e:ListEvent = new ListEvent(ListEvent.ITEM_ROLL_OVER, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
-			//dispatchComponentEvent(e);
+			dispatcher.dispatchEvent(new ListEvent(ListEvent.ITEM_ROLL_OVER, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer));
 		}
 		
 		private function child_rollOutHandler(event:MouseEvent):void {
-			var e:ListEvent = new ListEvent(ListEvent.ITEM_ROLL_OUT, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer);
-			//dispatchComponentEvent(e);
+			dispatcher.dispatchEvent(new ListEvent(ListEvent.ITEM_ROLL_OUT, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer));
 		}
 		
 		//************************************
-		// List Utility Functions
+		// List Selection Utility Functions
 		//************************************
 		
 		private function toggleSelection(item:Object):void {
