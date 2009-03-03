@@ -16,14 +16,16 @@ package com.openflux.controllers
 	import mx.events.DragEvent;
 	import mx.managers.DragManager;
 	
-	
 	[ViewHandler(event="childAdd", handler="childAddHandler")]
 	[ViewHandler(event="childRemove", handler="childRemoveHandler")]
 	[EventHandler(event="dragStart", handler="dragStartHandler")]
 	[EventHandler(event="dragComplete", handler="dragCompleteHandler")]
+	
+	/**
+	 * Handles starting drag from a List component
+	 */
 	public class DragListController extends FluxController
 	{
-		
 		public var dragEnabled:Boolean = true;
 		
 		[ModelAlias] public var list:IFluxList;
@@ -43,6 +45,10 @@ package com.openflux.controllers
 			var child:DisplayObject = event.relatedObject;
 			child.removeEventListener(MouseEvent.MOUSE_DOWN, child_mouseDownHandler, false);
 		}
+
+		//***************************************************************
+		// Child Event Listeners
+		//***************************************************************
 		
 		private function child_mouseDownHandler(event:MouseEvent):void {
 			var instance:DisplayObject = event.currentTarget as DisplayObject;
@@ -63,13 +69,14 @@ package com.openflux.controllers
 			
 			// add some data
 			var source:DragSource = new DragSource();
-			if(instance is IDataRenderer) { // need to cover multiple items
+			if(instance is IDataRenderer) {
 				source.addData([(instance as IDataRenderer).data], "items");
 			}
 			
 			// create image
 			DragManager.doDrag(instance as IUIComponent, source, event);
-			// does doDrag dispatch this for us?
+			
+			// dispatch drag start
 			var dragEvent:DragEvent = new DragEvent(DragEvent.DRAG_START, false, true, instance as IUIComponent, source, null, event.ctrlKey, event.altKey, event.shiftKey);
 			dispatcher.dispatchEvent(dragEvent);
 		}

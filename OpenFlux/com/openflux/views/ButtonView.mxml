@@ -5,7 +5,7 @@
 	mouseChildren="false">
 	
 	<!-- states -->
-	<flux:states>
+	<!--<flux:states>
 		<flux:State name="{ ButtonStates.UP }" />
 		<flux:State name="{ ButtonStates.OVER }">
 			<flux:SetProperty target="{fill}" name="color" value="#E5E5E5" />
@@ -14,7 +14,7 @@
 			<flux:SetProperty target="{fill}" name="color" value="#666666" />
 			<flux:SetProperty target="{stroke}" name="color" value="#FFFFFF" />
 		</flux:State>
-	</flux:states>
+	</flux:states>-->
 	
 	<mx:Script>
 		<![CDATA[
@@ -23,16 +23,16 @@
 	</mx:Script>
 	
 	<!-- fills and strokes -->
-	<degrafa:SolidFill id="fill" color="#FFFFFF" />
-	<degrafa:SolidStroke id="stroke" color="#000000" weight="1" caps="round" joints="round" pixelHinting="true" />
+	<!--<degrafa:SolidFill id="fill" color="#FFFFFF" />-->
+	<!--<degrafa:SolidStroke id="stroke" color="#000000" weight="1" caps="round" joints="round" pixelHinting="true" />-->
 	
 	<flux:content>
 		<!-- background -->
-		<degrafa:Surface id="surface">
+		<!--<degrafa:Surface id="surface">
 			<degrafa:GeometryGroup>
 				<degrafa:RoundedRectangle width="{width}" height="{height}" fill="{fill}" stroke="{stroke}" />
 			</degrafa:GeometryGroup>
-		</degrafa:Surface>
+		</degrafa:Surface>-->
 		
 		<!-- label -->
 		<flux:Label text="{ component.label }" />

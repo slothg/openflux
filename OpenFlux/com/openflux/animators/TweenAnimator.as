@@ -61,7 +61,7 @@ package com.openflux.animators
 		
 		public function adjustItem(item:DisplayObject, token:AnimationToken):void {
 			var parameters:Object = createTweenerParameters(token, 1/3);
-			//Tweener.addTween(item, parameters);
+			Tweener.addTween(item, parameters);
 		}
 		
 		public function addItem(item:DisplayObject):void {
@@ -101,9 +101,12 @@ package com.openflux.animators
 			
 			parameters.x = token.x;
 			parameters.y = token.y;
+			parameters.z = token.z;
+			parameters.rotationX = token.rotationX;
+			parameters.rotationY = token.rotationY;
+			parameters.rotationZ = token.rotationZ;
 			parameters.actualWidth = token.width;
 			parameters.actualHeight = token.height;
-			parameters.rotation = token.rotationY;
 			//object.onComplete = onComplete;
 			
 			return parameters;
