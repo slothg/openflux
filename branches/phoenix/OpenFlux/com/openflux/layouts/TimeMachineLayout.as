@@ -11,41 +11,63 @@ package com.openflux.layouts
 	
 	import mx.core.IUIComponent;
 
+	/**
+	 * 3D Layout that orders the items in a list fading off in to the distance. 
+	 * Selected item is tilted and at the front of the visible list.
+	 */
 	public class TimeMachineLayout extends LayoutBase implements ILayout
 	{
-		public function TimeMachineLayout()
-		{
+		/**
+		 * Constructor
+		 */
+		public function TimeMachineLayout() {
 			super();
 			updateOnChange = true;
 		}
 		
+		// ========================================
+		// gap property
+		// ========================================
+		
 		private var _gap:Number = 10;
-		[Bindable]
+		
+		[Bindable("gapProperty")]
+		
+		/**
+		 * Gap between each item
+		 */
 		public function get gap():Number { return _gap; }
 		public function set gap(value:Number):void {
-			_gap = value;
-			if (container) container.invalidateDisplayList();
+			if (_gap != value) {
+				_gap = value;
+				if (container) {
+					container.invalidateDisplayList();
+				}
+			}
 		}
 		
-		public function measure(children:Array):Point
-		{
+		// ========================================
+		// ILayout implementation
+		// ========================================
+		
+		public function measure(children:Array):Point {
+			// TODO: Complete me
 			return new Point();
 		}
 		
-		public function update(children:Array, rectangle:Rectangle):void
-		{
+		public function update(children:Array, rectangle:Rectangle):void {
 			var list:IFluxList = (container as IFluxView).component as IFluxList;
 			var selectedIndex:int = list ? Math.max(0, ListUtil.selectedIndex(list)) : 0;
 			var selectedChild:DisplayObject = children[selectedIndex];
-			
-			container.animator.begin();
-			
 			var child:IUIComponent;
 			var token:AnimationToken;
+			
+			container.animator.begin();
 			
 			for (var i:int = 0; i < children.length; i++) {
 				child = children[i];
 				token = new AnimationToken(child.getExplicitOrMeasuredWidth(), child.getExplicitOrMeasuredHeight());
+				
 				if (i > selectedIndex) {
 					token.x = -(gap * (selectedIndex - i));
 					token.z = -(gap * (selectedIndex - i));
@@ -64,6 +86,5 @@ package com.openflux.layouts
 			
 			container.animator.end();
 		}
-		
 	}
 }

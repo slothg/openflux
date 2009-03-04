@@ -1,8 +1,10 @@
 package com.openflux.animators
 {
+	/**
+	 * Object paired with a DisplayObject used to store numeric properties to be tweened
+	 */
 	public dynamic class AnimationToken
 	{
-		
 		public var x:Number;
 		public var y:Number;
 		public var z:Number;

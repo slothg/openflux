@@ -8,17 +8,21 @@ package com.openflux.layouts
 	
 	import mx.core.IUIComponent;
 
+	/**
+	 * Flow layout that aligns items horizontally on as many lines required.
+	 */
 	public class FlowLayout extends LayoutBase implements ILayout, IDragLayout
 	{
-		
-		public var measuredGap:Number;
-		public var horizontalAlignment:String = "left";
-		public var verticalAlignment:String = "top";
-		
+		/**
+		 * Constructor
+		 */	
 		public function FlowLayout():void {
 			super();
-			//animator = new TweenAnimator();
 		}
+
+		// ========================================
+		// ILayout implementation
+		// ========================================
 		
 		public function measure(children:Array):Point {
 			var point:Point = new Point();
@@ -33,23 +37,26 @@ package com.openflux.layouts
 			adjust(children, rectangle, []);
 		}
 		
+		// ========================================
+		// IDragLayout implementation
+		// ========================================
+
 		public function adjust(children:Array, rectangle:Rectangle, indices:Array):void {
 			var point:Point = measureGrid();
 			var cols:Number = Math.floor(rectangle.width / point.x);
 			var space:Number = (rectangle.width - (point.x * cols)) / (cols + 1);
-			
-			animator.begin();
-			
 			var xPos:Number = rectangle.x + space/2;
 			var yPos:Number = rectangle.y + space/2;
 			var length:int = children.length;
-			//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
 			var child:IUIComponent;
 			var token:AnimationToken;
+			
+			animator.begin();
 			
 			for (var i:int = 0; i < length; i++) {
 				child = children[i];
 				token = new AnimationToken(child.getExplicitOrMeasuredWidth(), child.getExplicitOrMeasuredHeight(), xPos, yPos);
+				
 				if(indices && indices.indexOf(i, 0) >= 0) {
 					xPos += token.width + 10;
 					if(xPos > rectangle.width - token.width - space / 2) {
@@ -61,11 +68,13 @@ package com.openflux.layouts
 				animator.moveItem(child as DisplayObject, token);
 				
 				xPos += token.width + 10;
+				
 				if(xPos > rectangle.width - token.width - space/2) {
 					xPos = space / 2;
 					yPos += token.height + 8;
 				}
 			}
+			
 			animator.end();
 		}
 		
@@ -77,7 +86,6 @@ package com.openflux.layouts
 			var xPos:Number = space / 2;
 			var yPos:Number = space / 2;
 			var len:int = container.children.length;
-			//var time:Number = container.dragTargetIndex != -1 ? .2 : 2;
 			var child:IUIComponent;
 			var layoutItem:LayoutItem;
 			var width:Number;
@@ -100,6 +108,10 @@ package com.openflux.layouts
 			
 			return -1;
 		}
+		
+		// ========================================
+		// Private util methods
+		// ========================================
 		
 		private function measureGrid():Point {
 			

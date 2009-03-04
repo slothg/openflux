@@ -3,17 +3,51 @@ package com.openflux.layouts
 	import com.openflux.animators.AnimationToken;
 	
 	import flash.display.DisplayObject;
+	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
 	import mx.core.IUIComponent;
 	
+	/**
+	 * Vertical layout similar to VBox
+	 */
 	public class VerticalLayout extends LayoutBase implements ILayout, IDragLayout
 	{
+		/**
+		 * Constructor
+		 */
+		public function VerticalLayout() {
+			super();
+		}
 		
-		[Bindable] [StyleBinding] public var gap:Number = 0; // container listens for propertyChange
+		// ========================================
+		// gap property
+		// ========================================
 		
-		// ILayout Implementation
+		private var _gap:Number = 0;
+		
+		[Bindable("gapProperty")]
+		[StyleBinding]
+		
+		/**
+		 * Gap between each item
+		 */
+		public function get gap():Number { return _gap; }
+		public function set gap(value:Number):void {
+			if (_gap != value) {
+				_gap = value;
+				dispatchEvent(new Event("gapChange"));
+				
+				if (container) {
+					container.invalidateDisplayList();
+				}
+			}
+		}
+		
+		// ========================================
+		// ILayout implementation
+		// ========================================
 		
 		public function measure(children:Array):Point {
 			var point:Point = new Point(0, 0);
@@ -28,13 +62,17 @@ package com.openflux.layouts
 			adjust(children, rectangle, []);
 		}
 		
-		// IDragLayout Implementation
+		// ========================================
+		// IDragLayout implementation
+		// ========================================
 		
 		public function adjust(children:Array, rectangle:Rectangle, indices:Array):void {
-			animator.begin();
 			var position:Number = rectangle.y;
-			var length:int = children.length; //container.children.length;
+			var length:int = children.length;
 			var s:int = 0;
+			
+			animator.begin();
+			
 			for (var i:int = 0; i < length; i++) {
 				if(indices[s] == i) {
 					position += 20 + gap;
@@ -44,19 +82,20 @@ package com.openflux.layouts
 				animator.moveItem(child as DisplayObject, token);
 				position += token.height + gap;
 			}
+			
 			animator.end();
 		}
 		
 		public function findIndexAt(children:Array, x:Number, y:Number):int {
-			
+			var length:int = children.length;
 			var closest:IUIComponent;
 			var closestDistance:Number = Number.MAX_VALUE;
 			
 			// find the closest child
-			var length:int = children.length;
 			for each(var child:IUIComponent in children) {
 				var distance:Number = y - (child.y+child.getExplicitOrMeasuredHeight()/2);
-				if(Math.abs(distance) < Math.abs(closestDistance)) {
+				
+				if (Math.abs(distance) < Math.abs(closestDistance)) {
 					closest = child;
 					closestDistance = distance;
 				}
@@ -64,10 +103,12 @@ package com.openflux.layouts
 			
 			// set the index based on the closest child
 			var index:int = children.indexOf(closest);
-			if(closestDistance > 0) { index += 1;}
-			return index;
 			
+			if (closestDistance > 0) {
+				index += 1;
+			}
+			
+			return index;
 		}
-		
 	}
 }

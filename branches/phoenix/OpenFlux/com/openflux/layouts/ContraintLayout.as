@@ -8,12 +8,23 @@ package com.openflux.layouts
 	
 	import mx.core.IUIComponent;
 
+	/**
+	 * Default layout class similar to a Canvas layout. 
+	 * Support for left, right, top, bottom, horizontalCenter, verticalCenter
+	 */
 	public class ContraintLayout extends LayoutBase implements ILayout
 	{
+		/**
+		 * Constructor
+		 */
 		public function ContraintLayout()
 		{
 			super();
 		}
+		
+		// ========================================
+		// ILayout implementation
+		// ========================================
 		
 		public function measure(children:Array):Point
 		{
@@ -58,6 +69,7 @@ package com.openflux.layouts
 			}
 	        container.measuredMinWidth = minWidth;
 	        container.measuredMinHeight = minHeight;   
+	        
 	        return new Point(Math.max(width, minWidth), Math.max(height, minHeight));
 		}
 		
@@ -88,8 +100,6 @@ package com.openflux.layouts
 	            else
 	                childHeight = Math.max(itemMinSize.y, Math.min(itemMaxSize.y, childHeight));
 
-				// Set size
-	            //child.setActualSize(childWidth, childHeight);
 	            var actualSize:Point = new Point(childWidth, childHeight);
 	
 	            // Calculate position            
@@ -116,10 +126,7 @@ package com.openflux.layouts
 	            else
 	                childY = child.y;
 	
-	            // Set position
 	            child.visible = true;
-	            //child.move(childX, childY);
-	            
 	            container.animator.moveItem(child as DisplayObject, new AnimationToken(childWidth, childHeight, childX, childY));
 	        }
 			

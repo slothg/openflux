@@ -11,8 +11,14 @@ package com.openflux.layouts
 	 */
 	public interface ILayout
 	{	
-		
+		/**
+		 * Attach the container. Called once when the layout is assigned to the view.
+		 */
 		function attach(container:IFluxContainer):void;
+		
+		/**
+		 * Detach the container. Called once when the layout is no longer assigned to the view.
+		 */
 		function detach(container:IFluxContainer):void;
 		
 		/**

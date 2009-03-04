@@ -11,35 +11,44 @@ package com.openflux.layouts
 	
 	import mx.core.IUIComponent;
 
+	/**
+	 * 3D Layout similar to a roller coaster look. Selected item is displayed in the top left
+	 */
 	public class TopLeftLayout extends LayoutBase implements ILayout
 	{
+		/**
+		 * Constructor
+		 */
 		public function TopLeftLayout()
 		{
 			super();
 			updateOnChange = true;
 		}
 		
-		public function measure(children:Array):Point
-		{
+		// ========================================
+		// ILayout implementation
+		// ========================================
+		
+		public function measure(children:Array):Point {
+			// TODO: Complete me
 			return new Point();
 		}
 		
-		public function update(children:Array, rectangle:Rectangle):void
-		{
+		public function update(children:Array, rectangle:Rectangle):void {
 			var numItems:int = children.length;			
 			var list:IFluxList = (container as IFluxView).component as IFluxList;
 			var selectedIndex:int = list ? Math.max(0, ListUtil.selectedIndex(list)) : 0;
 			var radius:Number = rectangle.height;
 			var anglePer:Number = Math.PI / numItems;
-			
-			container.animator.begin();
-			
 			var child:IUIComponent;
 			var token:AnimationToken;
+						
+			container.animator.begin();
 			
 			for (var i:int = 0; i < numItems; i++) {
 				child = children[i];
 				token = new AnimationToken(child.getExplicitOrMeasuredWidth(), child.getExplicitOrMeasuredHeight());
+				
 				if (i == selectedIndex) {
 					token.y = rectangle.height / 2 - 100;
 					token.x = -1 * rectangle.width / 2 + 100;
@@ -50,8 +59,9 @@ package com.openflux.layouts
 					token.z = 2 * i - 100;
 				}
 				
-				if (i < selectedIndex)
+				if (i < selectedIndex) {
 					token.x += token.width;
+				}
 				
 				token.x = token.x + rectangle.width/2 - token.width/2;
 				token.y = (token.y*-1) + rectangle.height/2 - token.height/2;
