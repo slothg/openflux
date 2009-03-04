@@ -11,16 +11,26 @@ package com.openflux.layouts
 	
 	import mx.core.IUIComponent;
 	
+	/**
+	 * 3D Carousel layout. Front item is always the currently selected item
+	 */
 	public class CarouselLayout extends LayoutBase implements ILayout
-	{		
+	{
+		/**
+		 * Constructor
+		 */
 		public function CarouselLayout() {
 			super();
 			updateOnChange = true;
 		}
 		
-		public function measure(children:Array):Point
-		{
-			return new Point();
+		// ========================================
+		// ILayout implementation
+		// ========================================
+		
+		public function measure(children:Array):Point {
+			// TODO: Figure out a min measured width/height
+			return new Point(100, 100);
 		}
 		
 		public function update(children:Array, rectangle:Rectangle):void {
@@ -32,6 +42,8 @@ package com.openflux.layouts
 
 			var child:IUIComponent;
 			var token:AnimationToken;
+			
+			animator.begin();
 
 			for(var i:uint=0; i<numOfItems; i++) {
 				child = children[i];
@@ -44,6 +56,8 @@ package com.openflux.layouts
 				token.y = (token.y * -1) + rectangle.height / 2 - token.height / 2;
 				animator.moveItem(child as DisplayObject, token);
 			}
+			
+			animator.end();
 		}
 
 	}

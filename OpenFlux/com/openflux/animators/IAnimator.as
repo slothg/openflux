@@ -14,6 +14,10 @@ package com.openflux.animators
 		 * attaches this animator to a given container
 		 */
 		function attach(container:IFluxContainer):void;
+		
+		/**
+		 * detaches this animator from the container
+		 */
 		function detach(container:IFluxContainer):void;
 		
 		
