@@ -10,6 +10,7 @@
     <component id="ScrollBar" class="com.openflux.ScrollBar" />
     <component id="Application" class="com.openflux.Application" />
     <component id="Label" class="com.openflux.Label" />
+    <component id="Image" class="com.openflux.Image" />
     
     <!-- views -->
     <component id="ButtonView" class="com.openflux.views.ButtonView" />
