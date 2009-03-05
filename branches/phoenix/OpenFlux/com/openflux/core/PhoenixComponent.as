@@ -20,6 +20,7 @@ package com.openflux.core
 	import mx.core.IDeferredInstantiationUIComponent;
 	import mx.core.IFlexDisplayObject;
 	import mx.core.IInvalidating;
+	import mx.core.IStateClient;
 	import mx.core.IUIComponent;
 	import mx.core.IUITextField;
 	import mx.core.UIComponentCachePolicy;
@@ -40,6 +41,7 @@ package com.openflux.core
 	
 	use namespace mx_internal;
 
+	[Event(name="currentStateChange", type="mx.events.Event")]
 	[Event(name="add", type="mx.events.FlexEvent")]
 	[Event(name="creationComplete", type="mx.events.FlexEvent")]
 	[Event(name="updateComplete", type="mx.events.FlexEvent")]
@@ -83,7 +85,7 @@ package com.openflux.core
 	[Style(name="verticalCenter", type="String", inherit="no")]
 	
 	public class PhoenixComponent extends Sprite 
-	implements IFlexDisplayObject, IUIComponent, IInvalidating, ISimpleStyleClient, IStyleClient, IDeferredInstantiationUIComponent, ILayoutManagerClient, IChildList
+	implements IFlexDisplayObject, IUIComponent, IInvalidating, ISimpleStyleClient, IStyleClient, IDeferredInstantiationUIComponent, ILayoutManagerClient, IChildList, IStateClient
 	{
 		public static const DEFAULT_MAX_WIDTH:Number   = 10000;
 		public static const DEFAULT_MAX_HEIGHT:Number  = 10000;

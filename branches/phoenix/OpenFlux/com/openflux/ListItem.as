@@ -13,6 +13,7 @@ package com.openflux
 	
 	[DefaultSetting(view="com.openflux.views.ListItemView")]
 	[DefaultSetting(controller="com.openflux.controllers.ListItemController")]
+	[DefaultSetting(skin="com.openflux.skins.ListItemSkin")]
 	
 	/**
 	 * Default child component of a List.

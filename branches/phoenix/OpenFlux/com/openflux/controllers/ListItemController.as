@@ -9,51 +9,68 @@ package com.openflux.controllers
 	import mx.collections.ArrayCollection;
 	import mx.events.CollectionEvent;
 	
-	//[ViewHandler(event="mouseOver", handler="mouseOverHandler")]
+	/**
+	 * Default list item controller
+	 */
 	public class ListItemController extends ButtonController
 	{
-		
 		private var listItem:IFluxListItem;
 		private var selectedItems:ArrayCollection;
 		private var selectedItemsWatcher:ChangeWatcher;
 		
+		/**
+		 * Constructor
+		 */
+		public function ListItemController() {
+			super();
+		}
+		
+		/**
+		 * Set component override method
+		 */
 		override public function set component(value:IFluxComponent):void {
 			super.component = value;
+			
 			if(value is IFluxListItem) {
 				listItem = value as IFluxListItem;
-				if(selectedItemsWatcher) { selectedItemsWatcher.unwatch(); }
+				
+				if(selectedItemsWatcher) {
+					selectedItemsWatcher.unwatch();
+				}
+				
 				if(listItem && listItem.list) {
 					selectedItemsWatcher = BindingUtils.bindSetter(selectedItemsChange, listItem.list, "selectedItems", true);
 				}
 			}
 		}
 		
-		
-		//****************************************************************
+		// ========================================
 		// Event Handlers
-		//****************************************************************
+		// ========================================
 		
 		private function selectedItemsChange(value:ArrayCollection):void {
 			if(selectedItems) {
 				selectedItems.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false);
 			}
+			
 			selectedItems = value;
+			
 			if(selectedItems) {
 				selectedItems.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false, 0, true);
 			}
+			
 			updateSelected();
 		}
 		
 		private function collectionChangeHandler(event:CollectionEvent):void {
-			// this needs to be optimized to take 
-			// advantage of the collection event info
+			// TODO: this needs to be optimized to take advantage of the collection event info
 			updateSelected();
 		}
 		
 		
-		//**************************************
+		// ========================================
 		// Utility Functions
-		//**************************************
+		// ========================================
 		
 		private function updateSelected():void {
 			if(component is ISelectable) {
@@ -64,6 +81,7 @@ package com.openflux.controllers
 					(component as ISelectable).selected = false;
 				}
 			}
+			this.metadata::rollOutHandler(null);
 		}
 		
 	}

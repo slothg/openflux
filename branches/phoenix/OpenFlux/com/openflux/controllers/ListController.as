@@ -26,9 +26,16 @@ package com.openflux.controllers
 		[ModelAlias] public var dispatcher:IEventDispatcher;
 		[ModelAlias] [Bindable] public var list:IFluxList;
 		
-		//***************************************************************
+		/**
+		 * Constructor
+		 */
+		public function ListController() {
+			super();
+		}
+		
+		// ========================================
 		// View Event Handlers
-		//***************************************************************
+		// ========================================
 		
 		metadata function childAddHandler(event:ChildExistenceChangedEvent):void {
 			var child:DisplayObject = event.relatedObject;
@@ -46,9 +53,9 @@ package com.openflux.controllers
 			child.removeEventListener(MouseEvent.ROLL_OUT, child_rollOutHandler, false);
 		}
 		
-		//***************************************************************
+		// ========================================
 		// Child Event Handlers
-		//***************************************************************
+		// ========================================
 		
 		private function child_clickHandler(event:MouseEvent):void {
 			if(event.currentTarget is IDataRenderer) {
@@ -72,9 +79,9 @@ package com.openflux.controllers
 			dispatcher.dispatchEvent(new ListEvent(ListEvent.ITEM_ROLL_OUT, false, false, -1, -1, ListEventReason.OTHER, event.currentTarget as IListItemRenderer));
 		}
 		
-		//************************************
+		// ========================================
 		// List Selection Utility Functions
-		//************************************
+		// ========================================
 		
 		private function toggleSelection(item:Object):void {
 			if(list.selectedItems && list.selectedItems.contains(item)) {
