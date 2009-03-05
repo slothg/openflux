@@ -9,21 +9,35 @@ package com.openflux.core
 	import mx.styles.CSSStyleDeclaration;
 	import mx.styles.StyleManager;
 	
+	/**
+	 * Create DisplayObject instances for data object instances.
+	 * Could handle caching in the future.
+	 */
 	public class FluxFactory implements IFluxFactory, IFactory
 	{
-		
 		private var itemRenderer:IFactory;
 		
-		public function FluxFactory(itemRenderer:IFactory = null)
-		{
+		/**
+		 * Constructor
+		 */
+		public function FluxFactory(itemRenderer:IFactory = null) {
 			this.itemRenderer = itemRenderer;
+			
 			if(this.itemRenderer == null) {
 				this.itemRenderer = new ListItem();
 			}
 		}
 		
+		// ========================================
+		// Public methods
+		// ========================================
+		
 		// I feel like list might belong as a second argument,
 		// but I'm waiting to see the use case come up.
+		
+		/**
+		 * Create a DisplayObject for a data object
+		 */
 		public function createComponent(item:Object):IUIComponent {
 			var declaration:CSSStyleDeclaration;
 			var selectors:Array = StyleManager.selectors;
@@ -44,9 +58,16 @@ package com.openflux.core
 			return component;
 		}
 		
+		/**
+		 * Create a new instance
+		 */
 		public function newInstance():* {
 			return itemRenderer.newInstance();
 		}
+		
+		// ========================================
+		// Private methods
+		// ========================================
 		
 		private function createRenderer(declaration:CSSStyleDeclaration):IUIComponent {
 			var component:IUIComponent;

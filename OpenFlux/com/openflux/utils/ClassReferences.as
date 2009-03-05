@@ -12,6 +12,7 @@ package com.openflux.utils
 	import com.openflux.views.ListItemView;
 	import com.openflux.views.ListView;
 	import com.openflux.views.VerticalScrollBarView;
+	import com.openflux.skins.ListItemSkin; ListItemSkin;
 	
 	import com.openflux.managers.LayoutManager;
 	

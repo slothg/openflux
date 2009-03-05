@@ -12,18 +12,20 @@ package com.openflux.controllers
 	import flash.utils.Timer;
 	
 	import mx.core.IUIComponent;
+	import mx.events.ScrollEvent;
+	import mx.events.ScrollEventDetail;
 	
+	/**
+	 * Default scroll bar controller
+	 */
 	public class ScrollBarController extends FluxController
 	{
-		
 		private static const LINE_SCROLL_SIZE:Number = 1;
 		private static const PAGE_SCROLL_SIZE:Number = 40;
-		
 		private static const SCROLL_MULTIPLIER:Number = 1.1;
 		
 		private var direction:int;
 		private var timer:Timer;
-		
 		private var trackScrollDirection:int;
 		private var trackScrollTimer:Timer;
 		private var trackScrollPosition:Number;
@@ -44,10 +46,16 @@ package com.openflux.controllers
 		[EventHandler(event="mouseDown", handler="track_mouseDownHandler")]
 		[ViewContract] public var track:DisplayObject;
 		
+		/**
+		 * Constructor
+		 */
+		public function ScrollBarController() {
+			super();
+		}
 		
-		//*************************************************************
+		// ========================================
 		// Arrow Event Handlers
-		//*************************************************************
+		// ========================================
 		
 		metadata function upButton_mouseDownHandler(event:MouseEvent):void {
 			direction = -1;
@@ -89,15 +97,14 @@ package com.openflux.controllers
 		}
 		
 		private function arrow_timerHandler(event:TimerEvent):void {
-			//var oldPosition:Number = sdata.position;
+			var oldPosition:Number = sdata.position;
 			sdata.position = sdata.position + direction * LINE_SCROLL_SIZE;
-			//dispatchScrollEvent(oldPosition, direction > 0 ? ScrollEventDetail.LINE_DOWN : ScrollEventDetail.LINE_UP);
+			dispatchScrollEvent(oldPosition, direction > 0 ? ScrollEventDetail.LINE_DOWN : ScrollEventDetail.LINE_UP);
 		}
 		
-		
-		//*************************************************************
+		// ========================================
 		// Track Event Handlers
-		//*************************************************************
+		// ========================================
 		
 		metadata function track_mouseDownHandler(event:MouseEvent):void {
 
@@ -169,14 +176,14 @@ package com.openflux.controllers
 				trackScrollDirection == 1 && trackScrollPosition <= sdata.position)
 				return;
 			
-			//var oldPosition:Number = sdata.position;
+			var oldPosition:Number = sdata.position;
 			sdata.position = sdata.position + trackScrollDirection * PAGE_SCROLL_SIZE;
-			//dispatchScrollEvent(oldPosition, trackScrollDirection > 0 ? ScrollEventDetail.PAGE_DOWN : ScrollEventDetail.PAGE_UP);
+			dispatchScrollEvent(oldPosition, trackScrollDirection > 0 ? ScrollEventDetail.PAGE_DOWN : ScrollEventDetail.PAGE_UP);
 		}
 		
-		/******************************
-		 * Thumb Event Handlers
-		 ******************************/
+		// ========================================
+		// Thumb Event Handlers
+		// ========================================
 		
 		metadata function thumb_mouseDownHandler(event:MouseEvent):void {
 			view.systemManager.addEventListener(MouseEvent.MOUSE_MOVE, thumbMouseMoveHandler, true);
@@ -210,10 +217,10 @@ package com.openflux.controllers
 			if (event.target == view.systemManager.stage) thumbMouseUpHandler(event);
 		}
 		
-		/******************************
-		 * Helpers
-		 ******************************/
-		/*
+		// ========================================
+		// Helpers
+		// ========================================
+		
 		private function dispatchScrollEvent(oldPosition:Number, detail:String):void {
 			var event:ScrollEvent = new ScrollEvent(ScrollEvent.SCROLL);
 			event.detail = detail;
@@ -221,6 +228,5 @@ package com.openflux.controllers
 			event.delta = sdata.position - oldPosition;
 			edata.dispatchEvent(event);
 		}
-		*/
 	}
 }

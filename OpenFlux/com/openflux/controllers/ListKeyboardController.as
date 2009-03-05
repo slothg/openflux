@@ -10,12 +10,26 @@ package com.openflux.controllers
 	import mx.collections.ArrayCollection;
 
 	[EventHandler(event="keyDown", handler="keyDownHandler")]
+	
+	/**
+	 * Untested controller to add changing list selection using the arrow keys
+	 */
 	public class ListKeyboardController extends FluxController
 	{
 		[ModelAlias] public var list:IFluxList;
-				
-		metadata function keyDownHandler(event:KeyboardEvent):void
-		{
+		
+		/**
+		 * Constructor
+		 */
+		public function ListKeyboardController() {
+			super();
+		}
+		
+		// =========================================
+		// Event handlers
+		// ========================================
+		
+		metadata function keyDownHandler(event:KeyboardEvent):void {
 			var selectedIndex:int = ListUtil.selectedIndex(list);
 			var delta:int = 0;
 			

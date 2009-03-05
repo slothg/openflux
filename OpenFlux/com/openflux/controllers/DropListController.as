@@ -2,7 +2,6 @@ package com.openflux.controllers
 {
 	import com.openflux.containers.IFluxContainer;
 	import com.openflux.core.FluxController;
-	import com.openflux.core.IFluxComponent;
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxListItem;
 	import com.openflux.layouts.IDragLayout;
@@ -15,32 +14,38 @@ package com.openflux.controllers
 	import mx.events.DragEvent;
 	import mx.managers.DragManager;
 	
-	
 	[EventHandler(event="dragEnter", handler="dragEnterHandler")]
 	[EventHandler(event="dragOver", handler="dragOverHandler")]
 	[EventHandler(event="dragDrop", handler="dragDropHandler")]
 	[EventHandler(event="dragExit", handler="dragExitHandler")]
+	
+	/**
+	 * Adds ability to drop items on to component and show drag feedback
+	 */
 	public class DropListController extends FluxController
 	{
-		
-		private var view:IFluxContainer;
+		[ViewAlias] private var view:IFluxContainer;
 		[ModelAlias] public var list:IFluxList;
 		[ViewContract(required="false")] public var layout:IDragLayout; // bah, this shouldn't be here probably
 		
-		public var dropEnabled:Boolean;
-		
-		
-		override public function set component(value:IFluxComponent):void {
-			super.component = value;
-			view = value.view as IFluxContainer;
+		/**
+		 * Constructor
+		 */
+		public function DropListController() {
+			super();
 		}
 		
+		// ========================================
+		// Event handlers
+		// ========================================
+		
 		metadata function dragEnterHandler(event:DragEvent):void {
-			// we need better evaluation here.
-			// perhaps integrate with IFluxFactory
-			if(event.dragSource.hasFormat("items")) {
-				var dropTarget:IUIComponent = event.currentTarget as IUIComponent;
-				DragManager.acceptDragDrop(dropTarget);
+			if (enabled) {
+				// TODO: we need better evaluation here. perhaps integrate with IFluxFactory
+				if(event.dragSource.hasFormat("items")) {
+					var dropTarget:IUIComponent = event.currentTarget as IUIComponent;
+					DragManager.acceptDragDrop(dropTarget);
+				}
 			}
 		}
 		
@@ -80,6 +85,5 @@ package com.openflux.controllers
 				layout.adjust(view.children, rectangle, []);
 			}
 		}
-		
 	}
 }

@@ -9,10 +9,7 @@ package com.openflux.controllers
 	 * Adds ability to attach multiple controllers to a components
 	 */
 	public class ComplexController implements IFluxController
-	{	
-		private var _controllers:Array;
-		private var _component:IFluxComponent;
-		
+	{
 		/**
 		 * Constructor
 		 * 
@@ -24,6 +21,12 @@ package com.openflux.controllers
 			_controllers = controllers;
 		}
 		
+		// ========================================
+		// controllers property
+		// ========================================
+		
+		private var _controllers:Array;
+		
 		[ArrayElementType("com.openflux.core.IFluxController")]
 		
 		/**
@@ -34,6 +37,12 @@ package com.openflux.controllers
 			_controllers = value;
 		}
 
+		// ========================================
+		// component property (IFluxController implementation)
+		// ========================================
+		
+		private var _component:IFluxComponent;
+		
 		/**
 		 * IFluxComponent to attach controllers to
 		 */

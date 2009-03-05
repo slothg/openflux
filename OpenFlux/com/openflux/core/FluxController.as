@@ -4,41 +4,69 @@ package com.openflux.core
 	import com.openflux.metadata.*;
 	import com.openflux.utils.MetaUtil;
 	
+	import flash.events.Event;
+	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	import flash.system.ApplicationDomain;
 	
 	import mx.events.PropertyChangeEvent;
 
-	public class FluxController implements IFluxController
+	public class FluxController extends EventDispatcher implements IFluxController
 	{
-		
 		protected namespace metadata = "http://www.openflux.org/2008";
-		// protected namespace capacitor = "http://www.openflux.org/2008"; // you know you like it :-)
 		
 		private var directives:ClassDirectives;
 		
-		private var _component:IFluxComponent;
-		
-		
-		[Bindable]
-		public function get component():IFluxComponent { return _component; }		
-		public function set component(value:IFluxComponent):void {
-			detach(_component);
-			_component = value;
-			applyAliasDirectives();
-			applyContractDirectives();
-			attach(_component);
-		}
-		
+		/**
+		 * Constructor
+		 */
 		public function FluxController() {
 			super();
 			directives = MetaUtil.resolveDirectives(this);
 		}
 		
+		// ========================================
+		// component property
+		// ========================================
 		
-		//*****************************************************
-		// Metadata Automation
-		//*****************************************************
+		private var _component:IFluxComponent;
+		
+		[Bindable("componentChange")]
+		
+		/**
+		 * Component this controller is attached to
+		 */
+		public function get component():IFluxComponent { return _component; }		
+		public function set component(value:IFluxComponent):void {
+			detach(_component);
+			
+			_component = value;
+			dispatchEvent(new Event("componentChange"));
+			
+			applyAliasDirectives();
+			applyContractDirectives();
+			attach(_component);
+		}
+		
+		// ========================================
+		// enabled property
+		// ========================================
+		
+		private var _enabled:Boolean = true;
+		
+		/**
+		 * Whether this controller is enabled
+		 */
+		public function get enabled():Boolean { return _enabled; }
+		public function set enabled(value:Boolean):void {
+			if (_enabled != value) {
+				_enabled = value;
+			}
+		}
+				
+		// ========================================
+		// Private metadata automation methods
+		// ========================================
 		
 		private function attach(instance:IFluxComponent):void {
 			if(instance is IEventDispatcher) {

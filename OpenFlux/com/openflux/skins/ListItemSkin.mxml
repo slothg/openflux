@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GraphicBorderSkin xmlns="http://www.degrafa.com/2008" xmlns:mx="http://www.adobe.com/2006/mxml">
+
+	<fills>
+		<SolidFill id="fill" color="#FFFFFF" />
+		<SolidFill id="overFill" color="#7FCEFF" alpha="0.7" />
+		<SolidFill id="selectedFill" color="#7FCEFF" />
+	</fills>
+	
+	<geometry>
+		<GeometryComposition>
+			<RegularRectangle width="{skinWidth}" height="{skinHeight}" fill="{fill}" />
+		</GeometryComposition>
+		
+		<GeometryComposition state="over">
+			<RoundedRectangle width="{skinWidth}" height="{skinHeight}" fill="{overFill}" />
+		</GeometryComposition>
+		
+		<GeometryComposition state="selectedUp selectedOver selectedDown">
+			<RoundedRectangle width="{skinWidth}" height="{skinHeight}" fill="{selectedFill}" />
+		</GeometryComposition>
+	</geometry>
+</GraphicBorderSkin>
