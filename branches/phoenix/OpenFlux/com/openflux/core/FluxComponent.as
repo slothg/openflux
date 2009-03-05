@@ -7,10 +7,10 @@ package com.openflux.core
 	
 	import flash.display.DisplayObject;
 	
-	import mx.binding.utils.BindingUtils;
+	import mx.core.IFlexDisplayObject;
 	import mx.core.IInvalidating;
+	import mx.core.IProgrammaticSkin;
 	import mx.core.mx_internal;
-	import mx.skins.ProgrammaticSkin;
 	
 	use namespace mx_internal;
 	
@@ -57,8 +57,8 @@ package com.openflux.core
 					}
 				}
 				
-				if (item is ProgrammaticSkin) {
-					skin = item as ProgrammaticSkin;
+				if (item is IProgrammaticSkin) {
+					skin = item as DisplayObject;
 				}
 			}
 		}
@@ -118,7 +118,7 @@ package com.openflux.core
 		
 		// TODO: This should use an interface if possible
 		
-		private var _skin:ProgrammaticSkin;
+		private var _skin:DisplayObject;
 		private var skinChanged:Boolean;
 		
 		[StyleBinding]
@@ -126,8 +126,8 @@ package com.openflux.core
 		/**
 		 * Skin assigned to this component
 		 */
-		public function get skin():ProgrammaticSkin { return _skin; }
-		public function set skin(value:ProgrammaticSkin):void {
+		public function get skin():DisplayObject { return _skin; }
+		public function set skin(value:DisplayObject):void {
 			if (_skin != value) {
 				if(_skin != null && contains(_skin)) {
 					removeChild(_skin);
@@ -214,9 +214,13 @@ package com.openflux.core
 			}
 			
 			if (skin) {
-				skin.move(0, 0);
-				skin.setActualSize(unscaledWidth, unscaledHeight);
-				skin.invalidateDisplayList();
+				if (skin is IFlexDisplayObject) {
+					IFlexDisplayObject(skin).move(0, 0);
+					IFlexDisplayObject(skin).setActualSize(unscaledWidth, unscaledHeight);
+				}
+				if (skin is IInvalidating) {
+					IInvalidating(skin).invalidateDisplayList();
+				}
 			}
 		}
 		
@@ -227,8 +231,8 @@ package com.openflux.core
 				view.setActualSize(w, h);
 			}
 			
-			if (skin) {
-				skin.setActualSize(w, h);
+			if (skin && skin is IFlexDisplayObject) {
+				IFlexDisplayObject(skin).setActualSize(w, h);
 			}
 		}
 		
@@ -277,7 +281,9 @@ package com.openflux.core
 			
 			if (skin) {
 				skin.name = value;
-				skin.invalidateDisplayList();
+				if (skin is IInvalidating) {
+					IInvalidating(skin).invalidateDisplayList();
+				}
 			}
 		}
 	}
