@@ -18,27 +18,31 @@ package com.openflux.managers
 	import flash.text.TextFormat;
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
-	
-	import mx.core.FlexSprite;
+
 	import mx.core.IChildList;
 	import mx.core.ISWFBridgeGroup;
 	import mx.core.IUIComponent;
-	import mx.core.Singleton;
-	import mx.core.mx_internal;
 	import mx.core.IFlexDisplayObject;
-	import mx.events.FlexEvent;
 	import mx.managers.IFocusManagerContainer;
 	import mx.managers.ILayoutManagerClient;
 	import mx.managers.ISystemManager;
+	import mx.styles.ISimpleStyleClient;
+	import mx.styles.IStyleClient;
+	
+	import mx.core.FlexSprite;
+	import mx.core.Singleton;
+	import mx.events.FlexEvent;
 	import mx.managers.SystemManagerGlobals;
 	import mx.messaging.config.LoaderConfig;
-	import mx.resources.IResourceManager;
-	import mx.resources.ResourceBundle;
-	import mx.resources.ResourceManager;
-	import mx.styles.ISimpleStyleClient;
-	import mx.styles.IStyleClient; mx.styles.StyleManagerImpl;
+	import mx.styles.StyleManagerImpl; StyleManagerImpl;
+//	import mx.resources.IResourceManager;
+//	import mx.resources.ResourceBundle;
+//	import mx.resources.ResourceManager;
+
+	import mx.core.mx_internal;
+
 	
-	import com.openflux.utils.ClassReferences; ClassReferences;
+	import com.openflux.managers.LayoutManager; LayoutManager;
 
 	[Event(name="applicationComplete", type="mx.events.FlexEvent")]
 	[Event(name="idle", type="mx.events.FlexEvent")]
@@ -77,8 +81,8 @@ package com.openflux.managers
 				
 			lastSystemManager = this;
 			
-			var compiledLocales:Array = info()["compiledLocales"];
-			ResourceBundle.mx_internal::locale = compiledLocales != null && compiledLocales.length > 0 ? compiledLocales[0] : "en_US";
+//			var compiledLocales:Array = info()["compiledLocales"];
+//			ResourceBundle.mx_internal::locale = compiledLocales != null && compiledLocales.length > 0 ? compiledLocales[0] : "en_US";
 			
 			executeCallbacks();
 				
@@ -218,12 +222,12 @@ package com.openflux.managers
 		}
 		
 		private function docFrameHandler(event:Event = null):void {
-			Singleton.registerClass("mx.managers::IBrowserManager",  Class(getDefinitionByName("mx.managers::BrowserManagerImpl")));
-			Singleton.registerClass("mx.managers::ICursorManager",   Class(getDefinitionByName("mx.managers::CursorManagerImpl")));
-			Singleton.registerClass("mx.managers::IHistoryManager",  Class(getDefinitionByName("mx.managers::HistoryManagerImpl")));
+//			Singleton.registerClass("mx.managers::IBrowserManager",  Class(getDefinitionByName("mx.managers::BrowserManagerImpl")));
+//			Singleton.registerClass("mx.managers::ICursorManager",   Class(getDefinitionByName("mx.managers::CursorManagerImpl")));
+//			Singleton.registerClass("mx.managers::IHistoryManager",  Class(getDefinitionByName("mx.managers::HistoryManagerImpl")));
 			Singleton.registerClass("mx.managers::ILayoutManager",   Class(getDefinitionByName("com.openflux.managers::LayoutManager")));
-			Singleton.registerClass("mx.managers::IPopUpManager",    Class(getDefinitionByName("mx.managers::PopUpManagerImpl")));
-			Singleton.registerClass("mx.managers::IToolTipManager2", Class(getDefinitionByName("mx.managers::ToolTipManagerImpl")));
+//			Singleton.registerClass("mx.managers::IPopUpManager",    Class(getDefinitionByName("mx.managers::PopUpManagerImpl")));
+//			Singleton.registerClass("mx.managers::IToolTipManager2", Class(getDefinitionByName("mx.managers::ToolTipManagerImpl")));
 		
 			if (Capabilities.playerType == "Desktop") {
 				Singleton.registerClass("mx.managers::IDragManager", Class(getDefinitionByName("mx.managers::NativeDragManagerImpl")));
@@ -246,12 +250,12 @@ package com.openflux.managers
 				}
 			}
 		
-			installCompiledResourceBundles();
+			//installCompiledResourceBundles();
 			initializeTopLevelWindow(null);
 			deferredNextFrame();
 		}
 		
-		private function installCompiledResourceBundles():void {
+/*		private function installCompiledResourceBundles():void {
 			var info:Object = this.info();
 			var applicationDomain:ApplicationDomain = !topLevel && parent is Loader ? Loader(parent).contentLoaderInfo.applicationDomain : info["currentDomain"];
 			var compiledLocales:Array = info["compiledLocales"];
@@ -263,7 +267,7 @@ package com.openflux.managers
 			if (!resourceManager.localeChain)
 				resourceManager.initializeLocaleChain(compiledLocales);
 		}
-
+*/
 		private function initialize():void {
 			if (isStageRoot) {
 				_width = stage.stageWidth;
@@ -273,16 +277,16 @@ package com.openflux.managers
 				_height = loaderInfo.height;
 			}
 
-			Singleton.registerClass("mx.resources::IResourceManager", Class(getDefinitionByName("mx.resources::ResourceManagerImpl")));
-			var resourceManager:IResourceManager = ResourceManager.getInstance();
+//			Singleton.registerClass("mx.resources::IResourceManager", Class(getDefinitionByName("mx.resources::ResourceManagerImpl")));
+//			var resourceManager:IResourceManager = ResourceManager.getInstance();
 			Singleton.registerClass("mx.styles::IStyleManager", Class(getDefinitionByName("mx.styles::StyleManagerImpl")));
 			Singleton.registerClass("mx.styles::IStyleManager2", Class(getDefinitionByName("mx.styles::StyleManagerImpl")));
 
-			var localeChainList:String = loaderInfo.parameters["localeChain"];
-			if (localeChainList != null && localeChainList != "")
-				resourceManager.localeChain = localeChainList.split(",");
-			var resourceModuleURLList:String = loaderInfo.parameters["resourceModuleURLs"];
-			var resourceModuleURLs:Array = resourceModuleURLList ? resourceModuleURLList.split(",") : null;
+//			var localeChainList:String = loaderInfo.parameters["localeChain"];
+//			if (localeChainList != null && localeChainList != "")
+//				resourceManager.localeChain = localeChainList.split(",");
+//			var resourceModuleURLList:String = loaderInfo.parameters["resourceModuleURLs"];
+//			var resourceModuleURLs:Array = resourceModuleURLList ? resourceModuleURLList.split(",") : null;
 			
 			deferredNextFrame();
 		}
@@ -344,7 +348,7 @@ package com.openflux.managers
 				IFlexDisplayObject(app).setActualSize(_width, _height);
 			
 				addingChild(DisplayObject(app));
-				preloader_preloaderDoneHandler(null);
+				handleDoneLoading();
 				childAdded(DisplayObject(app));
 				Object(app).validateNow();
 			} else {
@@ -484,12 +488,7 @@ package com.openflux.managers
 		}
 
 		private function getSandboxScreen():Rectangle {
-			var sandboxRoot:DisplayObject = getSandboxRoot();
-			var sandboxScreen:Rectangle;
-			
-			sandboxScreen = new Rectangle(0, 0, width, height);
-			
-			return sandboxScreen;
+			return new Rectangle(0, 0, width, height);
 		}
 		
 		private function resizeMouseCatcher():void {
@@ -505,7 +504,7 @@ package com.openflux.managers
 			}
 		}
 		
-		private function preloader_preloaderDoneHandler(event:Event):void {
+		private function handleDoneLoading():void {
 			var app:IUIComponent = topLevelWindow;
 		
 			mouseCatcher = new FlexSprite();

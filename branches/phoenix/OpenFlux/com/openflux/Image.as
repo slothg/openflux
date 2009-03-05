@@ -1,6 +1,6 @@
 package com.openflux
 {
-	import com.openflux.core.FluxComponent;
+	import com.openflux.core.PhoenixComponent;
 	
 	import flash.display.Loader;
 	import flash.events.Event;
@@ -12,7 +12,7 @@ package com.openflux
 	/**
 	 * Image control
 	 */
-	public class Image extends FluxComponent
+	public class Image extends PhoenixComponent
 	{
 		protected var loader:Loader;
 		protected var loaderContext:LoaderContext;

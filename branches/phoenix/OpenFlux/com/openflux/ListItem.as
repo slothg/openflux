@@ -6,6 +6,9 @@ package com.openflux
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxListItem;
 	import com.openflux.core.ISelectable;
+	import com.openflux.controllers.ListItemController; ListItemController;
+	import com.openflux.views.ListItemView; ListItemView;
+	import com.openflux.skins.ListItemSkin; ListItemSkin;
 	
 	import flash.events.Event;
 	

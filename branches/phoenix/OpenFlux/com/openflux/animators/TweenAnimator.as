@@ -1,7 +1,7 @@
 package com.openflux.animators
 {
 	import caurina.transitions.Tweener;
-	
+
 	import com.openflux.containers.IFluxContainer;
 	
 	import flash.display.DisplayObject;
@@ -9,7 +9,7 @@ package com.openflux.animators
 	import mx.core.IUIComponent;
 	
 	/**
-	 * An animator class which uses the Tweener library. This is the default animator provided by OpenFlux. 
+	 * An animator class which uses the Tweener library.
 	 */
 	public class TweenAnimator implements IAnimator
 	{
@@ -72,15 +72,10 @@ package com.openflux.animators
 		{
 			var token:Object = new Object();
 			token.time = 1/4;
-			/*
-			token.x = item.x + item.width/2;
-			token.y = item.y + item.height/2;
-			token.width = 100;
-			token.height = 100;
-			*/
 			token.alpha = 0;
 			token.onComplete = callback;
 			token.onCompleteParams = [item];
+			
 			Tweener.addTween(item, token);
 		}
 		
@@ -105,8 +100,8 @@ package com.openflux.animators
 			parameters.rotationX = token.rotationX;
 			parameters.rotationY = token.rotationY;
 			parameters.rotationZ = token.rotationZ;
-			parameters.actualWidth = token.width;
-			parameters.actualHeight = token.height;
+			parameters.width = token.width;
+			parameters.height = token.height;
 			//object.onComplete = onComplete;
 			
 			return parameters;

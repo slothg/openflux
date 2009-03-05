@@ -15,7 +15,7 @@ package com.openflux.containers
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
-	import mx.collections.ICollectionView;
+	import mx.collections.IList;
 	import mx.core.IDataRenderer;
 	import mx.core.IFactory;
 	import mx.core.IUIComponent;
@@ -23,10 +23,14 @@ package com.openflux.containers
 	import mx.events.CollectionEventKind;
 	import mx.styles.IStyleClient;
 	
+	import com.openflux.animators.GTweenyAnimator; GTweenyAnimator;
+	import com.openflux.core.FluxFactory; FluxFactory;
+	import com.openflux.layouts.ContraintLayout; ContraintLayout;
+	
 	[DefaultProperty("content")]
 	[DefaultSetting(factory="com.openflux.core.FluxFactory")]
 	[DefaultSetting(layout="com.openflux.layouts.ContraintLayout")]
-	[DefaultSetting(animator="com.openflux.animators.TweenAnimator")]
+	[DefaultSetting(animator="com.openflux.animators.GTweenyAnimator")]
 	public class Container extends PhoenixComponent implements IDataView, IFluxContainer, IDataRenderer
 	{	
 		
@@ -48,7 +52,7 @@ package com.openflux.containers
 		private var _factory:IFactory;
 		private var _renderers:Array = [];
 		
-		private var collection:ICollectionView;
+		private var collection:IList;
 		private var contentChanged:Boolean = false;
 		
 		/**
@@ -62,9 +66,9 @@ package com.openflux.containers
 				collection = null;
 			}
 			
-			if(value is ICollectionView) {
+			if(value is IList) {
 				_content = value;
-				collection = value as ICollectionView;
+				collection = value as IList;
 				collection.addEventListener(CollectionEvent.COLLECTION_CHANGE, contentChangeHandler);
 			} else if(value is Array) {
 				_content = value;

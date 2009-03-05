@@ -3,6 +3,8 @@ package com.openflux
 	
 	import com.openflux.core.FluxComponent;
 	import com.openflux.core.IFluxScrollBar;
+	import com.openflux.controllers.ScrollBarController; ScrollBarController;
+	import com.openflux.views.VerticalScrollBarView; VerticalScrollBarView;
 	
 	import flash.events.Event;
 	

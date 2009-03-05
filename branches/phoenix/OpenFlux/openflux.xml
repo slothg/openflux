@@ -46,6 +46,7 @@
     
     <!-- animators -->
     <component id="TweenAnimator" class="com.openflux.animators.TweenAnimator" />
+    <component id="GTweenyAnimator" class="com.openflux.animators.GTweenyAnimator" />
     
     <!-- core -->
     <component id="FluxComponent" class="com.openflux.core.FluxComponent" />
@@ -55,9 +56,6 @@
     
     <!-- collections -->
     <component id="ComplexCollection" class="com.openflux.collections.ComplexCollection" />
-    
-    <!-- utils -->
-    <component id="ClassReferences" class="com.openflux.utils.ClassReferences" />
     
     <!--  states -->
     <component id="State" class="com.openflux.states.State" />

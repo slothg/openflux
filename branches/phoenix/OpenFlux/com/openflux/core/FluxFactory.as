@@ -1,7 +1,5 @@
 package com.openflux.core
 {
-	import com.openflux.ListItem;
-	
 	import flash.utils.getQualifiedClassName;
 	
 	import mx.core.IFactory;
@@ -22,10 +20,6 @@ package com.openflux.core
 		 */
 		public function FluxFactory(itemRenderer:IFactory = null) {
 			this.itemRenderer = itemRenderer;
-			
-			if(this.itemRenderer == null) {
-				this.itemRenderer = new ListItem();
-			}
 		}
 		
 		// ========================================
@@ -72,7 +66,6 @@ package com.openflux.core
 		private function createRenderer(declaration:CSSStyleDeclaration):IUIComponent {
 			var component:IUIComponent;
 			var C:Class = declaration.getStyle("itemRenderer");
-			C = C ? C : ListItem;
 			component = new C();
 			var prototype:Object = {factory:declaration.factory};
 			prototype.factory();

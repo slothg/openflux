@@ -93,23 +93,23 @@ package com.openflux.controllers
 		
 		private function addSelection(item:Object):void {
 			if(!list.selectedItems) {
-				list.selectedItems = new ArrayCollection();
+				list.selectedItems = [];
 			}
-			if(!list.selectedItems.contains(item)) {
-				list.selectedItems.addItem(item);
+			if(!list.selectedItems.indexOf(item) != -1) {
+				list.selectedItems.push(item);
 			}
 		}
 		
 		private function removeSelection(item:Object):void {
 			if(list.selectedItems) {
 				var index:int = list.selectedItems.getItemIndex(item);
-				list.selectedItems.removeItemAt(index);
+				list.selectedItems.splice(index, 1);
 			}
 		}
 		
 		private function clearSelection():void {
 			if(list.selectedItems) { // update data
-				list.selectedItems.removeAll();
+				list.selectedItems = [];
 			}
 			
 		}
