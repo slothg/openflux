@@ -5,6 +5,8 @@ package com.openflux
 	import com.openflux.core.IEnabled;
 	import com.openflux.core.IFluxButton;
 	import com.openflux.core.ISelectable;
+	import com.openflux.controllers.ButtonController; ButtonController;
+	import com.openflux.views.ButtonView; ButtonView;
 	
 	import flash.events.Event;
 	

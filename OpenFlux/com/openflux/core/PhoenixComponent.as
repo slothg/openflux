@@ -676,7 +676,7 @@ package com.openflux.core
 			if (child is InteractiveObject && doubleClickEnabled)
 	                InteractiveObject(child).doubleClickEnabled = true;
 
-/*			if (child is IStyleClient)
+			if (child is IStyleClient)
 				IStyleClient(child).regenerateStyleCache(true);
 			
 			if (child is ISimpleStyleClient)
@@ -684,7 +684,7 @@ package com.openflux.core
 			
 			if (child is IStyleClient)
 				IStyleClient(child).notifyStyleChangeInChildren(null, true);
-*/			
+			
 		}
 		
 		private function addedChild(child:DisplayObject):void

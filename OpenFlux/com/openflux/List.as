@@ -1,9 +1,12 @@
 package com.openflux
 {
 	
+	import com.openflux.controllers.ListController;
 	import com.openflux.core.FluxComponent;
 	import com.openflux.core.IEnabled;
-	import com.openflux.core.IFluxList;
+	import com.openflux.core.IFluxList; ListController;
+	import com.openflux.views.ListView; ListView;
+	import com.openflux.ListItem; ListItem;
 	
 	import flash.events.Event;
 	
@@ -37,6 +40,12 @@ package com.openflux
 		public function List() {
 			super();
 		}
+		
+		override protected function createChildren():void
+		{
+			super.createChildren();
+			setStyle("factory", ListItem);
+		}
 
 		// ========================================
 		// data property
@@ -61,7 +70,7 @@ package com.openflux
 		// selectedItems property
 		// ========================================
 		
-		private var _selectedItems:ArrayCollection;
+		private var _selectedItems:Array;
 		
 		[Bindable("selectedItemsChange")]
 		
@@ -70,8 +79,8 @@ package com.openflux
 		 * 
 		 * @see com.openflux.controllers.ListController
 		 */
-		public function get selectedItems():ArrayCollection { return _selectedItems; }
-		public function set selectedItems(value:ArrayCollection):void {
+		public function get selectedItems():Array { return _selectedItems; }
+		public function set selectedItems(value:Array):void {
 			if (_selectedItems != value) {
 				_selectedItems = value;
 				dispatchEvent(new Event("selectedItemsChange"));

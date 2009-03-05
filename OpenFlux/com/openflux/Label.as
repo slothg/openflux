@@ -90,7 +90,7 @@ package com.openflux
 		{
 			super.styleChanged( styleProp );
 			
-			if ( textFormat.hasOwnProperty( styleProp ) )
+			if ( textFormat && textFormat.hasOwnProperty( styleProp ) )
 			{
 				textFormat[ styleProp ] = getStyle( styleProp );
 			}

@@ -8,8 +8,8 @@ package com.openflux.core
 		function get data():Object;
 		function set data(value:Object):void;
 		
-		function get selectedItems():ArrayCollection;
-		function set selectedItems(value:ArrayCollection):void;
+		function get selectedItems():Array;
+		function set selectedItems(value:Array):void;
 		
 	}
 }

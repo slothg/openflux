@@ -42,7 +42,7 @@ package com.openflux.controllers
 				var maxSelectedIndex:int = list.data.length - 1;
 				var newSelectedIndex:int = Math.min( Math.max( selectedIndex + delta, 0 ), maxSelectedIndex );
 			
-				list.selectedItems = new ArrayCollection([ list.data[ newSelectedIndex ] ]);
+				list.selectedItems = [ list.data[ newSelectedIndex ] ];
 			}
 		}
 	}
