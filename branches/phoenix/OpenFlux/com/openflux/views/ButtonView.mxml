@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<flux:FluxView xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:flux="http://www.openflux.org/2008" 
+<FluxView xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns="http://www.openflux.org/2008" 
 	xmlns:degrafa="http://www.degrafa.com/2008" 
 	mouseChildren="false">
 	
 	<!-- states -->
-	<flux:states>
-		<flux:State name="{ ButtonStates.UP }" />
-		<flux:State name="{ ButtonStates.OVER }">
-			<flux:SetProperty target="{fill}" name="color" value="#E5E5E5" />
-		</flux:State>
-		<flux:State name="{ ButtonStates.DOWN }">
-			<flux:SetProperty target="{fill}" name="color" value="#666666" />
-			<flux:SetProperty target="{stroke}" name="color" value="#FFFFFF" />
-		</flux:State>
-	</flux:states>
+	<states>
+		<State name="{ ButtonStates.UP }" />
+		<State name="{ ButtonStates.OVER }">
+			<SetProperty target="{fill}" name="color" value="#E5E5E5" />
+		</State>
+		<State name="{ ButtonStates.DOWN }">
+			<SetProperty target="{fill}" name="color" value="#666666" />
+			<SetProperty target="{stroke}" name="color" value="#FFFFFF" />
+		</State>
+	</states>
 	
 	<mx:Script>
 		<![CDATA[
@@ -26,7 +26,7 @@
 	<degrafa:SolidFill id="fill" color="#FFFFFF" />
 	<degrafa:SolidStroke id="stroke" color="#000000" weight="1" caps="round" joints="round" pixelHinting="true" />
 	
-	<flux:content>
+	<content>
 		<!-- background -->
 		<degrafa:Surface id="surface">
 			<degrafa:GeometryGroup>
@@ -35,7 +35,7 @@
 		</degrafa:Surface>
 		
 		<!-- label -->
-		<flux:Label text="{ component.label }" />
-	</flux:content>
+		<Label text="{ component.label }" />
+	</content>
 	
-</flux:FluxView>
+</FluxView>

@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<flux:FluxView xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:flux="http://www.openflux.org/2008"
+<FluxView
+	xmlns="http://www.openflux.org/2008"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
 	xmlns:degrafa="http://www.degrafa.com/2008">
 	
 	<!-- states -->
-	<flux:states>
-		<flux:State name="{ ButtonStates.UP }" />
-		<flux:State name="{ ButtonStates.OVER }">
-			<flux:SetProperty target="{fill}" name="color" value="#E5E5E5" />
-		</flux:State>
-		<flux:State name="{ ButtonStates.DOWN }">
-			<flux:SetProperty target="{fill}" name="color" value="#666666" />
-			<flux:SetProperty target="{stroke}" name="color" value="#FFFFFF" />
-		</flux:State>
-		<flux:State name="{ ButtonStates.SELECTED_UP }" basedOn="{ ButtonStates.UP }">
-			<flux:SetProperty target="{line}" name="alpha" value="1" />
-		</flux:State>
-		<flux:State name="{ ButtonStates.SELECTED_OVER }" basedOn="{ ButtonStates.OVER }">
-			<flux:SetProperty target="{line}" name="alpha" value="1" />
-		</flux:State>
-		<flux:State name="{ ButtonStates.SELECTED_DOWN }" basedOn="{ ButtonStates.DOWN }">
-			<flux:SetProperty target="{line}" name="alpha" value="1" />
-		</flux:State>
-	</flux:states>
+	<states>
+		<State name="{ ButtonStates.UP }" />
+		<State name="{ ButtonStates.OVER }">
+			<SetProperty target="{fill}" name="color" value="#E5E5E5" />
+		</State>
+		<State name="{ ButtonStates.DOWN }">
+			<SetProperty target="{fill}" name="color" value="#666666" />
+			<SetProperty target="{stroke}" name="color" value="#FFFFFF" />
+		</State>
+		<State name="{ ButtonStates.SELECTED_UP }" basedOn="{ ButtonStates.UP }">
+			<SetProperty target="{line}" name="alpha" value="1" />
+		</State>
+		<State name="{ ButtonStates.SELECTED_OVER }" basedOn="{ ButtonStates.OVER }">
+			<SetProperty target="{line}" name="alpha" value="1" />
+		</State>
+		<State name="{ ButtonStates.SELECTED_DOWN }" basedOn="{ ButtonStates.DOWN }">
+			<SetProperty target="{line}" name="alpha" value="1" />
+		</State>
+	</states>
 
 	<mx:Script>
 		<![CDATA[
@@ -35,7 +36,7 @@
 	<degrafa:SolidStroke id="stroke" color="#000000" weight="1" caps="round" joints="round" pixelHinting="true" />
 	<degrafa:SolidStroke id="line" color="{stroke.color}" alpha="0" weight="2" caps="round" joints="round" pixelHinting="true" />
 	
-	<flux:content>
+	<content>
 		<!-- checkbox -->
 		<degrafa:Surface width="14" height="14" verticalCenter="-1">
 			<degrafa:GeometryGroup>
@@ -46,7 +47,7 @@
 		</degrafa:Surface>
 		
 		<!-- label -->
-		<flux:Label text="{ component.label }" />
-	</flux:content>
+		<Label text="{ component.label }" />
+	</content>
 	
-</flux:FluxView>
+</FluxView>

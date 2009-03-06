@@ -4,7 +4,7 @@
     <!-- Plexiglass classes are in here for now. I'll move them out later. -->
     
     <!-- components -->
-    <component id="FluxButton" class="com.openflux.FluxButton" />
+    <component id="Button" class="com.openflux.Button" />
     <component id="List" class="com.openflux.List" />
     <component id="ListItem" class="com.openflux.ListItem" />
     <component id="ScrollBar" class="com.openflux.ScrollBar" />

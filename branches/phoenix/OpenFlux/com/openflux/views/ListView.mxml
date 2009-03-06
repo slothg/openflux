@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<flux:FluxView xmlns:mx="http://www.adobe.com/2006/mxml"
-	xmlns:flux="http://www.openflux.org/2008"
+<FluxView
+	xmlns="http://www.openflux.org/2008"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
 	content="{component.data}">
 	
 	<!-- layout -->
-	<flux:layout>
-		<flux:VerticalLayout/>
-	</flux:layout>
+	<layout>
+		<VerticalLayout/>
+	</layout>
 	
-</flux:FluxView>
+</FluxView>
