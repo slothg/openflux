@@ -13,6 +13,8 @@ package com.openflux.animators
 	{			
 		protected var container:IFluxContainer;
 		
+		private var tweens:Object = {};
+		
 		/**
 		 * The duration of time used to animate a component.
 		 */
@@ -40,11 +42,11 @@ package com.openflux.animators
 				token.alpha = 1;
 			}
 			
-			new FluxTweeny(item, time, token);
+			new FluxTweeny(item, time, createTweenerParameters(token));
 		}
 		
 		public function adjustItem(item:DisplayObject, token:AnimationToken):void {
-			new FluxTweeny(item, time, token);
+			new FluxTweeny(item, time, createTweenerParameters(token));
 		}
 		
 		public function addItem(item:DisplayObject):void {
@@ -54,10 +56,23 @@ package com.openflux.animators
 		public function removeItem(item:DisplayObject, callback:Function):void
 		{
 			var token:Object = new Object();
-			token.time = 1/4;
 			token.alpha = 0;
 			
 			new FluxTweeny(item, time, token, {completeListener: callback});
-		}	
+		}
+		
+		private function createTweenerParameters(token:AnimationToken):Object {
+			var parameters:Object = new Object();
+			parameters.x = token.x;
+			parameters.y = token.y;
+			parameters.z = token.z;
+			parameters.rotationX = token.rotationX;
+			parameters.rotationY = token.rotationY;
+			parameters.rotationZ = token.rotationZ;
+			parameters.width = token.width;
+			parameters.height = token.height;
+			parameters.alpha = token.alpha;
+			return parameters;
+		}
 	}
 }

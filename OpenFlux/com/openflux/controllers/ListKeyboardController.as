@@ -7,7 +7,7 @@ package com.openflux.controllers
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 	
-	import mx.collections.ArrayCollection;
+	import mx.collections.ArrayList;
 
 	[EventHandler(event="keyDown", handler="keyDownHandler")]
 	
@@ -42,7 +42,7 @@ package com.openflux.controllers
 				var maxSelectedIndex:int = list.data.length - 1;
 				var newSelectedIndex:int = Math.min( Math.max( selectedIndex + delta, 0 ), maxSelectedIndex );
 			
-				list.selectedItems = [ list.data[ newSelectedIndex ] ];
+				list.selectedItems = new ArrayList([ list.data[ newSelectedIndex ] ]);
 			}
 		}
 	}

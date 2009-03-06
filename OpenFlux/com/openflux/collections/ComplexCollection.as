@@ -4,8 +4,8 @@ package com.openflux.collections
 	
 	import flash.utils.Dictionary;
 	
-	import mx.collections.ArrayCollection;
-	import mx.collections.ICollectionView;
+	import mx.collections.ArrayList;
+	import mx.collections.IList;
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 	
@@ -14,7 +14,7 @@ package com.openflux.collections
 	 */
 	
 	[DefaultProperty("collections")]
-	public class ComplexCollection extends ArrayCollection
+	public class ComplexCollection extends ArrayList
 	{
 		
 		private var dictionary:Dictionary = new Dictionary(true); // key:collection
@@ -24,7 +24,7 @@ package com.openflux.collections
 		[Bindable]
 		public function get collections():Array { return _collections; }
 		public function set collections(value:Array):void {
-			for each(var old:ICollectionView in _collections) {
+			for each(var old:IList in _collections) {
 				if(old != null) {
 					old.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false);
 					removeCollection(old);
@@ -33,7 +33,7 @@ package com.openflux.collections
 			_collections = new Array();
 			for each(var item:Object in value) {
 				if(item != null) {
-					var collection:ICollectionView = CollectionUtil.resolveCollection(item);
+					var collection:IList = CollectionUtil.resolveCollection(item);
 					_collections.push(collection);
 					collection.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false, 0, true);
 					refreshCollection(collection);
@@ -55,7 +55,7 @@ package com.openflux.collections
 					// ???
 					break;
 				case CollectionEventKind.REFRESH:
-					refreshCollection(event.target as ICollectionView);
+					refreshCollection(event.target as IList);
 					break;
 				case CollectionEventKind.REMOVE:
 					removeCollectionItems(event.items);
@@ -72,13 +72,13 @@ package com.openflux.collections
 			}
 		}
 		
-		private function refreshCollection(collection:ICollectionView):void {
+		private function refreshCollection(collection:IList):void {
 			for each(var item:Object in collection) {
 				this.addItem(item);
 			}
 		}
 		
-		private function removeCollection(collection:ICollectionView):void {
+		private function removeCollection(collection:IList):void {
 			for each(var item:Object in collection) {
 				var index:int = this.getItemIndex(item);
 				if(index > -1) this.removeItemAt(index);

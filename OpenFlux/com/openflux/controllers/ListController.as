@@ -1,14 +1,12 @@
 package com.openflux.controllers
-{
-	import com.openflux.containers.*;
-	import com.openflux.core.*;
-	import com.openflux.views.*;
+{	
+	import com.openflux.core.FluxController;
+	import com.openflux.core.IFluxList;
 	
 	import flash.display.DisplayObject;
 	import flash.events.IEventDispatcher;
 	import flash.events.MouseEvent;
 	
-	import mx.collections.ArrayCollection;
 	import mx.controls.listClasses.IListItemRenderer;
 	import mx.core.IDataRenderer;
 	import mx.events.ChildExistenceChangedEvent;
@@ -84,7 +82,7 @@ package com.openflux.controllers
 		// ========================================
 		
 		private function toggleSelection(item:Object):void {
-			if(list.selectedItems && list.selectedItems.contains(item)) {
+			if(list.selectedItems && list.selectedItems.getItemIndex(item) != -1) {
 				removeSelection(item);
 			} else {
 				addSelection(item);
@@ -93,23 +91,27 @@ package com.openflux.controllers
 		
 		private function addSelection(item:Object):void {
 			if(!list.selectedItems) {
-				list.selectedItems = [];
+				//list.selectedItems = new ArrayList();
 			}
-			if(!list.selectedItems.indexOf(item) != -1) {
-				list.selectedItems.push(item);
+			
+			if(!list.selectedItems.getItemIndex(item) != -1) {
+				list.selectedItems.addItem(item);
 			}
 		}
 		
 		private function removeSelection(item:Object):void {
 			if(list.selectedItems) {
 				var index:int = list.selectedItems.getItemIndex(item);
-				list.selectedItems.splice(index, 1);
+				
+				if (index != -1) {
+					list.selectedItems.removeItemAt(index);
+				}
 			}
 		}
 		
 		private function clearSelection():void {
 			if(list.selectedItems) { // update data
-				list.selectedItems = [];
+				list.selectedItems.removeAll();
 			}
 			
 		}

@@ -25,7 +25,7 @@ package com.openflux.animators
 		/**
 		 * The duration of time used to animate a component.
 		 */
-		public var time:Number = 1;
+		public var time:Number = 1000;
 		
 		/**
 		 * The transition path on which to animate a component.
@@ -100,8 +100,8 @@ package com.openflux.animators
 			parameters.rotationX = token.rotationX;
 			parameters.rotationY = token.rotationY;
 			parameters.rotationZ = token.rotationZ;
-			parameters.width = token.width;
-			parameters.height = token.height;
+			parameters.actualWidth = token.width;
+			parameters.actualHeight = token.height;
 			//object.onComplete = onComplete;
 			
 			return parameters;

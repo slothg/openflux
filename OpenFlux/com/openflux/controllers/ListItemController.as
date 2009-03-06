@@ -6,7 +6,7 @@ package com.openflux.controllers
 	
 	import mx.binding.utils.BindingUtils;
 	import mx.binding.utils.ChangeWatcher;
-	import mx.collections.ArrayCollection;
+	import mx.collections.IList;
 	import mx.events.CollectionEvent;
 	
 	/**
@@ -15,7 +15,7 @@ package com.openflux.controllers
 	public class ListItemController extends ButtonController
 	{
 		private var listItem:IFluxListItem;
-		private var selectedItems:ArrayCollection;
+		private var selectedItems:IList;
 		private var selectedItemsWatcher:ChangeWatcher;
 		
 		/**
@@ -48,7 +48,7 @@ package com.openflux.controllers
 		// Event Handlers
 		// ========================================
 		
-		private function selectedItemsChange(value:ArrayCollection):void {
+		private function selectedItemsChange(value:IList):void {
 			if(selectedItems) {
 				selectedItems.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false);
 			}
@@ -75,7 +75,7 @@ package com.openflux.controllers
 		private function updateSelected():void {
 			if(component is ISelectable) {
 				if(listItem.list && listItem.list.selectedItems) {
-					var v:Boolean = listItem.list.selectedItems.contains(listItem.data);
+					var v:Boolean = listItem.list.selectedItems.getItemIndex(listItem.data) != -1;
 					(component as ISelectable).selected = v;
 				} else {
 					(component as ISelectable).selected = false;
