@@ -14,8 +14,8 @@ package com.openflux
 	
 	import mx.core.IFactory;
 	
-	[DefaultSetting(view="com.openflux.views.ListItemView")]
 	[DefaultSetting(controller="com.openflux.controllers.ListItemController")]
+	[DefaultSetting(view="com.openflux.views.ListItemView")]
 	[DefaultSetting(skin="com.openflux.skins.ListItemSkin")]
 	
 	/**

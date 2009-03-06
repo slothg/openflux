@@ -1,10 +1,9 @@
 package com.openflux
 {
-	
-	import com.openflux.controllers.ListController;
 	import com.openflux.core.FluxComponent;
 	import com.openflux.core.IEnabled;
-	import com.openflux.core.IFluxList; ListController;
+	import com.openflux.core.IFluxList;
+	import com.openflux.controllers.ListController; ListController;
 	import com.openflux.views.ListView; ListView;
 	import com.openflux.ListItem; ListItem;
 	
@@ -12,6 +11,7 @@ package com.openflux
 	
 	import mx.collections.ArrayCollection;
 	import mx.events.ListEvent;
+	import mx.collections.IList;
 	
 	[Event(name="change", type="mx.events.ListEvent")]
 	[Event(name="itemClick", type="mx.events.ListEvent")]
@@ -70,7 +70,7 @@ package com.openflux
 		// selectedItems property
 		// ========================================
 		
-		private var _selectedItems:Array;
+		private var _selectedItems:IList;
 		
 		[Bindable("selectedItemsChange")]
 		
@@ -79,8 +79,8 @@ package com.openflux
 		 * 
 		 * @see com.openflux.controllers.ListController
 		 */
-		public function get selectedItems():Array { return _selectedItems; }
-		public function set selectedItems(value:Array):void {
+		public function get selectedItems():IList { return _selectedItems; }
+		public function set selectedItems(value:IList):void {
 			if (_selectedItems != value) {
 				_selectedItems = value;
 				dispatchEvent(new Event("selectedItemsChange"));

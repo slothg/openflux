@@ -10,8 +10,12 @@ package com.openflux.containers
 	import com.openflux.layouts.ILayout;
 	import com.openflux.utils.MetaInjector;
 	import com.openflux.utils.MetaStyler;
+	import com.openflux.animators.GTweenyAnimator; GTweenyAnimator;
+	import com.openflux.core.FluxFactory; FluxFactory;
+	import com.openflux.layouts.ContraintLayout; ContraintLayout;
 	
 	import flash.display.DisplayObject;
+	import flash.events.Event; 
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
@@ -23,107 +27,164 @@ package com.openflux.containers
 	import mx.events.CollectionEventKind;
 	import mx.styles.IStyleClient;
 	
-	import com.openflux.animators.GTweenyAnimator; GTweenyAnimator;
-	import com.openflux.core.FluxFactory; FluxFactory;
-	import com.openflux.layouts.ContraintLayout; ContraintLayout;
-	
 	[DefaultProperty("content")]
 	[DefaultSetting(factory="com.openflux.core.FluxFactory")]
 	[DefaultSetting(layout="com.openflux.layouts.ContraintLayout")]
 	[DefaultSetting(animator="com.openflux.animators.GTweenyAnimator")]
+	
+	/**
+	 * Core view class handling layouts, animation and item renderers
+	 */
 	public class Container extends PhoenixComponent implements IDataView, IFluxContainer, IDataRenderer
 	{	
-		
 		//************************************
 		// IDataRenderer implementation
 		//************************************
-		
+
+		// ========================================
+		// data property
+		// ========================================
+
 		private var _data:Object;
+		
+		[Bindable("dataChange")]
+		
 		public function get data():Object { return _data; }
 		public function set data(value:Object):void {
-			_data = value;
+			if (_data != value) {
+				_data = value;
+				dispatchEvent(new Event("dataChange"));
+			}
 		}
 		
 		//************************************
 		// IDataView implementation
 		//************************************
 		
-		private var _content:*;
-		private var _factory:IFactory;
-		private var _renderers:Array = [];
+		// ========================================
+		// content property
+		// ========================================
 		
+		private var _content:*;
 		private var collection:IList;
 		private var contentChanged:Boolean = false;
+		
+		[Bindable("contentChange")]
 		
 		/**
 		 * Holds data (like dataProvider) or UIComponents
 		 */
-		[Bindable]
 		public function get content():* { return _content; }
 		public function set content(value:*):void {
-			if(collection) {
-				collection.removeEventListener(CollectionEvent.COLLECTION_CHANGE, contentChangeHandler);
-				collection = null;
-			}
+			if (_content != value) {
+				if(collection) {
+					collection.removeEventListener(CollectionEvent.COLLECTION_CHANGE, contentChangeHandler);
+					collection = null;
+				}
 			
-			if(value is IList) {
-				_content = value;
-				collection = value as IList;
-				collection.addEventListener(CollectionEvent.COLLECTION_CHANGE, contentChangeHandler);
-			} else if(value is Array) {
-				_content = value;
-			} else {
-				_content = [value];
-			}
+				if(value is IList) {
+					_content = value;
+					collection = value as IList;
+					collection.addEventListener(CollectionEvent.COLLECTION_CHANGE, contentChangeHandler);
+				} else if(value is Array) {
+					_content = value;
+				} else {
+					_content = [value];
+				}
 			
-			contentChanged = true;
-			invalidateProperties();
+				contentChanged = true;
+				invalidateProperties();
+				dispatchEvent(new Event("contentChange"));
+			}
 		}
+		
+		// ========================================
+		// factory property
+		// ========================================
+		
+		private var _factory:IFactory;
+		
+		[StyleBinding]
 		
 		/**
 		 * Item renderer
 		 */
-		[StyleBinding]
 		public function get factory():IFactory { return _factory; }
 		public function set factory(value:IFactory):void {
-			_factory = value;
-			contentChanged = true;
-			invalidateProperties();
+			if (_factory != value) {
+				_factory = value;
+				contentChanged = true;
+				invalidateProperties();
+			}
 		}
-		
 		
 		//************************************
 		// IFluxContainer Implementation
 		//************************************
 		
+		// ========================================
+		// animator property
+		// ========================================
+		
 		private var _animator:IAnimator;
+		
+		[StyleBinding]
+		[Bindable("animatorChange")]
+		
+		/**
+		 * The IAnimator instance used to handle moving and resizing child objects
+		 */
+		public function get animator():IAnimator { return _animator; }
+		public function set animator(value:IAnimator):void {
+			if (_animator != value) {
+				if(_animator) {
+					_animator.detach(this);
+				}
+				
+				_animator = value;
+				dispatchEvent(new Event("animatorChange"));
+				
+				if(_animator) {
+					_animator.attach(this);
+				}
+			}
+		}
+		
+		// ========================================
+		// layout property
+		// ========================================
+		
 		private var _layout:ILayout;
 		private var layoutChanged:Boolean = false;
 		private var invalidateLayoutFlag:Boolean = true;
 		
-		[StyleBinding] [Bindable]
-		public function get animator():IAnimator { return _animator; }
-		public function set animator(value:IAnimator):void {
-			if(_animator) { _animator.detach(this); }
-			_animator = value;
-			if(_animator) { _animator.attach(this); }
-		}
+		[StyleBinding]
+		[Bindable("layoutChange")]
 		
-		[StyleBinding] [Bindable]
+		/**
+		 * The ILayout instance used to handle determining position and size of child objects
+		 */
 		public function get layout():ILayout { return _layout; }
 		public function set layout(value:ILayout):void {
 			if(_layout) {
 				_layout.detach(this);
 			}
+			
 			_layout = value;
 			layoutChanged = true;
 			invalidateProperties();
+			dispatchEvent(new Event("layoutChange"));
 		}
+		
+		// ========================================
+		// children property
+		// ========================================
+		
+		private var _renderers:Array = [];
 		
 		public function get children():Array {
 			return _renderers;
 		}
-		
 		
 		//***********************************************
 		// Framework Overrides
