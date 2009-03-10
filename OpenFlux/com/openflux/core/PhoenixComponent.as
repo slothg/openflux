@@ -1,3 +1,30 @@
+// =================================================================
+//
+// Copyright (c) 2009 The OpenFlux Team http://www.openflux.org
+// 
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following
+// conditions:
+// 
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+//
+// =================================================================
+
 package com.openflux.core
 {
 	import com.openflux.managers.SystemManager;
@@ -807,7 +834,7 @@ package com.openflux.core
 			if (!p) {
 				_parent = null;
 				_nestLevel = 0;
-			} else if (/*p is IStyleClient ||*/ p is ISystemManager) {
+			} else if (p is IStyleClient || p is ISystemManager) {
 				_parent = p;
 			} else {
 				_parent = p.parent;
@@ -1263,11 +1290,6 @@ package com.openflux.core
 			if (invalidatePropertiesFlag)
 				UIComponentGlobals.layoutManager.invalidateProperties(this);
 			if (systemManager && (_systemManager.stage || _systemManager.useSWFBridge())) {
-				/*if (methodQueue.length > 0 && !listeningForRender) {
-					_systemManager.addEventListener(FlexEvent.RENDER, callLaterDispatcher);
-					_systemManager.addEventListener(FlexEvent.ENTER_FRAME, callLaterDispatcher);
-					listeningForRender = true;
-				}*/
 				if (_systemManager.stage)
 					_systemManager.stage.invalidate();
 			}
