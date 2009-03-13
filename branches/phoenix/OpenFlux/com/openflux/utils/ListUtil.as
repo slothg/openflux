@@ -36,7 +36,7 @@ package com.openflux.utils
 		}
 		
 		public static function selectedIndices(list:IFluxList):Array {
-			return hasSelectedItems(list) ? list.selectedItems.toArray().map(function(item:*, index:int, array:Array):int { return list.data.getItemIndex(item); }) : [];
+			return hasSelectedItems(list) ? list.selectedItems.toArray().map(function(item:*, index:int, array:Array):int { return list.data is Array ? list.data.indexOf(item) : list.data.getItemIndex(item); }) : [];
 		}
 		
 		public static function selectedIndex(list:IFluxList):int {

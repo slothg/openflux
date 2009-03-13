@@ -31,7 +31,6 @@ package com.openflux.collections
 	
 	import flash.utils.Dictionary;
 	
-	import mx.collections.ArrayList;
 	import mx.collections.IList;
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;

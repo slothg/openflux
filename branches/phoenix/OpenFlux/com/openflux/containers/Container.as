@@ -193,14 +193,17 @@ package com.openflux.containers
 		 */
 		public function get layout():ILayout { return _layout; }
 		public function set layout(value:ILayout):void {
-			if(_layout) {
-				_layout.detach(this);
+			if (_layout != value) {
+				if(_layout) {
+					_layout.detach(this);
+				}
+				
+				trace("layout changed " + value);
+				_layout = value;
+				layoutChanged = true;
+				invalidateProperties();
+				dispatchEvent(new Event("layoutChange"));
 			}
-			
-			_layout = value;
-			layoutChanged = true;
-			invalidateProperties();
-			dispatchEvent(new Event("layoutChange"));
 		}
 		
 		// ========================================

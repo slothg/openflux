@@ -71,7 +71,10 @@ package com.openflux
 		override protected function createChildren():void
 		{
 			super.createChildren();
-			setStyle("factory", ListItem);
+			
+			if (getStyle("factory") == null) {
+				setStyle("factory", ListItem);
+			}
 		}
 
 		// ========================================
