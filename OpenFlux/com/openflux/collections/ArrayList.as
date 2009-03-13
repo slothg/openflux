@@ -33,9 +33,14 @@ package com.openflux.collections
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 
+	[DefaultProperty("source")]
 	public class ArrayList extends EventDispatcher implements IList
 	{
-		private var source:Array = [];
+		private var _source:Array = [];
+		public function get source():Array { return _source; }
+		public function set source(value:Array):void {
+			_source = value;
+		}
 		
 		public function ArrayList(source:Array=null)
 		{

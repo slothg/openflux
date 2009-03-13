@@ -74,11 +74,11 @@ package com.openflux.layouts
 			if (_updateOnChange != value) {
 				_updateOnChange = value;
 				
-				if (container && (_container as IFluxView).component is IFluxList) {
-					if (_updateOnChange) {
-						(_container as IFluxView).component.addEventListener(ListEvent.CHANGE, onChange);
+				if (container && (container as IFluxView).component is IFluxList) {
+					if (value) {
+						(container as IFluxView).component.addEventListener(ListEvent.CHANGE, onChange);
 					} else {
-						(_container as IFluxView).component.removeEventListener(ListEvent.CHANGE, onChange);
+						(container as IFluxView).component.removeEventListener(ListEvent.CHANGE, onChange);
 					}
 				}
 			}
@@ -94,8 +94,8 @@ package com.openflux.layouts
 		public function attach(container:IFluxContainer):void {
 			_container = container;
 			
-			if (updateOnChange && (_container as IFluxView).component is IFluxList) {
-				(_container as IFluxView).component.addEventListener(ListEvent.CHANGE, onChange);
+			if (updateOnChange && (container as IFluxView).component is IFluxList) {
+				(container as IFluxView).component.addEventListener(ListEvent.CHANGE, onChange);
 			}
 		}
 		
@@ -103,11 +103,11 @@ package com.openflux.layouts
 		 * Detach the container. Called once when the layout is no longer assigned to the view.
 		 */
 		public function detach(container:IFluxContainer):void {
-			_container = null;
-			
-			if (updateOnChange && (_container as IFluxView).component is IFluxList) {
-				(_container as IFluxView).component.removeEventListener(ListEvent.CHANGE, onChange);
+			if (updateOnChange && (container as IFluxView).component is IFluxList) {
+				(container as IFluxView).component.removeEventListener(ListEvent.CHANGE, onChange);
 			}
+			
+			_container = null;
 		}
 		
 		// ========================================

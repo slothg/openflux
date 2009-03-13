@@ -37,6 +37,8 @@ package com.openflux.core
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.Event;
+	import flash.geom.PerspectiveProjection;
+	import flash.geom.Point;
 	import flash.system.ApplicationDomain;
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.getQualifiedSuperclassName;

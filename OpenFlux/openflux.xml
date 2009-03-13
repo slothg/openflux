@@ -1,8 +1,5 @@
 <?xml version="1.0"?>
-<componentPackage>
-    
-    <!-- Plexiglass classes are in here for now. I'll move them out later. -->
-    
+<componentPackage>   
     <!-- components -->
     <component id="Button" class="com.openflux.Button" />
     <component id="List" class="com.openflux.List" />
@@ -62,5 +59,19 @@
     <component id="AddChild" class="com.openflux.states.AddChild" />
     <component id="RemoveChild" class="com.openflux.states.RemoveChild" />
     <component id="SetProperty" class="com.openflux.states.SetProperty" />
+    
+    <!-- AS3 Builtins -->
+    <component id="Array" class="Array" lookupOnly="true"/>
+    <component id="Boolean" class="Boolean" lookupOnly="true"/>
+    <component id="Class" class="Class" lookupOnly="true"/>
+    <component id="Date" class="Date" lookupOnly="true"/>
+    <component id="Function" class="Function" lookupOnly="true"/>
+    <component id="int" class="int" lookupOnly="true"/>
+    <component id="Number" class="Number" lookupOnly="true"/>
+    <component id="Object" class="Object" lookupOnly="true"/>
+    <component id="String" class="String" lookupOnly="true"/>
+    <component id="uint" class="uint" lookupOnly="true"/>
+    <component id="XML" class="XML" lookupOnly="true"/>
+    <component id="XMLList" class="XMLList" lookupOnly="true"/>
     
 </componentPackage>    

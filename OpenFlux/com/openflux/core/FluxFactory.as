@@ -63,7 +63,11 @@ package com.openflux.core
 			var declaration:CSSStyleDeclaration;
 			var selectors:Array = StyleManager.selectors;
 			var type:String = flash.utils.getQualifiedClassName(item);
-			type = type.substr(type.indexOf("::")+2);
+			
+			if (type.indexOf("::") != -1) {
+			 	type = type.substr(type.indexOf("::") + 2);
+			}
+			 
 			for each(var selector:String in selectors) {
 				if(selector == type) {
 					declaration = StyleManager.getStyleDeclaration(selector);
