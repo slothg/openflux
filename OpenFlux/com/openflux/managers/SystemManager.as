@@ -45,22 +45,21 @@ package com.openflux.managers
 	import flash.text.TextFormat;
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
-
+	
+	import mx.core.FlexSprite;
 	import mx.core.IChildList;
 	import mx.core.ISWFBridgeGroup;
 	import mx.core.IUIComponent;
+	import mx.core.Singleton;
 	import mx.core.IFlexDisplayObject;
+	import mx.events.FlexEvent;
 	import mx.managers.IFocusManagerContainer;
 	import mx.managers.ILayoutManagerClient;
 	import mx.managers.ISystemManager;
-	import mx.styles.ISimpleStyleClient;
-	import mx.styles.IStyleClient;
-	
-	import mx.core.FlexSprite;
-	import mx.core.Singleton;
-	import mx.events.FlexEvent;
 	import mx.managers.SystemManagerGlobals;
 	import mx.messaging.config.LoaderConfig;
+	import mx.styles.ISimpleStyleClient;
+	import mx.styles.IStyleClient;
 	import mx.styles.StyleManagerImpl; StyleManagerImpl;
 //	import mx.resources.IResourceManager;
 //	import mx.resources.ResourceBundle;
@@ -77,6 +76,9 @@ package com.openflux.managers
 
 	use namespace mx_internal;
 
+	/**
+	 * SystemManager class
+	 */
 	public class SystemManager extends MovieClip implements ISystemManager, IChildList
 	{
 		public static var allSystemManagers:Dictionary = new Dictionary(true);
@@ -89,8 +91,6 @@ package com.openflux.managers
 		private var lastFrame:int;
 		private var nextFrameTimer:Timer = null;
 		private var initialized:Boolean = false;
-		private var _width:Number;
-		private var _height:Number;
 		private var _screen:Rectangle;
 		private var isDispatchingResizeEvent:Boolean = false;
 		private var mouseCatcher:Sprite;
@@ -98,6 +98,9 @@ package com.openflux.managers
 		
 		public var topLevelWindow:IUIComponent;
 		
+		/**
+		 * Constructor
+		 */
 		public function SystemManager() {
 			super();
 			
@@ -119,6 +122,22 @@ package com.openflux.managers
 				root.loaderInfo.addEventListener(Event.INIT, initHandler);
 		}
 		
+		// ========================================
+		// width property
+		// ========================================
+		
+		private var _width:Number;
+		
+		override public function get width():Number { return _width; }
+		
+		// ========================================
+		// height property
+		// ========================================
+		
+		private var _height:Number;
+		
+		override public function get height():Number { return _height; }
+		
 		public static function getSWFRoot(obj:DisplayObject):DisplayObject { return lastSystemManager as DisplayObject; }
 		
 		// Both these are implemented by generated code
@@ -138,17 +157,29 @@ package com.openflux.managers
 		}
 		public function info():Object { return {}; }
 		
+		// ========================================
+		// document property
+		// ========================================
+		
 		private var _document:Object;
 		public function get document():Object { return _document; }
 		public function set document(value:Object):void {
 			_document = value;
 		}
 		
+		// ========================================
+		// focusPane property (unused)
+		// ========================================
+		
 		private var _focusPane:Sprite;
 		public function get focusPane():Sprite { return _focusPane; }
 		public function set focusPane(value:Sprite):void {
 			_focusPane = value;
 		}
+		
+		// ========================================
+		// numModalWindows property
+		// ========================================
 		
 		private var _numModalWindows:int = 0;
 		public function get numModalWindows():int { return _numModalWindows; }	
@@ -160,6 +191,10 @@ package com.openflux.managers
 		public function get embeddedFontList():Object { return {} }
 		public function get popUpChildren():IChildList { return this; }
 		public function get rawChildren():IChildList { return this; }
+		
+		// ========================================
+		// swfBridgeGroup property
+		// ========================================
 		
 		private var _swfBridgeGroup:ISWFBridgeGroup;
 		public function get swfBridgeGroup():ISWFBridgeGroup { return _swfBridgeGroup; }
@@ -296,13 +331,8 @@ package com.openflux.managers
 		}
 */
 		private function initialize():void {
-			if (isStageRoot) {
-				_width = stage.stageWidth;
-				_height = stage.stageHeight;
-			} else {
-				_width = loaderInfo.width;
-				_height = loaderInfo.height;
-			}
+			_width = stage.stageWidth;
+			_height = stage.stageHeight;
 
 //			Singleton.registerClass("mx.resources::IResourceManager", Class(getDefinitionByName("mx.resources::ResourceManagerImpl")));
 //			var resourceManager:IResourceManager = ResourceManager.getInstance();
@@ -455,10 +485,8 @@ package com.openflux.managers
 			_screen.width = w;
 			_screen.height = h;
 
-			if (isStageRoot) {
-				_width = stage.stageWidth;
-				_height = stage.stageHeight;
-			}
+			_width = stage.stageWidth;
+			_height = stage.stageHeight;
 
 			if (event) {
 				resizeMouseCatcher();
