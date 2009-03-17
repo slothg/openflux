@@ -30,8 +30,14 @@ package com.openflux
 	import com.openflux.containers.Container;
 	
 	import flash.display.DisplayObject;
+	import flash.display.InteractiveObject;
+	import flash.events.ContextMenuEvent;
 	import flash.events.Event;
 	import flash.external.ExternalInterface;
+	import flash.net.URLRequest;
+	import flash.net.navigateToURL;
+	import flash.ui.ContextMenu;
+	import flash.ui.ContextMenuItem;
 	
 	import mx.core.ApplicationGlobals;
 	import mx.core.Singleton;
@@ -58,7 +64,7 @@ package com.openflux
 	{		
 		private var _url:String;
 		private var _parameters:Object;
-		private var _viewSourceURL:String;
+		
 		
 		private var resizeHandlerAdded:Boolean = false;
 		private var resizeWidth:Boolean = true;
@@ -66,6 +72,17 @@ package com.openflux
 		
 		public static function get application():Object {
 			return ApplicationGlobals.application;
+		}
+		
+		// ========================================
+		// viewSourceURL Property
+		// ========================================
+		
+		private var _viewSourceURL:String;
+		
+		public function get viewSourceURL():String { return _viewSourceURL; }
+		public function set viewSourceURL(value:String):void {
+			_viewSourceURL = value;
 		}
 		
 		public function Application()
@@ -175,20 +192,13 @@ package com.openflux
 			}
 		}
 		
-		private function initContextMenu():void {
-			/*if (flexContextMenu != null) {
-				if (systemManager is InteractiveObject)
-					InteractiveObject(systemManager).contextMenu = contextMenu;
-				return;
-			}
-			
+		private function initContextMenu():void {			
 			var defaultMenu:ContextMenu = new ContextMenu();
 			defaultMenu.hideBuiltInItems();
 			defaultMenu.builtInItems.print = true;
 			
 			if (_viewSourceURL) {
-				const caption:String = resourceManager.getString("core", "viewSource");
-				viewSourceCMI = new ContextMenuItem(caption, true);
+				var viewSourceCMI:ContextMenuItem = new ContextMenuItem("View Source", true);
 				viewSourceCMI.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, menuItemSelectHandler);
 				defaultMenu.customItems.push(viewSourceCMI);
 			}
@@ -196,8 +206,13 @@ package com.openflux
 			contextMenu = defaultMenu;
 			
 			if (systemManager is InteractiveObject)
-				InteractiveObject(systemManager).contextMenu = defaultMenu;*/
+				InteractiveObject(systemManager).contextMenu = defaultMenu;
 		}
+		
+		protected function menuItemSelectHandler(event:Event):void {
+			navigateToURL(new URLRequest(_viewSourceURL), "_blank");
+		}
+		
 		
 		private function resizeHandler(event:Event):void {
 			var w:Number;
@@ -209,7 +224,7 @@ package com.openflux
 				} else {
 					super.percentWidth = Math.max(percentWidth, 0);
 					super.percentWidth = Math.min(percentWidth, 100);
-					//w = percentWidth*screen.width/100;
+					w = percentWidth * systemManager.screen.width / 100;
 				}
 		
 				if (!isNaN(explicitMaxWidth))
@@ -227,7 +242,7 @@ package com.openflux
 				} else {
 					super.percentHeight = Math.max(percentHeight, 0);
 					super.percentHeight = Math.min(percentHeight, 100);
-					//h = percentHeight*screen.height/100;
+					h = percentHeight * systemManager.screen.height / 100;
 				}
 		
 				if (!isNaN(explicitMaxHeight))
@@ -245,7 +260,8 @@ package com.openflux
 			}
 		
 			setActualSize(w, h);
-			//invalidateDisplayList();
+			
+			trace("w: " + w + " h: " + h);
 		}   
 	}
 }
