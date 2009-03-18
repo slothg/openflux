@@ -25,34 +25,15 @@
 //
 // =================================================================
 
-package com.openflux.skins
+package com.openflux.core
 {
-	import com.openflux.core.PhoenixComponent;
-
-	public class ListItemSkin extends PhoenixComponent
-	{
-		public function ListItemSkin()
-		{
-			super();
-		}
+	import mx.collections.IList;
+	import mx.core.IDataRenderer;
 		
-		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
-			super.updateDisplayList(unscaledWidth, unscaledHeight);
-			this.graphics.clear();
-			this.graphics.moveTo(0, 0);
-			
-			if (name == "over") {
-				this.graphics.beginFill(0x7FCEFF, 0.7);
-			} else if (name.substr(0, 8) == "selected") {
-				this.graphics.beginFill(0x7FCEFF);
-			} else {
-	 			this.graphics.beginFill(0xffffff);
-	 		}
-			
-			trace("skin w: " + unscaledWidth + " h: " + unscaledHeight);
-			
-			this.graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
-			this.graphics.endFill();
-		}
+	public interface IFluxDataGrid extends IDataRenderer
+	{
+		[ArrayElementType("com.openflux.core.IFluxDataGridColumn")]
+		function get columns():IList;
+		function set columns(value:IList):void;
 	}
 }

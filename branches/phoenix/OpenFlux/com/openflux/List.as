@@ -36,7 +36,6 @@ package com.openflux
 	
 	import flash.events.Event;
 	
-	import mx.collections.ArrayCollection;
 	import mx.events.ListEvent;
 	import mx.collections.IList;
 	
@@ -66,15 +65,6 @@ package com.openflux
 		 */
 		public function List() {
 			super();
-		}
-		
-		override protected function createChildren():void
-		{
-			super.createChildren();
-			
-			if (getStyle("factory") == null) {
-				setStyle("factory", ListItem);
-			}
 		}
 
 		// ========================================
@@ -115,6 +105,19 @@ package com.openflux
 				_selectedItems = value;
 				dispatchEvent(new Event("selectedItemsChange"));
 			}
+		}
+		
+		// ========================================
+		// framework overrides
+		// ========================================
+		
+		override protected function createChildren():void
+		{
+			if (getStyle("factory") == null) {
+				setStyle("factory", ListItem);
+			}
+			
+			super.createChildren();
 		}
 	}
 }

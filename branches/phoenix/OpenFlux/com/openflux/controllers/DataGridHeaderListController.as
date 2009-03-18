@@ -25,34 +25,27 @@
 //
 // =================================================================
 
-package com.openflux.skins
+package com.openflux.controllers
 {
-	import com.openflux.core.PhoenixComponent;
+	import com.openflux.DataGridHeader;
+	import com.openflux.core.FluxController;
+	import com.openflux.core.IFluxDataGrid;
+	import com.openflux.core.IFluxView;
+	
+	import mx.core.IUIComponent;
+	import mx.events.ChildExistenceChangedEvent;
 
-	public class ListItemSkin extends PhoenixComponent
+	[ViewHandler(event="childAdd", handler="childAddHandler")]
+	public class DataGridHeaderListController extends FluxController
 	{
-		public function ListItemSkin()
-		{
-			super();
+		[ModelAlias] public var list:IUIComponent;
+		
+		metadata function childAddHandler(event:ChildExistenceChangedEvent):void {
+			var child:DataGridHeader = event.relatedObject as DataGridHeader;
+			if (child) {
+				child.dataGrid = IFluxView(list.parent).component as IFluxDataGrid;
+			}
 		}
 		
-		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
-			super.updateDisplayList(unscaledWidth, unscaledHeight);
-			this.graphics.clear();
-			this.graphics.moveTo(0, 0);
-			
-			if (name == "over") {
-				this.graphics.beginFill(0x7FCEFF, 0.7);
-			} else if (name.substr(0, 8) == "selected") {
-				this.graphics.beginFill(0x7FCEFF);
-			} else {
-	 			this.graphics.beginFill(0xffffff);
-	 		}
-			
-			trace("skin w: " + unscaledWidth + " h: " + unscaledHeight);
-			
-			this.graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
-			this.graphics.endFill();
-		}
 	}
 }

@@ -25,34 +25,58 @@
 //
 // =================================================================
 
-package com.openflux.skins
+package com.openflux
 {
-	import com.openflux.core.PhoenixComponent;
-
-	public class ListItemSkin extends PhoenixComponent
+	import flash.events.Event;
+	
+	import com.openflux.core.IFluxDataGridRow;
+	import com.openflux.views.DataGridRowView;
+	
+	import mx.collections.IList;
+	
+	/**
+	 * Data Grid Row Component
+	 */
+	public class DataGridRow extends ListItem implements IFluxDataGridRow
 	{
-		public function ListItemSkin()
-		{
+		/**
+		 * Constructor
+		 */
+		public function DataGridRow() {
 			super();
 		}
 		
-		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
-			super.updateDisplayList(unscaledWidth, unscaledHeight);
-			this.graphics.clear();
-			this.graphics.moveTo(0, 0);
-			
-			if (name == "over") {
-				this.graphics.beginFill(0x7FCEFF, 0.7);
-			} else if (name.substr(0, 8) == "selected") {
-				this.graphics.beginFill(0x7FCEFF);
-			} else {
-	 			this.graphics.beginFill(0xffffff);
-	 		}
-			
-			trace("skin w: " + unscaledWidth + " h: " + unscaledHeight);
-			
-			this.graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
-			this.graphics.endFill();
+		// ========================================
+		// columns property
+		// ========================================
+		
+		private var _columns:IList;
+		
+		[Bindable("columnsChange")]
+		[ArrayElementType("com.openflux.core.IFluxDataGridColumn")]
+		
+		/**
+		 * Data grid columns
+		 */
+		public function get columns():IList { return _columns; }
+		public function set columns(value:IList):void {
+			if (_columns != value) {
+				_columns = value;
+				dispatchEvent(new Event("columnsChange"));
+			}
 		}
-	}
-}
+		
+		// ========================================
+		// framework overrides
+		// ========================================
+		
+		override protected function createChildren():void {
+			if (!view) {
+				view = new DataGridRowView();
+			}
+			
+			super.createChildren();
+		}
+		
+	} // End class
+} // End package

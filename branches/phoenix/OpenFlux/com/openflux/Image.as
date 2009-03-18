@@ -29,6 +29,7 @@ package com.openflux
 {
 	import com.openflux.core.PhoenixComponent;
 	
+	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -156,8 +157,8 @@ package com.openflux
 		protected function createLoader():void {
 			if (!loader) {
 				loader = new Loader();
-				loader.addEventListener(Event.COMPLETE, loaderCompleteHandler);
-				loader.addEventListener(IOErrorEvent.IO_ERROR, loaderIOErrorHandler);
+				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderCompleteHandler);
+				loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, loaderIOErrorHandler);
 				loaderContext = new LoaderContext(true);
 				addChild(loader);
 			}
@@ -170,6 +171,8 @@ package com.openflux
 				loader.load(new URLRequest(source as String), loaderContext);
 			} else if (source is ByteArray) {
 				loader.loadBytes(source as ByteArray, loaderContext);
+			} else if (source is DisplayObject) {
+				addChild(source as DisplayObject);
 			}
 		}
 		

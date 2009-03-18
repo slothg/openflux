@@ -25,34 +25,42 @@
 //
 // =================================================================
 
-package com.openflux.skins
+package com.openflux
 {
-	import com.openflux.core.PhoenixComponent;
-
-	public class ListItemSkin extends PhoenixComponent
+	import com.openflux.controllers.ComplexController;
+	import com.openflux.controllers.DataGridRowListController;
+	import com.openflux.controllers.DragListController;
+	import com.openflux.controllers.DropListController;
+	import com.openflux.controllers.ListController;
+	import com.openflux.core.IFluxDataGridColumn;
+	
+	/**
+	 * Data Grid Row List Component
+	 */
+	public class DataGridRowList extends List
 	{
-		public function ListItemSkin()
-		{
+		/**
+		 * Constructor
+		 */
+		public function DataGridRowList() {
 			super();
 		}
 		
-		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
-			super.updateDisplayList(unscaledWidth, unscaledHeight);
-			this.graphics.clear();
-			this.graphics.moveTo(0, 0);
-			
-			if (name == "over") {
-				this.graphics.beginFill(0x7FCEFF, 0.7);
-			} else if (name.substr(0, 8) == "selected") {
-				this.graphics.beginFill(0x7FCEFF);
-			} else {
-	 			this.graphics.beginFill(0xffffff);
-	 		}
-			
-			trace("skin w: " + unscaledWidth + " h: " + unscaledHeight);
-			
-			this.graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
-			this.graphics.endFill();
+		public function validate(item:Object):Boolean {
+			return !(item is IFluxDataGridColumn);
 		}
+		
+		// ========================================
+		// framework overrides
+		// ========================================
+		
+		override protected function createChildren():void {
+			if (!controller) {
+				controller = new ComplexController([new ListController(),
+													new DataGridRowListController()]);
+			}
+			super.createChildren();
+		}
+		
 	}
 }

@@ -25,34 +25,31 @@
 //
 // =================================================================
 
-package com.openflux.skins
+package com.openflux
 {
-	import com.openflux.core.PhoenixComponent;
-
-	public class ListItemSkin extends PhoenixComponent
+	import com.openflux.controllers.ComplexController;
+	import com.openflux.controllers.ListController;
+	import com.openflux.controllers.TreeController;
+	import com.openflux.views.TreeView;
+	
+	public class Tree extends List
 	{
-		public function ListItemSkin()
+		public function Tree()
 		{
 			super();
 		}
 		
-		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
-			super.updateDisplayList(unscaledWidth, unscaledHeight);
-			this.graphics.clear();
-			this.graphics.moveTo(0, 0);
-			
-			if (name == "over") {
-				this.graphics.beginFill(0x7FCEFF, 0.7);
-			} else if (name.substr(0, 8) == "selected") {
-				this.graphics.beginFill(0x7FCEFF);
-			} else {
-	 			this.graphics.beginFill(0xffffff);
-	 		}
-			
-			trace("skin w: " + unscaledWidth + " h: " + unscaledHeight);
-			
-			this.graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
-			this.graphics.endFill();
+		override protected function createChildren():void {
+			if (!getStyle("factory")) {
+				setStyle("factory", TreeItem);
+			}
+			if (!view) {
+				view = new TreeView();
+			}
+			if (!controller) {
+				controller = new ComplexController([new TreeController(), new ListController()]);
+			}
+			super.createChildren();
 		}
 	}
 }
