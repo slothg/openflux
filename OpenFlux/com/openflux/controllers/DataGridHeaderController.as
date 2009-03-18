@@ -25,34 +25,37 @@
 //
 // =================================================================
 
-package com.openflux.skins
+package com.openflux.controllers
 {
-	import com.openflux.core.PhoenixComponent;
-
-	public class ListItemSkin extends PhoenixComponent
+	import com.openflux.core.FluxController;
+	import com.openflux.core.IFluxDataGridHeader;
+	
+	import flash.events.MouseEvent;
+	
+	import mx.collections.IList;
+	
+	//import mx.collections.ICollectionView;
+	//import mx.collections.Sort;
+	//import mx.collections.SortField;
+	
+	[ViewHandler(event="click", handler="clickHandler")]
+	public class DataGridHeaderController extends FluxController
 	{
-		public function ListItemSkin()
-		{
-			super();
-		}
+		[ModelAlias] public var header:IFluxDataGridHeader;
 		
-		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
-			super.updateDisplayList(unscaledWidth, unscaledHeight);
-			this.graphics.clear();
-			this.graphics.moveTo(0, 0);
+		metadata function clickHandler(event:MouseEvent):void {
+			var d:IList = header.dataGrid.data as IList;
+			/*var s:Sort = d.sort;
 			
-			if (name == "over") {
-				this.graphics.beginFill(0x7FCEFF, 0.7);
-			} else if (name.substr(0, 8) == "selected") {
-				this.graphics.beginFill(0x7FCEFF);
+			if (s && s.fields.length == 1 && s.fields[0].name == header.data.dataField) {
+				s.fields[0].descending = !s.fields[0].descending;
 			} else {
-	 			this.graphics.beginFill(0xffffff);
-	 		}
+				s = new Sort();
+				s.fields = [new SortField(header.data.dataField)];
+				d.sort = s;
+			}
 			
-			trace("skin w: " + unscaledWidth + " h: " + unscaledHeight);
-			
-			this.graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
-			this.graphics.endFill();
+			d.refresh();*/
 		}
 	}
 }

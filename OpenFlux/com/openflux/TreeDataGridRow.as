@@ -25,34 +25,45 @@
 //
 // =================================================================
 
-package com.openflux.skins
+package com.openflux
 {
-	import com.openflux.core.PhoenixComponent;
-
-	public class ListItemSkin extends PhoenixComponent
+	import com.openflux.controllers.ComplexController;
+	import com.openflux.controllers.ListItemController;
+	import com.openflux.controllers.TreeItemController;
+	import com.openflux.core.IFluxTreeItem;
+	import com.openflux.views.TreeDataGridRowView;
+	
+	public class TreeDataGridRow extends DataGridRow implements IFluxTreeItem
 	{
-		public function ListItemSkin()
+		public function TreeDataGridRow()
 		{
 			super();
 		}
 		
-		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
-			super.updateDisplayList(unscaledWidth, unscaledHeight);
-			this.graphics.clear();
-			this.graphics.moveTo(0, 0);
-			
-			if (name == "over") {
-				this.graphics.beginFill(0x7FCEFF, 0.7);
-			} else if (name.substr(0, 8) == "selected") {
-				this.graphics.beginFill(0x7FCEFF);
-			} else {
-	 			this.graphics.beginFill(0xffffff);
-	 		}
-			
-			trace("skin w: " + unscaledWidth + " h: " + unscaledHeight);
-			
-			this.graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
-			this.graphics.endFill();
+		private var _opened:Boolean; [Bindable]
+		public function get opened():Boolean { return _opened; }
+		public function set opened(value:Boolean):void {
+			_opened = value;
+		}
+		
+		private var _level:int; [Bindable]
+		public function get level():int { return _level; }
+		public function set level(value:int):void {
+			_level = value;
+		}
+		
+		override public function newInstance():* {
+			return new TreeDataGridRow();
+		}
+		
+		override protected function createChildren():void {
+			if (!view) {
+				view = new TreeDataGridRowView();
+			}
+			if (!controller) {
+				controller = new ComplexController([new TreeItemController(), new ListItemController()]);
+			}
+			super.createChildren();
 		}
 	}
 }

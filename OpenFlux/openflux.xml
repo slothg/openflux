@@ -8,6 +8,16 @@
     <component id="Application" class="com.openflux.Application" />
     <component id="Label" class="com.openflux.Label" />
     <component id="Image" class="com.openflux.Image" />
+    <component id="DataGrid" class="com.openflux.DataGrid" />
+    <component id="DataGridCell" class="com.openflux.DataGridCell" />
+    <component id="DataGridColumn" class="com.openflux.DataGridColumn" />
+    <component id="DataGridHeader" class="com.openflux.DataGridHeader" />
+    <component id="DataGridHeaderList" class="com.openflux.DataGridHeaderList" />
+    <component id="DataGridRow" class="com.openflux.DataGridRow" />
+    <component id="DataGridRowList" class="com.openflux.DataGridRowList" />
+    <component id="Tree" class="com.openflux.Tree" />
+    <component id="TreeItem" class="com.openflux.TreeItem" />
+   	<component id="TreeDataGridRow" class="com.openflux.TreeDataGridRow" />
     
     <!-- views -->
     <component id="ButtonView" class="com.openflux.views.ButtonView" />
@@ -19,6 +29,14 @@
     <component id="VerticalScrollBarView" class="com.openflux.views.VerticalScrollBarView" />
     <component id="HorizontalScrollBarView" class="com.openflux.views.HorizontalScrollBarView" />
     <component id="Container" class="com.openflux.containers.Container" />
+    <component id="DataGridCellView" class="com.openflux.views.DataGridCellView" />
+    <component id="DataGridHeaderView" class="com.openflux.views.DataGridHeaderView" />
+    <component id="DataGridRowView" class="com.openflux.views.DataGridRowView" />
+    <component id="DataGridView" class="com.openflux.views.DataGridView" />
+    <component id="TreeView" class="com.openflux.views.TreeView" />
+    <component id="TreeItemView" class="com.openflux.views.TreeItemView" />
+    <component id="TreeDataGridView" class="com.openflux.views.TreeDataGridView" />
+    <component id="TreeDataGridRowView" class="com.openflux.views.TreeDataGridRowView" />
     
     <!-- controllers -->
     <component id="ButtonController" class="com.openflux.controllers.ButtonController" />
@@ -26,6 +44,13 @@
     <component id="ListItemController" class="com.openflux.controllers.ListItemController" />
     <component id="ScrollBarController" class="com.openflux.controllers.ScrollBarController" />
     <component id="ComplexController" class="com.openflux.controllers.ComplexController" />
+    <component id="DataGridHeaderController" class="com.openflux.controllers.DataGridHeaderController" />
+    <component id="DataGridHeaderListController" class="com.openflux.controllers.DataGridHeaderListController" />
+    <component id="DataGridRowListController" class="com.openflux.controllers.DataGridRowListController" />
+    <component id="DragListController" class="com.openflux.controllers.DragListController" />
+    <component id="DropListController" class="com.openflux.controllers.DropListController" />
+    <component id="TreeController" class="com.openflux.controllers.TreeController" />
+    <component id="TreeItemController" class="com.openflux.controllers.TreeItemController" />
     
     <!-- constants -->
     <component id="ButtonStates" class="com.openflux.constants.ButtonStates" />
@@ -40,6 +65,7 @@
     <component id="TimeMachineLayout" class="com.openflux.layouts.TimeMachineLayout" />
     <component id="TopLeftLayout" class="com.openflux.layouts.TopLeftLayout" />
     <component id="CoverFlowLayout" class="com.openflux.layouts.CoverFlowLayout" />
+    <component id="DataGridLayout" class="com.openflux.layouts.DataGridLayout" />
     
     <!-- animators -->
     <component id="TweenAnimator" class="com.openflux.animators.TweenAnimator" />
@@ -53,6 +79,10 @@
     
     <!-- collections -->
     <component id="ComplexCollection" class="com.openflux.collections.ComplexCollection" />
+    <component id="DataGridRowCollection" class="com.openflux.collections.DataGridRowCollection" />
+    <component id="ProxyCollection" class="com.openflux.collections.ProxyCollection" />
+    <component id="VirtualCollection" class="com.openflux.collections.VirtualCollection" />
+    <component id="ArrayList" class="com.openflux.collections.ArrayList" />
     
     <!--  states -->
     <component id="State" class="com.openflux.states.State" />

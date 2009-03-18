@@ -30,7 +30,7 @@
 <FluxView
 	xmlns="http://www.openflux.org/2008"
 	xmlns:mx="http://www.adobe.com/2006/mxml"
-	content="{component.data}">
+	content="{ component.data }">
 	
 	<!-- layout -->
 	<layout>

@@ -25,34 +25,43 @@
 //
 // =================================================================
 
-package com.openflux.skins
+package com.openflux
 {
-	import com.openflux.core.PhoenixComponent;
-
-	public class ListItemSkin extends PhoenixComponent
+	import com.openflux.controllers.ComplexController;
+	import com.openflux.controllers.ListItemController;
+	import com.openflux.core.IFluxEditableListItem;
+	import com.openflux.views.DataGridCellView;
+	
+	[DefaultSetting(skin="flash.display.DisplayObject")]
+	
+	/**
+	 * Data Grid Cell Component
+	 */
+	public class DataGridCell extends ListItem
 	{
-		public function ListItemSkin()
+		/**
+		 * Constructor
+		 */
+		public function DataGridCell()
 		{
 			super();
 		}
 		
-		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
-			super.updateDisplayList(unscaledWidth, unscaledHeight);
-			this.graphics.clear();
-			this.graphics.moveTo(0, 0);
+		// ========================================
+		// framework overrides
+		// ========================================
+		
+		override protected function createChildren():void {
+			if (!view) {
+				view = new DataGridCellView();
+			}
 			
-			if (name == "over") {
-				this.graphics.beginFill(0x7FCEFF, 0.7);
-			} else if (name.substr(0, 8) == "selected") {
-				this.graphics.beginFill(0x7FCEFF);
-			} else {
-	 			this.graphics.beginFill(0xffffff);
-	 		}
+			if (!controller) {
+				controller = new ComplexController();
+			}
 			
-			trace("skin w: " + unscaledWidth + " h: " + unscaledHeight);
-			
-			this.graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
-			this.graphics.endFill();
+			super.createChildren();
 		}
-	}
-}
+		
+	} // End class
+} // End package
