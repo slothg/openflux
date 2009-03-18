@@ -29,7 +29,6 @@ package com.openflux
 {
 	import com.openflux.controllers.ComplexController;
 	import com.openflux.controllers.ListItemController;
-	import com.openflux.core.IFluxEditableListItem;
 	import com.openflux.views.DataGridCellView;
 	
 	[DefaultSetting(skin="flash.display.DisplayObject")]
