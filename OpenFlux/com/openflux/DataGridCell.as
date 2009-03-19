@@ -28,15 +28,18 @@
 package com.openflux
 {
 	import com.openflux.controllers.ComplexController;
-	import com.openflux.controllers.ListItemController;
+	import com.openflux.core.FluxComponent;
 	import com.openflux.views.DataGridCellView;
 	
-	[DefaultSetting(skin="flash.display.DisplayObject")]
+	import flash.events.Event;
+	
+	import mx.core.IDataRenderer;
+	import mx.core.IFactory;
 	
 	/**
 	 * Data Grid Cell Component
 	 */
-	public class DataGridCell extends ListItem
+	public class DataGridCell extends FluxComponent implements IDataRenderer, IFactory
 	{
 		/**
 		 * Constructor
@@ -44,6 +47,27 @@ package com.openflux
 		public function DataGridCell()
 		{
 			super();
+		}
+		
+		// ========================================
+		// data property
+		// ========================================
+		
+		private var _data:Object;
+		
+		[Bindable("dataChange")]
+		
+		/**
+		 * Data object for the current cell.
+		 * 
+		 * @see com.openflux.core.FluxFactory
+		 */
+		public function get data():Object { return _data; }
+		public function set data(value:Object):void {
+			if (_data != value) {
+				_data = value;
+				dispatchEvent(new Event("dataChange"));
+			}
 		}
 		
 		// ========================================
