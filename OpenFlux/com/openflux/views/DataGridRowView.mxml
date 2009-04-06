@@ -31,19 +31,16 @@
 	xmlns="http://www.openflux.org/2008"
 	xmlns:mx="http://www.adobe.com/2006/mxml">
 	
-	<!-- layout -->
 	<layout>
-		<DataGridLayout columns="{ component.columns }" />
+		<DataGridLayout columns="{ component.dataGrid.columns }" />
 	</layout>
 	
-	<!-- factory -->
 	<factory>
 		<DataGridCell />
 	</factory>
 	
-	<!-- content -->	
 	<content>
-		<DataGridRowCollection rowData="{ component.data }" source="{ component.columns }" />
+		<DataGridRowCollection rowData="{ component.data }" source="{ component.dataGrid.columns }" />
 	</content>
 	
 </FluxView>

@@ -606,6 +606,10 @@ package com.openflux.core
 				dispatchResizeEvent();
 		}
 		
+		override public function set alpha(value:Number):void {
+			super.alpha = value;
+		}
+		
 		// ***************************************************************
 		// Display List
 		// ***************************************************************

@@ -62,10 +62,10 @@ package com.openflux.layouts
 		}
 		
 		override public function adjust(children:Array, rectangle:Rectangle, indices:Array):void {
-			animator.begin();
 			var position:Number = rectangle.x;
 			var length:int = children.length;
 			var s:int = 0;
+			
 			for (var i:int = 0; i < length; i++) {
 				if(indices[s] == i) {
 					position += 20 + gap;
@@ -80,7 +80,6 @@ package com.openflux.layouts
 				animator.moveItem(child as DisplayObject, token);
 				position += token.width + gap;
 			}
-			animator.end();
 		}
 		
 	}

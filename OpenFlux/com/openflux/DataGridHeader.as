@@ -27,19 +27,18 @@
 
 package com.openflux
 {
-	import com.openflux.controllers.ComplexController;
-	import com.openflux.controllers.DataGridHeaderController;
-	import com.openflux.controllers.ListItemController;
-	import com.openflux.core.IFluxDataGrid;
+	import com.openflux.controllers.DataGridHeaderController; DataGridHeaderController;
+	import com.openflux.controllers.ListItemController; ListItemController;
 	import com.openflux.core.IFluxDataGridHeader;
-	import com.openflux.views.DataGridHeaderView;
+	import com.openflux.views.DataGridHeaderView; DataGridHeaderView;
 	
-	import flash.events.Event;
+	[DefaultSetting(view="com.openflux.views.DataGridHeaderView")]
+	[DefaultSetting(controller="com.openflux.controllers.ListItemController, com.openflux.controllers.DataGridHeaderController")]
 	
 	/**
 	 * Data Grid Header Component
 	 */
-	public class DataGridHeader extends ListItem implements IFluxDataGridHeader
+	public class DataGridHeader extends DataGridItemBase implements IFluxDataGridHeader
 	{
 		/**
 		 * Constructor
@@ -48,40 +47,5 @@ package com.openflux
 			super();
 		}
 		
-		// ========================================
-		// dataGrid property
-		// ========================================
-		
-		private var _dataGrid:IFluxDataGrid;
-		
-		[Bindable("dataGridChange")]
-		
-		/**
-		 * Data grid instance
-		 */
-		public function get dataGrid():IFluxDataGrid { return _dataGrid; }
-		public function set dataGrid(value:IFluxDataGrid):void {
-			if (_dataGrid != value) {
-				_dataGrid = value;
-				dispatchEvent(new Event("dataGridChange"));
-			}
-		}
-		
-		// ========================================
-		// framework overrides
-		// ========================================
-		
-		override protected function createChildren():void {
-			if (!view) {
-				view = new DataGridHeaderView();
-			}
-			
-			if (!controller) {
-				controller = new ComplexController([new ListItemController(), new DataGridHeaderController()]);
-			}
-			
-			super.createChildren();
-		}
-		
-	} // End class
-} // End package
+	}
+}

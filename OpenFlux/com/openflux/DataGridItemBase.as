@@ -27,39 +27,39 @@
 
 package com.openflux
 {
-	import com.openflux.controllers.ComplexController;
-	import com.openflux.controllers.DataGridRowListController;
-	import com.openflux.controllers.DragListController;
-	import com.openflux.controllers.DropListController;
-	import com.openflux.controllers.ListController;
-	import com.openflux.core.IFluxDataGridColumn;
+	import com.openflux.core.IFluxDataGrid;
+		
+	import flash.events.Event;
 	
 	/**
-	 * Data Grid Row List Component
+	 * Data Grid Item Base
 	 */
-	public class DataGridRowList extends List
+	public class DataGridItemBase extends ListItem
 	{
 		/**
 		 * Constructor
 		 */
-		public function DataGridRowList() {
+		public function DataGridItemBase() {
 			super();
 		}
 		
-		public function validate(item:Object):Boolean {
-			return !(item is IFluxDataGridColumn);
-		}
-		
 		// ========================================
-		// framework overrides
+		// dataGrid property
 		// ========================================
 		
-		override protected function createChildren():void {
-			if (!controller) {
-				controller = new ComplexController([new ListController(),
-													new DataGridRowListController()]);
+		private var _dataGrid:IFluxDataGrid;
+		
+		[Bindable("dataGridChange")]
+		
+		/**
+		 * Data grid instance
+		 */
+		public function get dataGrid():IFluxDataGrid { return _dataGrid; }
+		public function set dataGrid(value:IFluxDataGrid):void {
+			if (_dataGrid != value) {
+				_dataGrid = value;
+				dispatchEvent(new Event("dataGridChange"));
 			}
-			super.createChildren();
 		}
 		
 	}

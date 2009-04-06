@@ -103,8 +103,6 @@ package com.openflux.layouts
 			var offset:Number = 180*(Math.PI/180);
 			var rad:Number;
 			
-			animator.begin();
-			
 			for (var i:int = 0; i < length; i++) {
 				var child:IUIComponent = children[i];
 				var layoutItem:LayoutItem = new LayoutItem(child);
@@ -131,8 +129,6 @@ package com.openflux.layouts
 				
 				animator.moveItem(child as DisplayObject, token);
 			}
-			
-			animator.end();
 		}
 	}
 }

@@ -34,7 +34,7 @@ package com.openflux.core
 	 * @see IFluxComponent
 	 * @see IFluxController
 	 */
-	public interface IFluxView extends IUIComponent
+	public interface IFluxView extends IUIComponent, IFluxCapacitorItem
 	{
 		
 		/**

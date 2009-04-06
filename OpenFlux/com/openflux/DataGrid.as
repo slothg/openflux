@@ -28,14 +28,17 @@
 package com.openflux
 {
 	import com.openflux.collections.ArrayList;
-	import com.openflux.controllers.ComplexController;
+	import com.openflux.controllers.ComplexController; ComplexController;
 	import com.openflux.core.IFluxDataGrid;
 	import com.openflux.core.IFluxDataGridColumn;
-	import com.openflux.views.DataGridView;
+	import com.openflux.views.DataGridView; DataGridView;
 	
 	import flash.events.Event;
 	
 	import mx.collections.IList;
+	
+	[DefaultSetting(view="com.openflux.views.DataGridView")]
+	[DefaultSetting(controller="com.openflux.controllers.ComplexController")] // empty controller
 	
 	/**
 	 * Data Grid Component
@@ -87,17 +90,5 @@ package com.openflux
 			super.capacitor = value;
 		}
 		
-		override protected function createChildren():void {
-			if (!view) {
-				view = new DataGridView();
-			}
-			
-			if (!controller) {
-				controller = new ComplexController([]);
-			}
-			
-			super.createChildren();
-		}
-		
-	} // End class
-} // End package
+	}
+}

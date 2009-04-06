@@ -27,13 +27,16 @@
 //
 // =================================================================
 -->
-<ListView
+<FluxView
 	xmlns="http://www.openflux.org/2008"
 	xmlns:mx="http://www.adobe.com/2006/mxml">
 	
-	<!-- factory -->
 	<factory>
 		<TreeItem />
 	</factory>
 	
-</ListView>
+	<layout>
+		<VerticalLayout />
+	</layout>
+	
+</FluxView>

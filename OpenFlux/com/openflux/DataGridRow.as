@@ -27,17 +27,15 @@
 
 package com.openflux
 {
-	import flash.events.Event;
-	
 	import com.openflux.core.IFluxDataGridRow;
-	import com.openflux.views.DataGridRowView;
+	import com.openflux.views.DataGridRowView; DataGridRowView;
 	
-	import mx.collections.IList;
+	[DefaultSetting(view="com.openflux.views.DataGridRowView")]
 	
 	/**
 	 * Data Grid Row Component
 	 */
-	public class DataGridRow extends ListItem implements IFluxDataGridRow
+	public class DataGridRow extends DataGridItemBase implements IFluxDataGridRow
 	{
 		/**
 		 * Constructor
@@ -46,37 +44,5 @@ package com.openflux
 			super();
 		}
 		
-		// ========================================
-		// columns property
-		// ========================================
-		
-		private var _columns:IList;
-		
-		[Bindable("columnsChange")]
-		[ArrayElementType("com.openflux.core.IFluxDataGridColumn")]
-		
-		/**
-		 * Data grid columns
-		 */
-		public function get columns():IList { return _columns; }
-		public function set columns(value:IList):void {
-			if (_columns != value) {
-				_columns = value;
-				dispatchEvent(new Event("columnsChange"));
-			}
-		}
-		
-		// ========================================
-		// framework overrides
-		// ========================================
-		
-		override protected function createChildren():void {
-			if (!view) {
-				view = new DataGridRowView();
-			}
-			
-			super.createChildren();
-		}
-		
-	} // End class
-} // End package
+	}
+}

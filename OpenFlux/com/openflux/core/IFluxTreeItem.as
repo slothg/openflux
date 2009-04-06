@@ -29,9 +29,11 @@ package com.openflux.core
 {
 	public interface IFluxTreeItem extends IFluxListItem
 	{
+		[Bindable("openedChange")]
 		function get opened():Boolean;
 		function set opened(value:Boolean):void;
 		
+		[Bindable("levelChange")]
 		function get level():int;
 		function set level(value:int):void;
 	}

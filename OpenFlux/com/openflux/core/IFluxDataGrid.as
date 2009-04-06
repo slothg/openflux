@@ -32,6 +32,7 @@ package com.openflux.core
 		
 	public interface IFluxDataGrid extends IDataRenderer
 	{
+		[Bindable("columnsChange")]
 		[ArrayElementType("com.openflux.core.IFluxDataGridColumn")]
 		function get columns():IList;
 		function set columns(value:IList):void;

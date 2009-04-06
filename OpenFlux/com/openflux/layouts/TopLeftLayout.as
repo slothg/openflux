@@ -69,8 +69,6 @@ package com.openflux.layouts
 			var anglePer:Number = Math.PI / numItems;
 			var child:IUIComponent;
 			var token:AnimationToken;
-						
-			container.animator.begin();
 			
 			for (var i:int = 0; i < numItems; i++) {
 				child = children[i];
@@ -79,23 +77,23 @@ package com.openflux.layouts
 				if (i == selectedIndex) {
 					token.y = rectangle.height / 2 - 100;
 					token.x = -1 * rectangle.width / 2 + 100;
-					token.z = -1 * 2 * numItems;
+					token.z = 0;
 				} else {
 					token.y = Math.cos((i - selectedIndex) * anglePer) * radius - rectangle.height;
 					token.x = Math.sin((i - selectedIndex) * anglePer) * radius;
-					token.z = 2 * i - 100;
+					token.z = 2 * i;
 				}
 				
 				if (i < selectedIndex) {
 					token.x += token.width;
 				}
 				
+				trace("z: " + token.z);
+				
 				token.x = token.x + rectangle.width/2 - token.width/2;
 				token.y = (token.y*-1) + rectangle.height/2 - token.height/2;
 				container.animator.moveItem(child as DisplayObject, token);
 			}
-			
-			container.animator.end();
 		}
 		
 	}

@@ -29,7 +29,7 @@
 -->
 <FluxView
 	xmlns="http://www.openflux.org/2008"
-	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:display="flash.display.*" xmlns:core="com.openflux.core.*">
+	xmlns:mx="http://www.adobe.com/2006/mxml">
 
 	<mx:Script>
 		<![CDATA[
@@ -38,16 +38,14 @@
 		]]>
 	</mx:Script>
 	
-	<!-- content -->
 	<content>
-		<core:PhoenixComponent width="{ 10 * component.level }" />
+		<PhoenixComponent width="{ 10 * component.level }" />
 		<Image id="openButton"
 			source="{ component.opened ? openedIcon : closedIcon }"
 			visible="{ component.data.hasOwnProperty('children') &amp;&amp; component.data.children != null }" />
 		<Label text="{ component.data.label }" />
 	</content>
 	
-	<!-- layout -->
 	<layout>
 		<HorizontalLayout />
 	</layout>

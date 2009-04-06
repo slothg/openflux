@@ -27,14 +27,15 @@
 
 package com.openflux
 {
-	import com.openflux.controllers.ComplexController;
 	import com.openflux.core.FluxComponent;
-	import com.openflux.views.DataGridCellView;
+	import com.openflux.views.DataGridCellView; DataGridCellView;
 	
 	import flash.events.Event;
 	
 	import mx.core.IDataRenderer;
 	import mx.core.IFactory;
+	
+	[DefaultSetting(view="com.openflux.views.DataGridCellView")]
 	
 	/**
 	 * Data Grid Cell Component
@@ -44,8 +45,7 @@ package com.openflux
 		/**
 		 * Constructor
 		 */
-		public function DataGridCell()
-		{
+		public function DataGridCell() {
 			super();
 		}
 		
@@ -70,21 +70,5 @@ package com.openflux
 			}
 		}
 		
-		// ========================================
-		// framework overrides
-		// ========================================
-		
-		override protected function createChildren():void {
-			if (!view) {
-				view = new DataGridCellView();
-			}
-			
-			if (!controller) {
-				controller = new ComplexController();
-			}
-			
-			super.createChildren();
-		}
-		
-	} // End class
-} // End package
+	}
+}

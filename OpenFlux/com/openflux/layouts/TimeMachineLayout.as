@@ -35,6 +35,7 @@ package com.openflux.layouts
 	import flash.display.DisplayObject;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import flash.events.Event;
 	
 	import mx.core.IUIComponent;
 
@@ -56,9 +57,9 @@ package com.openflux.layouts
 		// gap property
 		// ========================================
 		
-		private var _gap:Number = 10;
+		private var _gap:Number = 50;
 		
-		[Bindable("gapProperty")]
+		[Bindable("gapChange")]
 		
 		/**
 		 * Gap between each item
@@ -67,6 +68,8 @@ package com.openflux.layouts
 		public function set gap(value:Number):void {
 			if (_gap != value) {
 				_gap = value;
+				dispatchEvent(new Event("gapChange"));
+				
 				if (container) {
 					container.invalidateDisplayList();
 				}
@@ -89,8 +92,6 @@ package com.openflux.layouts
 			var child:IUIComponent;
 			var token:AnimationToken;
 			
-			container.animator.begin();
-			
 			for (var i:int = 0; i < children.length; i++) {
 				child = children[i];
 				token = new AnimationToken(child.getExplicitOrMeasuredWidth(), child.getExplicitOrMeasuredHeight());
@@ -110,8 +111,6 @@ package com.openflux.layouts
 				token.y = (token.y*-1) + rectangle.height/2 - token.height/2;
 				container.animator.moveItem(child as DisplayObject, token);
 			}
-			
-			container.animator.end();
 		}
 	}
 }

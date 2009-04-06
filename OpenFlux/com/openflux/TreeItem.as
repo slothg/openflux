@@ -27,43 +27,68 @@
 
 package com.openflux
 {
-	import com.openflux.controllers.ComplexController;
-	import com.openflux.controllers.ListItemController;
-	import com.openflux.controllers.TreeItemController;
+	import com.openflux.controllers.ListItemController; ListItemController
+	import com.openflux.controllers.TreeItemController; TreeItemController;
 	import com.openflux.core.IFluxTreeItem;
-	import com.openflux.views.TreeItemView;
+	import com.openflux.views.TreeItemView; TreeItemView;
 	
+	import flash.events.Event;
+	
+	[DefaultSetting(view="com.openflux.views.TreeItemView")]
+	[DefaultSetting(controller="com.openflux.controllers.ListItemController, com.openflux.controllers.TreeItemController")]
+	
+	/**
+	 * Tree item component
+	 */
 	public class TreeItem extends ListItem implements IFluxTreeItem
 	{
-		public function TreeItem()
-		{
+		/**
+		 * Constructor
+		 */
+		public function TreeItem() {
 			super();
 		}
 		
-		private var _opened:Boolean; [Bindable]
+		// ========================================
+		// opened property
+		// ========================================
+		
+		private var _opened:Boolean;
+		
+		[Bindable("openedChange")]
+		
+		/**
+		 * Whether the row should appear expanded or colapsed
+		 * 
+		 * @see com.openflux.controllers.TreeController
+		 */
 		public function get opened():Boolean { return _opened; }
 		public function set opened(value:Boolean):void {
-			_opened = value;
+			if (_opened != value) {
+				_opened = value;
+				dispatchEvent(new Event("openedChange"));
+			}
 		}
 		
-		private var _level:int; [Bindable]
+		// ========================================
+		// level property
+		// ========================================
+		
+		private var _level:int;
+		
+		[Bindable("levelChange")]
+		
+		/**
+		 * How deep the data item is within the tree. Aka depth.
+		 * 
+		 * @see com.openflux.controllers.TreeController
+		 */
 		public function get level():int { return _level; }
 		public function set level(value:int):void {
-			_level = value;
-		}
-		
-		override public function newInstance():* {
-			return new TreeItem();
-		}
-		
-		override protected function createChildren():void {
-			if (!view) {
-				view = new TreeItemView();
+			if (_level != value) {
+				_level = value;
+				dispatchEvent(new Event("levelChange"));
 			}
-			if (!controller) {
-				controller = new ComplexController([new TreeItemController(), new ListItemController()]);
-			}
-			super.createChildren();
 		}
 		
 	}

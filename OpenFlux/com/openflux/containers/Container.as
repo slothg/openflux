@@ -299,8 +299,9 @@ package com.openflux.containers
 		
 		private function updateLayout():void {
 			if(layout && animator && children.length > 0) {
-				var rectangle:Rectangle = new Rectangle(0, 0, width, height);
-				layout.update(children, rectangle);
+				animator.begin();
+				layout.update(children, new Rectangle(0, 0, width, height));
+				animator.end();
 			}
 		}
 		

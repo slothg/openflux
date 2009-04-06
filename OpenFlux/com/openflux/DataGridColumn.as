@@ -120,5 +120,5 @@ package com.openflux
 			}
 		}
 		
-	} // End class
-} // End package
+	}
+}

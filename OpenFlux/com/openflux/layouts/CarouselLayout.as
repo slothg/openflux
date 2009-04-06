@@ -69,8 +69,6 @@ package com.openflux.layouts
 
 			var child:IUIComponent;
 			var token:AnimationToken;
-			
-			animator.begin();
 
 			for(var i:uint=0; i<numOfItems; i++) {
 				child = children[i];
@@ -83,8 +81,6 @@ package com.openflux.layouts
 				token.y = (token.y * -1) + rectangle.height / 2 - token.height / 2;
 				animator.moveItem(child as DisplayObject, token);
 			}
-			
-			animator.end();
 		}
 
 	}

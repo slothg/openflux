@@ -34,6 +34,8 @@ package com.openflux
 	import flash.events.ContextMenuEvent;
 	import flash.events.Event;
 	import flash.external.ExternalInterface;
+	import flash.geom.PerspectiveProjection;
+	import flash.geom.Point;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
 	import flash.ui.ContextMenu;
@@ -182,6 +184,10 @@ package com.openflux
 					resizeHandlerAdded = false;
 				}
 			}
+			
+			var pp:PerspectiveProjection = new PerspectiveProjection();
+			pp.projectionCenter = new Point(width / 2, height/ 2);
+			transform.perspectiveProjection = pp;
 		}
 		
 		
@@ -261,7 +267,9 @@ package com.openflux
 		
 			setActualSize(w, h);
 			
-			trace("w: " + w + " h: " + h);
+			var pp:PerspectiveProjection = new PerspectiveProjection();
+			pp.projectionCenter = new Point(w / 2, h / 2);
+			transform.perspectiveProjection = pp;
 		}   
 	}
 }

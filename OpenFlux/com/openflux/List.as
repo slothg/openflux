@@ -27,10 +27,10 @@
 
 package com.openflux
 {
+	import com.openflux.controllers.ListController;
 	import com.openflux.core.FluxComponent;
 	import com.openflux.core.IEnabled;
-	import com.openflux.core.IFluxList;
-	import com.openflux.controllers.ListController; ListController;
+	import com.openflux.core.IFluxList; ListController;
 	import com.openflux.views.ListView; ListView;
 	import com.openflux.ListItem; ListItem;
 	
@@ -38,15 +38,13 @@ package com.openflux
 	
 	import mx.events.ListEvent;
 	import mx.collections.IList;
+	import com.openflux.core.IFluxListItem;
 	
 	[Event(name="change", type="mx.events.ListEvent")]
 	[Event(name="itemClick", type="mx.events.ListEvent")]
 	[Event(name="itemDoubleClick", type="mx.events.ListEvent")]
 	[Event(name="itemRollOver", type="mx.events.ListEvent")]
 	[Event(name="itemRollOut", type="mx.events.ListEvent")]
-	
-	[Style(name="factory", type="mx.core.IFactory")]
-	[Style(name="layout", type="com.openflux.layouts.ILayout")]
 	
 	[DefaultSetting(view="com.openflux.views.ListView")]
 	[DefaultSetting(controller="com.openflux.controllers.ListController")]
@@ -111,13 +109,14 @@ package com.openflux
 		// framework overrides
 		// ========================================
 		
-		override protected function createChildren():void
-		{
-			if (getStyle("factory") == null) {
-				setStyle("factory", ListItem);
+		override public function set capacitor(value:Array):void {
+			for each (var item:Object in value) {
+				if (item is IFluxListItem) {
+					setStyle("factory", item);
+				}
 			}
 			
-			super.createChildren();
+			super.capacitor = value;
 		}
 	}
 }

@@ -31,16 +31,12 @@
 	xmlns="http://www.openflux.org/2008"
 	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:display="flash.display.*">
 
-	<mx:Script>
-		<![CDATA[
-			private static const openedIcon:String = "assets/images/item_opened.gif";
-			private static const closedIcon:String = "assets/images/item_closed.gif";
-		]]>
-	</mx:Script>
-
-	<!-- content -->	
+	<layout>
+		<HorizontalLayout />
+	</layout>
+	
 	<content>
-		<display:DisplayObject width="{10 * component.level}" />
+		<PhoenixComponent width="{ 10 * component.level }" />
 		<Image id="openButton"
 			source="{ component.opened ? openedIcon : closedIcon }"
 			visible="{ component.data.hasOwnProperty('children') &amp;&amp; component.data.children != null }" />
@@ -49,9 +45,11 @@
 			move="event.target.invalidateDisplayList(); event.target.invalidateSize(); event.target.validateNow();" />
 	</content>
 	
-	<!-- layout -->
-	<layout>
-		<HorizontalLayout />
-	</layout>
-
+	<mx:Script>
+		<![CDATA[
+			private static const openedIcon:String = "assets/images/item_opened.gif";
+			private static const closedIcon:String = "assets/images/item_closed.gif";
+		]]>
+	</mx:Script>
+	
 </FluxView>

@@ -29,6 +29,7 @@ package com.openflux.layouts
 {
 	
 	import com.openflux.containers.IFluxContainer;
+	import com.openflux.core.IFluxCapacitorItem;
 	
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -36,7 +37,7 @@ package com.openflux.layouts
 	/**
 	 * Used to organize the layout of children in containers, lists, and related components.
 	 */
-	public interface ILayout
+	public interface ILayout extends IFluxCapacitorItem
 	{	
 		/**
 		 * Attach the container. Called once when the layout is assigned to the view.

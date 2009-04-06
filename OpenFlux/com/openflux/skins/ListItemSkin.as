@@ -49,8 +49,6 @@ package com.openflux.skins
 	 			this.graphics.beginFill(0xffffff);
 	 		}
 			
-			trace("skin w: " + unscaledWidth + " h: " + unscaledHeight);
-			
 			this.graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
 			this.graphics.endFill();
 		}

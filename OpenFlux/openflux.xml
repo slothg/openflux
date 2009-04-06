@@ -12,9 +12,7 @@
     <component id="DataGridCell" class="com.openflux.DataGridCell" />
     <component id="DataGridColumn" class="com.openflux.DataGridColumn" />
     <component id="DataGridHeader" class="com.openflux.DataGridHeader" />
-    <component id="DataGridHeaderList" class="com.openflux.DataGridHeaderList" />
     <component id="DataGridRow" class="com.openflux.DataGridRow" />
-    <component id="DataGridRowList" class="com.openflux.DataGridRowList" />
     <component id="Tree" class="com.openflux.Tree" />
     <component id="TreeItem" class="com.openflux.TreeItem" />
    	<component id="TreeDataGridRow" class="com.openflux.TreeDataGridRow" />
@@ -45,8 +43,6 @@
     <component id="ScrollBarController" class="com.openflux.controllers.ScrollBarController" />
     <component id="ComplexController" class="com.openflux.controllers.ComplexController" />
     <component id="DataGridHeaderController" class="com.openflux.controllers.DataGridHeaderController" />
-    <component id="DataGridHeaderListController" class="com.openflux.controllers.DataGridHeaderListController" />
-    <component id="DataGridRowListController" class="com.openflux.controllers.DataGridRowListController" />
     <component id="DragListController" class="com.openflux.controllers.DragListController" />
     <component id="DropListController" class="com.openflux.controllers.DropListController" />
     <component id="TreeController" class="com.openflux.controllers.TreeController" />
@@ -76,6 +72,7 @@
     <component id="FluxView" class="com.openflux.core.FluxView" />
     <component id="FluxController" class="com.openflux.core.FluxController" />
     <component id="IFluxContainer" class="com.openflux.containers.IFluxContainer" />
+    <component id="PhoenixComponent" class="com.openflux.core.PhoenixComponent" />
     
     <!-- collections -->
     <component id="ComplexCollection" class="com.openflux.collections.ComplexCollection" />

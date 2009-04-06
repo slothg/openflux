@@ -100,7 +100,7 @@ package com.openflux.layouts
 	        return new Point(Math.max(width, minWidth), Math.max(height, minHeight));
 		}
 		
-		public function update(children:Array, rectangle:Rectangle):void {	
+		public function update(children:Array, rectangle:Rectangle):void {			
 	        for each (var child:IUIComponent in children) {
 	            var li:ILayoutItem = new LayoutItem(child);
 	            
@@ -156,7 +156,6 @@ package com.openflux.layouts
 	            child.visible = true;
 	            container.animator.moveItem(child as DisplayObject, new AnimationToken(childWidth, childHeight, childX, childY));
 	        }
-			
 		}
 	}
 }
