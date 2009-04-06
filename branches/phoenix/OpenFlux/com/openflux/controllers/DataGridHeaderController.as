@@ -33,29 +33,38 @@ package com.openflux.controllers
 	import flash.events.MouseEvent;
 	
 	import mx.collections.IList;
-	
-	//import mx.collections.ICollectionView;
-	//import mx.collections.Sort;
-	//import mx.collections.SortField;
+	import mx.events.CollectionEvent;
+	import mx.events.CollectionEventKind;
 	
 	[ViewHandler(event="click", handler="clickHandler")]
+	
+	/**
+	 * Data Grid Header Controller
+	 */
 	public class DataGridHeaderController extends FluxController
-	{
+	{		
 		[ModelAlias] public var header:IFluxDataGridHeader;
 		
-		metadata function clickHandler(event:MouseEvent):void {
-			var d:IList = header.dataGrid.data as IList;
-			/*var s:Sort = d.sort;
-			
-			if (s && s.fields.length == 1 && s.fields[0].name == header.data.dataField) {
-				s.fields[0].descending = !s.fields[0].descending;
-			} else {
-				s = new Sort();
-				s.fields = [new SortField(header.data.dataField)];
-				d.sort = s;
-			}
-			
-			d.refresh();*/
+		/**
+		 * Constructor
+		 */
+		public function DataGridHeaderController() {
+			super();
 		}
+		
+		/**
+		 * Re-sorts the data grid data when the header is clicked
+		 */
+		metadata function clickHandler(event:MouseEvent):void {
+			var l:IList = header.dataGrid.data as IList;
+			var a:Array = l ? l.toArray() : header.dataGrid.data as Array;
+			
+			a.sortOn(header.data.dataField, Array.CASEINSENSITIVE);
+			
+			if (l) {
+				l.dispatchEvent(new CollectionEvent(CollectionEvent.COLLECTION_CHANGE, false, false, CollectionEventKind.RESET));
+			}
+		}
+		
 	}
 }

@@ -28,6 +28,7 @@
 package com.openflux.core
 {
 	import com.openflux.controllers.ComplexController;
+	import com.openflux.layouts.ILayout;
 	import com.openflux.utils.ComponentUtil;
 	import com.openflux.utils.MetaInjector;
 	import com.openflux.utils.MetaStyler;
@@ -40,6 +41,9 @@ package com.openflux.core
 	import mx.core.mx_internal;
 	
 	use namespace mx_internal;
+	
+	[Style(name="factory", type="mx.core.IFactory")]
+	[Style(name="layout", type="com.openflux.layouts.ILayout")]
 	
 	[DefaultProperty("capacitor")]
 	
@@ -61,6 +65,8 @@ package com.openflux.core
 		// capacitor property
 		// ========================================
 		
+		[ArrayElementType("com.openflux.core.IFluxCapacitorItem")]
+		
 		/**
 		 * The default property allowing you to pass an Array of views, controllers. 
 		 * Components can override this to add futher support for other settings. 
@@ -72,9 +78,7 @@ package com.openflux.core
 			for each(var item:Object in value) {
 				if (item is IFluxView) {
 					view = item as IFluxView;
-				}
-				
-				if (item is IFluxController) {
+				} else if (item is IFluxController) {
 					if (!controller) {
 						controller = item as IFluxController;
 					} else if (controller is ComplexController) {
@@ -82,10 +86,10 @@ package com.openflux.core
 					} else {
 						controller = new ComplexController([controller, item]);
 					}
-				}
-				
-				if (item is IProgrammaticSkin) {
+				} else if (item is IProgrammaticSkin) {
 					skin = item as DisplayObject;
+				} else if (item is ILayout) {
+					setStyle("layout", item);
 				}
 			}
 		}

@@ -27,12 +27,16 @@
 
 package com.openflux.controllers
 {
+	import com.openflux.collections.ArrayList;
+	import com.openflux.containers.IDataView;
+	import com.openflux.containers.IFluxContainer;
 	import com.openflux.core.FluxController;
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxTreeItem;
 	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
+	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	import flash.utils.Dictionary;
 	
@@ -44,130 +48,210 @@ package com.openflux.controllers
 
 	[ViewHandler(event="childAdd", handler="childAddHandler")]
 	[ViewHandler(event="childRemove", handler="childRemoveHandler")]
+	[ViewHandler(event="creationComplete", handler="viewAddedHandler")]
+	
+	/**
+	 * Adds tree functionality to a List component
+	 */
 	public class TreeController extends FluxController
 	{
+		private var itemChildrenLength:Dictionary;
+		private var collectionItems:Dictionary;
+		private var levels:Dictionary;
+		private var array:Array;
+		private var collection:IList;
+		
 		[ModelAlias] public var list:IFluxList;
 		[ModelAlias] public var dispatcher:IEventDispatcher;
 		
-		private var lengths:Dictionary;
-		private var collectionItems:Dictionary;
-		private var levels:Dictionary;
-		
-		public function TreeController()
-		{
+		/**
+		 * Constructor
+		 */
+		public function TreeController() {
 			super();
-			lengths = new Dictionary(true);
+			itemChildrenLength = new Dictionary(true);
 			collectionItems = new Dictionary(true);
 			levels = new Dictionary(true);
 		}
 		
+		// ========================================
+		// view event handlers
+		// ========================================
+		
+		/**
+		 * Listens for new IFluxTreeItem instances added to the IFluxTree component 
+		 * and adds TreeEvent.ITEM_OPENING and TreeEvent.ITEM_CLOSE listeners.
+		 */
 		metadata function childAddHandler(event:ChildExistenceChangedEvent):void {
 			var child:IFluxTreeItem = event.relatedObject as IFluxTreeItem;
 			var index:int = DisplayObjectContainer(component.view).getChildIndex(child as DisplayObject);
 			
 			if (child) {
-				child.opened = lengths[child.data] != null;
+				// toggle whether the child is open based on whether 
+				// its data length is cached in the lengths dictionary
+				child.opened = itemChildrenLength[child.data] != null;
+				
+				// set the child's level (aka depth) within the tree
 				child.level = levels[index];
-				child.addEventListener(TreeEvent.ITEM_OPENING, itemOpenHandler, false, 0, true);
-				child.addEventListener(TreeEvent.ITEM_CLOSE, itemCloseHandler, false, 0, true);
+				
+				// add TreeEvent listeners
+				child.addEventListener(TreeEvent.ITEM_OPENING, childItemOpeningHandler, false, 0, true);
+				child.addEventListener(TreeEvent.ITEM_CLOSE, childItemCloseHandler, false, 0, true);
 			}
 		}
 		
+		/**
+		 * Removes the TreeEvent listeners added by childAddHandler
+		 */
 		metadata function childRemoveHandler(event:ChildExistenceChangedEvent):void {
 			var child:IFluxTreeItem = event.relatedObject as IFluxTreeItem;
 			
 			if (child) {
-				child.removeEventListener(TreeEvent.ITEM_OPENING, itemOpenHandler, false);
-				child.removeEventListener(TreeEvent.ITEM_CLOSE, itemCloseHandler, false);
+				// remove TreeEvent listeners
+				child.removeEventListener(TreeEvent.ITEM_OPENING, childItemOpeningHandler, false);
+				child.removeEventListener(TreeEvent.ITEM_CLOSE, childItemCloseHandler, false);
 			}
 		}
 		
-		private function itemOpenHandler(event:TreeEvent):void {
-			var index:int = DisplayObjectContainer(component.view).getChildIndex(event.itemRenderer as DisplayObject);
+		metadata function viewAddedHandler(event:Event):void {
+			initCollection();
+		}
+		
+		// ========================================
+		// child event handlers
+		// ========================================
+		
+		/**
+		 * Listens for TreeEvent.ITEM_OPENING events on children (IFluxTreeItem instances)
+		 */
+		private function childItemOpeningHandler(event:TreeEvent):void {
+			var index:int = IFluxContainer(component.view).children.indexOf(event.itemRenderer as DisplayObject);
 			
 			dispatcher.dispatchEvent(new TreeEvent(TreeEvent.ITEM_OPENING, false, false, event.item, event.itemRenderer, event.triggerEvent));
 
 			openItem(event.item, index + 1);			
-			(event.itemRenderer as IFluxTreeItem).opened = true;
+			IFluxTreeItem(event.itemRenderer).opened = true;
 			
 			dispatcher.dispatchEvent(new TreeEvent(TreeEvent.ITEM_OPEN, false, false, event.item, event.itemRenderer, event.triggerEvent));
 		}
 		
-		private function itemCloseHandler(event:TreeEvent):void {
-			var index:int = DisplayObjectContainer(component.view).getChildIndex(event.itemRenderer as DisplayObject);
+		/**
+		 * Listens for TreeEvent.ITEM_CLOSE events on children (IFluxTreeItem instances)
+		 */
+		private function childItemCloseHandler(event:TreeEvent):void {
+			var index:int = IFluxContainer(component.view).children.indexOf(event.itemRenderer as DisplayObject);
 			
 			closeItem(event.item, index + 1);
-			(event.itemRenderer as IFluxTreeItem).opened = false;
+			IFluxTreeItem(event.itemRenderer).opened = false;
 
 			dispatcher.dispatchEvent(new TreeEvent(TreeEvent.ITEM_CLOSE, false, false, event.item, event.itemRenderer, event.triggerEvent));
 		}
 		
+		// ========================================
+		// collection event handlers
+		// ========================================
+		
+		/**
+		 * Refresh the rows associated with changed collection
+		 */
 		private function collectionChangeHandler(event:CollectionEvent):void {
-			var collection:IList = list.data as IList;
 			var item:Object = collectionItems[event.target];
 			
-			refreshItem(item, collection.getItemIndex(item));
+			refreshItem(item, array.indexOf(item));
 		}
 		
+		// ========================================
+		// private helper methods
+		// ========================================
+		
+		/**
+		 * Expand the row, including it's children in the list
+		 */
 		private function openItem(item:Object, index:int):void {
-			var collection:IList = list.data as IList;
-			var data:IList = list.data as IList;
-			
-			if (!lengths[item]) {
-				lengths[item] = item.children.length;
-				collectionItems[item.children] = item;
+			if (!itemChildrenLength[item]) { // if not already open
+				itemChildrenLength[item] = item.children.length; // cache length
+				collectionItems[item.children] = item; // cache collection-to-item reference
 				
 				var newItems:Array = item.children.toArray();
 				var childIndex:int = index;
+				
+				// open children individually so we can set their level property
 				for each (var childItem:Object in newItems.reverse()) {
-					collection.toArray().splice(index, 0, childItem);
+					array.splice(index, 0, childItem);
 					levels[childIndex++] = levels[index-1] != null ? levels[index-1] + 1 : 1;
 				}
 				
+				// dispatch collection event
 				collection.dispatchEvent(new CollectionEvent(CollectionEvent.COLLECTION_CHANGE, false, false, CollectionEventKind.ADD, index, -1, newItems));
 				
+				// add collection event listener
 				if (item.children is IEventDispatcher) {
-					(item.children as IEventDispatcher).addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false, 0, true);
+					IEventDispatcher(item.children).addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false, 0, true);
 				}
-			}	
+			}
 		}
 		
+		/**
+		 * Colapse the row, removing it's children from the list
+		 */
 		private function closeItem(item:Object, index:int):void {
-			var collection:IList = list.data as IList;
-			
-			if (lengths[item]) {
+			if (itemChildrenLength[item]) {
+				// remove collection event listener
 				if (item.children is IEventDispatcher) {
-					(item.children as IEventDispatcher).removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false);
+					IEventDispatcher(item.children).removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false);
 				}
 				
 				var childIndex:int = index;
+				
+				// close any open child branches
 				for each (var childItem:Object in item.children) {
-					if (lengths[childItem] && childItem.hasOwnProperty("children")) {
-						closeItem(childItem, childIndex);
+					if (itemChildrenLength[childItem] && childItem.hasOwnProperty("children")) {
+						closeItem(childItem, childIndex + 1);
 					}
+					
 					childIndex++;
 				}
 				
-				var removed:Array = collection.toArray().splice(index, lengths[item]);
-				var event:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE, false, false, CollectionEventKind.REMOVE, index, -1, removed);
-				collection.dispatchEvent(event);
+				// remove direct children
+				var removed:Array = array.splice(index, itemChildrenLength[item]);
 				
-				delete lengths[item];
+				// dispatch collection event
+				collection.dispatchEvent(new CollectionEvent(CollectionEvent.COLLECTION_CHANGE, false, false, CollectionEventKind.REMOVE, index, -1, removed));
+				
+				// delete cache
+				delete itemChildrenLength[item];
 				delete collectionItems[item.children];
 			}
 		}
 		
+		/**
+		 * Add or remove rows based on the collection changes
+		 */
 		private function refreshItem(item:Object, index:int):void {
-			var collection:IList = list.data as IList;
+			if (itemChildrenLength[item]) {
+				var added:Array = item.children is IList ? IList(item.children).toArray() : item.children as Array;
+				var removed:Array = array.splice(index, itemChildrenLength[item], added);
+								
+				collection.dispatchEvent(new CollectionEvent(CollectionEvent.COLLECTION_CHANGE, false, false, CollectionEventKind.REMOVE, index, -1, removed));
+				collection.dispatchEvent(new CollectionEvent(CollectionEvent.COLLECTION_CHANGE, false, false, CollectionEventKind.ADD, index, -1, added));
+				
+				itemChildrenLength[item] = item.children.length;
+			}
+		}
+		
+		/**
+		 * Set the view content to the private collection property
+		 */
+		private function initCollection():void {
+			var dataView:IDataView = component.view as IDataView;
 			
-			if (lengths[item]) {
-				collection.dispatchEvent(new CollectionEvent(CollectionEvent.COLLECTION_CHANGE, false, false, CollectionEventKind.REMOVE, index, -1,
-															 collection.toArray().splice(index, lengths[item])));
-				
-				collection.toArray().splice(index, 0, item.children.toArray());
-				collection.dispatchEvent(new CollectionEvent(CollectionEvent.COLLECTION_CHANGE, false, false, CollectionEventKind.ADD, index, -1, item.children.toArray()));
-				
-				lengths[item] = item.children.length;
+			if (!collection) {
+				array = list.data is IList ? IList(list.data).toArray() : list.data as Array;
+				collection = new ArrayList(array);
+			}
+			
+			if (dataView && dataView.content != collection) {
+				dataView.content = collection;
 			}
 		}
 	}

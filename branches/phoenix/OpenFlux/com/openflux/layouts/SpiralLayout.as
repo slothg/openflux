@@ -110,8 +110,6 @@ package com.openflux.layouts
 			var zPos:Number = 0;
 			var m:int = 0;
 			
-			animator.begin();
-			
 			for(var i:uint=0; i<numOfItems; i++) {
 				var child:IUIComponent = children[i];
 				var token:AnimationToken = new AnimationToken(child.getExplicitOrMeasuredWidth(), child.getExplicitOrMeasuredHeight());
@@ -129,8 +127,6 @@ package com.openflux.layouts
 				token.y = (token.y*-1) + rectangle.height/2 - token.height/2;
 				animator.moveItem(child as DisplayObject, token);
 			}
-			
-			animator.end();
 		}
 
 		public function findIndexAt(children:Array, x:Number, y:Number):int {

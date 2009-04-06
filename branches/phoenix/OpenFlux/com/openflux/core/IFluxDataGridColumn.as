@@ -27,17 +27,21 @@
 
 package com.openflux.core
 {
-	public interface IFluxDataGridColumn
+	public interface IFluxDataGridColumn extends IFluxCapacitorItem
 	{
+		[Bindable("headerTextChange")]
 		function get headerText():String;
 		function set headerText(value:String):void;
 		
+		[Bindable("dataFieldChange")]
 		function get dataField():String;
 		function set dataField(value:String):void;
 		
+		[Bindable("dataFunctionChange")]
 		function get dataFunction():Function;
 		function set dataFunction(value:Function):void;
 		
+		[Bindable("widthChange")]
 		function get width():Number;
 		function set width(value:Number):void;
 	}

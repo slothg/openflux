@@ -27,6 +27,7 @@
 
 package com.openflux.utils
 {
+	import com.openflux.controllers.ComplexController;
 	import com.openflux.metadata.ClassDirectives;
 	import com.openflux.metadata.DefaultSettingsDirective;
 	
@@ -38,15 +39,24 @@ package com.openflux.utils
 		static public function createDefaults(target:Object):void {
 			// create default assignments based on metadata
 			var directives:ClassDirectives = MetaUtil.resolveDirectives(target);
-			for each(var directive:DefaultSettingsDirective in directives.defaultSettings) {
+			var defaultSettings:Array = directives.defaultSettings.concat().reverse();
+			
+			for each(var directive:DefaultSettingsDirective in defaultSettings) {
 				updateProperty(target, directive.property, directive.value);
 			}
 		}
 		
 		static private function updateProperty(target:Object, property:String, value:String):void {
 			if(target[property]==null) {
-				var Cls:Object = flash.utils.getDefinitionByName(value);
-				target[property] = new Cls();
+				if (property == "controller" && value.indexOf(",") != -1) {
+					target[property] = new ComplexController(value.split(/\s*\,\s*/).map(function (item:*, index:int, array:Array):* {
+						var Cls:Object = flash.utils.getDefinitionByName(item);
+						return new Cls();
+					}));
+				} else {
+					var Cls:Object = flash.utils.getDefinitionByName(value);
+					target[property] = new Cls();
+				}
 			}
 		}
 		

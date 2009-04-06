@@ -27,43 +27,44 @@
 
 package com.openflux
 {
-	import com.openflux.controllers.ComplexController;
-	import com.openflux.controllers.ListItemController;
-	import com.openflux.controllers.TreeItemController;
-	import com.openflux.core.IFluxTreeItem;
-	import com.openflux.views.TreeDataGridRowView;
+	import com.openflux.core.IFluxDataGrid;
+	import com.openflux.core.IFluxDataGridRow;
+	import com.openflux.views.TreeDataGridRowView; TreeDataGridRowView;
 	
-	public class TreeDataGridRow extends DataGridRow implements IFluxTreeItem
+	import flash.events.Event;
+	
+	[DefaultSetting(view="com.openflux.views.TreeDataGridRowView")]
+	
+	/**
+	 * Tree Data Grid Row
+	 */
+	public class TreeDataGridRow extends TreeItem implements IFluxDataGridRow
 	{
-		public function TreeDataGridRow()
-		{
+		/**
+		 * Constructor
+		 */
+		public function TreeDataGridRow() {
 			super();
 		}
 		
-		private var _opened:Boolean; [Bindable]
-		public function get opened():Boolean { return _opened; }
-		public function set opened(value:Boolean):void {
-			_opened = value;
-		}
+		// ========================================
+		// dataGrid property
+		// ========================================
 		
-		private var _level:int; [Bindable]
-		public function get level():int { return _level; }
-		public function set level(value:int):void {
-			_level = value;
-		}
+		private var _dataGrid:IFluxDataGrid;
 		
-		override public function newInstance():* {
-			return new TreeDataGridRow();
-		}
+		[Bindable("dataGridChange")]
 		
-		override protected function createChildren():void {
-			if (!view) {
-				view = new TreeDataGridRowView();
+		/**
+		 * Data grid instance
+		 */
+		public function get dataGrid():IFluxDataGrid { return _dataGrid; }
+		public function set dataGrid(value:IFluxDataGrid):void {
+			if (_dataGrid != value) {
+				_dataGrid = value;
+				dispatchEvent(new Event("dataGridChange"));
 			}
-			if (!controller) {
-				controller = new ComplexController([new TreeItemController(), new ListItemController()]);
-			}
-			super.createChildren();
 		}
+		
 	}
 }

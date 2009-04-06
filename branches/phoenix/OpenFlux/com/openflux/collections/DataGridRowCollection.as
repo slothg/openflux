@@ -62,7 +62,8 @@ package com.openflux.collections
 		// ========================================
 		
 		override public function getItemAt(index:int, prefetch:int=0):Object {
-			var column:IFluxDataGridColumn = source.getItemAt(index) as IFluxDataGridColumn;
+			var column:IFluxDataGridColumn = source[index] as IFluxDataGridColumn;
+			trace("get " + index);
 			return column.dataFunction != null ? column.dataFunction(rowData, column) : getData(column.dataField);
 		}
 		

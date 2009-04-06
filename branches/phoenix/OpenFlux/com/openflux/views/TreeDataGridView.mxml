@@ -31,35 +31,22 @@
 	xmlns="http://www.openflux.org/2008"
 	xmlns:mx="http://www.adobe.com/2006/mxml">
 	
-	<!-- layout -->
 	<layout>
 		<VerticalLayout />
 	</layout>
 	
 	<content>
-		<!-- header -->
-		<DataGridHeaderList id="headerList" data="{ component.columns }">
-			<layout>
-				<DataGridLayout columns="{ component.columns }" />
-			</layout>
-		</DataGridHeaderList>
+		<List id="headerList" data="{ component.columns }">
+			<DataGridLayout columns="{ component.columns }" />
+			<DataGridHeader dataGrid="{ component as com.openflux.core.IFluxDataGrid }" />
+		</List>
 		
-		<!-- rows -->
-		<List id="rowList" data="{ component.data }">
-			<factory>
-				<TreeDataGridRow />
-			</factory>
-			<controller>
-				<ComplexController>
-					<ListController />
-					<DragListController />
-					<DropListController />
-					<DataGridRowListController />
-					<TreeController />
-				</ComplexController>
-			</controller>
+		<List id="contentList" data="{ component.data }" selectedItems="{ component.selectedItems }">
+			<TreeController />
+			<TreeDataGridRow dataGrid="{ component as com.openflux.core.IFluxDataGrid }" />
 		</List>
 	</content>
 	
-	<mx:Binding source="rowList.selectedItems" destination="component.selectedItems"/>
+	<mx:Binding source="contentList.selectedItems" destination="component.selectedItems" />
+	
 </FluxView>

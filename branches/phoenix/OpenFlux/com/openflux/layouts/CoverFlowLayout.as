@@ -81,7 +81,7 @@ package com.openflux.layouts
 		// distance property
 		// ========================================
 		
-		private var _distance:Number = 50;
+		private var _distance:Number = 10;
 		
 		[Bindable("distanceChange")]
 		
@@ -104,7 +104,7 @@ package com.openflux.layouts
 		// angle property
 		// ========================================
 		
-		private var _angle:Number = 40;
+		private var _angle:Number = 70;
 		
 		[Bindable("angleChange")]
 		
@@ -147,17 +147,39 @@ package com.openflux.layouts
 		}
 		
 		// ========================================
+		// degrees
+		// ========================================
+		
+		private var _degrees:Number = 20;
+		
+		[Bindable("degreesChange")]
+		
+		/**
+		 * Layout direction (horizontal or vertical)
+		 */
+		public function get degrees():Number { return _degrees; }
+		public function set degrees(value:Number):void {
+			if (_degrees != value) {
+				_degrees = value;
+				dispatchEvent(new Event("degreesChange"));
+				
+				if (container) {
+					container.invalidateDisplayList();
+				}
+			}
+		}
+		
+		
+		// ========================================
 		// ILayout implementation
 		// ========================================
 		
-		public function measure(children:Array):Point
-		{
+		public function measure(children:Array):Point {
 			// TODO: Figure out a min measured width/height
 			return new Point(100, 100);
 		}
 		
-		public function update(children:Array, rectangle:Rectangle):void
-		{
+		public function update(children:Array, rectangle:Rectangle):void {
 			adjust(children, rectangle, []);
 		}
 		
@@ -165,8 +187,7 @@ package com.openflux.layouts
 		// IDragLayout implementation
 		// ========================================
 		
-		public function adjust(children:Array, rectangle:Rectangle, indices:Array):void
-		{
+		public function adjust(children:Array, rectangle:Rectangle, indices:Array):void {
 			var list:IFluxList = (container as IFluxView).component as IFluxList;
 			var selectedIndex:int = list ? Math.max(0, ListUtil.selectedIndex(list)) : 0;
 			var selectedChild:IUIComponent = children[selectedIndex];
@@ -183,8 +204,6 @@ package com.openflux.layouts
 			
 			var selectedWidth:Number = selectedChild.getExplicitOrMeasuredWidth();
 			
-			container.animator.begin();
-			
 			for (var i:int = 0; i < children.length; i++) {
 				child = children[i];
 				token = new AnimationToken(child.getExplicitOrMeasuredWidth(), child.getExplicitOrMeasuredHeight());
@@ -197,20 +216,19 @@ package com.openflux.layouts
 
 					token.x = selectedWidth + ((abs - 1) * horizontalGap) + offset + 30;
 					token.y = -(maxChildHeight - child.height) / 2;
-					token.z = (selectedWidth + abs * verticalGap);
-					token.rotationY = angle * -1;
-					
+					token.z = selectedWidth + abs * verticalGap;
+					token.rotationY = angle;
+
 					if (_gap > 0) {
 						token.x += (abs - 1) * (_gap + token.width);
 					}
 					
 					if (i < selectedIndex) {
 						token.x *= -1;
-						token.x += selectedWidth;
 						token.rotationY *= -1;
 					} else if (i == selectedIndex) {
 						token.x = 0;
-						token.z = 0;
+						token.z = -100;
 						token.rotationY = 0;
 						offset = 0;
 					}
@@ -240,13 +258,15 @@ package com.openflux.layouts
 					}
 				}
 				
-				token.x = token.x + rectangle.width/2 - token.width/2;
-				token.y = (token.y*-1) + rectangle.height/2 - token.height/2;
+				var radians:Number = degrees * Math.PI;
+				token.x = token.x * Math.cos(radians);
+				token.y = token.y * Math.sin(radians);
+				
+				token.x = token.x + rectangle.width / 2 - token.width / 2;
+				token.y = ( token.y * -1 ) + rectangle.height / 2 - token.height / 2;
 				
 				container.animator.moveItem(child as DisplayObject, token);
 			}
-			
-			container.animator.end();	
 		}		
 	}
 }

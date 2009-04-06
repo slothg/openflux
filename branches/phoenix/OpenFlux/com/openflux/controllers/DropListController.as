@@ -63,12 +63,26 @@ package com.openflux.controllers
 		}
 		
 		// ========================================
+		// validator property
+		// ========================================
+		
+		private var _validator:Function;
+		
+		/**
+		 * External method used to validate whether an item being dragged
+		 * should be accepted to be dropped.
+		 */
+		public function get validator():Function { return _validator; }
+		public function set validator(value:Function):void {
+			_validator = value;
+		}
+		
+		// ========================================
 		// Event handlers
 		// ========================================
 		
 		metadata function dragEnterHandler(event:DragEvent):void {
-			if (enabled) {
-				// TODO: we need better evaluation here. perhaps integrate with IFluxFactory
+			if (enabled && (_validator == null || _validator(event.dragSource) == true)) {
 				if(event.dragSource.hasFormat("items")) {
 					var dropTarget:IUIComponent = event.currentTarget as IUIComponent;
 					DragManager.acceptDragDrop(dropTarget);

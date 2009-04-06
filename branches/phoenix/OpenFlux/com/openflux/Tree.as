@@ -27,29 +27,24 @@
 
 package com.openflux
 {
-	import com.openflux.controllers.ComplexController;
-	import com.openflux.controllers.ListController;
-	import com.openflux.controllers.TreeController;
-	import com.openflux.views.TreeView;
+	import com.openflux.controllers.ListController; ListController;
+	import com.openflux.controllers.TreeController; TreeController;
+	import com.openflux.views.TreeView; TreeView;
 	
+	[DefaultSetting(view="com.openflux.views.TreeView")]
+	[DefaultSetting(controller="com.openflux.controllers.ListController, com.openflux.controllers.TreeController")]
+	
+	/**
+	 * Tree component
+	 */
 	public class Tree extends List
 	{
+		/**
+		 * Constructor
+		 */
 		public function Tree()
 		{
 			super();
-		}
-		
-		override protected function createChildren():void {
-			if (!getStyle("factory")) {
-				setStyle("factory", TreeItem);
-			}
-			if (!view) {
-				view = new TreeView();
-			}
-			if (!controller) {
-				controller = new ComplexController([new TreeController(), new ListController()]);
-			}
-			super.createChildren();
 		}
 	}
 }

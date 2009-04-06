@@ -34,6 +34,7 @@ package com.openflux.containers
 	{
 		
 		function get content():*;
+		function set content( value:* ):void;
 		function get factory():IFactory;
 		
 	}

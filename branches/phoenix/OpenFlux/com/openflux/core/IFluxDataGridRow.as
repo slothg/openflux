@@ -26,13 +26,11 @@
 // =================================================================
 
 package com.openflux.core
-{
-	import mx.collections.IList;
-	
+{	
 	public interface IFluxDataGridRow extends IFluxListItem
 	{
-		[ArrayElementType("com.openflux.core.IFluxDataGridColumn")]
-		function get columns():IList;
-		function set columns(value:IList):void;
+		[Bindable("dataGridChange")]
+		function get dataGrid():IFluxDataGrid;
+		function set dataGrid(value:IFluxDataGrid):void;
 	}
 }

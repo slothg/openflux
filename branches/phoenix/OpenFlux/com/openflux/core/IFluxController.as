@@ -32,7 +32,7 @@ package com.openflux.core
 	 * @see IFluxComponent
 	 * @see IFluxView
 	 */
-	public interface IFluxController
+	public interface IFluxController extends IFluxCapacitorItem
 	{
 		
 		/**

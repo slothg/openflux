@@ -60,18 +60,27 @@ package com.openflux.utils
 		static private function setProperty(target:Object, source:Object, xml:XML):void {
 			var property:String = xml.@name;
 			var access:String = xml.@access;
+			
 			if(access == "readwrite" || access == "write") {
-				switch(xml.@type) {
-					// value types
-					case "Boolean":
+				switch(xml.@type.toString()) {
+					// reference types
+					case "com.openflux.core::IFluxView":
+					case "com.openflux.core::IFluxController":
+					case "com.openflux.layouts::ILayout":
+					case "com.openflux.animator::IAnimator":
+						target[property] = copy(source[property]); // no recursion for now
+						break;
+					/*case "Boolean":
 					case "Number":
 					case "int":
 					case "uint":
 					case "String":
+					case "Array":
+					case "XML":
+					case "XMLList":
+					case "mx.collections::IList":*/
+					default: // value types
 						target[property] = source[property];
-						break;
-					default: // reference types
-						target[property] = copy(source[property]); // no recursion for now
 						break;
 				}
 			}

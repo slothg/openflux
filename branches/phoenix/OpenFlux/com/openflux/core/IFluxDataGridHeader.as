@@ -29,6 +29,7 @@ package com.openflux.core
 {
 	public interface IFluxDataGridHeader extends IFluxListItem
 	{
+		[Bindable("dataGridChange")]
 		function get dataGrid():IFluxDataGrid;
 		function set dataGrid(value:IFluxDataGrid):void;
 	}

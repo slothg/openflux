@@ -36,6 +36,9 @@ package com.openflux.controllers
 	
 	import mx.events.TreeEvent;
 
+	/**
+	 * Tree Item Controller
+	 */
 	public class TreeItemController extends FluxController
 	{
 		[ModelAlias] public var treeItem:IFluxTreeItem;
@@ -44,13 +47,18 @@ package com.openflux.controllers
 		[EventHandler(event="click", handler="openButtonClickHandler")]
 		[ViewContract] public var openButton:DisplayObject;
 		
-		metadata function openButtonClickHandler(event:MouseEvent):void
-		{
-			if (treeItem.opened) {
-				dispatcher.dispatchEvent(new TreeEvent(TreeEvent.ITEM_CLOSE, false, false, treeItem.data, treeItem, event));
-			} else {
-				dispatcher.dispatchEvent(new TreeEvent(TreeEvent.ITEM_OPENING, false, false, treeItem.data, treeItem, event));
-			}
+		/**
+		 * Constructor
+		 */
+		public function TreeItemController() {
+			super();
+		}
+		
+		/**
+		 * Dispatches a TreeEvent.ITEM_OPENING or TreeEvent.ITEM_CLOSE event when openButton is clicked
+		 */
+		metadata function openButtonClickHandler(event:MouseEvent):void {
+			dispatcher.dispatchEvent(new TreeEvent(treeItem.opened ? TreeEvent.ITEM_CLOSE : TreeEvent.ITEM_OPENING, false, false, treeItem.data, treeItem, event));
 		}
 	}
 }

@@ -32,9 +32,12 @@
 	xmlns:mx="http://www.adobe.com/2006/mxml"
 	content="{ component.data }">
 	
-	<!-- layout -->
 	<layout>
-		<VerticalLayout/>
+		<VerticalLayout />
 	</layout>
+	
+	<factory>
+		<ListItem list="{ component as com.openflux.core.IFluxList }" />
+	</factory>
 	
 </FluxView>
