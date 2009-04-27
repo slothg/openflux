@@ -203,6 +203,7 @@ package com.openflux.layouts
 			var offset:Number = 0;
 			
 			var selectedWidth:Number = selectedChild.getExplicitOrMeasuredWidth();
+			var selectedHeight:Number = selectedChild.getExplicitOrMeasuredHeight();
 			
 			for (var i:int = 0; i < children.length; i++) {
 				child = children[i];
@@ -237,12 +238,11 @@ package com.openflux.layouts
 						offset += token.height;
 					}
 						
-					token.y = selectedChild.getExplicitOrMeasuredHeight() + ((abs - 1) * verticalGap) + offset;
+					token.y = selectedHeight + ((abs - 1) * verticalGap) + offset + 30;
 					token.x = 0;
-					token.z = selectedChild.getExplicitOrMeasuredHeight() + abs * horizontalGap; 
+					token.z = selectedHeight + abs * horizontalGap; 
 					token.rotationX = angle;
-					token.rotationY = 0;
-					
+										
 					if (_gap > 0) {
 						token.y += (abs - 1) * (_gap + token.height);
 					}
@@ -252,7 +252,7 @@ package com.openflux.layouts
 						token.rotationX *= -1;
 					} else if (i == selectedIndex) {
 						token.y = 0;
-						token.z = 200 / 2; 
+						token.z = -100;
 						token.rotationX = 0;
 						offset = 0;
 					}

@@ -68,6 +68,7 @@ package com.openflux.utils
 					case "com.openflux.core::IFluxController":
 					case "com.openflux.layouts::ILayout":
 					case "com.openflux.animator::IAnimator":
+					case "flash.display::DisplayObject":
 						target[property] = copy(source[property]); // no recursion for now
 						break;
 					/*case "Boolean":

@@ -28,6 +28,7 @@
 package com.openflux.containers
 {
 	
+	import com.openflux.animators.GTweenyAnimator;
 	import com.openflux.animators.IAnimator;
 	import com.openflux.core.IFluxFactory;
 	import com.openflux.core.IFluxList;
@@ -36,8 +37,7 @@ package com.openflux.containers
 	import com.openflux.core.PhoenixComponent;
 	import com.openflux.layouts.ILayout;
 	import com.openflux.utils.MetaInjector;
-	import com.openflux.utils.MetaStyler;
-	import com.openflux.animators.GTweenyAnimator; GTweenyAnimator;
+	import com.openflux.utils.MetaStyler; GTweenyAnimator;
 	import com.openflux.core.FluxFactory; FluxFactory;
 	import com.openflux.layouts.ContraintLayout; ContraintLayout;
 	
@@ -317,18 +317,18 @@ package com.openflux.containers
 			invalidateDisplayList();
 		}
 		
-		protected function addItem(item:Object, index:int=-1):IUIComponent {
-			var instance:IUIComponent;
+		protected function addItem(item:Object, index:int=-1):DisplayObject {
+			var instance:DisplayObject;
 			//var factory:IFluxFactory = new FluxFactory(this.factory as IFactory); // testing CSS Data declarations
-			if(item is IUIComponent) {
-				instance = item as IUIComponent;
+			if(item is DisplayObject) {
+				instance = item as DisplayObject;
 			} else if(factory is IFluxFactory) {
-				instance = (factory as IFluxFactory).createComponent(item) as IUIComponent;
+				instance = (factory as IFluxFactory).createComponent(item) as DisplayObject;
 				if(instance is IDataRenderer) {
 					(instance as IDataRenderer).data = item;
 				}
 			} else if(factory is IFactory) {
-				instance = factory.newInstance() as IUIComponent;
+				instance = factory.newInstance() as DisplayObject;
 				if(instance is IDataRenderer) {
 					(instance as IDataRenderer).data = item;
 				}
