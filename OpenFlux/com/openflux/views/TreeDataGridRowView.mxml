@@ -29,7 +29,7 @@
 -->
 <FluxView
 	xmlns="http://www.openflux.org/2008"
-	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:display="flash.display.*">
+	xmlns:mx="http://www.adobe.com/2006/mxml">
 
 	<layout>
 		<HorizontalLayout />

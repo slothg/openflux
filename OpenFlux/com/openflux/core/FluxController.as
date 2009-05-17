@@ -44,6 +44,8 @@ package com.openflux.core
 		
 		private var directives:ClassDirectives;
 		
+		[ModelAlias] public var dispatcher:IEventDispatcher;
+		
 		/**
 		 * Constructor
 		 */

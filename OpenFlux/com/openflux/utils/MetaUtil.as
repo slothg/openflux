@@ -32,6 +32,7 @@ package com.openflux.utils
 	
 	import flash.system.ApplicationDomain;
 	import flash.utils.describeType;
+	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.getQualifiedSuperclassName;
 	
@@ -82,22 +83,24 @@ package com.openflux.utils
 				directives.viewContracts = baseClassDirectives.viewContracts.concat();
 				directives.viewHandlers = baseClassDirectives.viewHandlers.concat();
 				directives.styles = baseClassDirectives.styles.concat();
+				directives.capacitors = baseClassDirectives.capacitors.concat();
 				// methods are inherited down in describeTypeData.
 			}
 			
 			var description:XML = flash.utils.describeType(type);
 			resolveStyleBindings(description, directives.styles);
 			resolveModelAliases(description, directives.modelAliases);
-			resolveModelHandlers(description, directives.modelHandlers); 
+			resolveEventHandlers(description, directives.modelHandlers); 
 			resolveViewContracts(description, directives.viewContracts);
 			resolveViewHandlers(description, directives.viewHandlers);
 			resolveDefaultSettings(description, directives.defaultSettings);
+			resolveCapacitors(description, directives.capacitors);
 			directivesByClassName[className] = directives;
 			return directives;
 		}
 		
 		/**
-		 * Resolve [ModelAliases]
+		 * Resolve [ModelAlias]
 		 */
 		private static function resolveModelAliases(description:XML, directives:Array):void {
 			var metadata:XMLList = description.factory.accessor.metadata.(@name == "ModelAlias");
@@ -111,7 +114,7 @@ package com.openflux.utils
 		}
 		
 		/**
-		 * Resolve [ViewContracts]
+		 * Resolve [ViewContract]
 		 */
 		private static function resolveViewContracts(description:XML, directives:Array):void {
 			var metadata:XMLList = description.factory.accessor.metadata.(@name == "ViewContract");
@@ -125,7 +128,7 @@ package com.openflux.utils
 		}
 		
 		/**
-		 * Resolve [ViewHandlers]
+		 * Resolve [ViewHandler]
 		 */
 		private static function resolveViewHandlers(description:XML, directives:Array):void {
 			var metadata:XMLList = description.factory.metadata.(@name == "ViewHandler");				
@@ -136,10 +139,19 @@ package com.openflux.utils
 				directive.handler = metadata[i].arg.(@key == "handler").@value;
 				directives.push(directive);
 			}
+			
+			metadata = description.factory.method.metadata.(@name == "ViewHandler");
+			for (i = 0; i < metadata.length(); i++) {
+				directive = new ViewHandlerDirective();
+				directive.dispatcher = "component.view";
+				directive.event = metadata[i].arg.(@key == "event" || @key == "").@value;
+				directive.handler = metadata[i].parent().@name;
+				directives.push(directive);
+			}
 		}
 		
 		/**
-		 * Resolve [StyleBindings]
+		 * Resolve [StyleBinding]
 		 */
 		private static function resolveStyleBindings(description:XML, directives:Array):void {
 			var metadata:XMLList = description.factory.variable.metadata.(@name == "StyleBinding");				
@@ -153,9 +165,9 @@ package com.openflux.utils
 		}
 		
 		/**
-		 * Resolve [ModelHandlers]
+		 * Resolve [EventHandler]
 		 */
-		private static function resolveModelHandlers(description:XML, directives:Array):void {
+		private static function resolveEventHandlers(description:XML, directives:Array):void {
 			var metadata:XMLList = description.factory.metadata.(@name == "EventHandler");				
 			for (var i:int = 0; i < metadata.length(); i++) {
 				var handlerX:EventHandlerDirective = new EventHandlerDirective();
@@ -174,10 +186,23 @@ package com.openflux.utils
 				handlerDirective.handler = metadata[i].arg.(@key == "handler").@value;
 				directives.push(handlerDirective);
 			}
+			
+			metadata = description.factory.method.metadata.(@name == "EventHandler");
+			for (i = 0; i < metadata.length(); i++) {
+				handlerDirective = new EventHandlerDirective();
+				var dispatcherArg:Object = metadata[i].arg.(@key == "dispatcher");
+				handlerDirective.dispatcher = metadata[i].arg.(@key == "dispatcher").@value;
+				if (handlerDirective.dispatcher == "") {
+					handlerDirective.dispatcher = "component";
+				}
+				handlerDirective.event = metadata[i].arg.(@key == "event" || @key == "").@value;
+				handlerDirective.handler = metadata[i].parent().@name;
+				directives.push(handlerDirective);
+			}
 		}
 		
 		/**
-		 * Resolve [DefaultSettings]
+		 * Resolve [DefaultSetting]
 		 */
 		private static function resolveDefaultSettings(description:XML, directives:Array):void {
 			var metadata:XMLList = description.factory.metadata.(@name == "DefaultSetting");
@@ -186,6 +211,23 @@ package com.openflux.utils
 				directive.property = metadata[i].arg.@key;
 				directive.value = metadata[i].arg.@value;
 				directives.push(directive);
+			}
+		}
+		
+		/**
+		 * Resolve [Capacitor]
+		 */
+		private static function resolveCapacitors(description:XML, directives:Array):void {
+			var metadata:XMLList = description.factory.accessor.metadata.(@name == "Capacitor");
+			metadata += description.factory.variable.metadata.(@name == "Capacitor");				
+			for (var i:int = 0; i < metadata.length(); i++) {
+				var directive:CapacitorDirective = new CapacitorDirective();
+				var arrayElementType:String = metadata[i].parent().metadata.( @name == "ArrayElementType" ).arg.( @key == "" ).@value;
+				
+				directive.property = metadata[i].parent().@name;
+				directive.type = getDefinitionByName( metadata[i].parent().@type ) as Class;
+				directive.arrayElementType = arrayElementType ? getDefinitionByName( arrayElementType ) as Class : null; 
+				directives.push( directive );
 			}
 		}
 	}

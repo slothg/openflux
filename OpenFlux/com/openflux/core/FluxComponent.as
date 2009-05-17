@@ -27,14 +27,18 @@
 
 package com.openflux.core
 {
+	import com.openflux.collections.ArrayList;
 	import com.openflux.controllers.ComplexController;
 	import com.openflux.layouts.ILayout;
+	import com.openflux.metadata.CapacitorDirective;
 	import com.openflux.utils.ComponentUtil;
 	import com.openflux.utils.MetaInjector;
 	import com.openflux.utils.MetaStyler;
+	import com.openflux.utils.MetaUtil;
 	
 	import flash.display.DisplayObject;
 	
+	import mx.collections.IList;
 	import mx.core.IFlexDisplayObject;
 	import mx.core.IInvalidating;
 	import mx.core.IProgrammaticSkin;
@@ -75,10 +79,10 @@ package com.openflux.core
 		 */
 		public function get capacitor():Array { return [view, controller]; }
 		public function set capacitor(value:Array):void {
+			var capacitors:Array = MetaUtil.resolveDirectives(this).capacitors;
+			
 			for each(var item:Object in value) {
-				if (item is IFluxView) {
-					view = item as IFluxView;
-				} else if (item is IFluxController) {
+				if (item is IFluxController) {
 					if (!controller) {
 						controller = item as IFluxController;
 					} else if (controller is ComplexController) {
@@ -90,6 +94,20 @@ package com.openflux.core
 					skin = item as DisplayObject;
 				} else if (item is ILayout) {
 					setStyle("layout", item);
+				} else {
+					for each (var capacitor:CapacitorDirective in capacitors) {
+						if (capacitor.arrayElementType != null && item is capacitor.arrayElementType) {
+							if (this[capacitor.property] == null) {
+								this[capacitor.property] = capacitor.type == Array ? [item] : new ArrayList([item]);
+							} else if (capacitor.type == Array) {
+								this[capacitor.property].push(item);
+							} else if (capacitor.type == IList) {
+								this[capacitor.property].addItem(item);
+							}
+						} else if (item is capacitor.type) {
+							this[capacitor.property] = item;
+						}
+					}
 				}
 			}
 		}
@@ -102,6 +120,7 @@ package com.openflux.core
 		private var viewChanged:Boolean;
 		
 		[StyleBinding]
+		[Capacitor]
 		
 		/**
 		 * View assigned to this component
@@ -130,6 +149,7 @@ package com.openflux.core
 		private var controllerChanged:Boolean;
 		
 		[StyleBinding]
+		[Capacitor]
 		
 		/**
 		 * Controller assigned to the component. To attach multiple controllers use ComplexController

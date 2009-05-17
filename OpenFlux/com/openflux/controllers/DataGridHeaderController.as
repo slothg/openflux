@@ -36,8 +36,6 @@ package com.openflux.controllers
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 	
-	[ViewHandler(event="click", handler="clickHandler")]
-	
 	/**
 	 * Data Grid Header Controller
 	 */
@@ -51,6 +49,8 @@ package com.openflux.controllers
 		public function DataGridHeaderController() {
 			super();
 		}
+		
+		[ViewHandler("click")]
 		
 		/**
 		 * Re-sorts the data grid data when the header is clicked

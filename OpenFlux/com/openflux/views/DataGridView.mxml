@@ -39,6 +39,9 @@
 		<List id="headerList" data="{ component.columns }">
 			<DataGridLayout columns="{ component.columns }" />
 			<DataGridHeader dataGrid="{ component as com.openflux.core.IFluxDataGrid }" />
+			<ListController />
+			<DragListController />
+			<DropListController />
 		</List>
 		
 		<List id="contentList" data="{ component.data }" selectedItems="{ component.selectedItems }">

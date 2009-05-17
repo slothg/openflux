@@ -42,15 +42,11 @@ package com.openflux.controllers
 	import mx.events.ListEvent;
 	import mx.events.ListEventReason;
 	
-	[ViewHandler(event="childAdd", handler="childAddHandler")]
-	[ViewHandler(event="childRemove", handler="childRemoveHandler")]
-	
 	/**
 	 * Default List controller which handles multiple selection and dispatching ITEM_* events
 	 */
 	public class ListController extends FluxController
 	{
-		[ModelAlias] public var dispatcher:IEventDispatcher;
 		[ModelAlias] [Bindable] public var list:IFluxList;
 		
 		/**
@@ -64,6 +60,7 @@ package com.openflux.controllers
 		// View Event Handlers
 		// ========================================
 		
+		[ViewHandler("childAdd")]
 		metadata function childAddHandler(event:ChildExistenceChangedEvent):void {
 			var child:DisplayObject = event.relatedObject;
 			child.addEventListener(MouseEvent.CLICK, child_clickHandler, false, 0, true);
@@ -72,6 +69,7 @@ package com.openflux.controllers
 			child.addEventListener(MouseEvent.ROLL_OUT, child_rollOutHandler, false, 0, true);
 		}
 		
+		[ViewHandler("childRemove")]
 		metadata function childRemoveHandler(event:ChildExistenceChangedEvent):void {
 			var child:DisplayObject = event.relatedObject;
 			child.removeEventListener(MouseEvent.CLICK, child_clickHandler, false);

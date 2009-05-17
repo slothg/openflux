@@ -42,7 +42,6 @@ package com.openflux.controllers
 	public class TreeItemController extends FluxController
 	{
 		[ModelAlias] public var treeItem:IFluxTreeItem;
-		[ModelAlias] public var dispatcher:IEventDispatcher; 
 		
 		[EventHandler(event="click", handler="openButtonClickHandler")]
 		[ViewContract] public var openButton:DisplayObject;

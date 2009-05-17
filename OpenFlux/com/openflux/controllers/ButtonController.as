@@ -39,20 +39,14 @@ package com.openflux.controllers
 	import mx.core.IStateClient;
 	import mx.events.PropertyChangeEvent;
 	
-	[ViewHandler(event="rollOver", handler="rollOverHandler")]
-	[ViewHandler(event="rollOut", handler="rollOutHandler")]
-	[ViewHandler(event="mouseDown", handler="mouseDownHandler")]
-	[ViewHandler(event="mouseUp", handler="mouseUpHandler")]
-	[EventHandler(event="propertyChange", handler="propertyChangeHandler")]
-	
 	/**
 	 * Default Button controller handling current state and selection
 	 */
 	public class ButtonController extends FluxController implements IFluxController
 	{
 		[StyleBinding] public var selectable:Boolean;
-		[ModelAlias(required="false")] public var ec:IEnabled;
-		[ModelAlias(required="false")] public var sc:ISelectable;
+		[ModelAlias] public var ec:IEnabled;
+		[ModelAlias] public var sc:ISelectable;
 		
 		/**
 		 * Constructor
@@ -65,6 +59,7 @@ package com.openflux.controllers
 		// Event handlers
 		// ========================================
 		
+		[EventHandler("propertyChange")]
 		metadata function propertyChangeHandler(event:PropertyChangeEvent):void {
 			switch(event.property) {
 				case "selected": 
@@ -73,18 +68,22 @@ package com.openflux.controllers
 			}
 		}
 		
+		[ViewHandler("rollOver")]
 		metadata function rollOverHandler(event:MouseEvent):void {
 			(component as IStateClient).currentState = resolveState(ButtonStates.OVER);
 		}
 		
+		[ViewHandler("rollOut")]
 		metadata function rollOutHandler(event:MouseEvent):void {
 			(component as IStateClient).currentState = resolveState(ButtonStates.UP);
 		}
 		
+		[ViewHandler("mouseDown")]
 		metadata function mouseDownHandler(event:MouseEvent):void {
 			(component as IStateClient).currentState = resolveState(ButtonStates.DOWN);
 		}
 		
+		[ViewHandler("mouseUp")]
 		metadata function mouseUpHandler(event:MouseEvent):void {
 			if(sc && selectable) { sc.selected = !sc.selected; }
 			(component as IStateClient).currentState = resolveState(ButtonStates.OVER);

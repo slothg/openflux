@@ -45,10 +45,6 @@ package com.openflux.controllers
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 	import mx.events.TreeEvent;
-
-	[ViewHandler(event="childAdd", handler="childAddHandler")]
-	[ViewHandler(event="childRemove", handler="childRemoveHandler")]
-	[ViewHandler(event="creationComplete", handler="viewAddedHandler")]
 	
 	/**
 	 * Adds tree functionality to a List component
@@ -62,7 +58,6 @@ package com.openflux.controllers
 		private var collection:IList;
 		
 		[ModelAlias] public var list:IFluxList;
-		[ModelAlias] public var dispatcher:IEventDispatcher;
 		
 		/**
 		 * Constructor
@@ -77,6 +72,8 @@ package com.openflux.controllers
 		// ========================================
 		// view event handlers
 		// ========================================
+		
+		[ViewHandler("childAdd")]
 		
 		/**
 		 * Listens for new IFluxTreeItem instances added to the IFluxTree component 
@@ -100,6 +97,8 @@ package com.openflux.controllers
 			}
 		}
 		
+		[ViewHandler("childRemove")]
+		
 		/**
 		 * Removes the TreeEvent listeners added by childAddHandler
 		 */
@@ -113,7 +112,9 @@ package com.openflux.controllers
 			}
 		}
 		
-		metadata function viewAddedHandler(event:Event):void {
+		[ViewHandler("creationComplete")]
+		
+		metadata function creationCompleteHandler(event:Event):void {
 			initCollection();
 		}
 		
