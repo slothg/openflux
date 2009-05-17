@@ -38,6 +38,9 @@ package com.openflux.metadata
 		public var modelHandlers:Array = [];
 		public var viewContracts:Array = [];
 		public var viewHandlers:Array = [];
+		
+		// component
 		public var defaultSettings:Array = [];
+		public var capacitors:Array = [];
 	}
 }

@@ -66,5 +66,10 @@ package com.openflux
 			}
 		}
 		
+		override protected function createChildren():void {
+			super.createChildren();
+			
+		}
+		
 	}
 }

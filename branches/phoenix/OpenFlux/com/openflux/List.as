@@ -27,10 +27,10 @@
 
 package com.openflux
 {
-	import com.openflux.controllers.ListController;
+	import com.openflux.controllers.ListController; ListController;
 	import com.openflux.core.FluxComponent;
 	import com.openflux.core.IEnabled;
-	import com.openflux.core.IFluxList; ListController;
+	import com.openflux.core.IFluxList;
 	import com.openflux.views.ListView; ListView;
 	import com.openflux.ListItem; ListItem;
 	

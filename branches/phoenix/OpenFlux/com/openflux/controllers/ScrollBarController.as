@@ -57,7 +57,6 @@ package com.openflux.controllers
 		private var trackScrollTimer:Timer;
 		private var trackScrollPosition:Number;
 		
-		[ModelAlias] public var edata:IEventDispatcher;
 		[ModelAlias] public var sdata:IFluxScrollBar;
 		[ModelAlias] public var view:IUIComponent;
 		
@@ -253,7 +252,7 @@ package com.openflux.controllers
 			event.detail = detail;
 			event.position = sdata.position;
 			event.delta = sdata.position - oldPosition;
-			edata.dispatchEvent(event);
+			dispatcher.dispatchEvent(event);
 		}
 	}
 }

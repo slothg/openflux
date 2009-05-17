@@ -6,6 +6,8 @@ package com.openflux.animators
 	import flash.display.DisplayObjectContainer;
 	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
+	
+	import mx.core.IFlexDisplayObject;
 
 	/**
 	 * Animator Base
@@ -59,7 +61,18 @@ package com.openflux.animators
 		}
 		
 		public function moveItem(item:DisplayObject, token:AnimationToken):void {
-			doMove(item, createTweenerParameters(token));
+			var params:Object = createTweenerParameters(token);
+			
+			if (item.alpha == 0) {
+				var ui:IFlexDisplayObject = item as IFlexDisplayObject;
+				
+				ui.setActualSize(token.width, token.height);
+				ui.move(token.x, token.y);
+				params.alpha = 1;
+			}
+			
+			doMove(item, params);
+			
 			tokens.push(token);
 			tokenItem[token] = item;
 		}
@@ -69,9 +82,10 @@ package com.openflux.animators
 		}
 		
 		public function addItem(item:DisplayObject):void {
+			item.alpha = 0;
 		}
 		
-		public function removeItem(item:DisplayObject, callback:Function):void {
+		public function removeItem(item:DisplayObject, callback:Function):void {			
 			callback(item);
 		}
 		
@@ -81,6 +95,7 @@ package com.openflux.animators
 		
 		protected function createTweenerParameters(token:AnimationToken):Object {
 			var parameters:Object = new Object();
+			
 			parameters.x = token.x;
 			parameters.y = token.y;
 			parameters.z = token.z;
@@ -89,7 +104,7 @@ package com.openflux.animators
 			parameters.rotationZ = token.rotationZ;
 			parameters.width = token.width;
 			parameters.height = token.height;
-			//parameters.alpha = token.alpha;
+			
 			return parameters;
 		}
 		

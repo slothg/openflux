@@ -36,6 +36,8 @@ package com.openflux
 	import flash.events.Event;
 	
 	import mx.collections.IList;
+	import com.openflux.metadata.CapacitorDirective;
+	import com.openflux.utils.MetaUtil;
 	
 	[DefaultSetting(view="com.openflux.views.DataGridView")]
 	[DefaultSetting(controller="com.openflux.controllers.ComplexController")] // empty controller
@@ -60,6 +62,7 @@ package com.openflux
 		
 		[Bindable("columnsChange")]
 		[ArrayElementType("com.openflux.core.IFluxDataGridColumn")]
+		[Capacitor]
 		
 		/**
 		 * List of data grid columns
@@ -70,24 +73,6 @@ package com.openflux
 				_columns = value;
 				dispatchEvent(new Event("columnsChange"));
 			}
-		}
-		
-		// ========================================
-		// framework overrides
-		// ========================================
-		
-		override public function set capacitor(value:Array):void {
-			for each (var item:Object in value) {
-				if (item is IFluxDataGridColumn) {
-					if (!columns) {
-						columns = new ArrayList([item]);
-					} else {
-						columns.addItem(item);
-					}
-				}
-			}
-			
-			super.capacitor = value;
 		}
 		
 	}

@@ -29,6 +29,7 @@ package com.openflux.controllers
 {
 	import com.openflux.containers.IFluxContainer;
 	import com.openflux.core.FluxController;
+	import com.openflux.core.IFluxComponent;
 	import com.openflux.core.IFluxList;
 	import com.openflux.core.IFluxListItem;
 	import com.openflux.layouts.IDragLayout;
@@ -41,25 +42,26 @@ package com.openflux.controllers
 	import mx.events.DragEvent;
 	import mx.managers.DragManager;
 	
-	[EventHandler(event="dragEnter", handler="dragEnterHandler")]
-	[EventHandler(event="dragOver", handler="dragOverHandler")]
-	[EventHandler(event="dragDrop", handler="dragDropHandler")]
-	[EventHandler(event="dragExit", handler="dragExitHandler")]
-	
 	/**
 	 * Adds ability to drop items on to component and show drag feedback
 	 */
 	public class DropListController extends FluxController
 	{
-		[ViewAlias] private var view:IFluxContainer;
+		private var view:IFluxContainer;
+		
 		[ModelAlias] public var list:IFluxList;
-		[ViewContract(required="false")] public var layout:IDragLayout; // bah, this shouldn't be here probably
+		[ViewContract] public var layout:IDragLayout; // bah, this shouldn't be here probably
 		
 		/**
 		 * Constructor
 		 */
 		public function DropListController() {
 			super();
+		}
+		
+		override public function set component(value:IFluxComponent):void {
+			super.component = value;
+			view = component.view as IFluxContainer;
 		}
 		
 		// ========================================
@@ -81,6 +83,7 @@ package com.openflux.controllers
 		// Event handlers
 		// ========================================
 		
+		[EventHandler("dragEnter")]
 		metadata function dragEnterHandler(event:DragEvent):void {
 			if (enabled && (_validator == null || _validator(event.dragSource) == true)) {
 				if(event.dragSource.hasFormat("items")) {
@@ -90,6 +93,7 @@ package com.openflux.controllers
 			}
 		}
 		
+		[EventHandler("dragOver")]
 		metadata function dragOverHandler(event:DragEvent):void {
 			// this shouldn't really be in the controller ???
 			if(layout) {
@@ -100,6 +104,7 @@ package com.openflux.controllers
 			}
 		}
 		
+		[EventHandler("dragDrop")]
 		metadata function dragDropHandler(event:DragEvent):void {
 			var data:Object = event.dragSource.dataForFormat("items")[0];
 			var collection:IList = list.data as IList;
@@ -119,6 +124,7 @@ package com.openflux.controllers
 			// update
 		}
 		
+		[EventHandler("dragExit")]
 		metadata function dragExitHandler(event:DragEvent):void {
 			if(layout) {
 				var target:IUIComponent = component as IUIComponent;

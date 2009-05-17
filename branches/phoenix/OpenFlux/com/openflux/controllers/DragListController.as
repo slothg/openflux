@@ -43,18 +43,12 @@ package com.openflux.controllers
 	import mx.events.DragEvent;
 	import mx.managers.DragManager;
 	
-	[ViewHandler(event="childAdd", handler="childAddHandler")]
-	[ViewHandler(event="childRemove", handler="childRemoveHandler")]
-	[EventHandler(event="dragStart", handler="dragStartHandler")]
-	[EventHandler(event="dragComplete", handler="dragCompleteHandler")]
-	
 	/**
 	 * Handles starting drag from a List component
 	 */
 	public class DragListController extends FluxController
 	{
 		[ModelAlias] public var list:IFluxList;
-		[ModelAlias] public var dispatcher:IEventDispatcher;
 
 		/**
 		 * Constructor
@@ -67,20 +61,24 @@ package com.openflux.controllers
 		// Event handlers
 		// ========================================
 		
+		[ViewHandler("childAdd")]
 		metadata function childAddHandler(event:ChildExistenceChangedEvent):void {
 			var child:DisplayObject = event.relatedObject;
 			child.addEventListener(MouseEvent.MOUSE_DOWN, child_mouseDownHandler, false, 0, true);
 		}
 		
+		[ViewHandler("childRemove")]
 		metadata function childRemoveHandler(event:ChildExistenceChangedEvent):void {
 			var child:DisplayObject = event.relatedObject;
 			child.removeEventListener(MouseEvent.MOUSE_DOWN, child_mouseDownHandler, false);
 		}
 		
+		[EventHandler("dragStart")]
 		metadata function dragStartHandler(event:DragEvent):void {
-			
+			// nothing to do here (yet)
 		}
 		
+		[EventHandler("dragComplete")]
 		metadata function dragCompleteHandler(event:DragEvent):void {
 			if (event.currentTarget == (event.dragInitiator as IFluxListItem).list)
 				return;
